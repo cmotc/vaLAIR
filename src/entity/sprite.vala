@@ -1,5 +1,7 @@
 using SDL;
 using SDLImage;
-class Sprite{
-	
+namespace LAIR{
+	public class Sprite : Type{
+		Texture mSprite = new Texture();
+	}
 }
