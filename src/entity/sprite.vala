@@ -22,12 +22,12 @@ namespace LAIR{
 			mRectDest = new TRect(Pre.w/3, Pre.h/4);
 			mSprite = Graphics.Texture.create_from_surface(window_renderer, Pre);
 		}
-		public int Width(){
-			int w = mRectDest.W();
+		public uint Width(){
+			uint w = mRectDest.W();
 			return w;			
 		}
-		public int Height(){
-			int h = mRectDest.H(); 
+		public uint Height(){
+			uint h = mRectDest.H(); 
 			return h;
 		}
 	}
@@ -45,9 +45,9 @@ namespace LAIR{
 		public int Y(){
 			return mRect.y;
 		}
-		public void setXY(int x, int y){
-			mRect.x = x;
-			mRect.y = y;
+		public void setXY(uint x, uint y){
+			//mRect.x = x;
+			//mRect.y = y;
 		}
 		public uint W(){
 			return mRect.w;
