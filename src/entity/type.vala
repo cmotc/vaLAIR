@@ -1,16 +1,35 @@
 namespace LAIR{
 	public class Type : Object{
-		enum EntityType{
-			TILE,
-			PLAYER,
-			NONPLAYER;
-		}
+		string TYPES[3]; 
+		int TYPE = 0;
+		int BLOCKED = 0;
 		public Type(){
+			TYPES[0] = "TILE";
+			TYPES[1] = "PLAYER";
+			TYPES[2] = "MOBILE";
 		}
-		public void SetType(int NewType){
+		public int SetType(int NewType){
+			int temp = -1;
+			if(NewType > 2){
+				temp = NewType;
+			}else if(NewType<0){
+				temp = NewType;
+			}else{
+				TYPE = NewType;
+				temp = NewType;
+			}
+			return temp;
 		}
-		public int getType(){
-			return 0;
+		public string GetType(){
+			return TYPES[TYPE];
+		}
+		public int Block(){
+			BLOCKED = 1;
+			return BLOCKED;
+		}
+		public int UnBlock(){
+			BLOCKED = 0;
+			return BLOCKED;
 		}
 	}
 }
