@@ -2,7 +2,7 @@ using Gee;
 using SDL;
 using SDLImage;
 namespace LAIR{
-	class Tiles : Object{
+	class Tiles : Files{
 		ArrayList<ImageResource> rTiles = new ArrayList<ImageResource>();
 		public Tiles(ArrayList<string> TilesData){
 			foreach(string TileData in TilesData){
