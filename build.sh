@@ -1,2 +1,2 @@
 #! /bin/sh
-valac -o bin/LAIR --pkg gee-1.0 --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx src/entity/*.vala src/game/*.vala src/resmanage/*.vala src/main.vala
+valac -o bin/LAIR --pkg gee-1.0 --pkg libxml-2.0 --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx src/entity/*.vala src/game/*.vala src/resmanage/*.vala src/main.vala

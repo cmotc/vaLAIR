@@ -4,12 +4,12 @@ namespace LAIR{
 		ArrayList<ImageResource> rSprites = new ArrayList<ImageResource>();
 		public Sprites(ArrayList<string> TilesData, ArrayList<string> SpritesData){
 			base(TilesData);
-//			foreach(string SpriteData in SpritesData){
-//				this.AddSprite(SpriteData);
-//			}
+			foreach(string SpriteData in SpritesData){
+				this.AddSprite(SpriteData);
+			}
 		}
-		public void AddSprite(string SpriteData){
-			
+		public void AddSprite(string SpritePath){
+			rSprites.add(new ImageResource(SpritePath));
 		}
 	}
 }
