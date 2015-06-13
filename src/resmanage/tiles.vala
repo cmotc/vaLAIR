@@ -20,6 +20,25 @@ namespace LAIR{
 		ArrayList<string> rCategory = new ArrayList<string>();
 		ArrayList<string> rTags = new ArrayList<string>();
 		public ImageResource(string TilePath){
+			Parser.init();
+			Xml.Doc* doc = Parser.parse_doc(TilePath);
+			if(doc!=null){
+				Context ctx = new Context(doc);
+				if(ctx!=null){
+					Xml.XPath.Object* obj = ctx.eval_expression("/path/");
+					if(obj!=null){
+				                Xml.Node* node = null;
+						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
+							node = obj->nodesetval->item(0);
+							temp.add(node->get_content());
+							t++;
+						}
+						delete node;
+						delete obj;
+					}
+				}
+				delete doc;
+			}
 			//rSurface = SDLImage.load(TilePath);
 		}
 	}
