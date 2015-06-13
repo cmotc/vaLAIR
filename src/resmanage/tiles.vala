@@ -22,11 +22,11 @@ namespace LAIR{
 		public ImageResource(string TilePath){
 			Parser.init();
 			Xml.Doc* doc = Parser.parse_doc(TilePath);
-			if(doc!=null){
+			if(doc != null){
 				Context ctx = new Context(doc);
-				if(ctx!=null){
+				if(ctx != null){
 					Xml.XPath.Object* obj = ctx.eval_expression("/path/");
-					if(obj!=null){
+					if(obj != null){
 				                Xml.Node* node = null;
 						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
 							node = obj->nodesetval->item(0);
@@ -36,7 +36,7 @@ namespace LAIR{
 						delete obj;
 					}
 					Xml.XPath.Object* objcat = ctx.eval_expression("/category/");
-					if(objcat!=null){
+					if(objcat != null){
 				                Xml.Node* node = null;
 						if(objcat->nodesetval != null && objcat->nodesetval->item(0) != null){
 							int t = 0;
@@ -50,7 +50,7 @@ namespace LAIR{
 						delete objcat;
 					}
 					Xml.XPath.Object* objtag = ctx.eval_expression("/tags/");
-					if(objtag!=null){
+					if(objtag != null){
 				                Xml.Node* node = null;
 						if(objtag->nodesetval != null && objtag->nodesetval->item(0) != null){
 							int t = 0;
