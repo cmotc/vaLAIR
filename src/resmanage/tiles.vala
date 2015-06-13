@@ -31,38 +31,37 @@ namespace LAIR{
 						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
 							node = obj->nodesetval->item(0);
 							rSurface = SDLImage.load(node->get_content());
-							t++;
 						}
 						delete node;
 						delete obj;
 					}
-					Xml.XPath.Object* obj = ctx.eval_expression("/category/");
-					if(obj!=null){
+					Xml.XPath.Object* objcat = ctx.eval_expression("/category/");
+					if(objcat!=null){
 				                Xml.Node* node = null;
-						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
+						if(objcat->nodesetval != null && objcat->nodesetval->item(0) != null){
 							int t = 0;
-							while(obj->nodesetval->item(t)!=null){
-								node = obj->nodesetval->item(0);
-								category = node->get_content();
+							while(objcat->nodesetval->item(t)!=null){
+								node = objcat->nodesetval->item(0);
+								rCategory = node->get_content();
 								t++;
 							}
 						}
 						delete node;
-						delete obj;
+						delete objcat;
 					}
-					Xml.XPath.Object* obj = ctx.eval_expression("/tags/");
-					if(obj!=null){
+					Xml.XPath.Object* objtag = ctx.eval_expression("/tags/");
+					if(objtag!=null){
 				                Xml.Node* node = null;
-						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
+						if(objtag->nodesetval != null && objtag->nodesetval->item(0) != null){
 							int t = 0;
-							while(obj->nodesetval->item(t)!=null){
-								node = obj->nodesetval->item(0);
+							while(objtag->nodesetval->item(t)!=null){
+								node = objtag->nodesetval->item(0);
 								rTags.add(node->get_content());
 								t++;
 							}
 						}
 						delete node;
-						delete obj;
+						delete objtag;
 					}
 				}
 				delete doc;

@@ -1,39 +1,109 @@
 
-(valac:5564): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
-src/resmanage/tiles.vala:33.8-33.11: error: The name `temp' does not exist in the context of `LAIR.ImageResource.new'
-							temp.add(node->get_content());
-							^^^^
-src/resmanage/tiles.vala:34.8-34.8: error: The name `t' does not exist in the context of `LAIR.ImageResource.new'
-							t++;
-							^
-src/resmanage/tiles.vala:39.24-39.62: error: `LAIR.ImageResource.new' already contains a definition for `obj'
-					Xml.XPath.Object* obj = ctx.eval_expression("/category/");
-					                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/tiles.vala:28.24-28.58: note: previous definition of `obj' was here
-					Xml.XPath.Object* obj = ctx.eval_expression("/path/");
-					                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/tiles.vala:46.9-46.12: error: The name `temp' does not exist in the context of `LAIR.ImageResource.new'
-								temp.add(node->get_content());
-								^^^^
-src/resmanage/tiles.vala:53.24-53.58: error: `LAIR.ImageResource.new' already contains a definition for `obj'
-					Xml.XPath.Object* obj = ctx.eval_expression("/tags/");
-					                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/tiles.vala:28.24-28.58: note: previous definition of `obj' was here
-					Xml.XPath.Object* obj = ctx.eval_expression("/path/");
-					                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/tiles.vala:60.9-60.12: error: The name `temp' does not exist in the context of `LAIR.ImageResource.new'
-								temp.add(node->get_content());
-								^^^^
+(valac:5632): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
 src/resmanage/files.vala:45.12-45.26: warning: unhandled error `GLib.FileError'
 			var d = Dir.open(ConfD);
 			        ^^^^^^^^^^^^^^^
 
-(valac:5564): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
+(valac:5632): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
 
-(valac:5564): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
+(valac:5632): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
 
-(valac:5564): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
+(valac:5632): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
 
-(valac:5564): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
+(valac:5632): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
 
-(valac:5564): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
+(valac:5632): GLib-GObject-WARNING **: invalid cast from 'ValaNamespace' to 'ValaTypeSymbol'
+src/resmanage/files.vala:43.11-43.22: warning: local variable `names' declared but never used
+			string names = null;
+			       ^^^^^^^^^^^^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c: In function ‘lair_files_TilesPathList’:
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:596:46: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp4_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp3_);
+                                              ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:646:47: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp19_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp18_);
+                                               ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c: In function ‘lair_files_SpritesPathList’:
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:708:46: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp4_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp3_);
+                                              ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:758:47: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp19_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp18_);
+                                               ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c: In function ‘lair_files_DollPathList’:
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:820:46: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp4_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp3_);
+                                              ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:870:47: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp19_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp18_);
+                                               ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c: In function ‘lair_files_SoundPathList’:
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:932:46: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp4_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp3_);
+                                              ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:982:47: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp19_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp18_);
+                                               ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c: In function ‘lair_files_FontPathList’:
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:1044:46: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp4_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp3_);
+                                              ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:1094:47: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp19_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp18_);
+                                               ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/files.vala.c:9:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/sprites.vala.c: In function ‘lair_sprites_construct’:
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/sprites.vala.c:113:46: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp4_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp3_);
+                                              ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/sprites.vala.c:7:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/tiles.vala.c: In function ‘lair_tiles_construct’:
+/home/dyngar-m/Projects/vaLAIR/src/resmanage/tiles.vala.c:116:46: warning: passing argument 1 of ‘gee_abstract_collection_get_size’ from incompatible pointer type
+   _tmp3_ = gee_abstract_collection_get_size ((GeeCollection*) _tmp2_);
+                                              ^
+In file included from /home/dyngar-m/Projects/vaLAIR/src/resmanage/tiles.vala.c:7:0:
+/usr/include/gee-1.0/gee.h:755:6: note: expected ‘struct GeeAbstractCollection *’ but argument is of type ‘struct GeeCollection *’
+ gint gee_abstract_collection_get_size (GeeAbstractCollection* self);
+      ^
