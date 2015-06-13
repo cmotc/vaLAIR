@@ -30,7 +30,7 @@ namespace LAIR{
 				                Xml.Node* node = null;
 						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
 							node = obj->nodesetval->item(0);
-							temp.add(node->get_content());
+							rSurface = SDLImage.load(node->get_content());
 							t++;
 						}
 						delete node;
@@ -43,7 +43,7 @@ namespace LAIR{
 							int t = 0;
 							while(obj->nodesetval->item(t)!=null){
 								node = obj->nodesetval->item(0);
-								temp.add(node->get_content());
+								category = node->get_content();
 								t++;
 							}
 						}
@@ -57,7 +57,7 @@ namespace LAIR{
 							int t = 0;
 							while(obj->nodesetval->item(t)!=null){
 								node = obj->nodesetval->item(0);
-								temp.add(node->get_content());
+								rTags.add(node->get_content());
 								t++;
 							}
 						}
@@ -67,7 +67,6 @@ namespace LAIR{
 				}
 				delete doc;
 			}
-			//rSurface = SDLImage.load(TilePath);
 		}
 	}
 }
