@@ -1,7 +1,8 @@
+using SDL;
 namespace LAIR{
 	class Net : Sound{
-		public Net(string Path){
-			base(Path);
+		public Net(Graphics.Surface TheSurface, string FontPath, string SoundPath){
+			base(TheSurface, FontPath, SoundPath);
 		}
 	}
 }

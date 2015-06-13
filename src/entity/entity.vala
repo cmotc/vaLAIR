@@ -1,7 +1,8 @@
+using SDL;
 namespace LAIR{
 	class Entity : Move{
-		public Entity(string Path){
-			base(Path);
+		public Entity(Graphics.Surface TheSurface, string FontPath, string SoundPath){
+			base(TheSurface, FontPath, SoundPath);
 		}		
 	}
 }

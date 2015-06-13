@@ -1,10 +1,10 @@
 using Gee;
+using SDL;
 namespace LAIR{
 	class Inventory : Stats{
 //		ArrayList<Entity> mInventory = new ArrayList<Entity>();
-		public Inventory(string Path){
-			base(Path);
-			
+		public Inventory(Graphics.Surface TheSurface, string FontPath, string SoundPath){
+			base(TheSurface, FontPath, SoundPath);			
 		}
 	}
 }

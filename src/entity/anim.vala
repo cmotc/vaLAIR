@@ -7,8 +7,8 @@ namespace LAIR{
 		TRect[,] mRectSrc;
 		int Row = 1;
 		int Col = 1;
-		public Anim(string Path){
-			base(Path);
+		public Anim(Graphics.Surface TheSurface){
+			base(TheSurface);
 			mRectSrc = new TRect[3,4];
 			for(int x=0; x<3; x++){
 				for(int y=0;y<4;y++){
@@ -31,7 +31,7 @@ namespace LAIR{
 		}
 		public void Swing(){
 		}
-		public void Step(){
+		protected void Step(){
 			int temp = Col+1;
 			Col = ( Col > 2 ) ? 0 : temp;
 		}

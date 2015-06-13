@@ -4,8 +4,8 @@ namespace LAIR{
 	public class Sprite : Type{
 		Graphics.Texture mSprite = null;
 		TRect mRectDest = null;
-		public Sprite(string Path){
-			LoadSprite(Path);
+		public Sprite(Graphics.Surface TheSurface){
+			LoadSprite(TheSurface);
 		}
 		public bool IntersectTest(Sprite OtherSprite){
 			bool temp = false;
@@ -17,10 +17,10 @@ namespace LAIR{
 		public TRect GetLocation(){
 			return mRectDest;
 		}
-		public void LoadSprite(string Path){
-			Graphics.Surface Pre = SDLImage.load(Path);
-			mRectDest = new TRect(Pre.w/3, Pre.h/4);
-			mSprite = Graphics.Texture.create_from_surface(window_renderer, Pre);
+		public void LoadSprite(Graphics.Surface TheSurface){
+			mRectDest = new TRect(TheSurface.w/3, TheSurface.h/4);
+			mSprite = Graphics.Texture.create_from_surface(window_renderer, TheSurface);
+			assert(mSprite ==null);
 		}
 		public uint Width(){
 			uint w = mRectDest.W();
@@ -46,8 +46,8 @@ namespace LAIR{
 			return mRect.y;
 		}
 		public void setXY(uint x, uint y){
-			//mRect.x = x;
-			//mRect.y = y;
+			mRect.x = (int) x ;
+			mRect.y = (int) y ;
 		}
 		public uint W(){
 			return mRect.w;

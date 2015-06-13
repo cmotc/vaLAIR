@@ -1,7 +1,10 @@
+using SDL;
+using SDLMixer;
+
 namespace LAIR{
-	class Sound : Anim{
-		public Sound(string Path){
-			base(Path);
+	class Sound : Text{
+		public Sound(Graphics.Surface TheSurface, string FontPath, string SoundPath){
+			base(TheSurface, FontPath);
 		}
 	}
 }
