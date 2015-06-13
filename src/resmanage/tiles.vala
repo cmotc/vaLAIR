@@ -17,7 +17,7 @@ namespace LAIR{
 	}
 	class ImageResource : GLib.Object{
 		Graphics.Surface rSurface;
-		ArrayList<string> rCategory = new ArrayList<string>();
+		string rCategory = null;
 		ArrayList<string> rTags = new ArrayList<string>();
 		public ImageResource(string TilePath){
 			Parser.init();
@@ -32,6 +32,34 @@ namespace LAIR{
 							node = obj->nodesetval->item(0);
 							temp.add(node->get_content());
 							t++;
+						}
+						delete node;
+						delete obj;
+					}
+					Xml.XPath.Object* obj = ctx.eval_expression("/category/");
+					if(obj!=null){
+				                Xml.Node* node = null;
+						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
+							int t = 0;
+							while(obj->nodesetval->item(t)!=null){
+								node = obj->nodesetval->item(0);
+								temp.add(node->get_content());
+								t++;
+							}
+						}
+						delete node;
+						delete obj;
+					}
+					Xml.XPath.Object* obj = ctx.eval_expression("/tags/");
+					if(obj!=null){
+				                Xml.Node* node = null;
+						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
+							int t = 0;
+							while(obj->nodesetval->item(t)!=null){
+								node = obj->nodesetval->item(0);
+								temp.add(node->get_content());
+								t++;
+							}
 						}
 						delete node;
 						delete obj;
