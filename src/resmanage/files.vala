@@ -40,8 +40,7 @@ namespace LAIR{
 			return "/share/";
 		}
 		private ArrayList<string> XMLFileList(string ConfD){
-			string names = null;
-			string name;
+			string name = null;
 			var d = Dir.open(ConfD);
 			ArrayList<string> temp = new ArrayList<string>();
 			while ((name = d.read_name()) != null) {
