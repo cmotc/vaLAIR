@@ -3,6 +3,7 @@ using SDL;
 using SDLImage;
 using Xml;
 using Xml.XPath;
+
 namespace LAIR{
 	class Tiles : GLib.Object{
 		ArrayList<ImageResource> rTiles = new ArrayList<ImageResource>();
@@ -39,12 +40,8 @@ namespace LAIR{
 					if(objcat != null){
 				                Xml.Node* node = null;
 						if(objcat->nodesetval != null && objcat->nodesetval->item(0) != null){
-							int t = 0;
-							while(objcat->nodesetval->item(t)!=null){
-								node = objcat->nodesetval->item(0);
-								rCategory = node->get_content();
-								t++;
-							}
+							node = objcat->nodesetval->item(0);
+							rCategory = node->get_content();
 						}
 						delete node;
 						delete objcat;
@@ -55,7 +52,7 @@ namespace LAIR{
 						if(objtag->nodesetval != null && objtag->nodesetval->item(0) != null){
 							int t = 0;
 							while(objtag->nodesetval->item(t)!=null){
-								node = objtag->nodesetval->item(0);
+								node = objtag->nodesetval->item(t);
 								rTags.add(node->get_content());
 								t++;
 							}
@@ -66,6 +63,13 @@ namespace LAIR{
 				}
 				delete doc;
 			}
+		}
+		public bool HasTag(string TagToTest){
+			bool temp = false;
+			foreach(string tag in rTags){
+				temp = (tag==TagToTest) ? true : false;
+			}
+			return temp;
 		}
 	}
 }

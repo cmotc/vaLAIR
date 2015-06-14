@@ -41,10 +41,16 @@ namespace LAIR{
 		}
 		private ArrayList<string> XMLFileList(string ConfD){
 			string name = null;
-			var d = Dir.open(ConfD);
 			ArrayList<string> temp = new ArrayList<string>();
-			while ((name = d.read_name()) != null) {
-				temp.add(name);
+			try{
+				var d = Dir.open(ConfD);
+				if(d!=null){
+					while ((name = d.read_name()) != null) {
+						temp.add(name);
+					}
+				}
+			}catch(FileError e){
+				
 			}
 			return temp;
 		}
