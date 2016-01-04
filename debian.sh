@@ -3,14 +3,13 @@
 SOURCEBINPATH=.
 SOURCEBIN=LAIR
 SOURCEDOC=README.md
-DEBFOLDER=vaLAIR
+SRCFOLDER=vaLAIR
+DEBFOLDER=valair
 DEBVERSION=0.1
 
-cd $DEBFOLDER
+cd $SRCFOLDER
 
 git pull origin master
-
-./build.sh
 
 DEBFOLDERNAME="../$DEBFOLDER-$DEBVERSION"
 
@@ -21,11 +20,13 @@ mkdir $DEBFOLDERNAME
 cp $SOURCEBINPATH $DEBFOLDERNAME -R
 cd $DEBFOLDERNAME
 
+./build.sh
+
 # Create the packaging skeleton (debian/*)
 dh_make -s --indep --createorig 
 
 mkdir -p debian/tmp
-cp * debian/tmp
+cp -R bin share debian/tmp
 
 # Remove make calls
 grep -v makefile debian/rules > debian/rules.new 
@@ -35,13 +36,21 @@ mv debian/rules.new debian/rules
 # as well as the target directory
 echo bin/$SOURCEBIN usr/bin > debian/install 
 for d in share/lair/*; do
-    echo $d >> debian/install
+    if [ -d $d ]; then
+        for e in $d/*; do
+            echo $e >> debian/install
+        done
+    else
+        echo $d >> debian/install
+    fi
 done
 echo $SOURCEDOC usr/share/doc/$DEBFOLDER >> debian/install
 
 # Remove the example files
 rm debian/*.ex
 
+dpkg-source --commit
+
 # Build the package.
 # You  will get a lot of warnings and ../somescripts_0.1-1_i386.deb
-#debuild -us -uc > ../log 
+debuild -us -uc > ../log 
