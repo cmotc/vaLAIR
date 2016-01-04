@@ -1,0 +1,5 @@
+#! /bin/sh
+DEFAULT="/usr/share/lair"
+. /etc/lairrc
+. $HOME/.lairrc
+LAIR "$@"
