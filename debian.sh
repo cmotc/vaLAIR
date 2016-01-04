@@ -2,6 +2,7 @@
 # Configure your paths and filenames
 SOURCEBINPATH=.
 SOURCEBIN=LAIR
+SOURCERUN=lair-noindex
 SOURCEDOC=README.md
 SRCFOLDER=vaLAIR
 DEBFOLDER=valair
@@ -35,6 +36,7 @@ mv debian/rules.new debian/rules
 # debian/install must contain the list of scripts to install 
 # as well as the target directory
 echo bin/$SOURCEBIN usr/bin > debian/install 
+echo bin/$SOURCERUN usr/bin > debian/install 
 for d in share/lair/*; do
     if [ -d $d ]; then
         for e in $d/*; do
