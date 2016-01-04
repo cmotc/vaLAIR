@@ -2,9 +2,9 @@ using SDL;
 using SDLImage;
 namespace LAIR{
 	public class Sprite : Type{
-		Graphics.Texture mSprite = null;
+		Video.Texture mSprite = null;
 		TRect mRectDest = null;
-		public Sprite(Graphics.Surface TheSurface){
+		public Sprite(Video.Surface TheSurface){
 			LoadSprite(TheSurface);
 		}
 		public bool IntersectTest(Sprite OtherSprite){
@@ -17,9 +17,9 @@ namespace LAIR{
 		public TRect GetLocation(){
 			return mRectDest;
 		}
-		public void LoadSprite(Graphics.Surface TheSurface){
+		public void LoadSprite(Video.Surface TheSurface){
 			mRectDest = new TRect(TheSurface.w/3, TheSurface.h/4);
-			mSprite = Graphics.Texture.create_from_surface(window_renderer, TheSurface);
+			mSprite = Video.Texture.create_from_surface(window_renderer, TheSurface);
 			assert(mSprite ==null);
 		}
 		public uint Width(){
@@ -32,7 +32,7 @@ namespace LAIR{
 		}
 	}
 	public class TRect{
-		Graphics.Rect mRect;
+		Video.Rect mRect;
 		public TRect(uint w, uint h){
 			mRect.x = 0;
 			mRect.y = 0;
@@ -55,7 +55,7 @@ namespace LAIR{
 		public uint H(){
 			return mRect.h;
 		}
-		public Graphics.Rect GetRect(){
+		public Video.Rect GetRect(){
 			return mRect;
 		}
 		public bool IntersectTest(TRect OtherRect){

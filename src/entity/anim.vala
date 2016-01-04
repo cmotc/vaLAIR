@@ -7,7 +7,7 @@ namespace LAIR{
 		TRect[,] mRectSrc;
 		int Row = 1;
 		int Col = 1;
-		public Anim(Graphics.Surface TheSurface){
+		public Anim(Video.Surface TheSurface){
 			base(TheSurface);
 			mRectSrc = new TRect[3,4];
 			for(int x=0; x<3; x++){

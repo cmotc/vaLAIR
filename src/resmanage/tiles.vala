@@ -17,7 +17,7 @@ namespace LAIR{
 		}
 	}
 	class ImageResource : GLib.Object{
-		Graphics.Surface rSurface;
+		Video.Surface rSurface;
 		string rCategory = null;
 		ArrayList<string> rTags = new ArrayList<string>();
 		public ImageResource(string TilePath){
