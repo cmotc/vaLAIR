@@ -8,7 +8,8 @@ SRCFOLDER=valair
 DEBFOLDER=valair
 DEBVERSION=$(date +%Y%m%d)
 
-cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+TOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $TOME
 
 git pull origin master
 
@@ -18,7 +19,7 @@ DEBFOLDERNAME="../$DEBFOLDER-$DEBVERSION"
 mkdir $DEBFOLDERNAME
 
 # Copy your script to the source dir
-cp $SOURCEBINPATH $DEBFOLDERNAME -R
+cp $TOME $DEBFOLDERNAME -R
 cd $DEBFOLDERNAME
 
 ./build.sh
