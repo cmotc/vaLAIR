@@ -20,7 +20,7 @@ git pull origin master
 DEBFOLDERNAME="$TOME/../$DEBFOLDER-$DEBVERSION"
 
 # Create your scripts source dir
-mkdir $DEBFOLDERNAME
+#mkdir $DEBFOLDERNAME
 
 # Copy your script to the source dir
 cp $TOME $DEBFOLDERNAME -R
