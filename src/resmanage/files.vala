@@ -1,134 +1,74 @@
-using Gee;
-using Xml;
-using Xml.XPath;
 namespace LAIR{
-	class Files : Fonts{
-		string TileResources = "lair/graphic/dollclothes.xml.d/";
-		string SpriteResources = "lair/graphic/sprites.xml.d/";
-		string DollResources = "lair/graphic/tiles.xml.d/";
-		string SoundResources = "lair/sound.xml.d/";
-		string FontResources = "lair/font.xml.d/";
-		ArrayList<string> STileXMLD = new ArrayList<string>();
-		ArrayList<string> SSpriteXMLD = new ArrayList<string>();
-		ArrayList<string> SDollXMLD = new ArrayList<string>();
-		ArrayList<string> SSoundXMLD = new ArrayList<string>();
-		ArrayList<string> SFontXMLD = new ArrayList<string>();
-		ArrayList<string> UTileXMLD = new ArrayList<string>();
-		ArrayList<string> USpriteXMLD = new ArrayList<string>();
-		ArrayList<string> UDollXMLD = new ArrayList<string>();
-		ArrayList<string> USoundXMLD = new ArrayList<string>();
-		ArrayList<string> UFontXMLD = new ArrayList<string>();
-		public Files(){
-			STileXMLD = XMLFileList(GetShareDir()+TileResources);
-			SSpriteXMLD = XMLFileList(GetShareDir()+SpriteResources);
-			SDollXMLD = XMLFileList(GetShareDir()+DollResources);
-			SSoundXMLD = XMLFileList(GetShareDir()+SoundResources);
-			SFontXMLD = XMLFileList(GetShareDir()+FontResources);
-			UTileXMLD = XMLFileList(GetHomeDir()+TileResources);
-			USpriteXMLD = XMLFileList(GetHomeDir()+SpriteResources);
-			UDollXMLD = XMLFileList(GetHomeDir()+DollResources);
-			USoundXMLD = XMLFileList(GetShareDir()+SoundResources);
-			UFontXMLD = XMLFileList(GetShareDir()+FontResources);
-			base(TilesPathList(), SpritesPathList(), DollPathList(),SoundPathList(),FontPathList());
+	public class LairFile : GLib.Object {
+		private string Path = null;
+		private List<string> Tags = new List<string>();
+		public LairFile(){
+			Path = null;
 		}
-		private string GetHomeDir(){
-			string temp = null;
-			temp = Environment.get_home_dir();
-			return temp;
+		public LairFile.WithPath(string path){
+			Path = SetPath(path);
 		}
-		private string GetShareDir(){
-			return "/share/";
+		public LairFile.WithPathandTags(string path, List<string> tags){
+			Path = SetPath(path);
+			SetTags(tags);
 		}
-		private ArrayList<string> XMLFileList(string ConfD){
-			string name = null;
-			ArrayList<string> temp = new ArrayList<string>();
-			try{
-				var d = Dir.open(ConfD);
-				if(d!=null){
-					while ((name = d.read_name()) != null) {
-						temp.add(name);
+		protected List<string>* SetTags(List<string> tags){
+			foreach (string tag in tags){
+				if (HasTag(tag) == false){
+					Tags.append(tag);
+				}
+			}
+			return Tags;
+		}
+		public List<string>* GetTags(){
+			return Tags;
+		}
+		public bool HasTag(string query){
+			bool tmp = false;
+			foreach (string Tag in Tags){
+				if ( query == Tag ) {
+					tmp = true;
+					break;
+				}
+			}
+			return tmp;
+		}
+		public string GetPath(){
+			return Path;
+		}
+		protected string SetPath(string path){
+			if (FileUtils.test(path, FileTest.EXISTS)) {
+				Path = path;
+			}else{
+				Path = null;
+			}
+			return path;
+		}
+		public bool CheckPath(){
+			if (Path != null){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		public List<string> LoadLineDelimitedConfig(){
+			List<string> tmp = new List<string>();
+			var file = File.new_for_path(Path);
+			if (!file.query_exists ()) {
+				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
+			}
+			try {
+				var dis = new DataInputStream (file.read());
+				string line;
+				while ((line = dis.read_line (null)) != null) {
+					if (FileUtils.test(line, FileTest.EXISTS)) {
+						tmp.append(line);
 					}
 				}
-			}catch(FileError e){
-				
+			} catch (Error e) {
+				error ("%s", e.message);
 			}
-			return temp;
-		}
-		private ArrayList<string> ReadFileNamesFromXML(string XMLFile){
-			ArrayList<string> temp = new ArrayList<string>();
-			Parser.init();
-			Xml.Doc* doc = Parser.parse_file(XMLFile);
-			if(doc!=null){
-				Context ctx = new Context(doc);
-				if(ctx!=null){
-					Xml.XPath.Object* obj = ctx.eval_expression("/asset/");
-					if(obj!=null){
-				                Xml.Node* node = null;
-						if(obj->nodesetval != null && obj->nodesetval->item(0) != null){
-							int t = 0;
-							while(obj->nodesetval->item(t)!=null){
-								node = obj->nodesetval->item(t);
-								temp.add(node->get_content());
-								t++;
-							}
-						}
-						delete node;
-						delete obj;
-					}
-				}
-				delete doc;
-			}
-			return temp;
-		}
-		public ArrayList<string> TilesPathList(){
-			ArrayList<string> temp = new ArrayList<string>();
-			foreach(string t in STileXMLD){
-				temp.add_all(ReadFileNamesFromXML(t));
-			}
-			foreach(string v in UTileXMLD){
-				temp.add_all(ReadFileNamesFromXML(v));
-			}
-			return temp;
-		}
-		public ArrayList<string> SpritesPathList(){
-			ArrayList<string> temp = new ArrayList<string>();
-			foreach(string t in SSpriteXMLD){
-				temp.add_all(ReadFileNamesFromXML(t));
-			}
-			foreach(string v in USpriteXMLD){
-				temp.add_all(ReadFileNamesFromXML(v));
-			}
-			return temp;
-		}
-		public ArrayList<string> DollPathList(){
-			ArrayList<string> temp = new ArrayList<string>();
-			foreach(string t in SDollXMLD){
-				temp.add_all(ReadFileNamesFromXML(t));
-			}
-			foreach(string v in UDollXMLD){
-				temp.add_all(ReadFileNamesFromXML(v));
-			}
-			return temp;
-		}
-		public ArrayList<string> SoundPathList(){
-			ArrayList<string> temp = new ArrayList<string>();
-			foreach(string t in SSoundXMLD){
-				temp.add_all(ReadFileNamesFromXML(t));
-			}
-			foreach(string v in USoundXMLD){
-				temp.add_all(ReadFileNamesFromXML(v));
-			}
-			return temp;
-		}
-		public ArrayList<string> FontPathList(){
-			ArrayList<string> temp = new ArrayList<string>();
-			foreach(string t in SFontXMLD){
-				temp.add_all(ReadFileNamesFromXML(t));
-			}
-			foreach(string v in UFontXMLD){
-				temp.add_all(ReadFileNamesFromXML(v));
-			}
-			return temp;
+			return tmp;
 		}
 	}
 }

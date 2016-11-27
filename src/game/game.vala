@@ -1,6 +1,5 @@
-using Gee;
 namespace LAIR{
-	class Game : Files{
+	class Game{
 		//ArrayList<Entity> mPlayers = new ArrayList<Entity>();
 		//Tower mLair = new Tower();
 		

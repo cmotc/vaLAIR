@@ -1,9 +1,10 @@
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
-Compilation succeeded - 1 warning(s)
+Loaded package `/usr/share/vala-0.34/vapi/glib-2.0.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/gobject-2.0.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/gio-2.0.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/sdl2.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/sdl2-gfx.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/sdl2-image.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/sdl2-ttf.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/sdl2-mixer.vapi'
+cc -g -o '/home/idk/Projects/valair/bin/LAIR' '/home/idk/Projects/valair/src/main.c' '/home/idk/Projects/valair/src/resmanage/files.c' '/home/idk/Projects/valair/src/resmanage/images.c' '/home/idk/Projects/valair/src/resmanage/filedb.c' -pthread -D_REENTRANT -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/SDL2 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lSDL2 '-lSDL2' '-lSDL2_gfx' '-lSDL2_image' '-lSDL2_ttf' '-lSDL2_mixer'
+Compilation failed: 1 error(s), 6 warning(s)

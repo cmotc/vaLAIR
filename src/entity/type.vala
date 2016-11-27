@@ -31,5 +31,8 @@ namespace LAIR{
 			BLOCKED = 0;
 			return BLOCKED;
 		}
+		public int GetBlock(){
+			return BLOCKED;
+		}
 	}
 }
