@@ -1,5 +1,5 @@
 using SDL;
 namespace LAIR{
-	class Net : Sound{
+	class Net : Voice{
 	}
 }

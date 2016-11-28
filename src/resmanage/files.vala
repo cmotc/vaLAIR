@@ -1,12 +1,17 @@
 namespace LAIR{
 	public class LairFile : GLib.Object {
 		private string Path = null;
+		private string Name = null;
 		private List<string> Tags = new List<string>();
 		public LairFile(){
 			Path = null;
 		}
 		public LairFile.WithPath(string path){
 			Path = SetPath(path);
+		}
+		public LairFile.WithPathandName(string path, string name){
+			Path = SetPath(path);
+			Name = name;
 		}
 		public LairFile.WithPathandTags(string path, List<string> tags){
 			Path = SetPath(path);
@@ -34,20 +39,25 @@ namespace LAIR{
 			return tmp;
 		}
 		public string GetPath(){
-			return Path;
+			string []tmp = Path.split(" ", 1);
+			return tmp[0];
 		}
 		protected string SetPath(string path){
 			if (FileUtils.test(path, FileTest.EXISTS)) {
 				Path = path;
+				stdout.printf("Setting Path: %s \n", Path);
 			}else{
 				Path = null;
+				stdout.printf("Setting Path failed: %s doesn't exist \n", Path);
 			}
 			return path;
 		}
 		public bool CheckPath(){
 			if (Path != null){
+				stdout.printf("Validating Path: %s \n", Path);
 				return true;
 			}else{
+				stdout.printf("Validating Path failed: %s doesn't exist. \n", Path);
 				return false;
 			}
 		}
@@ -63,6 +73,7 @@ namespace LAIR{
 				while ((line = dis.read_line (null)) != null) {
 					if (FileUtils.test(line, FileTest.EXISTS)) {
 						tmp.append(line);
+						stdout.printf("Loaded Resource: %s \n", file.get_path());
 					}
 				}
 			} catch (Error e) {

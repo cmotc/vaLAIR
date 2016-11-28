@@ -4,7 +4,7 @@ using SDLGraphics;
 
 namespace LAIR{
 	public class Image : LairFile {
-		private Video.Surface surface;
+		private Video.Surface* surface;
 		public Image(string Path){
 			base.WithPath(Path);
 			ImageLoad(Path);
@@ -13,6 +13,7 @@ namespace LAIR{
 			SetPath(Path);
 			bool tmp = false;
 			if (CheckPath()){
+				stdout.printf("Loading the Image to a Surface%s \n", Path);
 				surface = SDLImage.load(GetPath());
 				tmp = true;
 			}
@@ -25,7 +26,7 @@ namespace LAIR{
 				return false;
 			}
 		}
-		public Video.Surface GetImage(){
+		public Video.Surface* GetImage(){
 			return surface;
 		}
 	}

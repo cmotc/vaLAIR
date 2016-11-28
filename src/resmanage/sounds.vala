@@ -1,4 +1,6 @@
 namespace LAIR{
-	class Sounds : File {
+	class Sound : LairFile {
+		public Sound(string path){
+		}
 	}
 }

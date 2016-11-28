@@ -1,5 +1,0 @@
-#! /bin/sh
-DEFAULT="/usr/share/lair"
-RESOURCE_FOLDERS="/usr/local/share/lair
-$HOME/.config/lair
-"

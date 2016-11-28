@@ -34,5 +34,12 @@ namespace LAIR{
 		public int GetBlock(){
 			return BLOCKED;
 		}
+		public bool IsPlayer(){
+			bool tmp = false;
+			if (TYPE == 1){
+				tmp = true;
+			}
+			return tmp;
+		}
 	}
 }

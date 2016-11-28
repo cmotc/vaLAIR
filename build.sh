@@ -1,6 +1,6 @@
 #! /bin/bash
 rm -rf build.err build.log
-valac -gv --save-temps \
+valac -gv \
 	-o bin/LAIR --vapidir="src/vapi" \
 	--pkg gio-2.0 \
 	--pkg sdl2 \
@@ -17,9 +17,20 @@ valac -gv --save-temps \
 	src/resmanage/files.vala \
 	src/resmanage/images.vala \
 	src/resmanage/filedb.vala \
+	src/resmanage/fonts.vala \
+	src/resmanage/sounds.vala \
+	src/game/room.vala \
+	src/game/floor.vala \
+	src/game/tower.vala \
+	src/game/game.vala \
+	src/entity/type.vala \
+	src/entity/sprite.vala \
+	src/entity/anim.vala \
+	src/entity/text.vala \
+	src/entity/sound.vala \
+	src/entity/net.vala \
+	src/entity/stats.vala \
+	src/entity/inventory.vala \
+	src/entity/move.vala \
+	src/entity/entity.vala \
 	> >(tee -a "build.log") 2> >(tee -a "build.err" >&2)
-	
-	#
-	#src/resmanage/fonts.vala \
-	#src/resmanage/sounds.vala \
-	#src/entity/*.vala src/game/*.vala \
