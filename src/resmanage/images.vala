@@ -16,6 +16,8 @@ namespace LAIR{
 				stdout.printf("Loading the Image to a Surface%s \n", Path);
 				surface = SDLImage.load(GetPath());
 				tmp = true;
+			}else{
+				stderr.printf("Image not found at location %s \n", Path);
 			}
 			return tmp;
 		}

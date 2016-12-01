@@ -39,7 +39,7 @@ namespace LAIR{
 			return tmp;
 		}
 		public string GetPath(){
-			string []tmp = Path.split(" ", 1);
+			string []tmp = Path.split(" ", 2);
 			return tmp[0];
 		}
 		protected string SetPath(string path){
@@ -64,6 +64,7 @@ namespace LAIR{
 		public List<string> LoadLineDelimitedConfig(){
 			List<string> tmp = new List<string>();
 			var file = File.new_for_path(Path);
+			stdout.printf("Loading configuration file %s \n", Path);
 			if (!file.query_exists ()) {
 				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
 			}
@@ -71,11 +72,15 @@ namespace LAIR{
 				var dis = new DataInputStream (file.read());
 				string line;
 				while ((line = dis.read_line (null)) != null) {
-					if (FileUtils.test(line, FileTest.EXISTS)) {
-						tmp.append(line);
-						stdout.printf("Loaded Resource: %s \n", file.get_path());
+					string []tl = line.split(" ", 2);
+					if (FileUtils.test(tl[0], FileTest.EXISTS)) {
+						tmp.append(tl[0]);
+						stdout.printf("Loaded Resource: %s \n", tl[0]);
+					}else{
+						stderr.printf("Failed to load Resource: %s \n", tl[0]);
 					}
 				}
+				stdout.printf("Loaded configuration file %s \n", Path);
 			} catch (Error e) {
 				error ("%s", e.message);
 			}

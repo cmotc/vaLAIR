@@ -45,6 +45,8 @@ namespace LAIR{
 					imgRes.append(new Image(image));
 				}
 				tmp = true;
+			}else{
+				tmp = false;
 			}
 			if (sndListPath.CheckPath()){
 				stdout.printf("Loading the sound files\n");
@@ -54,6 +56,8 @@ namespace LAIR{
 					sndRes.append(new Sound(sound));
 				}
 				tmp = true;
+			}else{
+				tmp = false;
 			}
 			if (ttfListPath.CheckPath()){
 				stdout.printf("Loading the font files\n");
@@ -63,6 +67,8 @@ namespace LAIR{
 					ttfRes.append(new Fonts(font,"medium"));
 				}
 				tmp = true;
+			}else{
+				tmp = false;
 			}
 			return tmp;
 		}

@@ -8,7 +8,7 @@ namespace LAIR{
 	class Game{
 		private Video.Window window;
 		private Video.Renderer? WindowRenderer;
-		private Video.Surface surface;
+//		private Video.Surface surface;
 		private Video.Surface LairSurface;
 
 		private FileDB Resources;
@@ -17,28 +17,36 @@ namespace LAIR{
 
 		private Tower GameEnvironment;
 
-		public Game(string imageListPath, string soundListPath, string fontsListPath, string mapsize, int levels, int rooms) {
-			SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
-			SDLTTF.init();
-
+		public Game(string imageListPath, string soundListPath, string fontsListPath) {
 			Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
-			GameEnvironment = new Tower(mapsize, levels, rooms);
+			Resources.LoadFiles();
+			GameEnvironment = new Tower("medium");
 
 			window = new Video.Window("LAIR!", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, 640, 480, Video.WindowFlags.SHOWN);
 			WindowRenderer = Video.Renderer.create(window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
 
-			surface = window.get_surface();
+			//surface = window.get_surface();
 
-			Resources.LoadFiles();
 			window.show();
 			assert(WindowRenderer != null);
 		}
-		public void UpdateScreen(){
-			LairSurface.blit(null, surface, null);
+		private int UpdateScreen(){
+			//LairSurface.blit(null, window, null);
 			GameEnvironment.RenderCopy(WindowRenderer);
 			WindowRenderer.present();
 			window.update_surface();
 			SDL.Timer.delay(2000);
+			return 0;
+		}
+		public int run(){
+			bool exit = false;
+			while(!exit){
+				int t = UpdateScreen();
+				if ( t == 0 ){
+					exit = true;
+				}
+			}
+			return 0;
 		}
 	}
 }

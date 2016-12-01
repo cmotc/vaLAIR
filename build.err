@@ -13,15 +13,15 @@ sdl2.vapi:2473.4-2473.42: warning: the modifier `static' is not applicable to co
 sdl2-mixer.vapi:224.2-224.54: warning: the modifier `static' is not applicable to constants
 	public static const SDLMixer.Channel DEFAULT_CHANNEL;
 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/main.vala:45.19-45.52: warning: string.to_int is deprecated. Use int.parse
-src/main.vala:48.18-48.51: warning: string.to_int is deprecated. Use int.parse
-src/main.vala:57.8-57.96: warning: local variable `app' declared but never used
-			var app = new Lair(ImageFilePath, SoundFilePath, FontsFilePath, MapSize, NumLevels, NumRooms);
-			    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/filedb.vala:69.3-69.35: warning: method `LAIR.FileDB.ImageByName' never used
+src/main.vala:47.16-47.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:50.16-50.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:59.8-59.66: warning: local variable `app' declared but never used
+			var app = new Lair(ImageFilePath, SoundFilePath, FontsFilePath);
+			    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:75.3-75.35: warning: method `LAIR.FileDB.ImageByName' never used
 		public Video.Surface* ImageByName(string name){
 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/filedb.vala:78.3-78.34: warning: method `LAIR.FileDB.ImageByTag' never used
+src/resmanage/filedb.vala:84.3-84.34: warning: method `LAIR.FileDB.ImageByTag' never used
 		public Video.Surface* ImageByTag(string query){
 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/resmanage/fonts.vala:38.3-38.29: warning: method `LAIR.Fonts.GetFont' never used
@@ -33,6 +33,9 @@ src/game/room.vala:35.3-35.23: warning: method `LAIR.Room.EnterRoom' never used
 src/game/room.vala:44.3-44.26: warning: method `LAIR.Room.LeaveRoom' never used
 		public Entity* LeaveRoom(){
 		^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/game.vala:12.3-12.35: warning: field `LAIR.Game.LairSurface' never used
+		private Video.Surface LairSurface;
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/game/game.vala:16.3-16.23: warning: field `LAIR.Game.Player' never used
 		private Entity Player = new Entity();
 		^^^^^^^^^^^^^^^^^^^^^
@@ -64,19 +67,19 @@ src/entity/move.vala:29.3-29.17: warning: method `LAIR.Move.run' never used
 		public void run(){
 		^^^^^^^^^^^^^^^
 /home/idk/Projects/valair/src/main.vala: In function ‘lair_lair_main’:
-/home/idk/Projects/valair/src/main.vala:25:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+/home/idk/Projects/valair/src/main.vala:27:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
     foreach(string arg in args){
                   ^
 /home/idk/Projects/valair/src/main.vala: In function ‘main’:
 /home/idk/Projects/valair/src/main.vala:17:18: warning: passing argument 1 of ‘lair_lair_main’ from incompatible pointer type [-Wincompatible-pointer-types]
    public static void main(string args[]){
                   ^~~~
-main.vala.c:162:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
+main.vala.c:153:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
 /home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_ImageByName’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:76:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+/home/idk/Projects/valair/src/resmanage/filedb.vala:82:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
     return tmp.nth_data(0);
          ^
 /home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_ImageByTag’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:85:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+/home/idk/Projects/valair/src/resmanage/filedb.vala:91:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
     return tmp.nth_data(0);
          ^
