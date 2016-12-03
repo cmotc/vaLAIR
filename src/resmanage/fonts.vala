@@ -1,6 +1,6 @@
 using SDL;
-using SDLGraphics;
-using SDLImage;
+//using SDLGraphics;
+//using SDLImage;
 using SDLTTF;
 
 namespace LAIR{
@@ -34,6 +34,13 @@ namespace LAIR{
 				tmp = true;
 			}
 			return tmp;
+		}
+                public bool CheckFont(){
+			if (CheckPath()){
+				return true;
+			}else{
+				return false;
+			}
 		}
 		public SDLTTF.Font* GetFont(){
 			return font;

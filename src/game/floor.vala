@@ -2,15 +2,15 @@ using SDL;
 namespace LAIR{
 	class Floor : Object{
 		private List<Room> rooms = new List<Room>();
-		public Floor(int width, int height, int count){
+		public Floor(int width, int height, int count, GLib.Rand* DM){
 			for (int c = 0; c <= count; c++){
-				rooms.append(new Room(width, height));
+				rooms.append(new Room(width, height, DM));
 			}
 		}
-		public Floor.WithPlayer(int width, int height, int count, int entry, Entity* player){
+		public Floor.WithPlayer(int width, int height, int count, int entry, Entity* player, GLib.Rand* DM){
 			for (int c = 0; c <= count; c++){
 				if (count == entry){
-					Room tmp = new Room(width, height);
+					Room tmp = new Room(width, height, DM);
 					rooms.append(tmp);
 				}else{
 					Room tmp = new Room.WithPlayer(width, height, player);

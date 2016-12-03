@@ -7,7 +7,7 @@ namespace LAIR{
 		private List<Entity> Particles = new List<Entity>();
 		private Entity* Player = null;
 		private List<Entity> Mobs = new List<Entity>();
-		public Room(int width, int height){
+		public Room(int width, int height, GLib.Rand* DM){
 			W = width;
 			H = height;
 		}

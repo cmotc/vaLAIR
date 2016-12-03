@@ -10,6 +10,7 @@ namespace LAIR{
 		private LairFile imgListPath = null;
 		private LairFile sndListPath = null;
 		private LairFile ttfListPath = null;
+                private GLib.Rand Sorcerer = new GLib.Rand();
 		public FileDB(string imgList, string sndList, string ttfList){
 			var imgfile = new LairFile.WithPath(imgList);
 			stdout.printf("Pre-Loading the game data files.\n");
@@ -72,7 +73,23 @@ namespace LAIR{
 			}
 			return tmp;
 		}
-		public Video.Surface* ImageByName(string name){
+                public int GetImagesLength(){
+                        return (int) imgRes.length();
+                }
+                public int GetSoundsLength(){
+                        return (int) sndRes.length();
+                }
+                public int GetFontsLength(){
+                        return (int) ttfRes.length();
+                }
+/*                public int GetRandomImage(){
+                        
+                }
+                public int GetRandomSound(){
+                }
+                public int GetRandomFont(){
+                }*/
+                public Video.Surface* ImageByName(string name){
 			List<Video.Surface*> tmp = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
 				if (file.GetPath() == name){

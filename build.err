@@ -18,15 +18,36 @@ src/main.vala:50.16-50.49: warning: string.to_int is deprecated. Use int.parse
 src/main.vala:59.8-59.66: warning: local variable `app' declared but never used
 			var app = new Lair(ImageFilePath, SoundFilePath, FontsFilePath);
 			    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/filedb.vala:75.3-75.35: warning: method `LAIR.FileDB.ImageByName' never used
-		public Video.Surface* ImageByName(string name){
-		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/filedb.vala:84.3-84.34: warning: method `LAIR.FileDB.ImageByTag' never used
+src/resmanage/filedb.vala:13.17-13.42: warning: field `LAIR.FileDB.Sorcerer' never used
+                private GLib.Rand Sorcerer = new GLib.Rand();
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:76.17-76.42: warning: method `LAIR.FileDB.GetImagesLength' never used
+                public int GetImagesLength(){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:79.17-79.42: warning: method `LAIR.FileDB.GetSoundsLength' never used
+                public int GetSoundsLength(){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:82.17-82.41: warning: method `LAIR.FileDB.GetFontsLength' never used
+                public int GetFontsLength(){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:92.17-92.49: warning: method `LAIR.FileDB.ImageByName' never used
+                public Video.Surface* ImageByName(string name){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:101.3-101.34: warning: method `LAIR.FileDB.ImageByTag' never used
 		public Video.Surface* ImageByTag(string query){
 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/fonts.vala:38.3-38.29: warning: method `LAIR.Fonts.GetFont' never used
+src/resmanage/fonts.vala:38.17-38.37: warning: method `LAIR.Fonts.CheckFont' never used
+                public bool CheckFont(){
+                ^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/fonts.vala:45.3-45.29: warning: method `LAIR.Fonts.GetFont' never used
 		public SDLTTF.Font* GetFont(){
 		^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/sounds.vala:23.17-23.38: warning: method `LAIR.Sound.CheckSound' never used
+                public bool CheckSound(){
+                ^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/sounds.vala:30.3-30.24: warning: method `LAIR.Sound.GetSound' never used
+		public Music* GetSound(){
+		^^^^^^^^^^^^^^^^^^^^^^
 src/game/room.vala:35.3-35.23: warning: method `LAIR.Room.EnterRoom' never used
 		public bool EnterRoom(Entity player){
 		^^^^^^^^^^^^^^^^^^^^^
@@ -36,7 +57,7 @@ src/game/room.vala:44.3-44.26: warning: method `LAIR.Room.LeaveRoom' never used
 src/game/game.vala:12.3-12.35: warning: field `LAIR.Game.LairSurface' never used
 		private Video.Surface LairSurface;
 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/game/game.vala:16.3-16.23: warning: field `LAIR.Game.Player' never used
+src/game/game.vala:15.3-15.23: warning: field `LAIR.Game.Player' never used
 		private Entity Player = new Entity();
 		^^^^^^^^^^^^^^^^^^^^^
 src/entity/stats.vala:21.3-21.18: warning: method `LAIR.Stats.Exert' never used
@@ -76,10 +97,10 @@ src/entity/move.vala:29.3-29.17: warning: method `LAIR.Move.run' never used
                   ^~~~
 main.vala.c:153:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
 /home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_ImageByName’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:82:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+/home/idk/Projects/valair/src/resmanage/filedb.vala:99:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
     return tmp.nth_data(0);
          ^
 /home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_ImageByTag’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:91:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+/home/idk/Projects/valair/src/resmanage/filedb.vala:108:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
     return tmp.nth_data(0);
          ^

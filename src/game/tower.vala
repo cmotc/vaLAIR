@@ -2,7 +2,7 @@ using SDL;
 namespace LAIR{
 	class Tower : Object{
 		private List<Floor> floors = new List<Floor>();
-		public Tower(string size){
+		public Tower(string size, GLib.Rand* DM){
 			int w = 320;
 			int h = 320;
 			int count = 10;
@@ -29,7 +29,7 @@ namespace LAIR{
 			}
 			for (int c = 0; c <= count; c++){
 				stdout.printf("Creating new floor : %s \n", c.to_string());
-				Floor tmp = new Floor(w,h,count);
+				Floor tmp = new Floor(w,h,count, DM);
 				floors.append(tmp);
 			}
 		}
