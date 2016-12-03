@@ -1,7 +1,12 @@
 using SDL;
+using SDLMixer;
+using SDLTTF;
 namespace LAIR{
 	class Move : Inventory{
 		private Event e;
+                public Move(int x, int y, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                        base(x, y, surface, music, font, renderer);
+                }
 		private void aInput(){
 		}
 		public void pInput(){

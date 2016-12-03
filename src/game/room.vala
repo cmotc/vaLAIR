@@ -7,14 +7,30 @@ namespace LAIR{
 		private List<Entity> Particles = new List<Entity>();
 		private Entity* Player = null;
 		private List<Entity> Mobs = new List<Entity>();
-		public Room(int width, int height, GLib.Rand* DM){
+		public Room(int width, int height, FileDB* DM, Video.Renderer? renderer){
 			W = width;
 			H = height;
+                        stdout.printf("Generating room. \n");
+                        for (int x = 0; x < (W / 32); x++){
+                                for (int y = 0; x < (H / 32); y++){
+                                        stdout.printf("Generating Entity Particle X: %s \n", x.to_string());
+                                        stdout.printf(" Y: %s \n", y.to_string());
+                                        Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                }
+                        }
 		}
-		public Room.WithPlayer(int width, int height, Entity* player){
+		public Room.WithPlayer(int width, int height, Entity* player, FileDB* DM, Video.Renderer? renderer){
 			W = width;
 			H = height;
 			Player = player;
+                        stdout.printf("Generating room with Player. \n");
+                        for (int x = 0; x < (W / 32); x++){
+                                for (int y = 0; x < (H / 32); y++){
+                                        stdout.printf("Generating Entity Particle X: %s \n", x.to_string());
+                                        stdout.printf(" Y: %s \n", y.to_string());
+                                        //Particles.append();
+                                }
+                        }
 		}
 		public void RenderCopy(Video.Renderer* renderer){
 			if (visited){

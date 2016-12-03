@@ -2,6 +2,7 @@
 rm -rf build.err build.log
 valac -gv \
 	-o bin/LAIR --vapidir="src/vapi" \
+        --disable-warnings \
 	--pkg gio-2.0 \
 	--pkg sdl2 \
 	--pkg sdl2-gfx \

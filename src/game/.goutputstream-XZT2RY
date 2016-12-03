@@ -2,18 +2,18 @@ using SDL;
 namespace LAIR{
 	class Floor : Object{
 		private List<Room> rooms = new List<Room>();
-		public Floor(int width, int height, int count, FileDB* DM, Video.Renderer? renderer){
+		public Floor(int width, int height, int count, FileDB* DM){
 			for (int c = 0; c <= count; c++){
-				rooms.append(new Room(width, height, DM, renderer));
+				rooms.append(new Room(width, height, DM));
 			}
 		}
-		public Floor.WithPlayer(int width, int height, int count, int entry, Entity* player, FileDB* DM, Video.Renderer? renderer){
+		public Floor.WithPlayer(int width, int height, int count, int entry, Entity* player, FileDB* DM){
 			for (int c = 0; c <= count; c++){
 				if (count == entry){
-					Room tmp = new Room(width, height, DM, renderer);
+					Room tmp = new Room(width, height, DM);
 					rooms.append(tmp);
 				}else{
-					Room tmp = new Room.WithPlayer(width, height, player, DM, renderer);
+					Room tmp = new Room.WithPlayer(width, height, player, DM);
 					rooms.append(tmp);
 				}
 			}

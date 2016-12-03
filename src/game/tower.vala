@@ -2,7 +2,7 @@ using SDL;
 namespace LAIR{
 	class Tower : Object{
 		private List<Floor> floors = new List<Floor>();
-		public Tower(string size, GLib.Rand* DM){
+		public Tower(string size, FileDB* DM, Video.Renderer? renderer){
 			int w = 320;
 			int h = 320;
 			int count = 10;
@@ -27,9 +27,10 @@ namespace LAIR{
 				h = 240;
 				count = 4;
 			}
+                        stdout.printf("Building %s-size Tower\n", size);
 			for (int c = 0; c <= count; c++){
-				stdout.printf("Creating new floor : %s \n", c.to_string());
-				Floor tmp = new Floor(w,h,count, DM);
+                                stdout.printf("Creating new floor : %s \n", c.to_string());
+				Floor tmp = new Floor(w,h,count, DM, renderer);
 				floors.append(tmp);
 			}
 		}

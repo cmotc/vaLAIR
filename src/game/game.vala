@@ -12,23 +12,23 @@ namespace LAIR{
 		private Video.Surface LairSurface;
 
 		private FileDB Resources;
-		private Entity Player = new Entity();
+		private Entity Player;
 		private Tower GameEnvironment;
 
 		public Game(string imageListPath, string soundListPath, string fontsListPath) {
 			Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
-			Resources.LoadFiles();
-			GameEnvironment = new Tower("medium", DungeonMaster);
-
+                        //Player = new Entity();
 			window = new Video.Window("LAIR!", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, 640, 480, Video.WindowFlags.SHOWN);
 			WindowRenderer = Video.Renderer.create(window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
 
+                        GameEnvironment = new Tower("medium", Resources, WindowRenderer);
 			//surface = window.get_surface();
 
 			window.show();
 			assert(WindowRenderer != null);
 		}
 		private int UpdateScreen(){
+                        stdout.printf("Update Sent");
 			//LairSurface.blit(null, window, null);
 			GameEnvironment.RenderCopy(WindowRenderer);
 			WindowRenderer.present();

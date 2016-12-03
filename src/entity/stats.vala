@@ -1,4 +1,6 @@
 using SDL;
+using SDLMixer;
+using SDLTTF;
 namespace LAIR{
 	class Stats : Net{
 		private int Strength = 10;
@@ -14,6 +16,9 @@ namespace LAIR{
 		private int resist = 0;
 		private int magic = 0;
 		private int tech = 0;
+                public Stats(int x, int y, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                        base(x, y, surface, music, font, renderer);
+                }
 		public int Speed(){
 			int tmp = (Strength + Agility) / 4;
 			return tmp + speed;

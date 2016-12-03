@@ -1,7 +1,8 @@
 using SDL;
 using SDLImage;
 using SDLGraphics;
-
+using SDLMixer;
+using SDLTTF;
 namespace LAIR{
 	class FileDB {
 		private List<Image> imgRes = new List<Image>();
@@ -82,29 +83,133 @@ namespace LAIR{
                 public int GetFontsLength(){
                         return (int) ttfRes.length();
                 }
-/*                public int GetRandomImage(){
-                        
+                private int GetRandomImageIndex(){
+                        return Sorcerer.int_range(0, GetImagesLength());
                 }
-                public int GetRandomSound(){
+                private int GetRandomSoundIndex(){
+                        return Sorcerer.int_range(0, GetSoundsLength());
                 }
-                public int GetRandomFont(){
-                }*/
+                private int GetRandomFontIndex(){
+                        return Sorcerer.int_range(0, GetFontsLength());
+                }
+                private int GetRandomImageIndexByRange(int bottom, int top){
+                        int t = top;
+                        int b = bottom;
+                        if (top > GetImagesLength()){
+                                t = GetImagesLength();
+                        }
+                        if (bottom > 0 ){
+                                b = 0;
+                        }
+                        return Sorcerer.int_range(bottom, top);
+                }
+                private int GetRandomSoundIndexByRange(int bottom, int top){
+                        int t = top;
+                        int b = bottom;
+                        if (top > GetSoundsLength()){
+                                t = GetSoundsLength();
+                        }
+                        if (bottom > 0 ){
+                                b = 0;
+                        }
+                        return Sorcerer.int_range(bottom, top);
+                }
+                private int GetRandomFontIndexByRange(int bottom, int top){
+                        int t = top;
+                        int b = bottom;
+                        if (top > GetFontsLength()){
+                                t = GetFontsLength();
+                        }
+                        if (bottom > 0 ){
+                                b = 0;
+                        }
+                        return Sorcerer.int_range(bottom, top);
+                }
+                public Video.Surface* GetRandImage(){
+                        return imgRes.nth_data(GetRandomImageIndex());
+                }
+                public Video.Surface* GetRandImageByRange(int bottom, int top){
+                        return imgRes.nth_data(GetRandomImageIndexByRange(bottom, top));
+                }
+                public Music* GetRandSound(){
+                        return sndRes.nth_data(GetRandomSoundIndex());
+                }
+                public Music* GetRandSoundByRange(int bottom, int top){
+                        return sndRes.nth_data(GetRandomSoundIndexByRange(bottom,top));
+                }
+                public SDLTTF.Font* GetRandFont(){
+                        return ttfRes.nth_data(GetRandomFontIndex());
+                }
+                public SDLTTF.Font* GetRandFontByRange(int bottom, int top){
+                        return ttfRes.nth_data(GetRandomFontIndexByRange(bottom, top));
+                }
                 public Video.Surface* ImageByName(string name){
 			List<Video.Surface*> tmp = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
 				if (file.GetPath() == name){
-					tmp.append(file);
+					tmp.append(file.GetImage());
 				}
 			}
-			return tmp.nth_data(0);
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
+			return tmp.nth_data(index);
 		}
 		public Video.Surface* ImageByTag(string query){
 			List<Video.Surface*> tmp = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
 				if (file.HasTag(query)){
-					tmp.append(file);
+					tmp.append(file.GetImage());
 				}
 			}
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
+			return tmp.nth_data(0);
+		}
+//                public List<Video.Surface*> ImageStackUniqueTags(){
+                        
+  //              }
+                public Music* SoundByName(string name){
+			List<Music*> tmp = new List<Music*>();
+			foreach (Sound file in sndRes){
+				if (file.GetPath() == name){
+					tmp.append(file.GetSound());
+				}
+			}
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
+			return tmp.nth_data(index);
+		}
+		public Music* SoundByTag(string query){
+			List<Music*> tmp = new List<Music*>();
+			foreach (Sound file in sndRes){
+				if (file.HasTag(query)){
+					tmp.append(file.GetSound());
+				}
+			}
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
+			return tmp.nth_data(0);
+		}
+                public SDLTTF.Font* FontByName(string name){
+			List<SDLTTF.Font*> tmp = new List<SDLTTF.Font*>();
+			foreach (Fonts file in ttfRes){
+				if (file.GetPath() == name){
+					tmp.append(file.GetFont());
+				}
+			}
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
+			return tmp.nth_data(index);
+		}
+		public SDLTTF.Font* FontByTag(string query){
+			List<SDLTTF.Font*> tmp = new List<SDLTTF.Font*>();
+			foreach (Fonts file in ttfRes){
+				if (file.HasTag(query)){
+					tmp.append(file.GetFont());
+				}
+			}
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
 			return tmp.nth_data(0);
 		}
 	}

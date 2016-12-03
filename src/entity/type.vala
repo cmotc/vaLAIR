@@ -7,9 +7,16 @@ namespace LAIR{
 			TYPES[0] = "TILE";
 			TYPES[1] = "PLAYER";
 			TYPES[2] = "MOBILE";
+                        SetType(0);
 		}
+                public Type.Parameter(int type){
+                        TYPES[0] = "TILE";
+			TYPES[1] = "PLAYER";
+			TYPES[2] = "MOBILE";
+                        SetType(type);
+                }
 		public int SetType(int NewType){
-			int temp = -1;
+			int temp = 0;
 			if(NewType > 2){
 				temp = NewType;
 			}else if(NewType<0){

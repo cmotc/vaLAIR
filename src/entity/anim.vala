@@ -6,6 +6,12 @@ namespace LAIR{
 		private int Y = 64;
 		private int W = 32;
 		private int H = 32;
+                public Anim(int x, int y, int w, int h){
+                        X = x;
+                        Y = y;
+                        W = w;
+                        H = h;
+                }
 		public Video.Rect GetPosition(){
 			Video.Rect pos = {X, Y, W, H};
 			return pos;
