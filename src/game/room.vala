@@ -36,7 +36,15 @@ namespace LAIR{
                                 for (int y = 0; y < HT; y++){
                                         stdout.printf("Generating Entity Particle X: %s ", x.to_string());
                                         stdout.printf("Y: %s \n", y.to_string());
-                                        Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        if ( x == 0 ){
+                                                Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( x == WT ){
+                                                Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( y == 0 ){
+                                                Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( x == HT ){
+                                                Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }
                                 }
                         }
 		}
