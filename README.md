@@ -23,6 +23,19 @@ to combine multiple configuration files together and expand the content of the
 game. Examples forthcoming, but if you've ever used sources.list.d you know
 what I'm about.
 
+As far as the actual configuration files go, it's pretty simple. Here's an
+example line.
+
+        "Path to a file containing a resource"    "Name"    "List of tags"
+        /usr/share/lair/stonewall/stonewall-1.png stonewall wall stone
+
+The first part is obviously a path to a png file. Followed by a space, the first
+word following the path is the name of the file. The name is also the first tag
+that can be used to produce a random tile from a specific category with the game
+engine, or it can be used to retrieve a specific tile with the game engine. So
+the first tag, the name, should be unique, and the remaining tags could be
+non-unique. For more example configuration files, see the [art repository](https://github.com/cmotc/lairart).
+
 History(Feels a little self-aggrandizing)
 -----------------------------------------
 
