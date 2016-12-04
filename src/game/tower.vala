@@ -34,6 +34,10 @@ namespace LAIR{
 				floors.append(tmp);
 			}
 		}
+                public int TakeTurns(){
+                        int tmp = 1;
+                        return tmp;
+                }
 		public void RenderCopy(Video.Renderer* renderer){
 			foreach(Floor floor in floors){
 				floor.RenderCopy(renderer);

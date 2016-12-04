@@ -9,7 +9,7 @@ namespace LAIR{
                 }
 		private void aInput(){
 		}
-		public void pInput(){
+		public void PInput(){
 			for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
 				if (e.type == EventType.KEYDOWN) {
 					if (e.key.keysym.sym == Input.Keycode.DOWN) {

@@ -40,6 +40,13 @@ namespace LAIR{
                                 }
                         }
 		}
+                public int TakeTurns(){
+                        int tmp = 1;
+                        if (Player != null){
+                                Player->PInput();
+                        }
+                        return tmp;
+                }
 		public void RenderCopy(Video.Renderer* renderer){
 			if (visited){
 				foreach(Entity particle in Particles){

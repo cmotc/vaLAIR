@@ -21,15 +21,13 @@ namespace LAIR{
 			WindowRenderer = Video.Renderer.create(window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
                         window.show();
 			assert(WindowRenderer != null);
-                        
+
                         Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
                         GameEnvironment = new Tower(mapSize, Resources, WindowRenderer);
 			//surface = window.get_surface();
 
-			
 		}
 		private int UpdateScreen(){
-                        stdout.printf("Update Sent");
 			//LairSurface.blit(null, window, null);
 			GameEnvironment.RenderCopy(WindowRenderer);
 			WindowRenderer.present();
@@ -38,14 +36,12 @@ namespace LAIR{
 			return 1;
 		}
 		public int run(){
-			bool exit = false;
-			while(!exit){
-				int t = UpdateScreen();
-				if ( t == 0 ){
-					exit = true;
-				}
+			int exit = 1;
+			while(exit != 0){
+                                stdout.printf("Update Sent");
+				exit = UpdateScreen();
 			}
-			return 0;
+			return t;
 		}
 	}
 }
