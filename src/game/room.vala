@@ -3,7 +3,7 @@ namespace LAIR{
 	class Room : Object{
 		private int W;
 		private int H;
-		private bool visited = false;
+		private bool visited = true;
 		private List<Entity> Particles = new List<Entity>();
 		private Entity* Player = null;
 		private List<Entity> Mobs = new List<Entity>();
@@ -43,11 +43,12 @@ namespace LAIR{
                 public int TakeTurns(){
                         int tmp = 1;
                         if (Player != null){
-                                Player->PInput();
+                                tmp = Player->PInput();
                         }
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer* renderer){
+                        stdout.printf("Propagating Renderer to Entities. \n");
 			if (visited){
 				foreach(Entity particle in Particles){
 					particle.RenderCopy(renderer);

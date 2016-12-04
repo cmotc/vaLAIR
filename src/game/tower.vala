@@ -36,10 +36,14 @@ namespace LAIR{
 		}
                 public int TakeTurns(){
                         int tmp = 1;
+                        foreach(Floor floor in floors){
+                                floor.TakeTurns();
+                        }
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer* renderer){
 			foreach(Floor floor in floors){
+                                stdout.printf("Propagating Renderer to Floor. \n");
 				floor.RenderCopy(renderer);
 			}
 		}

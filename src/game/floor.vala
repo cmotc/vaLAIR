@@ -27,13 +27,15 @@ namespace LAIR{
 		}
                 public int TakeTurns(){
                         int tmp = 1;
+                        foreach(Room room in rooms){
+                                room.TakeTurns();
+                        }
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer* renderer){
-			if (HasPlayer()){
-				foreach(Room room in rooms){
+			foreach(Room room in rooms){
+                                        stdout.printf("Propagating Renderer to Room. \n");
 					room.RenderCopy(renderer);
-				}
 			}
 		}
 	}

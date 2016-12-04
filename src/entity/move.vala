@@ -7,9 +7,10 @@ namespace LAIR{
                 public Move(int x, int y, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(x, y, surface, music, font, renderer);
                 }
-		private void aInput(){
+		private void AInput(){
 		}
-		public void PInput(){
+		public int PInput(){
+                        int t = 1;
 			for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
 				if (e.type == EventType.KEYDOWN) {
 					if (e.key.keysym.sym == Input.Keycode.DOWN) {
@@ -24,18 +25,20 @@ namespace LAIR{
 					if (e.key.keysym.sym == Input.Keycode.LEFT) {
 						SetX(GetX() - Speed());
 					}
-					/*if (e.key.keysym.sym== Input.Keycode.SPACE) {
+					if (e.key.keysym.sym== Input.Keycode.ESCAPE) {
+                                                t = 0;
 					}
-					if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP) {
+                                        /*if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP) {
 					}*/
 				}
 			}
+                        return t;
 		}
 		public void run(){
 			if (IsPlayer()){
-				pInput();
+				PInput();
 			}else{
-				aInput();
+				AInput();
 			}
 		}
 	}

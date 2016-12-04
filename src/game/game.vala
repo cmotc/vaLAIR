@@ -28,7 +28,7 @@ namespace LAIR{
 
 		}
 		private int UpdateScreen(){
-			//LairSurface.blit(null, window, null);
+			GameEnvironment.TakeTurns();
 			GameEnvironment.RenderCopy(WindowRenderer);
 			WindowRenderer.present();
 			window.update_surface();
@@ -38,10 +38,10 @@ namespace LAIR{
 		public int run(){
 			int exit = 1;
 			while(exit != 0){
-                                stdout.printf("Update Sent");
+                                stdout.printf("Update Sent \n");
 				exit = UpdateScreen();
 			}
-			return t;
+			return exit;
 		}
 	}
 }
