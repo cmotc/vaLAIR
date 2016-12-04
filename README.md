@@ -14,6 +14,15 @@ Installation
 Check back soon. There will be an install script and a debian package before too
 long.
 
+Configuration(You probably don't need to read this unless you want to mod)
+--------------------------------------------------------------------------
+
+Configuration is done with plain text files and a shell-script based launcher
+for the actual binary /usr/bin/LAIR. You can hypothetically use the launcher
+to combine multiple configuration files together and expand the content of the
+game. Examples forthcoming, but if you've ever used sources.list.d you know
+what I'm about.
+
 History(Feels a little self-aggrandizing)
 -----------------------------------------
 

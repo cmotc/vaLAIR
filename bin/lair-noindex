@@ -2,4 +2,4 @@
 DEFAULT="/usr/share/lair"
 . /etc/lairrc
 . $HOME/.lairrc
-LAIR "$@"
+LAIR -i $IMAGESPATH -s $SOUNDSPATH -f $FONTSPATH -m $MAPSIZE -w $WRESOLUTION -h $HRESOLUTION

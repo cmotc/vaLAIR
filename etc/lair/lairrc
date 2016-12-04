@@ -1,0 +1,8 @@
+#! /usr/bin/env sh
+IMAGESPATH="/usr/share/lair/images.list"
+SOUNDSPATH="/usr/share/lair/sounds.list"
+FONTSPATH="/usr/share/lair/fonts.list"
+MAPSIZE="medium"
+WRESOLUTION="1024"
+HRESOLUTION="768"
+
