@@ -7,24 +7,24 @@ namespace LAIR{
 			int h = 320;
 			int count = 10;
 			if (size == "giant"){
-				w = 1280;
-				h = 1280;
+				w = 2560;
+				h = 2560;
 				count = 30;
 			}else if (size == "large"){
-				w = 640;
-				h = 640;
+				w = 1280;
+				h = 1280;
 				count = 20;
 			}else if (size == "medium"){
-				w = 320;
-				h = 320;
-				count = 10;
+				w = 640;
+				h = 640;
+				count = 12;
 			}else if (size == "small"){
-				w = 320;
-				h = 320;
+				w = 480;
+				h = 480;
 				count = 8;
 			}else if (size == "tiny"){
-				w = 240;
-				h = 240;
+				w = 320;
+				h = 320;
 				count = 4;
 			}
                         stdout.printf("Building %s-size Tower\n", size);

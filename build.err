@@ -1,60 +1,12 @@
 /home/idk/Projects/valair/src/main.vala: In function ‘lair_lair_main’:
-/home/idk/Projects/valair/src/main.vala:27:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+/home/idk/Projects/valair/src/main.vala:30:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
     foreach(string arg in args){
                   ^
 /home/idk/Projects/valair/src/main.vala: In function ‘main’:
-/home/idk/Projects/valair/src/main.vala:17:18: warning: passing argument 1 of ‘lair_lair_main’ from incompatible pointer type [-Wincompatible-pointer-types]
+/home/idk/Projects/valair/src/main.vala:20:18: warning: passing argument 1 of ‘lair_lair_main’ from incompatible pointer type [-Wincompatible-pointer-types]
    public static void main(string args[]){
                   ^~~~
-main.vala.c:153:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_GetRandImage’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:129:9: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-                         return imgRes.nth_data(GetRandomImageIndex());
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_GetRandImageByRange’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:132:9: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-                         return imgRes.nth_data(GetRandomImageIndexByRange(bottom, top));
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_GetRandSound’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:135:9: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-                         return sndRes.nth_data(GetRandomSoundIndex());
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_GetRandSoundByRange’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:138:9: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-                         return sndRes.nth_data(GetRandomSoundIndexByRange(bottom,top));
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_GetRandFont’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:141:9: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-                         return ttfRes.nth_data(GetRandomFontIndex());
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_GetRandFontByRange’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:144:9: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
-                         return ttfRes.nth_data(GetRandomFontIndexByRange(bottom, top));
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_ImageByName’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:155:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-    return tmp.nth_data(index);
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_ImageByTag’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:166:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-    return tmp.nth_data(0);
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_SoundByName’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:180:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-    return tmp.nth_data(index);
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_SoundByTag’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:191:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-    return tmp.nth_data(0);
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_FontByName’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:202:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-    return tmp.nth_data(index);
-         ^
-/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_FontByTag’:
-/home/idk/Projects/valair/src/resmanage/filedb.vala:213:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-    return tmp.nth_data(0);
-         ^
+main.vala.c:168:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
 /home/idk/Projects/valair/src/entity/entity.vala: In function ‘lair_entity_construct’:
 /home/idk/Projects/valair/src/entity/entity.vala:7:73: warning: passing argument 4 of ‘lair_move_construct’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
                          base(x, y, imgStack.nth_data(0) , music, font, renderer);

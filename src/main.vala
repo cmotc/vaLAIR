@@ -7,21 +7,24 @@ using SDLMixer;
 namespace LAIR{
 	public class Lair {
 		private Game GameMap;
-		public Lair(string imageListPath, string soundListPath, string fontsListPath){
-			GameMap = new Game(imageListPath, soundListPath, fontsListPath);
+		public Lair(string imageListPath, string soundListPath, string fontsListPath, string mapSize, int screenW, int screenH){
+                        SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
+			SDLTTF.init();
+
+			GameMap = new Game(imageListPath, soundListPath, fontsListPath, mapSize, screenW, screenH);
 			GameMap.run();
 		}
 		~Lair() {
 			SDL.quit();
 		}
 		public static void main(string args[]){
-			SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
-			SDLTTF.init();
+			//SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
+			//SDLTTF.init();
 			string ImageFilePath = "/usr/share/lair/images.list";
 			string SoundFilePath = "/usr/share/lair/sounds.list";
 			string FontsFilePath = "/usr/share/lair/fonts.list";
 			List<string> Arguments = new List<string>();
-			string MapSize = "medium";
+			string MapSize = "tiny";
 			int PixelW = 640;
 			int PixelH = 480;
 			foreach(string arg in args){
@@ -56,7 +59,7 @@ namespace LAIR{
 			stdout.printf("Image file path from options: %s \n", ImageFilePath);
 			stdout.printf("Sound file path from options: %s \n", SoundFilePath);
 			stdout.printf("Font file path from options: %s \n", FontsFilePath);
-			var app = new Lair(ImageFilePath, SoundFilePath, FontsFilePath);
+			var app = new Lair(ImageFilePath, SoundFilePath, FontsFilePath, MapSize, PixelW, PixelH);
 		}
 	}
 }

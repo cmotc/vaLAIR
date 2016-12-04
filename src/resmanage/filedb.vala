@@ -84,13 +84,19 @@ namespace LAIR{
                         return (int) ttfRes.length();
                 }
                 private int GetRandomImageIndex(){
-                        return Sorcerer.int_range(0, GetImagesLength());
+                        int tmp = Sorcerer.int_range(0, GetImagesLength());
+                        stdout.printf("Random Image from Index #: %s \n", tmp.to_string());
+                        return tmp;
                 }
                 private int GetRandomSoundIndex(){
-                        return Sorcerer.int_range(0, GetSoundsLength());
+                        int tmp = Sorcerer.int_range(0, GetSoundsLength());
+                        stdout.printf("Random Sound from Index # %s \n:", tmp.to_string());
+                        return tmp;
                 }
                 private int GetRandomFontIndex(){
-                        return Sorcerer.int_range(0, GetFontsLength());
+                        int tmp = Sorcerer.int_range(0, GetFontsLength());
+                        stdout.printf("Random Font from Index #: %s \n", tmp.to_string());
+                        return tmp;
                 }
                 private int GetRandomImageIndexByRange(int bottom, int top){
                         int t = top;
@@ -126,24 +132,24 @@ namespace LAIR{
                         return Sorcerer.int_range(bottom, top);
                 }
                 public Video.Surface* GetRandImage(){
-                        return imgRes.nth_data(GetRandomImageIndex());
+                        return imgRes.nth_data(GetRandomImageIndex()).GetImage();
                 }
                 public Video.Surface* GetRandImageByRange(int bottom, int top){
-                        return imgRes.nth_data(GetRandomImageIndexByRange(bottom, top));
+                        return imgRes.nth_data(GetRandomImageIndexByRange(bottom, top)).GetImage();
                 }
                 public Music* GetRandSound(){
-                        return sndRes.nth_data(GetRandomSoundIndex());
+                        return sndRes.nth_data(GetRandomSoundIndex()).GetSound();
                 }
                 public Music* GetRandSoundByRange(int bottom, int top){
-                        return sndRes.nth_data(GetRandomSoundIndexByRange(bottom,top));
+                        return sndRes.nth_data(GetRandomSoundIndexByRange(bottom,top)).GetSound();
                 }
                 public SDLTTF.Font* GetRandFont(){
-                        return ttfRes.nth_data(GetRandomFontIndex());
+                        return ttfRes.nth_data(GetRandomFontIndex()).GetFont();
                 }
                 public SDLTTF.Font* GetRandFontByRange(int bottom, int top){
-                        return ttfRes.nth_data(GetRandomFontIndexByRange(bottom, top));
+                        return ttfRes.nth_data(GetRandomFontIndexByRange(bottom, top)).GetFont();
                 }
-                public Video.Surface* ImageByName(string name){
+/*                public Video.Surface* ImageByName(string name){
 			List<Video.Surface*> tmp = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
 				if (file.GetPath() == name){
@@ -165,9 +171,6 @@ namespace LAIR{
                         int index = Sorcerer.int_range(0, top);
 			return tmp.nth_data(0);
 		}
-//                public List<Video.Surface*> ImageStackUniqueTags(){
-                        
-  //              }
                 public Music* SoundByName(string name){
 			List<Music*> tmp = new List<Music*>();
 			foreach (Sound file in sndRes){
@@ -211,6 +214,6 @@ namespace LAIR{
                         int top = (int) tmp.length();
                         int index = Sorcerer.int_range(0, top);
 			return tmp.nth_data(0);
-		}
+		}*/
 	}
 }

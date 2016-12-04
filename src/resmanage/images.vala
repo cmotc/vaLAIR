@@ -4,20 +4,31 @@ using SDLGraphics;
 
 namespace LAIR{
 	public class Image : LairFile {
-		private Video.Surface* surface;
+		private Video.Surface surface;
 		public Image(string Path){
 			base.WithPath(Path);
-			ImageLoad(Path);
+			Load();
+		}
+                public bool Load(){
+			bool tmp = false;
+			if (CheckPath()){
+				stdout.printf("Loading the Image to a Surface %s \n", GetPath());
+				surface = SDLImage.load(GetPath());
+				tmp = true;
+			}else{
+				stderr.printf("Image not found at location %s \n", GetPath());
+			}
+			return tmp;
 		}
 		public bool ImageLoad(string Path){
 			SetPath(Path);
 			bool tmp = false;
 			if (CheckPath()){
-				stdout.printf("Loading the Image to a Surface%s \n", Path);
+				stdout.printf("Loading the Image to a Surface %s \n", GetPath());
 				surface = SDLImage.load(GetPath());
 				tmp = true;
 			}else{
-				stderr.printf("Image not found at location %s \n", Path);
+				stderr.printf("Image not found at location %s \n", GetPath());
 			}
 			return tmp;
 		}
@@ -29,7 +40,8 @@ namespace LAIR{
 			}
 		}
 		public Video.Surface* GetImage(){
-			return surface;
+                        Video.Surface* tmp = surface;
+			return tmp;
 		}
 	}
 }

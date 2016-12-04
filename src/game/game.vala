@@ -15,17 +15,18 @@ namespace LAIR{
 		private Entity Player;
 		private Tower GameEnvironment;
 
-		public Game(string imageListPath, string soundListPath, string fontsListPath) {
-			Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
+		public Game(string imageListPath, string soundListPath, string fontsListPath, string mapSize, int screenW, int screenH) {
                         //Player = new Entity();
-			window = new Video.Window("LAIR!", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, 640, 480, Video.WindowFlags.SHOWN);
+			window = new Video.Window("LAIR!", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, screenW, screenH, Video.WindowFlags.SHOWN);
 			WindowRenderer = Video.Renderer.create(window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
-
-                        GameEnvironment = new Tower("medium", Resources, WindowRenderer);
+                        window.show();
+			assert(WindowRenderer != null);
+                        
+                        Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
+                        GameEnvironment = new Tower(mapSize, Resources, WindowRenderer);
 			//surface = window.get_surface();
 
-			window.show();
-			assert(WindowRenderer != null);
+			
 		}
 		private int UpdateScreen(){
                         stdout.printf("Update Sent");
@@ -34,7 +35,7 @@ namespace LAIR{
 			WindowRenderer.present();
 			window.update_surface();
 			SDL.Timer.delay(2000);
-			return 0;
+			return 1;
 		}
 		public int run(){
 			bool exit = false;

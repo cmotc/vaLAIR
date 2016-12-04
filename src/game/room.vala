@@ -10,11 +10,15 @@ namespace LAIR{
 		public Room(int width, int height, FileDB* DM, Video.Renderer? renderer){
 			W = width;
 			H = height;
-                        stdout.printf("Generating room. \n");
-                        for (int x = 0; x < (W / 32); x++){
-                                for (int y = 0; x < (H / 32); y++){
-                                        stdout.printf("Generating Entity Particle X: %s \n", x.to_string());
-                                        stdout.printf(" Y: %s \n", y.to_string());
+                        int WT = (W / 32);
+                        int HT = (H / 32);
+                        stdout.printf("Generating room. ");
+                        stdout.printf("Width: %s ", WT.to_string());
+                        stdout.printf("Height %s \n", HT.to_string());
+                        for (int x = 0; x < WT; x++){
+                                for (int y = 0; y < HT; y++){
+                                        stdout.printf("Generating Entity Particle X: %s ", x.to_string());
+                                        stdout.printf("Y: %s \n", y.to_string());
                                         Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
                                 }
                         }
@@ -22,13 +26,17 @@ namespace LAIR{
 		public Room.WithPlayer(int width, int height, Entity* player, FileDB* DM, Video.Renderer? renderer){
 			W = width;
 			H = height;
+                        int WT = (W / 32);
+                        int HT = (H / 32);
 			Player = player;
                         stdout.printf("Generating room with Player. \n");
-                        for (int x = 0; x < (W / 32); x++){
-                                for (int y = 0; x < (H / 32); y++){
-                                        stdout.printf("Generating Entity Particle X: %s \n", x.to_string());
-                                        stdout.printf(" Y: %s \n", y.to_string());
-                                        //Particles.append();
+                        stdout.printf("Width: %s ", WT.to_string());
+                        stdout.printf("Height %s \n", HT.to_string());
+                        for (int x = 0; x < WT; x++){
+                                for (int y = 0; y < HT; y++){
+                                        stdout.printf("Generating Entity Particle X: %s ", x.to_string());
+                                        stdout.printf("Y: %s \n", y.to_string());
+                                        Particles.append(new Entity.Single((x * 32), (y * 32), DM->GetRandImage(), DM->GetRandSound(), DM->GetRandFont(), renderer));
                                 }
                         }
 		}
