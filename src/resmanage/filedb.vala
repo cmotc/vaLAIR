@@ -149,7 +149,7 @@ namespace LAIR{
                 public SDLTTF.Font* GetRandFontByRange(int bottom, int top){
                         return ttfRes.nth_data(GetRandomFontIndexByRange(bottom, top)).GetFont();
                 }
-/*                public Video.Surface* ImageByName(string name){
+                public Video.Surface* ImageByName(string name){
 			List<Video.Surface*> tmp = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
 				if (file.GetPath() == name){
@@ -214,6 +214,6 @@ namespace LAIR{
                         int top = (int) tmp.length();
                         int index = Sorcerer.int_range(0, top);
 			return tmp.nth_data(0);
-		}*/
+		}
 	}
 }
