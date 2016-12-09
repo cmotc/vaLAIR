@@ -1,8 +1,9 @@
 #! /bin/bash
 rm -rf build.err build.log
 valac -gv \
-	-o bin/LAIR --vapidir="src/vapi" \
         --disable-warnings \
+        -X "-pie" \
+	-o bin/LAIR --vapidir="src/vapi" \
 	--pkg gio-2.0 \
 	--pkg sdl2 \
 	--pkg sdl2-gfx \
@@ -35,3 +36,4 @@ valac -gv \
 	src/entity/move.vala \
 	src/entity/entity.vala \
 	> >(tee -a "build.log") 2> >(tee -a "build.err" >&2)
+#

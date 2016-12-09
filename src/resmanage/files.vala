@@ -2,21 +2,31 @@ namespace LAIR{
 	public class LairFile : GLib.Object {
 		private string Path = null;
 		private string Name = null;
+                private int Length = 0;
 		private List<string> Tags = new List<string>();
-		public LairFile(){
-			Path = null;
-		}
+//		public LairFile(){
+//			Path = null;
+//		}
 		public LairFile.WithPath(string path){
 			Path = SetPath(path);
 		}
-		public LairFile.WithPathandName(string path, string name){
-			Path = SetPath(path);
-			Name = name;
-		}
-		public LairFile.WithPathandTags(string path, List<string> tags){
-			Path = SetPath(path);
-			SetTags(tags);
-		}
+                public LairFile.WithAttList(List<string> atts){
+                        string path = null;
+                        List<string> tags = new List<string>();
+                        int x = 0;
+                        foreach (string attribute in atts){
+                                if (x == 0){
+                                        path = atts.nth_data(x);
+                                        Path = SetPath(path);
+                                }else if(x == 1){
+                                        Name = atts.nth_data(x);
+                                }else{
+                                        tags.append(atts.nth_data(x));
+                                }
+                                x++;
+                        }
+                        SetTags(tags);
+                }
 		protected List<string>* SetTags(List<string> tags){
 			foreach (string tag in tags){
 				if (HasTag(tag) == false){
@@ -27,6 +37,16 @@ namespace LAIR{
 		}
 		public List<string>* GetTags(){
 			return Tags;
+		}
+                public bool HasName(string query){
+			bool tmp = false;
+			if ( query == Name ) {
+				tmp = true;
+                                stdout.printf("Name found in FileDB: %s\n", query);
+			}else{
+                                stderr.printf("Name not found in FileDB: %s\n", query);
+                        }
+			return tmp;
 		}
 		public bool HasTag(string query){
 			bool tmp = false;
@@ -39,32 +59,33 @@ namespace LAIR{
 			return tmp;
 		}
 		public string GetPath(){
-			string []tmp = Path.split(" ", 2);
-			return tmp[0];
+                        stdout.printf("Getting Path: %s\n", Path);
+                        return Path;
 		}
 		protected string SetPath(string path){
-			if (FileUtils.test(path, FileTest.EXISTS)) {
-				Path = path;
-				stdout.printf("Setting Path: %s \n", Path);
+                        string []tmp = path.split(" ", 2);
+			if (FileUtils.test(tmp[0], FileTest.EXISTS)) {
+				Path = tmp[0];
+				stdout.printf("Setting Path: %s\n", Path);
 			}else{
 				Path = null;
-				stdout.printf("Setting Path failed: %s doesn't exist \n", Path);
+				stdout.printf("Setting Path failed: %s doesn't exist\n", Path);
 			}
 			return path;
 		}
 		public bool CheckPath(){
 			if (Path != null){
-				stdout.printf("Validating Path: %s \n", Path);
+				stdout.printf("Validating Path: %s\n", Path);
 				return true;
 			}else{
-				stdout.printf("Validating Path failed: %s doesn't exist. \n", Path);
+				stdout.printf("Validating Path failed: %s doesn't exist.\n", Path);
 				return false;
 			}
 		}
 		public List<string> LoadLineDelimitedConfig(){
 			List<string> tmp = new List<string>();
 			var file = File.new_for_path(Path);
-			stdout.printf("Loading configuration file %s \n", Path);
+			stdout.printf("Loading configuration file %s\n", Path);
 			if (!file.query_exists ()) {
 				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
 			}
@@ -75,16 +96,73 @@ namespace LAIR{
 					string []tl = line.split(" ", 2);
 					if (FileUtils.test(tl[0], FileTest.EXISTS)) {
 						tmp.append(tl[0]);
-						stdout.printf("Loaded Resource: %s \n", tl[0]);
+                                                //tmp.append(line);
+						stdout.printf("Loaded Resource: %s\n", tl[0]);
 					}else{
-						stderr.printf("Failed to load Resource: %s \n", tl[0]);
+						stderr.printf("Failed to load Resource: %s\n", tl[0]);
 					}
 				}
-				stdout.printf("Loaded configuration file %s \n", Path);
+				stdout.printf("Loaded configuration file %s\n", Path);
 			} catch (Error e) {
 				error ("%s", e.message);
 			}
 			return tmp;
 		}
+                public int LenLineDelimitedConfig(){
+			var file = File.new_for_path(Path);
+                        int r = 0;
+			if (!file.query_exists ()) {
+				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
+			}
+                        if (Length == 0){
+                                try {
+                                        var dis = new DataInputStream (file.read());
+                                        string line;
+                                        while ((line = dis.read_line (null)) != null) {
+                                                r++;
+                                        }
+                                        stdout.printf("Configuration File Length %s\n", r.to_string());
+                                } catch (Error e) {
+                                        error ("%s", e.message);
+                                }
+                                Length = r;
+                        }else{
+                                r = Length;
+                        }
+			return r;
+		}
+                public List<string> GetConfigLine(int lineNum){
+                        List<string> tmp = new List<string>();
+                        var file = File.new_for_path(Path);
+                        stdout.printf("Loading configuration file %s ", Path);
+                        stdout.printf("line %s\n", lineNum.to_string());
+			if (!file.query_exists ()) {
+				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
+			}
+                        try {
+				var dis = new DataInputStream (file.read());
+				string line;
+                                int x = 0;
+				while ((line = dis.read_line (null)) != null) {
+                                        if ( x == lineNum ){
+                                                string []tl = line.split(" ", 0);
+                                                if (FileUtils.test(tl[0], FileTest.EXISTS)) {
+                                                        foreach(string token in tl){
+                                                                tmp.append(token);
+                                                        }
+                                                        //tmp.append(line);
+                                                        stdout.printf("Loaded Resource: %s\n", tl[0]);
+                                                }else{
+                                                        stderr.printf("Failed to load Resource: %s\n", tl[0]);
+                                                }
+                                        }
+                                        x++;
+				}
+				stdout.printf("Loaded configuration file %s\n", Path);
+			} catch (Error e) {
+				error ("%s", e.message);
+			}
+                        return tmp;
+                }
 	}
 }

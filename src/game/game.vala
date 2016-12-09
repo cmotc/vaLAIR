@@ -32,7 +32,7 @@ namespace LAIR{
 			GameEnvironment.RenderCopy(WindowRenderer);
 			WindowRenderer.present();
 			window.update_surface();
-			SDL.Timer.delay(2000);
+			SDL.Timer.delay(2000000);
 			return 1;
 		}
 		public int run(){

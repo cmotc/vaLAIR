@@ -10,6 +10,11 @@ namespace LAIR{
 			Size = size;
 			Load();
 		}
+                public Fonts.WithAttList(List<string> path, string size){
+			base.WithAttList(path);
+			Size = size;
+			Load();
+		}
                 private bool Load(){
 			bool tmp = false;
 			if (CheckPath()){
@@ -32,7 +37,7 @@ namespace LAIR{
 			}
 			return tmp;
 		}
-		private bool FontLoad(string path){
+/*		private bool FontLoad(string path){
 			bool tmp = false;
 			SetPath(path);
 			if (CheckPath()){
@@ -61,7 +66,7 @@ namespace LAIR{
 			}else{
 				return false;
 			}
-		}
+		}*/
 		public SDLTTF.Font* GetFont(){
                         SDLTTF.Font* tmp = font;
 			return tmp;

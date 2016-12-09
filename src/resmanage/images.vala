@@ -9,6 +9,10 @@ namespace LAIR{
 			base.WithPath(Path);
 			Load();
 		}
+                public Image.WithAttList(List<string> atts){
+                        base.WithAttList(atts);
+                        Load();
+                }
                 public bool Load(){
 			bool tmp = false;
 			if (CheckPath()){

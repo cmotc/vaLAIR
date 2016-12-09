@@ -5,24 +5,24 @@ namespace LAIR{
 	class Stats : Net{
 		private int Strength = 10;
 		private int Agility = 10;
-		private int Toughness = 10;
+		/*private int Toughness = 10;
 		private int Intelligence = 10;
-		private int Special = 10;
-		private int speed = 0;
+		private int Special = 10;*/
+		private int speed = 0;/*
 		private int exert = 0;
 		private int dodge = 0;
 		private int aim = 0;
 		private int will = 0;
 		private int resist = 0;
 		private int magic = 0;
-		private int tech = 0;
+		private int tech = 0;*/
                 public Stats(int x, int y, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(x, y, surface, music, font, renderer);
                 }
 		public int Speed(){
 			int tmp = (Strength + Agility) / 4;
 			return tmp + speed;
-		}
+		}/*
 		public int Exert(){
 			int tmp = (Strength + Toughness) / 4;
 			return tmp + exert;
@@ -50,6 +50,6 @@ namespace LAIR{
 		public int Tech(){
 			int tmp = (Intelligence + Agility) / 4;
 			return tmp + tech;
-		}
+		}*/
 	}
 }

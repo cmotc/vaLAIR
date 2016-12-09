@@ -8,6 +8,10 @@ namespace LAIR{
                         base.WithPath(path);
                         Load();
 		}
+                public Sound.WithAttList(List<string> path){
+                        base.WithAttList(path);
+                        Load();
+		}
                 public bool Load(){
                         bool tmp = false;
 			if (CheckPath()){
@@ -19,7 +23,7 @@ namespace LAIR{
 			}
 			return tmp;
                 }
-                public bool SoundLoad(string path){
+/*                public bool SoundLoad(string path){
                         SetPath(path);
 			bool tmp = false;
 			if (CheckPath()){
@@ -37,7 +41,7 @@ namespace LAIR{
 			}else{
 				return false;
 			}
-		}
+		}*/
 		public Music* GetSound(){
                         Music* tmp = music;
 			return tmp;
