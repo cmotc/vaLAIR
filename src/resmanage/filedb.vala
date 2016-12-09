@@ -80,7 +80,10 @@ namespace LAIR{
 				stdout.printf("Loading the image files\n");
                                 for (int x = 0; x < imgListPath.LenLineDelimitedConfig(); x++){
                                         List<string> image = imgListPath.GetConfigLine(x);
-                                        stdout.printf("(%s).\n", image.nth_data(x));
+                                        foreach(string y in image){
+                                                stdout.printf("(%s)", y);
+                                        }
+                                        stdout.printf(".\n");
 					imgRes.append(new Image.WithAttList(image));
                                 }
 				tmp = true;
@@ -91,7 +94,10 @@ namespace LAIR{
 				stdout.printf("Loading the sound files\n");
                                 for (int x = 0; x < sndListPath.LenLineDelimitedConfig(); x++){
                                         List<string> sound = sndListPath.GetConfigLine(x);
-                                        stdout.printf("(%s).\n", sound.nth_data(x));
+                                        foreach(string y in sound){
+                                                stdout.printf("(%s)", y);
+                                        }
+                                        stdout.printf(".\n");
 					sndRes.append(new Sound.WithAttList(sound));
                                 }
 				tmp = true;
@@ -102,7 +108,10 @@ namespace LAIR{
 				stdout.printf("Loading the font files\n");
                                 for (int x = 0; x < ttfListPath.LenLineDelimitedConfig(); x++){
                                         List<string> font = ttfListPath.GetConfigLine(x);
-                                        stdout.printf("(%s).\n", font.nth_data(x));
+                                        foreach(string y in font){
+                                                stdout.printf("(%s)", y);
+                                        }
+                                        stdout.printf(".\n");
 					ttfRes.append(new Fonts.WithAttList(font, "medium"));
                                 }
 				tmp = true;
@@ -127,7 +136,7 @@ namespace LAIR{
                 }*/
                 private int GetRandomSoundIndex(){
                         int tmp = Sorcerer.int_range(0, GetSoundsLength());
-                        stdout.printf("Random Sound from Index # %s \n:", tmp.to_string());
+                        stdout.printf("Random Sound from Index # %s \n", tmp.to_string());
                         return tmp;
                 }
                 private int GetRandomFontIndex(){

@@ -1,5 +1,5 @@
 /home/idk/Projects/valair/src/main.vala: In function ‘lair_lair_main’:
-/home/idk/Projects/valair/src/main.vala:30:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+/home/idk/Projects/valair/src/main.vala:28:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
     foreach(string arg in args){
                   ^
 /home/idk/Projects/valair/src/main.vala: In function ‘main’:

@@ -6,13 +6,12 @@ using SDLMixer;
 
 namespace LAIR{
 	class Game{
-                private GLib.Rand DungeonMaster = new GLib.Rand ();
 		private Video.Window window;
 		private Video.Renderer? WindowRenderer;
 		private Video.Surface LairSurface;
 
 		private FileDB Resources;
-		private Entity Player;
+		private Entity *Player;
 		private Tower GameEnvironment;
 
 		public Game(string imageListPath, string soundListPath, string fontsListPath, string mapSize, int screenW, int screenH) {
@@ -23,7 +22,7 @@ namespace LAIR{
 			assert(WindowRenderer != null);
 
                         Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
-                        GameEnvironment = new Tower(mapSize, Resources, WindowRenderer);
+                        GameEnvironment = new Tower(mapSize, Player, Resources, WindowRenderer);
 			//surface = window.get_surface();
 
 		}

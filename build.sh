@@ -36,4 +36,3 @@ valac -gv \
 	src/entity/move.vala \
 	src/entity/entity.vala \
 	> >(tee -a "build.log") 2> >(tee -a "build.err" >&2)
-#

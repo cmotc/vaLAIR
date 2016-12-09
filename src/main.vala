@@ -18,15 +18,13 @@ namespace LAIR{
 			SDL.quit();
 		}
 		public static void main(string args[]){
-			//SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
-			//SDLTTF.init();
 			string ImageFilePath = "/usr/share/lair/images.list";
 			string SoundFilePath = "/usr/share/lair/sounds.list";
 			string FontsFilePath = "/usr/share/lair/fonts.list";
 			List<string> Arguments = new List<string>();
-			string MapSize = "tiny";
-			int PixelW = 640;
-			int PixelH = 480;
+			string MapSize = "small";
+			int PixelW = 800;
+			int PixelH = 600;
 			foreach(string arg in args){
 				Arguments.append(arg);
 			}

@@ -1,8 +1,8 @@
 namespace LAIR{
 	public class Type : Object{
-		string TYPES[3]; 
-		int TYPE = 0;
-		int BLOCKED = 0;
+		private string TYPES[3]; 
+		private int TYPE = 0;
+		private int BLOCKED = 0;
 		public Type(){
 			TYPES[0] = "TILE";
 			TYPES[1] = "PLAYER";

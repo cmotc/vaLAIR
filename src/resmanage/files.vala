@@ -43,9 +43,7 @@ namespace LAIR{
 			if ( query == Name ) {
 				tmp = true;
                                 stdout.printf("Name found in FileDB: %s\n", query);
-			}else{
-                                stderr.printf("Name not found in FileDB: %s\n", query);
-                        }
+			}
 			return tmp;
 		}
 		public bool HasTag(string query){
@@ -134,7 +132,6 @@ namespace LAIR{
                 public List<string> GetConfigLine(int lineNum){
                         List<string> tmp = new List<string>();
                         var file = File.new_for_path(Path);
-                        stdout.printf("Loading configuration file %s ", Path);
                         stdout.printf("line %s\n", lineNum.to_string());
 			if (!file.query_exists ()) {
 				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
@@ -158,7 +155,6 @@ namespace LAIR{
                                         }
                                         x++;
 				}
-				stdout.printf("Loaded configuration file %s\n", Path);
 			} catch (Error e) {
 				error ("%s", e.message);
 			}
