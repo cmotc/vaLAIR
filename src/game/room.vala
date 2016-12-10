@@ -51,6 +51,7 @@ namespace LAIR{
                         stdout.printf("Generating room with Player. \n");
                         stdout.printf("Width: %s ", WT.to_string());
                         stdout.printf("Height %s \n", HT.to_string());
+                        player = new Entity.Player(128,128, DM->ImageByName(), DM->GetRandSound(), DM->GetRandFont(), renderer);
                         for (int x = 0; x < WT; x++){
                                 for (int y = 0; y < HT; y++){
                                         Particles.append(new Entity.Single((x * 32), (y * 32), DM->ImageByName("stonefloor"), DM->GetRandSound(), DM->GetRandFont(), renderer));
