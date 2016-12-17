@@ -3,10 +3,7 @@ using SDLMixer;
 using SDLTTF;
 namespace LAIR{
 	class Entity : Move{
-                public Entity(Video.Point corner, int b, List<Video.Surface*> imgStack, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
-                        base(corner, imgStack.nth_data(0) , music, font, renderer);
-                }
-                public Entity.Single(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                public Entity(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, surface, music, font, renderer);
                 }
                 public Entity.Blocked(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer){

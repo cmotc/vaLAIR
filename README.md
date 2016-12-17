@@ -11,8 +11,13 @@ now that I'm going to have a version in a week or two.
 Installation
 ------------
 
-Check back soon. There will be an install script and a debian package before too
-long.
+It's getting there. I keep fiddling about with it and it's a little
+transitional. That said, somebody with all the dependencies can build it on
+Linux and probably other unixes and start playing with it for now. It's just
+a makefile now, just running "Make" in the working directory will build the
+executable in the ./bin/ directory. Then there's art and the configuration files
+to install, which are in the [art repository](https://github.com/cmotc/lairart),
+which you can install with make; sudo make install.
 
 Configuration(You probably don't need to read this unless you want to mod)
 --------------------------------------------------------------------------
@@ -35,6 +40,18 @@ that can be used to produce a random tile from a specific category with the game
 engine, or it can be used to retrieve a specific tile with the game engine. So
 the first tag, the name, should be unique, and the remaining tags could be
 non-unique. For more example configuration files, see the [art repository](https://github.com/cmotc/lairart).
+
+How it works
+------------
+
+The game considers every piece of content to be the same type of in-game object.
+They all have exactly the same attributes and all the same things can happen to
+each of them. The only difference between the player and the other entities is
+that the player's movement is controlled by a person and not by a scripted
+routine. Inside the entities, there are scripts that control what actions the
+entity takes depending on feedback from it's environment. That's mostly the
+unfinished part, that and networking, and I need to create some new/better
+template art, then it's going to be done. Yay.
 
 History(Feels a little self-aggrandizing)
 -----------------------------------------

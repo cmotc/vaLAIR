@@ -18,27 +18,19 @@ namespace LAIR{
                         stdout.printf("Height %s \n", HT.to_string());
                         for (int x = 0; x < WT; x++){
                                 for (int y = 0; y < HT; y++){
-                                        Video.Point corner = Video.Point(){ x = (x * 32), y = (y * 32)};
-                                        Particles.append(new Entity.Single(corner, DM->ImageByName("stonefloor"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        Particles.append(new Entity(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonefloor"), DM->GetRandSound(), DM->GetRandFont(), renderer));
                                         if ( x == (0 + DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
-                                        }else
-                                        if ( x == ((WT-1) - DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
-                                        }else
-                                        if ( y == (0 + DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
-                                        }else
-                                        if ( y == ((HT-1) - DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( x == ((WT-1) - DungeonMaster.int_range(0,2)) ){
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( y == (0 + DungeonMaster.int_range(0,2)) ){
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( y == ((HT-1) - DungeonMaster.int_range(0,2)) ){
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
                                         }
                                 }
                         }
@@ -48,35 +40,27 @@ namespace LAIR{
 			H = height;
                         int WT = (W / 32);
                         int HT = (H / 32);
-                        Video.Point ENTER = Video.Point(){ x = 128, y = 128};
-                        player = new Entity.Player(ENTER, DM->ImageByName("colortest"), DM->GetRandSound(), DM->GetRandFont(), renderer);
+                        //Video.Point ENTER = ;
+                        player = new Entity.Player(new Video.Point(){ x = 128, y = 128}, DM->ImageByName("colortest"), DM->GetRandSound(), DM->GetRandFont(), renderer);
 			Player = player;
-                        stdout.printf("Generating room with Player. \n");
+                        stdout.printf("Generating room with Player.");
                         stdout.printf("Width: %s ", WT.to_string());
                         stdout.printf("Height %s \n", HT.to_string());
                         for (int x = 0; x < WT; x++){
                                 for (int y = 0; y < HT; y++){
-                                        Video.Point corner = Video.Point(){ x = (x * 32), y = (y * 32)};
-                                        Particles.append(new Entity.Single(corner, DM->ImageByName("stonefloor"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        Particles.append(new Entity(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonefloor"), DM->GetRandSound(), DM->GetRandFont(), renderer));
                                         if ( x == (0 + DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
-                                        }else
-                                        if ( x == ((WT-1) - DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
-                                        }else
-                                        if ( y == (0 + DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
-                                        }else
-                                        if ( y == ((HT-1) - DungeonMaster.int_range(0,2)) ){
-                                                Particles.append(new Entity.Blocked(corner, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
-                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string());
-                                                stdout.printf("Y: %s \n", y.to_string());
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( x == ((WT-1) - DungeonMaster.int_range(0,2)) ){
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( y == (0 + DungeonMaster.int_range(0,2)) ){
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
+                                        }else if ( y == ((HT-1) - DungeonMaster.int_range(0,2)) ){
+                                                stdout.printf("Generating Entity Particle X: %s ", x.to_string()); stdout.printf("Y: %s \n", y.to_string());
+                                                Particles.append(new Entity.Blocked(new Video.Point(){ x = (x * 32), y = (y * 32)}, DM->ImageByName("stonewall"), DM->GetRandSound(), DM->GetRandFont(), renderer));
                                         }
                                 }
                         }

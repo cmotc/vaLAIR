@@ -4,44 +4,62 @@ namespace LAIR{
 	public class Anim : Type{
                 private Video.Rect position = new Video.Rect();
                 public Anim(Video.Rect rect){
+                        //position = rect;
+                        Video.Rect position = new Video.Rect();
+                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s\n", rect.y.to_string());
                         position.x = rect.x;
                         position.y = rect.y;
                         position.w = rect.w;
-                        position.h = rect.h;
+                        position.h = rect.h;//*/
                 }
                 public Anim.Blocked(Video.Rect rect){
+                        //position = rect;
+                        Video.Rect position = new Video.Rect();
+                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s\n", rect.y.to_string());
                         position.x = rect.x;
                         position.y = rect.y;
                         position.w = rect.w;
-                        position.h = rect.h;
+                        position.h = rect.h;//*/
                         base.Blocked();
                 }
                 public Anim.Parameter(Video.Rect rect, string tag){
+                        //position = rect;
+                        Video.Rect position = new Video.Rect();
+                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s\n", rect.y.to_string());
                         position.x = rect.x;
                         position.y = rect.y;
                         position.w = rect.w;
-                        position.h = rect.h;
+                        position.h = rect.h;//*/
                         base.Parameter(tag);
                 }
                 public Anim.ParameterList(Video.Rect rect, List<string> tags){
+                        //position = rect;
+                        Video.Rect position = new Video.Rect();
+                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s\n", rect.y.to_string());
                         position.x = rect.x;
                         position.y = rect.y;
                         position.w = rect.w;
-                        position.h = rect.h;
+                        position.h = rect.h;//*/
                         base.ParameterList(tags);
                 }
                 public Anim.ParameterBlocked(Video.Rect rect, string tag){
+                        //position = rect;
+                        Video.Rect position = new Video.Rect();
+                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s\n", rect.y.to_string());
                         position.x = rect.x;
                         position.y = rect.y;
                         position.w = rect.w;
-                        position.h = rect.h;
+                        position.h = rect.h;//*/
                         base.ParameterBlocked(tag);
                 }
                 public Anim.ParameterListBlocked(Video.Rect rect, List<string> tags){
+                        //position = rect;
+                        Video.Rect position = new Video.Rect();
+                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s\n", rect.y.to_string());
                         position.x = rect.x;
                         position.y = rect.y;
                         position.w = rect.w;
-                        position.h = rect.h;
+                        position.h = rect.h;//*/
                         base.ParameterListBlocked(tags);
                 }
 		public Video.Rect GetPosition(){
