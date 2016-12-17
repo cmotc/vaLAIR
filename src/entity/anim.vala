@@ -2,51 +2,104 @@ using SDL;
 using SDLImage;
 namespace LAIR{
 	public class Anim : Type{
-		private int X = 64;
-		private int Y = 64;
-		private int W = 32;
-		private int H = 32;
-                public Anim(int x, int y, int w, int h){
-                        X = x;
-                        Y = y;
-                        W = w;
-                        H = h;
+                private Video.Rect position = new Video.Rect();
+                public Anim(Video.Rect rect){
+                        position.x = rect.x;
+                        position.y = rect.y;
+                        position.w = rect.w;
+                        position.h = rect.h;
+                }
+                public Anim.Blocked(Video.Rect rect){
+                        position.x = rect.x;
+                        position.y = rect.y;
+                        position.w = rect.w;
+                        position.h = rect.h;
+                        base.Blocked();
+                }
+                public Anim.Parameter(Video.Rect rect, string tag){
+                        position.x = rect.x;
+                        position.y = rect.y;
+                        position.w = rect.w;
+                        position.h = rect.h;
+                        base.Parameter(tag);
+                }
+                public Anim.ParameterList(Video.Rect rect, List<string> tags){
+                        position.x = rect.x;
+                        position.y = rect.y;
+                        position.w = rect.w;
+                        position.h = rect.h;
+                        base.ParameterList(tags);
+                }
+                public Anim.ParameterBlocked(Video.Rect rect, string tag){
+                        position.x = rect.x;
+                        position.y = rect.y;
+                        position.w = rect.w;
+                        position.h = rect.h;
+                        base.ParameterBlocked(tag);
+                }
+                public Anim.ParameterListBlocked(Video.Rect rect, List<string> tags){
+                        position.x = rect.x;
+                        position.y = rect.y;
+                        position.w = rect.w;
+                        position.h = rect.h;
+                        base.ParameterListBlocked(tags);
                 }
 		public Video.Rect GetPosition(){
-			Video.Rect pos = {X, Y, W, H};
-			return pos;
+			return position;
 		}
 		public Video.Rect GetSource(){
-			Video.Rect pos = {0, 0, W, H};
+			Video.Rect pos = {0, 0, position.w, position.h};
 			return pos;
 		}
 		protected int SetWidth(int width){
-			W = width;
-			return W;
+			position.w = width;
+			return (int) position.w;
 		}
 		protected int SetHeight(int height){
-			H = height;
-			return H;
+			position.h = height;
+			return (int) position.h;
 		}
 		public int GetWidth(){
-			return W;
+			return (int) position.w;
 		}
+                public int GetHalfWidth(){
+                        int hW = (int) position.w/2;
+                        return hW;
+                }
 		public int GetHeight(){
-			return H;
+			return (int) position.h;
+		}
+                public int GetHalfHeight(){
+                        int hH = (int) position.h/2;
+			return hH;
 		}
 		public int GetX(){
-			return X;
+			return (int) position.x;
 		}
 		public int GetY(){
-			return Y;
+			return (int) position.y;
 		}
+                public Video.Point GetCenter(){
+                        Video.Point coords = Video.Point(){x=GetX()+GetHalfWidth(),y=GetY()+GetHalfHeight()};
+                        return coords;
+                }
+                private double RadiansToDegrees(double radians){
+                        double r = (180/Math.PI) * radians;
+                        return r;
+                }
+                public double GetAngle(Video.Point cursorPosition){
+                        double degrees = 0.0;
+                        Video.Point CP = GetCenter();
+                        degrees = RadiansToDegrees((Math.atan2(cursorPosition.x - CP.x, CP.y - cursorPosition.y) + 360) % 360);
+                        return degrees;
+                }
 		public int SetX(int x){
-			X = x;
-			return X;
+			position.x = x;
+			return position.x;
 		}
 		public int SetY(int y){
-			Y = y;
-			return Y;
+			position.y = y;
+			return position.y;
 		}
 	}
 }

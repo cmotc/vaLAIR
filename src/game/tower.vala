@@ -33,20 +33,21 @@ namespace LAIR{
                                 if (c == 0){
                                         floors.append(new Floor.WithPlayer(w, h, count, 0, player, DM, renderer));
                                 }else{
-                                        floors.append(new Floor(w,h,count, DM, renderer));
+                                        floors.append(new Floor(w, h, count, DM, renderer));
                                 }
 			}
 		}
                 public int TakeTurns(){
                         int tmp = 1;
+                        stdout.printf(" Entities in the tower are taking turns.\n");
                         foreach(Floor floor in floors){
-                                floor.TakeTurns();
+                                tmp = floor.TakeTurns();
                         }
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer* renderer){
 			foreach(Floor floor in floors){
-                                stdout.printf("Propagating Renderer to Floor. \n");
+                                stdout.printf(" Rendering Floor. \n");
 				floor.RenderCopy(renderer);
 			}
 		}

@@ -10,10 +10,10 @@ namespace LAIR{
 		public Floor.WithPlayer(int width, int height, int count, int entry, Entity* player, FileDB* DM, Video.Renderer? renderer){
 			for (int c = 0; c <= count; c++){
 				if (count == entry){
-					Room tmp = new Room(width, height, DM, renderer);
+					Room tmp = new Room.WithPlayer(width, height, player, DM, renderer);
 					rooms.append(tmp);
 				}else{
-					Room tmp = new Room.WithPlayer(width, height, player, DM, renderer);
+					Room tmp = new Room(width, height, DM, renderer);
 					rooms.append(tmp);
 				}
 			}
@@ -27,14 +27,15 @@ namespace LAIR{
 		}
                 public int TakeTurns(){
                         int tmp = 1;
+                        stdout.printf("  Entities on the floor are taking turns\n");
                         foreach(Room room in rooms){
-                                room.TakeTurns();
+                                tmp = room.TakeTurns();
                         }
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer* renderer){
 			foreach(Room room in rooms){
-                                        stdout.printf("Propagating Renderer to Room. \n");
+                                        stdout.printf("  Rendering Room. \n");
 					room.RenderCopy(renderer);
 			}
 		}

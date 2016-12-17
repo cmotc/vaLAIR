@@ -16,8 +16,23 @@ namespace LAIR{
 		private int resist = 0;
 		private int magic = 0;
 		private int tech = 0;*/
-                public Stats(int x, int y, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
-                        base(x, y, surface, music, font, renderer);
+                public Stats(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                        base(corner, surface, music, font, renderer);
+                }
+                public Stats.Blocked(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer){
+                        base.Blocked(corner, surface, music, font, renderer);
+                }
+                public Stats.Parameter(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
+                        base.Parameter(corner, surface, music, font, renderer, tag);
+                }
+                public Stats.ParameterBlocked(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
+                        base.ParameterBlocked(corner, surface, music, font, renderer, tag);
+                }
+                public Stats.ParameterList(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.ParameterList(corner, surface, music, font, renderer, tags);
+                }
+                public Stats.ParameterListBlocked(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.ParameterListBlocked(corner, surface, music, font, renderer, tags);
                 }
 		public int Speed(){
 			int tmp = (Strength + Agility) / 4;

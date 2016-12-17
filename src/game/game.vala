@@ -27,18 +27,20 @@ namespace LAIR{
 
 		}
 		private int UpdateScreen(){
-			GameEnvironment.TakeTurns();
+			int r = GameEnvironment.TakeTurns();
 			GameEnvironment.RenderCopy(WindowRenderer);
 			WindowRenderer.present();
 			window.update_surface();
-			SDL.Timer.delay(2000000);
-			return 1;
+			return r;
 		}
 		public int run(){
 			int exit = 1;
 			while(exit != 0){
                                 stdout.printf("Update Sent \n");
 				exit = UpdateScreen();
+                                stdout.printf(" -> input was: %s \n", exit.to_string());
+                                SDL.Timer.delay(200);
+                                if (exit==0){break;}
 			}
 			return exit;
 		}

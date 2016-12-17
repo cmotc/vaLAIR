@@ -2,7 +2,6 @@
 rm -rf build.err build.log
 valac -gv \
         --disable-warnings \
-        -X "-pie" \
 	-o bin/LAIR --vapidir="src/vapi" \
 	--pkg gio-2.0 \
 	--pkg sdl2 \
@@ -10,6 +9,7 @@ valac -gv \
 	--pkg sdl2-image \
 	--pkg sdl2-ttf \
 	--pkg sdl2-mixer \
+        -X "-FPIC -pie" \
 	-X -lSDL2 \
 	-X -lSDL2_gfx \
 	-X -lSDL2_image \

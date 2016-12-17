@@ -22,7 +22,7 @@ namespace LAIR{
 			string SoundFilePath = "/usr/share/lair/sounds.list";
 			string FontsFilePath = "/usr/share/lair/fonts.list";
 			List<string> Arguments = new List<string>();
-			string MapSize = "small";
+			string MapSize = "tiny";
 			int PixelW = 800;
 			int PixelH = 600;
 			foreach(string arg in args){

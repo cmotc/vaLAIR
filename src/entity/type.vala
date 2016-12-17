@@ -1,52 +1,79 @@
 namespace LAIR{
 	public class Type : Object{
-		private string TYPES[3]; 
-		private int TYPE = 0;
-		private int BLOCKED = 0;
-		public Type(){
-			TYPES[0] = "TILE";
-			TYPES[1] = "PLAYER";
-			TYPES[2] = "MOBILE";
-                        SetType(0);
+		private bool player = false;
+                private int b = 0;
+                List<string> tags = new List<string>();
+                public Type.Blocked(){
+                        SetType("blocked");
 		}
-                public Type.Parameter(int type){
-                        TYPES[0] = "TILE";
-			TYPES[1] = "PLAYER";
-			TYPES[2] = "MOBILE";
+                public Type.Parameter(string type){
                         SetType(type);
+                        player = CheckType("player");
+                        if (player) {
+                                SetType("blocked");
+                        }
                 }
-		public int SetType(int NewType){
-			int temp = 0;
-			if(NewType > 2){
-				temp = NewType;
-			}else if(NewType<0){
-				temp = NewType;
-			}else{
-				TYPE = NewType;
-				temp = NewType;
-			}
-			return temp;
+                public Type.ParameterList(List<string> types){
+                        foreach(string type in types.copy()){
+                                SetType(type);
+                        }
+                        player = CheckType("player");
+                        if (player) {
+                                SetType("blocked");
+                        }
+                }
+                public Type.ParameterBlocked(string type){
+                        SetType("blocked");
+                        SetType(type);
+                        player = CheckType("player");
+                }
+                public Type.ParameterListBlocked(List<string> types){
+                        SetType("blocked");
+                        foreach(string type in types.copy()){
+                                SetType(type);
+                        }
+                        player = CheckType("player");
+                }
+		public bool SetType(string NewType){
+                        bool t = true;
+                        foreach(string i in tags.copy()){
+                                if ( i == NewType ){
+                                        t = false;
+                                }
+                        }
+                        if (t) {
+                                tags.append(NewType);
+                                b = 0;
+                        }
+                        if ( NewType == "blocked" ){
+                                b = 1;
+                        }
+                        return t;
 		}
-		public string GetType(){
-			return TYPES[TYPE];
-		}
-		public int Block(){
-			BLOCKED = 1;
-			return BLOCKED;
-		}
-		public int UnBlock(){
-			BLOCKED = 0;
-			return BLOCKED;
-		}
-		public int GetBlock(){
-			return BLOCKED;
+                public bool CheckType(string Type){
+                        bool r = false;
+                        foreach(string i in tags.copy()){
+                                if ( i == Type ){
+                                        r = true;
+                                }
+                        }
+                        return r;
+                }
+		public bool GetBlock(){
+                        bool r = false;
+                        if ( b == 0 ){
+                                r = CheckType("blocked");
+                                if ( r == true){
+                                        b = 1;
+                                }
+                        }else if ( b == 1 ){
+                                r = true;
+                        }
+
+			return r;
 		}
 		public bool IsPlayer(){
-			bool tmp = false;
-			if (TYPE == 1){
-				tmp = true;
-			}
-			return tmp;
+			return player;
 		}
 	}
 }

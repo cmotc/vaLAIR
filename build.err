@@ -8,9 +8,9 @@
                   ^~~~
 main.vala.c:168:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
 /home/idk/Projects/valair/src/entity/entity.vala: In function ‘lair_entity_construct’:
-/home/idk/Projects/valair/src/entity/entity.vala:7:73: warning: passing argument 4 of ‘lair_move_construct’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-                         base(x, y, imgStack.nth_data(0) , music, font, renderer);
-                                                                         ^~~~~~
-/home/idk/Projects/valair/src/entity/entity.vala.c:232:11: note: expected ‘SDL_Surface * {aka struct SDL_Surface *}’ but argument is of type ‘gconstpointer {aka const void *}’
- LAIRMove* lair_move_construct (GType object_type, gint x, gint y, SDL_Surface* surface, Mix_Music* music, TTF_Font* font, SDL_Renderer* renderer);
+/home/idk/Projects/valair/src/entity/entity.vala:7:65: warning: passing argument 3 of ‘lair_move_construct’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         base(corner, imgStack.nth_data(0) , music, font, renderer);
+                                                                 ^~~~~~
+/home/idk/Projects/valair/src/entity/entity.vala.c:235:11: note: expected ‘SDL_Surface * {aka struct SDL_Surface *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ LAIRMove* lair_move_construct (GType object_type, SDL_Point corner, SDL_Surface* surface, Mix_Music* music, TTF_Font* font, SDL_Renderer* renderer);
            ^~~~~~~~~~~~~~~~~~~
