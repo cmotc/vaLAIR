@@ -51,7 +51,7 @@ namespace LAIR{
                         int tmp = 1;
                         stdout.printf("    Entities in the room are taking turns\n");
                         if (HasPlayer()){
-                                tmp = (tmp != 1) ? tmp : Player->run();
+                                tmp = (tmp != 1) ? tmp : Player->PInput();
                         }else{
                                 foreach(Entity mob in Mobs){
 					mob.run();

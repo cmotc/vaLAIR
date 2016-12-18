@@ -38,8 +38,7 @@ namespace LAIR{
 		}
 		public void RenderCopy(Video.Renderer* renderer){
                         foreach(var texture in body.copy()){
-                                renderer->copy(texture, GetSource(), GetPosition());
-                                //renderer->copyex(texture, GetSource(), GetPosition(), GetAngle(GetCenter()), GetCenter(), Video.RendererFlip.NONE);
+                                renderer->copyex(texture, GetSource(), GetPosition(), GetAngle(GetCenter()), GetCenter(), Video.RendererFlip.NONE);
                         }
 
 		}

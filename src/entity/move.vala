@@ -26,8 +26,11 @@ namespace LAIR{
 		}
 		public int PInput(){
                         int t = 1;
-			for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
-                                stdout.printf("     Checking Event for Player Input\n");
+                        Event e;
+			//for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
+                        stdout.printf("     Player is taking a turn : ");
+                        while(Event.poll (out e) == 1){
+                                stdout.printf(" Checking Event for Player Input\n");
 				if (e.type == EventType.KEYDOWN) {
                                         switch(e.key.keysym.sym){
                                                 case Input.Keycode.ESCAPE:
