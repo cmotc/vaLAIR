@@ -1,7 +1,6 @@
 unix:
 	valac -gv \
 		-o bin/LAIR --vapidir="src/vapi" \
-		--disable-warnings \
 		--pkg gio-2.0 \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
@@ -71,3 +70,6 @@ android:
 		src/entity/inventory.vala \
 		src/entity/move.vala \
 		src/entity/entity.vala
+
+unlog:
+	rm log;

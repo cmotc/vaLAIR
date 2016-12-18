@@ -40,9 +40,13 @@ namespace LAIR{
 		}
                 public bool HasName(string query){
 			bool tmp = false;
+                        bool ptd = false;
 			if ( query == Name ) {
 				tmp = true;
-                                stdout.printf("Name found in FileDB: %s\n", query);
+                                if (!ptd){
+                                        stdout.printf("Name found in FileDB: %s", query);
+                                        ptd = true;
+                                }
 			}
 			return tmp;
 		}

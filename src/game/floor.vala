@@ -7,10 +7,11 @@ namespace LAIR{
 				rooms.append(new Room(width, height, DM, renderer));
 			}
 		}
-		public Floor.WithPlayer(int width, int height, int count, int entry, Entity* player, FileDB* DM, Video.Renderer? renderer){
+		public Floor.WithPlayer(int width, int height, int count, int entry, FileDB* DM, Video.Renderer? renderer){
 			for (int c = 0; c <= count; c++){
+                                stdout.printf("   Generating room:%s\n", c.to_string());
 				if (count == entry){
-					Room tmp = new Room.WithPlayer(width, height, player, DM, renderer);
+					Room tmp = new Room.WithPlayer(width, height, DM, renderer);
 					rooms.append(tmp);
 				}else{
 					Room tmp = new Room(width, height, DM, renderer);
@@ -21,23 +22,23 @@ namespace LAIR{
 		private bool HasPlayer(){
 			bool tmp = false;
 			foreach(Room room in rooms){
-				tmp = room.HasPlayer();
+				tmp = tmp ? tmp : room.HasPlayer();
 			}
 			return tmp;
 		}
                 public int TakeTurns(){
                         int tmp = 1;
-                        stdout.printf("  Entities on the floor are taking turns\n");
                         foreach(Room room in rooms){
-                                tmp = room.TakeTurns();
+                                stdout.printf("   Entities on the floor are taking turns\n");
+                                tmp = (tmp != 1) ? tmp : room.TakeTurns();
                         }
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer* renderer){
-			foreach(Room room in rooms){
-                                        stdout.printf("  Rendering Room. \n");
-					room.RenderCopy(renderer);
-			}
+                        stdout.printf("   Rendering Room.\n");
+                        foreach(Room room in rooms){
+                                room.RenderCopy(renderer);
+                        }
 		}
 	}
 }

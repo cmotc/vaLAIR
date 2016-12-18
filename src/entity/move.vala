@@ -26,7 +26,7 @@ namespace LAIR{
 		}
 		public int PInput(){
                         int t = 1;
-			for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
+			for (e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
                                 stdout.printf("     Checking Event for Player Input\n");
 				if (e.type == EventType.KEYDOWN) {
                                         switch(e.key.keysym.sym){
@@ -67,6 +67,8 @@ namespace LAIR{
                                                                 break;
                                                 }
                                         }
+                                }else{
+                                        break;
                                 }
 			}
                         return t;

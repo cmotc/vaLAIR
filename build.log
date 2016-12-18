@@ -1,9 +1,47 @@
-Loaded package `/usr/share/vala-0.34/vapi/glib-2.0.vapi'
-Loaded package `/usr/share/vala-0.34/vapi/gobject-2.0.vapi'
-Loaded package `/usr/share/vala-0.34/vapi/gio-2.0.vapi'
-Loaded package `/usr/share/vala-0.34/vapi/sdl2.vapi'
-Loaded package `/usr/share/vala-0.34/vapi/sdl2-gfx.vapi'
-Loaded package `/usr/share/vala-0.34/vapi/sdl2-image.vapi'
-Loaded package `/usr/share/vala-0.34/vapi/sdl2-ttf.vapi'
-Loaded package `/usr/share/vala-0.34/vapi/sdl2-mixer.vapi'
-cc -g -o '/home/idk/Projects/valair/bin/LAIR' '/home/idk/Projects/valair/src/main.vala.c' '/home/idk/Projects/valair/src/resmanage/files.vala.c' '/home/idk/Projects/valair/src/resmanage/images.vala.c' '/home/idk/Projects/valair/src/resmanage/filedb.vala.c' '/home/idk/Projects/valair/src/resmanage/fonts.vala.c' '/home/idk/Projects/valair/src/resmanage/sounds.vala.c' '/home/idk/Projects/valair/src/game/room.vala.c' '/home/idk/Projects/valair/src/game/floor.vala.c' '/home/idk/Projects/valair/src/game/tower.vala.c' '/home/idk/Projects/valair/src/game/game.vala.c' '/home/idk/Projects/valair/src/entity/type.vala.c' '/home/idk/Projects/valair/src/entity/sprite.vala.c' '/home/idk/Projects/valair/src/entity/anim.vala.c' '/home/idk/Projects/valair/src/entity/text.vala.c' '/home/idk/Projects/valair/src/entity/sound.vala.c' '/home/idk/Projects/valair/src/entity/net.vala.c' '/home/idk/Projects/valair/src/entity/stats.vala.c' '/home/idk/Projects/valair/src/entity/inventory.vala.c' '/home/idk/Projects/valair/src/entity/move.vala.c' '/home/idk/Projects/valair/src/entity/entity.vala.c' -pthread -D_REENTRANT -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/SDL2 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lSDL2 '-pie' '-lSDL2' '-lSDL2_gfx' '-lSDL2_image' '-lSDL2_ttf' '-lSDL2_mixer'
+sdl2.vapi:1277.3-1277.38: warning: the modifier `static' is not applicable to constants
+		public static const uint8 TEXT_SIZE;
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:1290.3-1290.38: warning: the modifier `static' is not applicable to constants
+		public static const uint8 TEXT_SIZE;
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2470.4-2470.43: warning: the modifier `static' is not applicable to constants
+			public static const uint8 POS_UNDEFINED;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2473.4-2473.42: warning: the modifier `static' is not applicable to constants
+			public static const uint8 POS_CENTERED;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2476.4-2476.53: warning: the modifier `static' is not applicable to constants
+			private static const int8 SDL_NONSHAPEABLE_WINDOW;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2478.4-2478.56: warning: the modifier `static' is not applicable to constants
+			private static const int8 SDL_INVALID_SHAPE_ARGUMENT;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2480.4-2480.52: warning: the modifier `static' is not applicable to constants
+			private static const int8 SDL_WINDOW_LACKS_SHAPE;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2-mixer.vapi:224.2-224.54: warning: the modifier `static' is not applicable to constants
+	public static const SDLMixer.Channel DEFAULT_CHANNEL;
+	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/main.vala:48.16-48.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:51.16-51.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:60.8-60.91: warning: local variable `app' declared but never used
+			var app = new Lair(ImageFilePath, SoundFilePath, FontsFilePath, MapSize, PixelW, PixelH);
+			    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:83.3-83.26: warning: method `LAIR.Room.LeaveRoom' never used
+		public Entity* LeaveRoom(){
+		^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/game.vala:11.3-11.35: warning: field `LAIR.Game.LairSurface' never used
+		private Video.Surface LairSurface;
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/entity/move.vala:6.3-6.17: warning: field `LAIR.Move.e' never used
+		private Event e;
+		^^^^^^^^^^^^^^^
+/home/idk/Projects/valair/src/main.vala: In function ‘lair_lair_main’:
+/home/idk/Projects/valair/src/main.vala:28:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+    foreach(string arg in args){
+                  ^
+/home/idk/Projects/valair/src/main.vala: In function ‘main’:
+/home/idk/Projects/valair/src/main.vala:20:18: warning: passing argument 1 of ‘lair_lair_main’ from incompatible pointer type [-Wincompatible-pointer-types]
+   public static void main(string args[]){
+                  ^~~~
+main.vala.c:168:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’

@@ -2,7 +2,13 @@ namespace LAIR{
 	public class Type : Object{
 		private bool player = false;
                 private int b = 0;
-                List<string> tags = new List<string>();
+                private List<string> tags = new List<string>();
+                public Type(){
+                        player = false;
+                        b = 0;
+                        tags = new List<string>();
+                        SetType("default");
+                }
                 public Type.Blocked(){
                         SetType("blocked");
 		}
@@ -41,12 +47,16 @@ namespace LAIR{
                                         t = false;
                                 }
                         }
-                        if (t) {
+                        if (t){
                                 tags.append(NewType);
+                                stdout.printf("   Added tag: %s \n", NewType);
                                 b = 0;
                         }
                         if ( NewType == "blocked" ){
                                 b = 1;
+                        }
+                        if ( NewType == "player" ){
+                                player = true;
                         }
                         return t;
 		}
