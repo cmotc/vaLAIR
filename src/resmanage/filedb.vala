@@ -171,7 +171,26 @@ namespace LAIR{
                         int index = Sorcerer.int_range(0, top);
                         stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			return imgRes.nth_data(tmp.nth_data(index)).GetImage();
-		}/*
+		}
+                public List<Video.Surface*> ImageListByName(string name, int num){
+                        int c = 0;
+                        List<int> tmp = new List<int>();
+                        List<Video.Surface*> r = new List<Video.Surface*>();
+			foreach (Image file in imgRes){
+				if (file.HasName(name)){
+					tmp.append(c);
+				}
+                                c++;
+			}
+                        int top = (int) tmp.length();
+                        for (int i = 0; i < num; i++){
+                                int index = Sorcerer.int_range(0, top);
+                                stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                                r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
+                        }
+			return r;
+		}
+                /*
 		public Video.Surface* ImageByTag(string query){
                         int c = 0;
                         List<int> tmp = new List<int>();
