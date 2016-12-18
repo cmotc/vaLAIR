@@ -9,75 +9,75 @@ namespace LAIR{
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                         stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s\n", rect.h.to_string());
+                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
                         stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s\n", position.h.to_string());
+                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
                         stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s\n", source.h.to_string());
+                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.Blocked(Video.Rect rect){
                         base.Blocked();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                         stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s\n", rect.h.to_string());
+                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
                         stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s\n", position.h.to_string());
+                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
                         stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s\n", source.h.to_string());
+                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.Parameter(Video.Rect rect, string tag){
                         base.Parameter(tag);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                         stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s\n", rect.h.to_string());
+                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
                         stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s\n", position.h.to_string());
+                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
                         stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s\n", source.h.to_string());
+                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.ParameterList(Video.Rect rect, List<string> tags){
                         base.ParameterList(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                         stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s\n", rect.h.to_string());
+                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
                         stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s\n", position.h.to_string());
+                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
                         stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s\n", source.h.to_string());
+                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.ParameterBlocked(Video.Rect rect, string tag){
                         base.ParameterBlocked(tag);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                         stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s\n", rect.h.to_string());
+                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
                         stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s\n", position.h.to_string());
+                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
                         stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s\n", source.h.to_string());
+                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.ParameterListBlocked(Video.Rect rect, List<string> tags){
                         base.ParameterListBlocked(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                         stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s\n", rect.h.to_string());
+                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
                         stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s\n", position.h.to_string());
+                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
                         stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s\n", source.h.to_string());
+                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
 		public Video.Rect GetPosition(){
-                        stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s ", position.h.to_string());
+                        //stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
+                        //stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s ", position.h.to_string());
 			return position;
 		}
 		public Video.Rect GetSource(){
-                        stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s ", source.h.to_string());
+                        //stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
+                        //stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s ", source.h.to_string());
                         return source;
 		}
 		public int GetWidth(){

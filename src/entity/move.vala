@@ -3,7 +3,7 @@ using SDLMixer;
 using SDLTTF;
 namespace LAIR{
 	class Move : Inventory{
-		private Event e;
+		//private Event e;
                 public Move(Video.Point corner, Video.Surface* surface, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, surface, music, font, renderer);
                 }
@@ -26,7 +26,7 @@ namespace LAIR{
 		}
 		public int PInput(){
                         int t = 1;
-			for (e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
+			for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
                                 stdout.printf("     Checking Event for Player Input\n");
 				if (e.type == EventType.KEYDOWN) {
                                         switch(e.key.keysym.sym){
@@ -67,8 +67,6 @@ namespace LAIR{
                                                                 break;
                                                 }
                                         }
-                                }else{
-                                        break;
                                 }
 			}
                         return t;

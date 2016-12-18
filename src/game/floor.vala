@@ -9,8 +9,8 @@ namespace LAIR{
 		}
 		public Floor.WithPlayer(int width, int height, int count, int entry, FileDB* DM, Video.Renderer? renderer){
 			for (int c = 0; c <= count; c++){
-                                stdout.printf("   Generating room:%s\n", c.to_string());
-				if (count == entry){
+                                stdout.printf("   Generating floor:%s\n", c.to_string());
+				if (c == entry){
 					Room tmp = new Room.WithPlayer(width, height, DM, renderer);
 					rooms.append(tmp);
 				}else{
@@ -36,8 +36,10 @@ namespace LAIR{
                 }
 		public void RenderCopy(Video.Renderer* renderer){
                         stdout.printf("   Rendering Room.\n");
-                        foreach(Room room in rooms){
-                                room.RenderCopy(renderer);
+                        if (HasPlayer()){
+                                foreach(Room room in rooms){
+                                        room.RenderCopy(renderer);
+                                }
                         }
 		}
 	}

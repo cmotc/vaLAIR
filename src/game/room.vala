@@ -3,7 +3,7 @@ namespace LAIR{
 	class Room : Object{
 		private bool visited = true;
 		private List<Entity> Particles = new List<Entity>();
-		private Entity Player = null;
+		private Entity* Player = null;
 		private List<Entity> Mobs = new List<Entity>();
                 private GLib.Rand DungeonMaster = new GLib.Rand ();
 		public Room(int width, int height, FileDB* DM, Video.Renderer? renderer){
@@ -49,9 +49,13 @@ namespace LAIR{
 		}
                 public int TakeTurns(){
                         int tmp = 1;
-                        if (Player != null){
-                                stdout.printf("    Entities in the room are taking turns\n");
-                                tmp = (tmp != 1) ? tmp : Player.run();
+                        stdout.printf("    Entities in the room are taking turns\n");
+                        if (HasPlayer()){
+                                tmp = (tmp != 1) ? tmp : Player->run();
+                        }else{
+                                foreach(Entity mob in Mobs){
+					mob.run();
+				}
                         }
                         return tmp;
                 }
@@ -64,7 +68,7 @@ namespace LAIR{
 			}
 			if (HasPlayer()){
                                 stdout.printf("    Rendering Player. \n");
-				Player.RenderCopy(renderer);
+				Player->RenderCopy(renderer);
 				if (visited = false){
 					visited = true;
 				}
@@ -75,6 +79,7 @@ namespace LAIR{
 		}
 		public bool EnterRoom(Entity player){
 			if (player != null){
+                                stdout.printf("    Player Entering Room. \n");
 				Player = player;
                                 if (Player != null){
                                         visited = true;
