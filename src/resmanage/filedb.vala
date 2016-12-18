@@ -37,43 +37,6 @@ namespace LAIR{
 			}
 			LoadFilesWithTags();
 		}
-		/*public bool LoadFiles(){
-			bool tmp = false;
-			if (imgListPath.CheckPath()){
-				List<string> imgStrings = imgListPath.LoadLineDelimitedConfig();
-				stdout.printf("Loading the image files\n");
-				foreach(string image in imgStrings){
-					stdout.printf("(%s).\n", image);
-					imgRes.append(new Image(image));
-				}
-				tmp = true;
-			}else{
-				tmp = false;
-			}
-			if (sndListPath.CheckPath()){
-				stdout.printf("Loading the sound files\n");
-				List<string> sndStrings = sndListPath.LoadLineDelimitedConfig();
-				foreach(string sound in sndStrings){
-					stdout.printf("(%s).\n", sound);
-					sndRes.append(new Sound(sound));
-				}
-				tmp = true;
-			}else{
-				tmp = false;
-			}
-			if (ttfListPath.CheckPath()){
-				stdout.printf("Loading the font files\n");
-				List<string> ttfStrings = ttfListPath.LoadLineDelimitedConfig();
-				foreach(string font in ttfStrings){
-					stdout.printf("(%s).\n", font);
-					ttfRes.append(new Fonts(font,"medium"));
-				}
-				tmp = true;
-			}else{
-				tmp = false;
-			}
-			return tmp;
-		}*/
                 public bool LoadFilesWithTags(){
 			bool tmp = false;
 			if (imgListPath.CheckPath()){
@@ -222,10 +185,14 @@ namespace LAIR{
                         int index = Sorcerer.int_range(0, top);
 			return imgRes.nth_data(tmp.nth_data(index)).GetImage();
 		}
+                public List<Video.Surface*> BodyByTag(string query){
+                }
+                public List<Video.Surface*> BodyByTagList(List<string> query){
+                }
                 public Music* SoundByName(string name){
 			List<Music*> tmp = new List<Music*>();
 			foreach (Sound file in sndRes){
-				if (file.GetPath() == name){
+				if (file.HasName(name)){
 					tmp.append(file.GetSound());
 				}
 			}
