@@ -22,7 +22,26 @@ sdl2.vapi:2480.4-2480.52: warning: the modifier `static' is not applicable to co
 sdl2-mixer.vapi:224.2-224.54: warning: the modifier `static' is not applicable to constants
 	public static const SDLMixer.Channel DEFAULT_CHANNEL;
 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/resmanage/filedb.vala:212.65-212.70: error: syntax error, expected identifier
-                        List<string> Names = new List<string>(){"head","body", "leftarms", "leftleg", "rightarms", "rightleg"};
-                                                                ^^^^^^
-make: *** [unix] Error 1
+src/main.vala:48.16-48.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:51.16-51.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:60.8-60.91: warning: local variable `app' declared but never used
+			var app = new Lair(ImageFilePath, SoundFilePath, FontsFilePath, MapSize, PixelW, PixelH);
+			    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:177.17-177.59: warning: method `LAIR.FileDB.ImageListByName' never used
+                public List<Video.Surface*> ImageListByName(string name, int num){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:209.17-209.53: warning: method `LAIR.FileDB.BodyByTag' never used
+                public List<Video.Surface*> BodyByTag(string tone){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:90.3-90.25: warning: method `LAIR.Room.LeaveRoom' never used
+		public Entity LeaveRoom(){
+		^^^^^^^^^^^^^^^^^^^^^^^
+/home/idk/Projects/valair/src/main.vala: In function ‘lair_lair_main’:
+/home/idk/Projects/valair/src/main.vala:28:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+    foreach(string arg in args){
+                  ^
+/home/idk/Projects/valair/src/main.vala: In function ‘main’:
+/home/idk/Projects/valair/src/main.vala:20:18: warning: passing argument 1 of ‘lair_lair_main’ from incompatible pointer type [-Wincompatible-pointer-types]
+   public static void main(string args[]){
+                  ^~~~
+main.vala.c:168:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’

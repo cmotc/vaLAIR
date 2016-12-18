@@ -158,9 +158,10 @@ namespace LAIR{
                 public SDLTTF.Font* GetRandFontByRange(int bottom, int top){
                         return ttfRes.nth_data(GetRandomFontIndexByRange(bottom, top)).GetFont();
                 }*/
-                public Video.Surface* ImageByName(string name){
+                public List<Video.Surface*> ImageByName(string name){
                         int c = 0;
                         List<int> tmp = new List<int>();
+                        List<Video.Surface*> r = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
 				if (file.HasName(name)){
 					tmp.append(c);
@@ -170,7 +171,8 @@ namespace LAIR{
                         int top = (int) tmp.length();
                         int index = Sorcerer.int_range(0, top);
                         stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
-			return imgRes.nth_data(tmp.nth_data(index)).GetImage();
+			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
+                        return r;
 		}
                 public List<Video.Surface*> ImageListByName(string name, int num){
                         int c = 0;
