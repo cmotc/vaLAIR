@@ -51,6 +51,17 @@ namespace LAIR{
                         }
                         return tmp;
                 }
+                public bool DetectCollisions(){
+                        bool t = false;
+                        foreach(var particle in Particles){
+                                t = particle.DetectCollision(Player) ? particle.DetectCollision(Player) : t ;
+                                foreach(var mob in Mobs){
+                                        particle.DetectCollision(mob);
+                                        t = Player.DetectCollision(mob) ? Player.DetectCollision(mob) : t;
+                                }
+                        }
+                        return t;
+                }
 		public void RenderCopy(Video.Renderer renderer){
                         stdout.printf("   Rendering Room.\n");
 			if (visited){

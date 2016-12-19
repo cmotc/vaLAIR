@@ -45,6 +45,13 @@ namespace LAIR{
                         }
                         return tmp;
                 }
+                public bool DetectCollisions(){
+                        bool tmp = false;
+                        foreach(Floor floor in floors){
+                                tmp = floor.DetectCollisions() ? floor.DetectCollisions() : tmp;
+                        }
+                        return tmp;
+                }
 		public void RenderCopy(Video.Renderer renderer){
                         stdout.printf(" Rendering Tower.\n");
 			foreach(Floor floor in floors){

@@ -24,29 +24,29 @@ namespace LAIR{
                 public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base.Parameter(corner, Surfaces, music, font, renderer, "player");
                 }
+                private void DoActions(Entity t){
+                }
                 public bool DetectCollision(Entity t){
-                        bool r = false;
-                        int[2] bottomRightA = { (int) GetX()+GetWidth(), (int) GetY()+GetHeight() };
-                        int[2] bottomRightB = { (int) t.GetX()+t.GetWidth(), (int) t.GetY()+t.GetHeight() };
-                        int x = 0; int y = 1;
-                        bool boxOnly = ((bottomRightB[x] < GetX()) || (bottomRightA[x] < t.GetX())) ? false: true;
-                        boxOnly = ((bottomRightB[y] < GetY()) || (bottomRightA[y] < t.GetY())) ? boxOnly: true;
-                        if (boxOnly){
-                                int[2] xse = {
-                                (GetX() > t.GetX()) ? GetX() : t.GetX() ,
-                                (bottomRightA[x] > bottomRightB[x]) ? bottomRightA[x] : bottomRightB[x]
-                                };
-                                int[2] yse = {
-                                (GetY() > t.GetY()) ? GetY() : t.GetY() ,
-                                (bottomRightA[y] > bottomRightB[y]) ? bottomRightA[y] : bottomRightB[y]
-                                };
-                                for ( int Y = yse[0]; Y < yse[1]; y++){
-                                        for ( int X = xse[0]; X < xse[1]; x++){
+                        bool test = false;
+                        assert(t != null);
+                        if(GetBlock()){
+                                if(t.GetBlock()){
+                                        bool leftsidebounceright = (t.GetHitBox().x + t.GetHitBox().w < GetHitBox().x)      ? true : false;
+                                        bool rightsidebounceleft = (t.GetHitBox().x > GetHitBox().x + GetHitBox().w)        ? true : false;
+                                        bool upsidebouncedown = (t.GetHitBox().y + t.GetHitBox().h < GetHitBox().y)      ? true : false;
+                                        bool downsidebounceup = (t.GetHitBox().y > GetHitBox().y + GetHitBox().h)        ? true : false;
+                                        test = leftsidebounceright ? true : false;
+                                        test = rightsidebounceleft ? true : test;
+                                        test = upsidebouncedown ? true : test;
+                                        test = downsidebounceup ? true : test;
+                                        if(test){
+                                                Bounce(leftsidebounceright, rightsidebounceleft,
+                                                        upsidebouncedown, downsidebounceup);
+                                                DoActions(t);
                                         }
                                 }
-
                         }
-                        return r;
+                        return test;
                 }
 	}
 }

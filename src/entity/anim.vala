@@ -4,6 +4,7 @@ namespace LAIR{
 	public class Anim : Type{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
+                private Video.Rect offsetHitBox = Video.Rect(){ x=6, y=6, w=20, h=16 };
                 public Anim(Video.Rect rect){
                         base();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
@@ -100,6 +101,23 @@ namespace LAIR{
 		public int GetY(){
 			return (int) position.y;
 		}
+                public Video.Rect GetHitBox(){
+                        Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
+                        if(GetBlock()){
+                                if(IsPlayer()){
+                                        r = Video.Rect(){ x = GetX() + offsetHitBox.x,
+                                                y = GetY() + offsetHitBox.y,
+                                                w = GetX() + offsetHitBox.w,
+                                                h = GetY() + offsetHitBox.h };
+                                }else{
+                                        r = Video.Rect(){ x = GetX() + 1,
+                                                y = GetY() + 1,
+                                                w = GetX() + (GetWidth() - 1),
+                                                h = GetY() + (GetHeight() - 1) };
+                                }
+                        }
+                        return r;
+                }
                 public Video.Point GetCenter(){
                         Video.Point coords = Video.Point(){x=GetX()+GetHalfWidth(),y=GetY()+GetHalfHeight()};
                         return coords;

@@ -21,6 +21,45 @@ namespace LAIR{
                 public Move.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, Music* music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.ParameterListBlocked(corner, Surfaces, music, font, renderer, tags);
                 }
+                protected int Quit(){
+                        return 0;
+                }
+                protected int StepDown(){
+                        SetY(GetY() + Speed());
+                        return 2;
+                }
+                protected int StepUp(){
+                        SetY(GetY() - Speed());
+                        return 3;
+                }
+                protected int StepRight(){
+                        SetX(GetX() + Speed());
+                        return 4;
+                }
+                protected int StepLeft(){
+                        SetX(GetX() - Speed());
+                        return 5;
+                }
+                protected bool Bounce(bool lr, bool rl, bool du, bool ud){
+                        bool r = false;
+                        if(lr){
+                                StepRight();
+                                r = true;
+                        }
+                        if(rl){
+                                StepLeft();
+                                r = true;
+                        }
+                        if(du){
+                                StepUp();
+                                r = true;
+                        }
+                        if(ud){
+                                StepDown();
+                                r = true;
+                        }
+                        return r;
+                }
 		private void AInput(){
 		}
 		public int PInput(){
@@ -33,23 +72,19 @@ namespace LAIR{
 				if (e.type == EventType.KEYDOWN) {
                                         switch(e.key.keysym.sym){
                                                 case Input.Keycode.ESCAPE:
-                                                        t = 0;
+                                                        t = Quit();
                                                         break;
                                                 case Input.Keycode.DOWN:
-                                                        t = 2;
-                                                        SetY(GetY() + Speed());
+                                                        t = StepDown();
                                                         break;
                                                 case Input.Keycode.UP:
-                                                        t = 3;
-                                                        SetY(GetY() - Speed());
+                                                        t = StepUp();
                                                         break;
                                                 case Input.Keycode.RIGHT:
-                                                        t = 4;
-                                                        SetX(GetX() + Speed());
+                                                        t = StepRight();
                                                         break;
                                                 case Input.Keycode.LEFT:
-                                                        t = 5;
-                                                        SetX(GetX() - Speed());
+                                                        t = StepLeft();
                                                         break;
                                         }
                                 }else if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){

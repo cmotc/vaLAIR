@@ -31,6 +31,7 @@ namespace LAIR{
 		}
 		private int UpdateScreen(){
 			int r = GameEnvironment.TakeTurns();
+                        bool c = GameEnvironment.DetectCollisions();
 			GameEnvironment.RenderCopy(WindowRenderer);
 			WindowRenderer.present();
 			return r;
