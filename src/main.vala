@@ -8,7 +8,12 @@ namespace LAIR{
 	public class Lair {
 		private Game GameMap;
 		public Lair(string imageListPath, string soundListPath, string fontsListPath, string mapSize, int screenW, int screenH){
-                        SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
+                        if (SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL) > 0){
+                                //log some shit here.
+                        }
+                        if (SDLImage.init(SDLImage.InitFlags.PNG) < 0) {
+                                //log some more shit.
+                        }
 			SDLTTF.init();
 
 			GameMap = new Game(imageListPath, soundListPath, fontsListPath, mapSize, screenW, screenH);

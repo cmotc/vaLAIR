@@ -1,0 +1,174 @@
+==2555== Memcheck, a memory error detector
+==2555== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==2555== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==2555== Command: ./bin/LAIR
+==2555== 
+==2555== Conditional jump or move depends on uninitialised value(s)
+==2555==    at 0x4C31EA6: rawmemchr (vg_replace_strmem.c:1402)
+==2555==    by 0x711E3A1: _IO_str_init_static_internal (strops.c:41)
+==2555==    by 0x7111B66: vsscanf (iovsscanf.c:40)
+==2555==    by 0x710C2D6: sscanf (sscanf.c:32)
+==2555==    by 0x131ADE4A: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==2555==    by 0x131AE182: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==2555==    by 0x131B1BF8: drmGetDevice (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==2555==    by 0x11CF7266: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==2555==    by 0x11CF6624: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==2555==    by 0x11CCA978: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==2555==    by 0x11CC6B9A: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==2555==    by 0x11CC6FD1: glXQueryExtensionsString (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==2555== 
+==2555== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==2555==    at 0x7188D7D: ??? (syscall-template.S:84)
+==2555==    by 0xD11D41C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==2555==    by 0xD11D81C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==2555==    by 0xD11D89C: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==2555==    by 0x8F1EA7D: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==2555==    by 0x8F1EF71: _XReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==2555==    by 0x8F09E2E: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==2555==    by 0x57F943A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x57FA334: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x57EA293: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x57EA01E: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x57503F6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==  Address 0x10f4adc3 is 35 bytes inside a block of size 16,384 alloc'd
+==2555==    at 0x4C2CBC5: calloc (vg_replace_malloc.c:711)
+==2555==    by 0x8F0EEC5: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==2555==    by 0x57F850F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x57E9FCB: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x57503F6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x10AAD3: lair_lair_construct (main.vala:11)
+==2555==    by 0x10ABE4: lair_lair_new (main.vala:10)
+==2555==    by 0x10B68C: lair_lair_main (main.vala:60)
+==2555==    by 0x10B753: main (main.vala:20)
+==2555== 
+==2555== Invalid read of size 8
+==2555==    at 0x11A9CC: lair_sprite_RenderCopy (sprite.vala:57)
+==2555==    by 0x115B82: lair_room_RenderCopy (room.vala:76)
+==2555==    by 0x116F49: lair_floor_RenderCopy (floor.vala:51)
+==2555==    by 0x11794C: lair_tower_RenderCopy (tower.vala:51)
+==2555==    by 0x117FEC: lair_game_UpdateScreen (game.vala:26)
+==2555==    by 0x1180C8: lair_game_run (game.vala:34)
+==2555==    by 0x10AB89: lair_lair_construct (main.vala:15)
+==2555==    by 0x10ABE4: lair_lair_new (main.vala:10)
+==2555==    by 0x10B68C: lair_lair_main (main.vala:60)
+==2555==    by 0x10B753: main (main.vala:20)
+==2555==  Address 0x10fe9278 is 136 bytes inside a block of size 208 free'd
+==2555==    at 0x4C2BDDB: free (vg_replace_malloc.c:530)
+==2555==    by 0x51FF651: g_type_free_instance (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x114685: lair_room_construct_WithPlayer (room.vala:34)
+==2555==    by 0x11575F: lair_room_new_WithPlayer (room.vala:32)
+==2555==    by 0x116941: lair_floor_construct_WithPlayer (floor.vala:23)
+==2555==    by 0x116B2F: lair_floor_new_WithPlayer (floor.vala:15)
+==2555==    by 0x11755E: lair_tower_construct (tower.vala:34)
+==2555==    by 0x1176A5: lair_tower_new (tower.vala:5)
+==2555==    by 0x117E78: lair_game_construct (game.vala:22)
+==2555==    by 0x117F1C: lair_game_new (game.vala:15)
+==2555==    by 0x10AB29: lair_lair_construct (main.vala:14)
+==2555==    by 0x10ABE4: lair_lair_new (main.vala:10)
+==2555==  Block was alloc'd at
+==2555==    at 0x4C2ABAF: malloc (vg_replace_malloc.c:299)
+==2555==    by 0x546EE08: g_malloc (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x5487342: g_slice_alloc (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x548796D: g_slice_alloc0 (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x51FF388: g_type_create_instance (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x51E11FA: ??? (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x51E2C0C: g_object_newv (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x51E33C3: g_object_new (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x118C50: lair_type_construct_Parameter (type.vala:15)
+==2555==    by 0x11CC67: lair_anim_construct_Parameter (anim.vala:30)
+==2555==    by 0x119FB3: lair_sprite_construct_Parameter (sprite.vala:27)
+==2555==    by 0x120ABF: lair_text_construct_Parameter (text.vala:18)
+==2555== 
+==2555== Invalid read of size 8
+==2555==    at 0x11A9D0: lair_sprite_RenderCopy (sprite.vala:57)
+==2555==    by 0x115B82: lair_room_RenderCopy (room.vala:76)
+==2555==    by 0x116F49: lair_floor_RenderCopy (floor.vala:51)
+==2555==    by 0x11794C: lair_tower_RenderCopy (tower.vala:51)
+==2555==    by 0x117FEC: lair_game_UpdateScreen (game.vala:26)
+==2555==    by 0x1180C8: lair_game_run (game.vala:34)
+==2555==    by 0x10AB89: lair_lair_construct (main.vala:15)
+==2555==    by 0x10ABE4: lair_lair_new (main.vala:10)
+==2555==    by 0x10B68C: lair_lair_main (main.vala:60)
+==2555==    by 0x10B753: main (main.vala:20)
+==2555==  Address 0x10fe9210 is 32 bytes inside a block of size 208 free'd
+==2555==    at 0x4C2BDDB: free (vg_replace_malloc.c:530)
+==2555==    by 0x51FF651: g_type_free_instance (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x114685: lair_room_construct_WithPlayer (room.vala:34)
+==2555==    by 0x11575F: lair_room_new_WithPlayer (room.vala:32)
+==2555==    by 0x116941: lair_floor_construct_WithPlayer (floor.vala:23)
+==2555==    by 0x116B2F: lair_floor_new_WithPlayer (floor.vala:15)
+==2555==    by 0x11755E: lair_tower_construct (tower.vala:34)
+==2555==    by 0x1176A5: lair_tower_new (tower.vala:5)
+==2555==    by 0x117E78: lair_game_construct (game.vala:22)
+==2555==    by 0x117F1C: lair_game_new (game.vala:15)
+==2555==    by 0x10AB29: lair_lair_construct (main.vala:14)
+==2555==    by 0x10ABE4: lair_lair_new (main.vala:10)
+==2555==  Block was alloc'd at
+==2555==    at 0x4C2ABAF: malloc (vg_replace_malloc.c:299)
+==2555==    by 0x546EE08: g_malloc (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x5487342: g_slice_alloc (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x548796D: g_slice_alloc0 (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x51FF388: g_type_create_instance (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x51E11FA: ??? (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x51E2C0C: g_object_newv (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x51E33C3: g_object_new (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x118C50: lair_type_construct_Parameter (type.vala:15)
+==2555==    by 0x11CC67: lair_anim_construct_Parameter (anim.vala:30)
+==2555==    by 0x119FB3: lair_sprite_construct_Parameter (sprite.vala:27)
+==2555==    by 0x120ABF: lair_text_construct_Parameter (text.vala:18)
+==2555== 
+==2555== Invalid read of size 8
+==2555==    at 0x578F23C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x119838: _SDL_DestroyTexture0_ (sprite.vala:7)
+==2555==    by 0x5465AAC: g_list_foreach (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x119867: _g_list_free__SDL_DestroyTexture0_ (sprite.vala:7)
+==2555==    by 0x11AC30: lair_sprite_finalize (sprite.vala:7)
+==2555==    by 0x1224A4: lair_stats_finalize (stats.vala:5)
+==2555==    by 0x51E0C79: g_object_unref (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==    by 0x11322A: _g_object_unref0_ (room.vala:5)
+==2555==    by 0x5465AAC: g_list_foreach (in /lib/x86_64-linux-gnu/libglib-2.0.so.0.5000.2)
+==2555==    by 0x113259: _g_list_free__g_object_unref0_ (room.vala:5)
+==2555==    by 0x11606E: lair_room_finalize (room.vala:5)
+==2555==    by 0x51E0C79: g_object_unref (in /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.5000.2)
+==2555==  Address 0x10fed6e0 is 0 bytes inside a block of size 120 free'd
+==2555==    at 0x4C2BDDB: free (vg_replace_malloc.c:530)
+==2555==    by 0x578FA94: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x118905: lair_game_finalize (game.vala:10)
+==2555==    by 0x118A68: lair_game_unref (game.vala:8)
+==2555==    by 0x10BED2: lair_lair_finalize (main.vala:9)
+==2555==    by 0x10BFCA: lair_lair_unref (main.vala:8)
+==2555==    by 0x10B6BA: lair_lair_main (main.vala:20)
+==2555==    by 0x10B753: main (main.vala:20)
+==2555==  Block was alloc'd at
+==2555==    at 0x4C2CBC5: calloc (vg_replace_malloc.c:711)
+==2555==    by 0x578F389: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x578F82A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==2555==    by 0x119A46: lair_sprite_construct (sprite.vala:12)
+==2555==    by 0x120918: lair_text_construct (text.vala:10)
+==2555==    by 0x120EF6: lair_voice_construct (sound.vala:8)
+==2555==    by 0x1215BA: lair_net_construct (net.vala:9)
+==2555==    by 0x121D01: lair_stats_construct (stats.vala:21)
+==2555==    by 0x1225B9: lair_inventory_construct (inventory.vala:8)
+==2555==    by 0x122D00: lair_move_construct (move.vala:9)
+==2555==    by 0x123CBC: lair_entity_construct (entity.vala:8)
+==2555==    by 0x123D0F: lair_entity_new (entity.vala:7)
+==2555== 
+==2555== 
+==2555== HEAP SUMMARY:
+==2555==     in use at exit: 25,989,888 bytes in 13,830 blocks
+==2555==   total heap usage: 213,099 allocs, 199,269 frees, 83,150,062 bytes allocated
+==2555== 
+==2555== LEAK SUMMARY:
+==2555==    definitely lost: 19,993 bytes in 38 blocks
+==2555==    indirectly lost: 3,011 bytes in 76 blocks
+==2555==      possibly lost: 24,989,111 bytes in 11,017 blocks
+==2555==    still reachable: 975,893 bytes in 2,687 blocks
+==2555==                       of which reachable via heuristic:
+==2555==                         length64           : 880 bytes in 19 blocks
+==2555==                         newarray           : 1,680 bytes in 25 blocks
+==2555==         suppressed: 0 bytes in 0 blocks
+==2555== Rerun with --leak-check=full to see details of leaked memory
+==2555== 
+==2555== For counts of detected and suppressed errors, rerun with: -v
+==2555== Use --track-origins=yes to see where uninitialised values come from
+==2555== ERROR SUMMARY: 1090 errors from 5 contexts (suppressed: 0 from 0)

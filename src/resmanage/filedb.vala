@@ -206,33 +206,31 @@ namespace LAIR{
                         int index = Sorcerer.int_range(0, top);
 			return imgRes.nth_data(tmp.nth_data(index)).GetImage();
 		}*/
-                public List<Video.Surface*> BodyByTag(string tone){
-                        int c = 0;
-                        List<int> tmp = new List<int>();
-                        List<List<int>> tmp2 = new List<List<int>>();
+                public List<Video.Surface*> BodyByTone(string tone){
+                        //int c = 0;
+                        List<List<int>> tmp = new List<List<int>>();
                         List<Video.Surface*> r = new List<Video.Surface*>();
                         List<string> Names = new List<string>();
-                        Names.append("head");
-                        Names.append("body");
-                        Names.append("leftarms");
-                        Names.append("leftleg");
-                        Names.append("rightarms");
-                        Names.append("rightleg");
+                        Names.append("head"); Names.append("body"); Names.append("leftarms"); Names.append("leftleg"); Names.append("rightarms"); Names.append("rightleg");
+                        stdout.printf("Generating a body of %s ", tone);
                         foreach(string name in Names){
+                                int c = 0;
+                                List<int> t = new List<int>();
                                 foreach (Image file in imgRes){
                                         string fullname = tone + name;
                                         if (file.HasName(fullname)){
-                                                tmp.append(c);
+                                                stdout.printf("found component %s ", fullname);
+                                                t.append(c);
                                         }
                                         c++;
                                 }
-                                tmp2.append(tmp.copy());
+                                tmp.append(t.copy());
                         }
-                        foreach(var tm in tmp2.copy()){
+                        foreach(var tm in tmp.copy()){
                                 int top = (int) tm.length();
                                 int index = Sorcerer.int_range(0, top);
-                                stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
-                                r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
+                                stdout.printf(" \n Emitting body component index #: %s \n", tm.nth_data(index).to_string() );
+                                r.append(imgRes.nth_data(tm.nth_data(index)).GetImage());
                         }
 			return r;
                 }/*
