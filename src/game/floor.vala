@@ -7,7 +7,6 @@ namespace LAIR{
                                 for (int y = 1; y <= count; y++){
                                         int [2] xyo = {(x*width)-width, (y*height)-height};
                                         stdout.printf("<< generating room\n");
-                                        //Room tmp = new Room(width, height, DM, renderer, xyo);
                                         rooms.append(new Room(width, height, DM, renderer, xyo));
                                 }
 			}
