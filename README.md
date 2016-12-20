@@ -53,40 +53,40 @@ entity takes depending on feedback from it's environment. That's mostly the
 unfinished part, that and networking, and I need to create some new/better
 template art, then it's going to be done. Yay.
 
-History(Feels a little self-aggrandizing)
------------------------------------------
+God, I'm really trying to get a handle on planning all this stuff.
+------------------------------------------------------------------
 
-It seems like there's a certain percentage of people who play video games in
-their youth that, while they enjoy experiencing the medium, are doomed to
-dissatisfaction as the video game that they truly want to play does not exist,
-and is not likely to. The idea that is in the process of becoming LAIR! began
-as that feeling for me, and like many people, this inspired me to learn how to
-program computers. When I started the first version of LAIR it was doomed, I was
-writing it in Visual Basic .NET while I took a VB6 class that used a VB4 book
-from a teacher who had never successfully compiled a program. That version
-didn't get much further than a character generator and a turn-based rules
-executive that matched players and enemies and determined a winner based
-entirely on stats and random rolls. It didn't even have a graphical
-representation of the player. Then I went to my local library, which had exactly
-one programming book(I learned why a little later, and it's creepy) which
-focused on QBasic, which of course, nobody had at the time because QBasic had
-long since been supplanted by the Visual Studio shit. However, I did eventually
-get [FreeBASIC](https://www.freebasic.net) to run on my PC, and I produced the
-first recognizable version of the game which played alot like Zelda classic.
-However, this version didn't have much ability to be scripted and configured at
-runtime. I clung to this version for a long time, and there's probably a version
-out there on the web someplace, but eventually I grew up and re-wrote it again
-in C++ and Lua, and it was pretty good. Actually, it was nearly complete, all I
-needed was art, and I had a buddy who was working with me on that, but life
-happens and we parted ways, and LAIR! was placed on hold again. Then I
-discovered Vala and started being productive(Go too). But it looked like Vala
-was the perfect game development language for me to do LAIR! in and so I slowly
-started re-writing it while I considered how I would fix my art problem. That's
-why I created a little helper program in Go called digitalAndy, and fortunately
-for digitalAndy and LAIR!'s development, digitalAndy doesn't have a penis. Lol
-just kidding homie. I mean, it really doesn't have a penis but your whole
-[Spicy McHaggis](https://www.youtube.com/watch?v=_ZN3weW1udE) thing is something
-I look back on fondly. But seriously, LAIR! version 5ish, a.k.a. VaLaIR, is the
-result of all the successful features of 4 previous versions, and a few insights
-that were forced upon me by the realities of my ability to produce pixel art.
-Looking forward to a version by the new year.
+I've been making some unsatisfying version or other of this for so long that
+it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
+to do:
+
+  * Finish Room and Floor specific conditions, which are basically transitions
+  and Fog of War. Be done by midnight December 20.
+  * Rename existing DigitalAndy configuration files and reform /usr/lair and
+  index development process to follow. Be done by 4P December 20.
+  * Add a few features to digitalAndy: Trianges. Adjustable Sizes. Final images
+  Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
+    - Port digitalAndy to Android with a simple pixel-painting interface capable
+    of outputting a configuration file for PC digitalAndy as well as a script.
+    Do it to learn Android app development in Go.
+  * Add scripting to map generation for modifying maps after the construction of
+  the map objects. I think for now I'll keep the generation of walls and basic
+  structures something that is statically configured though because otherwise
+  I think we might get some unpredictable behavior with the size of the maps.
+  * Add scripting to the resource management interface to demonstrate procedural
+  content generation based on tagging
+    - Possible idea? Generate lists of the most common tags in a person's
+    avaialable resources and compare them against some kind of dictionary to
+    generate new "dungeon seeds?" Also that's what I'm calling the tag lists
+    that are used to generate the dungeons right now, and it's what the scripts
+    will be called.
+  * Configuration with Environment Variables as well as Flags and Files
+  * Implement AI class, which is similar to the move class but instead of doing
+  actions on events it does actions based on the execution of Lua scripts
+  * Write some example AI scripts
+  * Networked play support, with sub-tasks
+    - Game Server as Group Chat?
+    - This will become clearer as I do it, I think...
+  * Low GUI Mode for running a game without a player, in order to behave like a
+    server.
+  * I'm sure that there's more but I'll have to come to that.

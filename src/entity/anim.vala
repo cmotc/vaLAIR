@@ -142,11 +142,6 @@ namespace LAIR{
                                 //degrees = RadiansToDegrees(Math.atan2(GetCenter().y, GetCenter().x) - Math.atan2(cursorPosition.y, cursorPosition.x) + 360) % 360;
                                 degrees = RadiansToDegrees(Math.atan2(cursorPosition.x - GetCenter().x, cursorPosition.y - GetCenter().y) + 135);
                         }
-                        stdout.printf("Calculated center point : %s,", GetCenter().x.to_string());
-                        stdout.printf("%s\n", GetCenter().x.to_string());
-                        stdout.printf("Calculated cursor point : %s,", cursorPosition.x.to_string());
-                        stdout.printf("%s\n", cursorPosition.y.to_string());
-                        stdout.printf("Calculated angle from center point : %s\n", degrees.to_string());
                         return degrees * -1;
                 }
 		public int SetX(int x){

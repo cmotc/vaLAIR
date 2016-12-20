@@ -2,12 +2,16 @@ using SDL;
 namespace LAIR{
 	class Room : Object{
 		private bool visited = false;
+                private int X = 0; private int Y = 0;
+                private int Width = 0; private int Height = 0;
 		private List<Entity> Particles = new List<Entity>();
 		private Entity Player = null;
 		private List<Entity> Mobs = new List<Entity>();
                 private GLib.Rand DungeonMaster = new GLib.Rand ();
 		//public Room(int width, int height, FileDB* DM, Video.Renderer? renderer){
                 public Room(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                        X = xyoffset[0]; Y = xyoffset[1];
+                        Width = width; Height = height;
                         int WT = (width / 32); int HT = (height / 32);
                         stdout.printf("    Generating room. Width: %s ", WT.to_string()); stdout.printf("Height %s \n", HT.to_string());
                         GenerateStructure(DM, WT,HT, 2, xyoffset, renderer);
@@ -15,6 +19,8 @@ namespace LAIR{
 		}
 		//public Room.WithPlayer(int width, int height, FileDB* DM, Video.Renderer? renderer){
                 public Room.WithPlayer(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                        X = xyoffset[0]; Y = xyoffset[1];
+                        Width = width; Height = height;
                         int WT = (width / 32); int HT = (height / 32);
                         stdout.printf("    Generating room with Player. Width: %s ", WT.to_string()); stdout.printf("Height %s\n", HT.to_string());
                         GenerateStructure(DM, WT,HT, 2, xyoffset, renderer);
@@ -39,11 +45,27 @@ namespace LAIR{
                                 }
                         }
                 }
+                public bool HasPlayer(){
+			bool tmp = false;
+			if (Player != null){
+				tmp = (Player != null) ? (Player != null) : false;
+                                visited = true;
+			}
+			return tmp;
+		}
+                public Entity GetPlayer(){
+			Entity tmp = null;
+			if (Player != null){
+				tmp = Player;
+			}
+			return tmp;
+		}
                 public int TakeTurns(){
                         int tmp = 1;
                         stdout.printf("    Entities in the room are taking turns\n");
                         if (HasPlayer()){
-                                tmp = (tmp != 1) ? tmp : Player.run();
+                                int x = Player.run();
+                                tmp = (x != 1) ? x : 1;
                         }else{
                                 foreach(Entity mob in Mobs){
 					mob.run();
@@ -63,6 +85,57 @@ namespace LAIR{
                                 //}
                         }
                         return t;
+                }
+                private Video.Rect GetHitBox(){
+                        Video.Rect r = Video.Rect(){ x = X,
+                                                     y = Y,
+                                                     w = Width,
+                                                     h = Height };
+                        return r;
+                }
+                private bool InRange(Video.Point point, Video.Rect hitbox){
+                        bool t = false;
+                        int xx = (int) (hitbox.x + hitbox.w);
+                        int yy = (int) (hitbox.y + hitbox.h);
+                        if ( point.x > hitbox.x ){
+                                if ( point.x <  xx ){
+                                        if( point.y > hitbox.y ){
+                                                if( point.y < yy ){
+                                                        stdout.printf("\n\n Does this Number AXC:%s", point.x.to_string());
+                                                        stdout.printf(" come after this Number AX1:%s, and that number", hitbox.x.to_string());
+                                                        stdout.printf(" come before this Number AX2:%s\n", xx.to_string());
+                                                        stdout.printf(" Does this Number AYC:%s", point.y.to_string());
+                                                        stdout.printf(" come after this Number BY1:%s, and that number", hitbox.y.to_string());
+                                                        stdout.printf(" come before this Number BY2:%s\n\n", yy.to_string());
+                                                        t = true;
+                                                }
+                                        }
+                                }
+                        }
+                        return t;
+                }
+                public bool DetectTransition(Entity t){
+                        int test = 0;
+                        bool r = false;
+                        assert(t != null);
+                        Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
+                                y=t.GetHitBox().y };
+                        bool TLeftCorner = InRange(tlc, GetHitBox());
+
+                        Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                y = t.GetHitBox().y };
+                        bool TRightCorner = InRange(trc, GetHitBox());
+
+                        Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
+                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                        bool BLeftCorner = InRange(blc, GetHitBox());
+
+                        Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                        bool BRightCorner = InRange( brc, GetHitBox());
+
+                        r = true;
+                        return r;
                 }
 		public void RenderCopy(Video.Renderer renderer){
                         stdout.printf("   Rendering Room.\n");
@@ -93,15 +166,10 @@ namespace LAIR{
 			return visited;
 		}
 		public Entity LeaveRoom(){
-			Entity tmp = Player;
-			Player = null;
-			return tmp;
-		}
-		public bool HasPlayer(){
-			bool tmp = false;
+                        Entity tmp = null;
 			if (Player != null){
-				tmp = (Player != null) ? (Player != null) : false;
-                                visited = true;
+				tmp = Player;
+                                Player = null;
 			}
 			return tmp;
 		}

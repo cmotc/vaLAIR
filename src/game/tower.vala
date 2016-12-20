@@ -41,14 +41,15 @@ namespace LAIR{
                         int tmp = 1;
                         stdout.printf(" Entities in the tower are taking turns.\n");
                         foreach(Floor floor in floors){
-                                tmp = (tmp != 1) ? tmp : floor.TakeTurns();
+                                int x = floor.TakeTurns();
+                                tmp = (x != 1) ? x : 1;
                         }
                         return tmp;
                 }
                 public bool DetectCollisions(){
                         bool tmp = false;
                         foreach(Floor floor in floors){
-                                tmp = floor.DetectCollisions() ? floor.DetectCollisions() : tmp;
+                                tmp = floor.DetectCollisions() ? true : tmp;
                         }
                         return tmp;
                 }

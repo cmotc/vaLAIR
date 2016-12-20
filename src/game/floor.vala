@@ -35,18 +35,42 @@ namespace LAIR{
 			}
 			return tmp;
 		}
+                private Entity GetPlayer(){
+                        Entity temp = null;
+                        foreach(Room room in rooms){
+                                if(room.HasPlayer()){
+                                        temp = room.GetPlayer();
+                                }
+                        }
+                        return temp;
+                }
+                private Room GetPlayerRoom(){
+                        Room temp = null;
+                        foreach(Room room in rooms){
+                                if(room.HasPlayer()){
+                                        temp = room;
+                                }
+                        }
+                        return temp;
+                }
                 public int TakeTurns(){
                         int tmp = 1;
                         foreach(Room room in rooms){
                                 stdout.printf("   Entities on the floor are taking turns\n");
-                                tmp = (tmp != 1) ? tmp : room.TakeTurns();
+                                int x = room.TakeTurns();
+                                tmp = ( x != 1) ? x : 1;
                         }
                         return tmp;
                 }
                 public bool DetectCollisions(){
                         bool tmp = false;
                         foreach(Room room in rooms){
-                                tmp = room.DetectCollisions() ? room.DetectCollisions() : tmp;
+                                tmp = room.DetectCollisions() ? true : tmp;
+                                //if(HasPlayer()){
+                                //        if(room.DetectTransition(GetPlayer())){
+                                //                room.EnterRoom(GetPlayerRoom().LeaveRoom());
+                                //        }
+                                //}
                         }
                         return tmp;
                 }
