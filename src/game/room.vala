@@ -54,11 +54,13 @@ namespace LAIR{
                 public bool DetectCollisions(){
                         bool t = false;
                         foreach(var particle in Particles){
-                                t = particle.DetectCollision(Player) ? particle.DetectCollision(Player) : t ;
-                                foreach(var mob in Mobs){
-                                        particle.DetectCollision(mob);
-                                        t = Player.DetectCollision(mob) ? Player.DetectCollision(mob) : t;
+                                if(HasPlayer()){
+                                        t = Player.DetectCollision(particle) ? true : t ;
                                 }
+                                //foreach(var mob in Mobs){
+                                        //particle.DetectCollision(mob);
+                                        //t = Player.DetectCollision(mob) ? Player.DetectCollision(mob) : t;
+                                //}
                         }
                         return t;
                 }

@@ -35,35 +35,42 @@ namespace LAIR{
                         base.ParameterListBlocked(corner, Surfaces, music, font, renderer, tags);
                 }
 		public int Speed(){
-			int tmp = (Strength + Agility) / 4;
+			int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + speed;
 		}/*
 		public int Exert(){
 			int tmp = (Strength + Toughness) / 4;
+                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + exert;
 		}
 		public int Dodge(){
 			int tmp = (Agility + Toughness) / 4;
+                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + dodge;
 		}
 		public int Aim(){
 			int tmp = (Agility + Intelligence) / 4;
+                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + aim;
 		}
 		public int Will(){
 			int tmp = (Toughness + Intelligence) / 4;
+                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + will;
 		}
 		public int Resist(){
 			int tmp = (Toughness + Special) / 4;
+                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + resist;
 		}
 		public int Magic(){
 			int tmp = (Intelligence + Special) / 4;
+                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + magic;
 		}
 		public int Tech(){
 			int tmp = (Intelligence + Agility) / 4;
+                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return tmp + tech;
 		}*/
 	}

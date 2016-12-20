@@ -26,27 +26,56 @@ namespace LAIR{
                 }
                 private void DoActions(Entity t){
                 }
-                public bool DetectCollision(Entity t){
-                        bool test = false;
-                        assert(t != null);
-                        if(GetBlock()){
-                                if(t.GetBlock()){
-                                        bool leftsidebounceright = (t.GetHitBox().x + t.GetHitBox().w < GetHitBox().x)      ? true : false;
-                                        bool rightsidebounceleft = (t.GetHitBox().x > GetHitBox().x + GetHitBox().w)        ? true : false;
-                                        bool upsidebouncedown = (t.GetHitBox().y + t.GetHitBox().h < GetHitBox().y)      ? true : false;
-                                        bool downsidebounceup = (t.GetHitBox().y > GetHitBox().y + GetHitBox().h)        ? true : false;
-                                        test = leftsidebounceright ? true : false;
-                                        test = rightsidebounceleft ? true : test;
-                                        test = upsidebouncedown ? true : test;
-                                        test = downsidebounceup ? true : test;
-                                        if(test){
-                                                Bounce(leftsidebounceright, rightsidebounceleft,
-                                                        upsidebouncedown, downsidebounceup);
-                                                DoActions(t);
+                private bool InRange(Video.Point point, Video.Rect hitbox){
+                        bool t = false;
+                        int xx = (int) (hitbox.x + hitbox.w);
+                        int yy = (int) (hitbox.y + hitbox.h);
+                        if ( point.x > hitbox.x ){
+                                if ( point.x <  xx ){
+                                        if( point.y > hitbox.y ){
+                                                if( point.y < yy ){
+                                                        stdout.printf("\n\n Does this Number AXC:%s", point.x.to_string());
+                                                        stdout.printf(" come after this Number AX1:%s, and that number", hitbox.x.to_string());
+                                                        stdout.printf(" come before this Number AX2:%s\n", xx.to_string());
+                                                        stdout.printf(" Does this Number AYC:%s", point.y.to_string());
+                                                        stdout.printf(" come after this Number BY1:%s, and that number", hitbox.y.to_string());
+                                                        stdout.printf(" come before this Number BY2:%s\n\n", yy.to_string());
+                                                        t = true;
+                                                }
                                         }
                                 }
                         }
-                        return test;
+                        return t;
+                }
+                public bool DetectCollision(Entity t){
+                        int test = 0;
+                        bool r = false;
+                        assert(t != null);
+                        if(GetBlock()){
+                                if(t.GetBlock()){
+                                        Video.Point tlc = Video.Point(){ x = GetHitBox().x,
+                                                y=GetHitBox().y };
+                                        bool TLeftCorner = InRange(tlc, t.GetHitBox());
+
+                                        Video.Point trc = Video.Point(){ x = (int)(GetHitBox().x + GetHitBox().w),
+                                                y = GetHitBox().y };
+                                        bool TRightCorner = InRange(trc, t.GetHitBox());
+
+                                        Video.Point blc = Video.Point(){ x = GetHitBox().x,
+                                                y = (int)(GetHitBox().y + GetHitBox().h) };
+                                        bool BLeftCorner = InRange(blc, t.GetHitBox());
+
+                                        Video.Point brc = Video.Point(){ x = (int)(GetHitBox().x + GetHitBox().w),
+                                                y = (int)(GetHitBox().y + GetHitBox().h) };
+                                        bool BRightCorner = InRange( brc, t.GetHitBox());
+
+                                        Bounce(TLeftCorner, TRightCorner,
+                                        BLeftCorner, BRightCorner, t.GetHitBox());
+                                        //DoActions(t);
+                                        r = true;
+                                }
+                        }
+                        return r;
                 }
 	}
 }

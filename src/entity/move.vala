@@ -40,22 +40,82 @@ namespace LAIR{
                         SetX(GetX() - Speed());
                         return 5;
                 }
-                protected bool Bounce(bool lr, bool rl, bool du, bool ud){
+                protected bool Bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
-                        if(lr){
-                                StepRight();
+                        if(tl){
+                                stdout.printf("Collision detected, Top Left Corner");
+                                if(bl){
+                                        stdout.printf(" and Bottom Left Corner\n");
+                                        SetX((int)(evenout.x + evenout.w));
+                                        StepRight();
+                                }else if(tr){
+                                        stdout.printf(" and Top Right Corner\n");
+                                        SetY((int)(evenout.y + evenout.h));
+                                        StepDown();
+                                }else{
+                                        stdout.printf("\n");
+                                        SetX((int)(evenout.x + evenout.w));
+                                        SetY((int)(evenout.y + evenout.h));
+                                        StepRight();
+                                        StepDown();
+                                }
                                 r = true;
                         }
-                        if(rl){
-                                StepLeft();
+                        if(tr){
+                                stdout.printf("Collision detected, Top Right Corner");
+                                if(br){
+                                        stdout.printf(" and Bottom Right Corner\n");
+                                        SetX((int)(evenout.x - evenout.w));
+                                        StepLeft();
+                                }else if(tl){
+                                        stdout.printf(" and Top Left Corner\n");
+                                        SetY((int)(evenout.y + evenout.h));
+                                        StepDown();
+                                }else{
+                                        stdout.printf("\n");
+                                        SetX((int)(evenout.x - evenout.w));
+                                        SetY((int)(evenout.y + evenout.h));
+                                        StepLeft();
+                                        StepDown();
+                                }
                                 r = true;
                         }
-                        if(du){
-                                StepUp();
+                        if(bl){
+                                stdout.printf("Collision detected, Bottom Left Corner");
+                                if(tl){
+                                        stdout.printf(" and Top Left Corner\n");
+                                        SetX((int)(evenout.x + evenout.w));
+                                        StepRight();
+                                }else if(br){
+                                        stdout.printf(" and Bottom Right Corner\n");
+                                        SetY((int)(evenout.y - evenout.h));
+                                        StepUp();
+                                }else{
+                                        stdout.printf("\n");
+                                        SetX((int)(evenout.x + evenout.w));
+                                        SetY((int)(evenout.y - evenout.h));
+                                        StepRight();
+                                        StepUp();
+                                }
                                 r = true;
                         }
-                        if(ud){
-                                StepDown();
+                        if(br){
+                                stdout.printf("Collision detected, Bottom Right Corner");
+                                if(tr){
+                                        stdout.printf("and Top Right Corner\n");
+                                        SetX((int)(evenout.x - evenout.w));
+                                        StepLeft();
+                                }else if(bl){
+                                        stdout.printf("and Bottom Left Corner\n");
+                                        SetY((int)(evenout.y - evenout.h));
+                                        StepUp();
+                                }else{
+                                        stdout.printf("\n");
+                                        SetX((int)(evenout.x - evenout.w));
+                                        SetY((int)(evenout.y - evenout.h));
+                                        StepLeft();
+                                        StepUp();
+                                }
                                 r = true;
                         }
                         return r;
@@ -104,7 +164,10 @@ namespace LAIR{
                                                                 break;
                                                 }
                                         }
+                                }else{
+                                        break;
                                 }
+
 			}
                         return t;
 		}

@@ -107,13 +107,13 @@ namespace LAIR{
                                 if(IsPlayer()){
                                         r = Video.Rect(){ x = GetX() + offsetHitBox.x,
                                                 y = GetY() + offsetHitBox.y,
-                                                w = GetX() + offsetHitBox.w,
-                                                h = GetY() + offsetHitBox.h };
+                                                w = offsetHitBox.w,
+                                                h = offsetHitBox.h };
                                 }else{
                                         r = Video.Rect(){ x = GetX() + 1,
                                                 y = GetY() + 1,
-                                                w = GetX() + (GetWidth() - 1),
-                                                h = GetY() + (GetHeight() - 1) };
+                                                w = (GetWidth() - 1),
+                                                h = (GetHeight() - 1) };
                                 }
                         }
                         return r;
