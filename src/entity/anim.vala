@@ -5,6 +5,7 @@ namespace LAIR{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=6, y=6, w=20, h=16 };
+                private Video.Point cursorPosition = Video.Point();
                 public Anim(Video.Rect rect){
                         base();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
@@ -126,7 +127,10 @@ namespace LAIR{
                         double r = (180/Math.PI) * radians;
                         return r;
                 }
-                public double GetAngle(Video.Point cursorPosition){
+                protected void SetCursorPosition(Video.Point cursor){
+                        cursorPosition = cursor;
+                }
+                public double GetAngle(){
                         double degrees = 0.0;
                         Video.Point CP = GetCenter();
                         degrees = RadiansToDegrees((Math.atan2(cursorPosition.x - CP.x, CP.y - cursorPosition.y) + 360) % 360);

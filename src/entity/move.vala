@@ -40,6 +40,10 @@ namespace LAIR{
                         SetX(GetX() - Speed());
                         return 5;
                 }
+                protected int MouseMove(int X, int Y){
+                        Video.Point tmp = Video.Point(){x = X; y = Y};
+                        SetCursorPosition(tmp);
+                }
                 protected bool Bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
                         if(tl){
