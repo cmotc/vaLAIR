@@ -63,7 +63,7 @@ namespace LAIR{
                         int c = 0;
                         foreach(var texture in body.copy()){
                                 stdout.printf("Rendering a layered texture: %s\n",c.to_string());
-                                renderer->copyex(texture, GetSource(), GetPosition(), GetAngle(), null, Video.RendererFlip.HORIZONTAL);
+                                renderer->copyex(texture, GetSource(), GetPosition(), GetAngle(), null, Video.RendererFlip.VERTICAL);
                                 c++;
                         }
 

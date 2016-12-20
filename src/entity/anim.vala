@@ -135,18 +135,19 @@ namespace LAIR{
                         if (cursorPosition.x == 0){
                                 if (cursorPosition.y == 0){
                                         Video.Point CP = GetCenter();
-                                        degrees = RadiansToDegrees((Math.atan2(GetCenter().x - GetCenter().x, GetCenter().y - GetCenter().y) + 360) % 360);
+                                        degrees = 0.0;//RadiansToDegrees(Math.atan2(GetCenter().x - GetCenter().x, GetCenter().y - GetCenter().y) + 360) % 360;
                                 }
                         }else{
                                 Video.Point CP = GetCenter();
-                                degrees = RadiansToDegrees((Math.atan2(cursorPosition.x - GetCenter().x, GetCenter().y - cursorPosition.y) + 360) % 360);
+                                //degrees = RadiansToDegrees(Math.atan2(GetCenter().y, GetCenter().x) - Math.atan2(cursorPosition.y, cursorPosition.x) + 360) % 360;
+                                degrees = RadiansToDegrees(Math.atan2(cursorPosition.x - GetCenter().x, cursorPosition.y - GetCenter().y) + 135);
                         }
                         stdout.printf("Calculated center point : %s,", GetCenter().x.to_string());
                         stdout.printf("%s\n", GetCenter().x.to_string());
                         stdout.printf("Calculated cursor point : %s,", cursorPosition.x.to_string());
                         stdout.printf("%s\n", cursorPosition.y.to_string());
                         stdout.printf("Calculated angle from center point : %s\n", degrees.to_string());
-                        return degrees;
+                        return degrees * -1;
                 }
 		public int SetX(int x){
 			position.x = x;
