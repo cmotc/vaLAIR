@@ -73,4 +73,11 @@ android:
 		src/entity/entity.vala
 
 unlog:
-	rm log;
+	rm *log;
+	rm *err
+	rm bin/*log
+	rm bin/*err
+
+clean:
+	rm bin/LAIR
+	make unlog

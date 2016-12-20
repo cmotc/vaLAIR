@@ -41,8 +41,9 @@ namespace LAIR{
                         return 5;
                 }
                 protected int MouseMove(int X, int Y){
-                        Video.Point tmp = Video.Point(){x = X; y = Y};
+                        Video.Point tmp = Video.Point(){x = X, y = Y};
                         SetCursorPosition(tmp);
+                        return 6;
                 }
                 protected bool Bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
@@ -129,7 +130,6 @@ namespace LAIR{
 		public int PInput(){
                         int t = 1;
                         Event e;
-			//for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
                         stdout.printf("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
                                 stdout.printf(" Checking Event for Player Input\n");
@@ -137,6 +137,18 @@ namespace LAIR{
                                         switch(e.key.keysym.sym){
                                                 case Input.Keycode.ESCAPE:
                                                         t = Quit();
+                                                        break;
+                                                case Input.Keycode.s:
+                                                        t = StepDown();
+                                                        break;
+                                                case Input.Keycode.w:
+                                                        t = StepUp();
+                                                        break;
+                                                case Input.Keycode.d:
+                                                        t = StepRight();
+                                                        break;
+                                                case Input.Keycode.a:
+                                                        t = StepLeft();
                                                         break;
                                                 case Input.Keycode.DOWN:
                                                         t = StepDown();
@@ -158,7 +170,7 @@ namespace LAIR{
                                         if (inside){
                                                 switch (e.type) {
                                                         case EventType.MOUSEMOTION:
-                                                                t = 6;
+                                                                t = MouseMove(x, y);
                                                                 break;
                                                         case EventType.MOUSEBUTTONDOWN:
                                                                 t = 7;
