@@ -60,15 +60,6 @@ I've been making some unsatisfying version or other of this for so long that
 it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
-  * Finish Room and Floor specific conditions, which are basically transitions
-  and Fog of War. Be done by midnight December 20.
-  * Rename existing DigitalAndy configuration files and reform /usr/lair and
-  index development process to follow. Be done by 4P December 20.
-  * Add a few features to digitalAndy: Trianges. Adjustable Sizes. Final images
-  Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
-    - Port digitalAndy to Android with a simple pixel-painting interface capable
-    of outputting a configuration file for PC digitalAndy as well as a script.
-    Do it to learn Android app development in Go.
   * Add scripting to map generation for modifying maps after the construction of
   the map objects. I think for now I'll keep the generation of walls and basic
   structures something that is statically configured though because otherwise
@@ -90,3 +81,8 @@ to do:
   * Low GUI Mode for running a game without a player, in order to behave like a
     server.
   * I'm sure that there's more but I'll have to come to that.
+  * Add a few features to digitalAndy: Trianges. Adjustable Sizes. Final images
+  Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
+    - Port digitalAndy to Android with a simple pixel-painting interface capable
+    of outputting a configuration file for PC digitalAndy as well as a script.
+    Do it to learn Android app development in Go.

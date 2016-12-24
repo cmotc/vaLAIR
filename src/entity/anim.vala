@@ -10,90 +10,50 @@ namespace LAIR{
                         base();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
-                        stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
-                        stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.Blocked(Video.Rect rect){
                         base.Blocked();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
-                        stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
-                        stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.Parameter(Video.Rect rect, string tag){
                         base.Parameter(tag);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
-                        stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
-                        stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.ParameterList(Video.Rect rect, List<string> tags){
                         base.ParameterList(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
-                        stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
-                        stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.ParameterBlocked(Video.Rect rect, string tag){
                         base.ParameterBlocked(tag);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
-                        stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
-                        stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
                 public Anim.ParameterListBlocked(Video.Rect rect, List<string> tags){
                         base.ParameterListBlocked(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                        stdout.printf("     Rect X: %s,", rect.x.to_string());stdout.printf(" Y: %s", rect.y.to_string());
-                        stdout.printf(" W: %s,", rect.w.to_string());stdout.printf(" H: %s", rect.h.to_string());
-                        stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s", position.h.to_string());
-                        stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s", source.h.to_string());
                 }
 		public Video.Rect GetPosition(){
-                        //stdout.printf("     Position X: %s,", position.x.to_string());stdout.printf(" Y: %s", position.y.to_string());
-                        //stdout.printf(" W: %s,", position.w.to_string());stdout.printf(" H: %s ", position.h.to_string());
 			return position;
 		}
 		public Video.Rect GetSource(){
-                        //stdout.printf("     Source X: %s,", source.x.to_string());stdout.printf(" Y: %s", source.y.to_string());
-                        //stdout.printf(" W: %s,", source.w.to_string());stdout.printf(" H: %s ", source.h.to_string());
                         return source;
 		}
 		public int GetWidth(){
 			return (int) source.w;
 		}
                 public int GetHalfWidth(){
-                        int hW = (int) source.w / 2;
+                        int hW = (int) (position.w / 2);
                         return hW;
                 }
 		public int GetHeight(){
 			return (int) source.h;
 		}
                 public int GetHalfHeight(){
-                        int hH = (int) source.h / 2;
+                        int hH = (int) (position.h / 2);
 			return hH;
 		}
 		public int GetX(){
@@ -134,12 +94,9 @@ namespace LAIR{
                         double degrees = 0.0;
                         if (cursorPosition.x == 0){
                                 if (cursorPosition.y == 0){
-                                        Video.Point CP = GetCenter();
-                                        degrees = 0.0;//RadiansToDegrees(Math.atan2(GetCenter().x - GetCenter().x, GetCenter().y - GetCenter().y) + 360) % 360;
+                                        degrees = 0.0;
                                 }
                         }else{
-                                Video.Point CP = GetCenter();
-                                //degrees = RadiansToDegrees(Math.atan2(GetCenter().y, GetCenter().x) - Math.atan2(cursorPosition.y, cursorPosition.x) + 360) % 360;
                                 degrees = RadiansToDegrees(Math.atan2(cursorPosition.x - GetCenter().x, cursorPosition.y - GetCenter().y) + 135);
                         }
                         return degrees * -1;

@@ -41,8 +41,7 @@ namespace LAIR{
                         int tmp = 1;
                         stdout.printf(" Entities in the tower are taking turns.\n");
                         foreach(Floor floor in floors){
-                                int x = floor.TakeTurns();
-                                tmp = (x != 1) ? x : 1;
+                                tmp = floor.TakeTurns();
                         }
                         return tmp;
                 }
@@ -54,7 +53,6 @@ namespace LAIR{
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer renderer){
-                        stdout.printf(" Rendering Tower.\n");
 			foreach(Floor floor in floors){
 				floor.RenderCopy(renderer);
 			}

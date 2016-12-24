@@ -12,43 +12,45 @@ namespace LAIR{
                 public Room(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
                         X = xyoffset[0]; Y = xyoffset[1];
                         Width = width; Height = height;
-                        int WT = (width / 32); int HT = (height / 32);
-                        stdout.printf("    Generating room. Width: %s ", WT.to_string()); stdout.printf("Height %s \n", HT.to_string());
-                        GenerateStructure(DM, WT,HT, 2, xyoffset, renderer);
+                        GenerateStructure(DM, 2, xyoffset, renderer);
                         stdout.printf("    Generated room. Length: %s\n", Particles.length().to_string());
 		}
 		//public Room.WithPlayer(int width, int height, FileDB* DM, Video.Renderer? renderer){
                 public Room.WithPlayer(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
                         X = xyoffset[0]; Y = xyoffset[1];
                         Width = width; Height = height;
-                        int WT = (width / 32); int HT = (height / 32);
-                        stdout.printf("    Generating room with Player. Width: %s ", WT.to_string()); stdout.printf("Height %s\n", HT.to_string());
-                        GenerateStructure(DM, WT,HT, 2, xyoffset, renderer);
+                        GenerateStructure(DM, 2, xyoffset, renderer);
                         EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, DM.BodyByTone("med"), DM.GetRandSound(), DM.GetRandFont(), renderer));
                         stdout.printf("    Generated room. Length: %s\n", Particles.length().to_string());
 		}
-                private void GenerateStructure(FileDB DM, int WT, int HT, int CR=2, int[] xyoffset, Video.Renderer* renderer){
+                //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
+                private void GenerateStructure(FileDB DM, int CR, int[] xyoffset, Video.Renderer* renderer){
+                        int WT = (Width / 32); int HT = (Height / 32);
+                        stdout.printf("    Generating room. Width: %s ", WT.to_string()); stdout.printf("Height %s\n", HT.to_string());
                         for (int x = 0; x < WT; x++){
                                 for (int y = 0; y < HT; y++){
-                                        int XO = (x * 32) + xyoffset[0]; int YO = (y * 32) + xyoffset[1];
-                                        Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonefloor"), DM.GetRandSound(), DM.GetRandFont(), renderer));
-                                        stdout.printf("     Generating Entity Particle X: %s ", XO.to_string()); stdout.printf("Y: %s \n", YO.to_string());
-                                        if ( x == (0 + DungeonMaster.int_range(0,CR)) ){
-                                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
-                                        }else if ( x == ((WT-1) - DungeonMaster.int_range(0,CR)) ){
-                                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
-                                        }else if ( y == (0 + DungeonMaster.int_range(0,CR)) ){
-                                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
-                                        }else if ( y == ((HT-1) - DungeonMaster.int_range(0,CR)) ){
-                                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
-                                        }
+                                        GenerateBlockTile(DM, x, y, WT, HT, CR, renderer);
                                 }
+                        }
+                }
+                private void GenerateBlockTile(FileDB DM, int x, int y, int WT, int HT, int CR, Video.Renderer* renderer){
+                        int XO = (x * 32) + X; int YO = (y * 32) + Y;
+                        Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonefloor"), DM.GetRandSound(), DM.GetRandFont(), renderer));
+                        stdout.printf("     Generating Entity Particle X: %s ", XO.to_string()); stdout.printf("Y: %s \n", YO.to_string());
+                        if ( x == (0 + DungeonMaster.int_range(0,CR)) ){
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
+                        }else if ( x == ((WT-1) - DungeonMaster.int_range(0,CR)) ){
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
+                        }else if ( y == (0 + DungeonMaster.int_range(0,CR)) ){
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
+                        }else if ( y == ((HT-1) - DungeonMaster.int_range(0,CR)) ){
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, DM.ImageByName("stonewall"), DM.GetRandSound(), DM.GetRandFont(), renderer));
                         }
                 }
                 public bool HasPlayer(){
 			bool tmp = false;
 			if (Player != null){
-				tmp = (Player != null) ? (Player != null) : false;
+				tmp = true;
                                 visited = true;
 			}
 			return tmp;
@@ -62,10 +64,11 @@ namespace LAIR{
 		}
                 public int TakeTurns(){
                         int tmp = 1;
-                        stdout.printf("    Entities in the room are taking turns\n");
                         if (HasPlayer()){
-                                int x = Player.run();
-                                tmp = (x != 1) ? x : 1;
+                                tmp = Player.run();
+                                if (tmp > 0){
+                                        stdout.printf("    Player took a turn : %s \n", tmp.to_string());
+                                }
                         }else{
                                 foreach(Entity mob in Mobs){
 					mob.run();
@@ -134,24 +137,25 @@ namespace LAIR{
                                 y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
                         bool BRightCorner = InRange( brc, GetHitBox());
 
-                        r = true;
+                        if (TLeftCorner){if (TRightCorner){
+                                if (BLeftCorner){if (BRightCorner){
+                                        r = true;
+                                }}
+                        }}
+
                         return r;
                 }
 		public void RenderCopy(Video.Renderer renderer){
-                        stdout.printf("   Rendering Room.\n");
 			if (visited){
-                                stdout.printf("    Rendering Particles. \n");
 				foreach(Entity particle in Particles){
 					particle.RenderCopy(renderer);
 				}
 			}
                         if (HasPlayer()){
-                                stdout.printf("    Rendering Player. \n");
 				Player.RenderCopy(renderer);
 				if (visited = false){
 					visited = true;
 				}
-                                stdout.printf("    Rendering Mobs. \n");
 				foreach(Entity mob in Mobs){
 					mob.RenderCopy(renderer);
 				}
@@ -162,16 +166,38 @@ namespace LAIR{
                                 stdout.printf("    Player Entering Room. \n");
 				Player = player;
                                 visited = true;
-			}
+			}else{
+                                Player = null;
+                                visited = false;
+                        }
 			return visited;
 		}
-		public Entity LeaveRoom(){
+		public Entity LeaveRoom(bool doleave){
                         Entity tmp = null;
-			if (Player != null){
-				tmp = Player;
-                                Player = null;
-			}
+                        if (doleave){
+                                if (Player != null){
+                                        tmp = Player;
+                                        Player = null;
+                                }
+                        }
 			return tmp;
 		}
+                //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
+/*                private void inject_particle(FileDB DM, int x, int y, string name, Video.Renderer* renderer){
+                        int XO = (x * 32) + X; int YO = (y * 32) + Y;
+                        if ( XO < X + Width ){ if ( XO > X ){
+                                if ( YO < Y + Height ){ if ( YO > Y ){
+                                        Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, DM.ImageByName(name), DM.GetRandSound(), DM.GetRandFont(), renderer));
+                                }}
+                        }}
+                }
+                private void inject_mobile(FileDB DM, int x, int y, string name, Video.Renderer* renderer){
+                        int XO = (x * 32) + X; int YO = (y * 32) + Y;
+                        if ( XO < X + Width ){ if ( XO > X ){
+                                if ( YO < Y + Height ){ if ( YO > Y ){
+                                        Mobs.append(new Entity(Video.Point(){ x = XO, y = YO }, DM.ImageByName(name), DM.GetRandSound(), DM.GetRandFont(), renderer));
+                                }}
+                        }}
+                }*/
 	}
 }

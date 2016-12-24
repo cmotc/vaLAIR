@@ -180,10 +180,7 @@ namespace LAIR{
                                                                 break;
                                                 }
                                         }
-                                }else{
-                                        break;
                                 }
-
 			}
                         return t;
 		}

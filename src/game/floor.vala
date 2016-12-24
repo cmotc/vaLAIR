@@ -57,8 +57,7 @@ namespace LAIR{
                         int tmp = 1;
                         foreach(Room room in rooms){
                                 stdout.printf("   Entities on the floor are taking turns\n");
-                                int x = room.TakeTurns();
-                                tmp = ( x != 1) ? x : 1;
+                                tmp = room.TakeTurns();
                         }
                         return tmp;
                 }
@@ -66,16 +65,16 @@ namespace LAIR{
                         bool tmp = false;
                         foreach(Room room in rooms){
                                 tmp = room.DetectCollisions() ? true : tmp;
-                                //if(HasPlayer()){
-                                //        if(room.DetectTransition(GetPlayer())){
-                                //                room.EnterRoom(GetPlayerRoom().LeaveRoom());
-                                //        }
-                                //}
+                                if (!room.HasPlayer()) {
+                                        bool transit = room.DetectTransition(GetPlayer());
+                                        if (transit) {
+                                                room.EnterRoom(GetPlayerRoom().LeaveRoom(transit));
+                                        }
+                                }
                         }
                         return tmp;
                 }
 		public void RenderCopy(Video.Renderer renderer){
-                        stdout.printf("   Rendering Floor.\n");
                         if (HasPlayer()){
                                 foreach(Room room in rooms){
                                         room.RenderCopy(renderer);

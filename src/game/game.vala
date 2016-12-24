@@ -21,10 +21,8 @@ namespace LAIR{
                         int imgInitFlags = SDLImage.InitFlags.PNG;
                         int initResult = SDLImage.init(imgInitFlags);
                         if ((initResult & imgInitFlags) != imgInitFlags) {
-                                //stdout.printf("SDL_image could not initialize! SDL_image Error: %s\n", SDLImage.get_error());
-                                //return false;
+
                         }
-                        //return true;
 
                         Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
                         GameEnvironment = new Tower(mapSize, Resources, WindowRenderer);
