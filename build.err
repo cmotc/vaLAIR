@@ -1,0 +1,27 @@
+/home/idk/Projects/valair/src/main.vala: In function ‘lair_lair_main’:
+/home/idk/Projects/valair/src/main.vala:33:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+    foreach(string arg in args){
+                  ^
+/home/idk/Projects/valair/src/main.vala: In function ‘main’:
+/home/idk/Projects/valair/src/main.vala:25:18: warning: passing argument 1 of ‘lair_lair_main’ from incompatible pointer type [-Wincompatible-pointer-types]
+   public static void main(string args[]){
+                  ^~~~
+main.vala.c:180:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
+/home/idk/Projects/valair/src/game/room.vala: In function ‘lair_room_construct’:
+/home/idk/Projects/valair/src/game/room.vala:14:24: warning: implicit declaration of function ‘luaL_newstate’ [-Wimplicit-function-declaration]
+                         var vm = new LuaVM ();
+                        ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/game/room.vala:14:11: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+                         var vm = new LuaVM ();
+           ^
+/home/idk/Projects/valair/src/game/room.vala:15:2: warning: implicit declaration of function ‘luaL_openlibs’ [-Wimplicit-function-declaration]
+                         vm.open_libs();
+  ^            
+/home/idk/Projects/valair/src/game/room.vala: In function ‘lair_room_construct_WithPlayer’:
+/home/idk/Projects/valair/src/game/room.vala:24:11: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+                         var vm = new LuaVM ();
+           ^
+/usr/bin/ld: cannot find -llua
+collect2: error: ld returned 1 exit status
+error: cc exited with status 256
+make: *** [unix] Error 1

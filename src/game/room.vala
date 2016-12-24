@@ -1,4 +1,6 @@
 using SDL;
+using Lua;
+
 namespace LAIR{
 	class Room : Object{
 		private bool visited = false;
@@ -8,15 +10,21 @@ namespace LAIR{
 		private Entity Player = null;
 		private List<Entity> Mobs = new List<Entity>();
                 private GLib.Rand DungeonMaster = new GLib.Rand ();
-		//public Room(int width, int height, FileDB* DM, Video.Renderer? renderer){
                 public Room(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                        var vm = new LuaVM ();
+                        vm.open_libs();
+                        //vm.register ("generate_map", generate_map);
+                        //vm.do_string (code);
                         X = xyoffset[0]; Y = xyoffset[1];
                         Width = width; Height = height;
                         GenerateStructure(DM, 2, xyoffset, renderer);
                         stdout.printf("    Generated room. Length: %s\n", Particles.length().to_string());
 		}
-		//public Room.WithPlayer(int width, int height, FileDB* DM, Video.Renderer? renderer){
                 public Room.WithPlayer(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                        var vm = new LuaVM ();
+                        vm.open_libs();
+                        //vm.register ("generate_map", generate_map);
+                        //vm.do_string (code);
                         X = xyoffset[0]; Y = xyoffset[1];
                         Width = width; Height = height;
                         GenerateStructure(DM, 2, xyoffset, renderer);
@@ -104,12 +112,6 @@ namespace LAIR{
                                 if ( point.x <  xx ){
                                         if( point.y > hitbox.y ){
                                                 if( point.y < yy ){
-                                                        stdout.printf("\n\n Does this Number AXC:%s", point.x.to_string());
-                                                        stdout.printf(" come after this Number AX1:%s, and that number", hitbox.x.to_string());
-                                                        stdout.printf(" come before this Number AX2:%s\n", xx.to_string());
-                                                        stdout.printf(" Does this Number AYC:%s", point.y.to_string());
-                                                        stdout.printf(" come after this Number BY1:%s, and that number", hitbox.y.to_string());
-                                                        stdout.printf(" come before this Number BY2:%s\n\n", yy.to_string());
                                                         t = true;
                                                 }
                                         }
@@ -118,7 +120,6 @@ namespace LAIR{
                         return t;
                 }
                 public bool DetectTransition(Entity t){
-                        int test = 0;
                         bool r = false;
                         assert(t != null);
                         Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,

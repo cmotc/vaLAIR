@@ -1,13 +1,16 @@
 unix:
 	valac -gv \
-		-o bin/LAIR --vapidir="src/vapi" \
+		-o bin/LAIR \
+		--disable-warnings \
 		--pkg gio-2.0 \
+		--pkg lua \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -36,15 +39,17 @@ unix:
 
 android:
 	valac -gv \
-		-o bin/LAIR --vapidir="src/vapi" \
+		-o bin/LAIR \
 		--disable-warnings \
 		--pkg gio-2.0 \
+		--pkg lua \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
