@@ -2,16 +2,16 @@ using SDL;
 namespace LAIR{
 	class Floor : Object{
 		private List<Room> rooms = new List<Room>();
-		public Floor(int width, int height, int count, FileDB DM, Video.Renderer? renderer){
+		public Floor(int width, int height, int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
 			for (int x = 1; x <= count; x++){
                                 for (int y = 1; y <= count; y++){
                                         int [2] xyo = {(x*width)-width, (y*height)-height};
                                         stdout.printf("<< generating room\n");
-                                        rooms.append(new Room(width, height, DM, renderer, xyo));
+                                        rooms.append(new Room(width, height, scripts, DM, renderer, xyo));
                                 }
 			}
 		}
-		public Floor.WithPlayer(int width, int height, int count, int entry, FileDB DM, Video.Renderer? renderer){
+		public Floor.WithPlayer(int width, int height, int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         int c = 0;
 			for (int x = 1; x <= count; x++){
                                 for (int y = 1; y <= count; y++){
@@ -19,10 +19,10 @@ namespace LAIR{
                                         stdout.printf("<< count %s \n", c.to_string());
                                         if (c == entry){
                                                 stdout.printf("<< generating room with player\n");
-                                                rooms.append(new Room.WithPlayer(width, height, DM, renderer, xyo));
+                                                rooms.append(new Room.WithPlayer(width, height, scripts, DM, renderer, xyo));
                                         }else{
                                                 stdout.printf("<< generating room\n");
-                                                rooms.append(new Room(width, height, DM, renderer, xyo));
+                                                rooms.append(new Room(width, height, scripts, DM, renderer, xyo));
                                         }
                                         c++;
                                 }

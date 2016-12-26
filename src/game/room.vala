@@ -6,25 +6,21 @@ namespace LAIR{
 		private bool visited = false;
                 private int X = 0; private int Y = 0;
                 private int Width = 0; private int Height = 0;
+                private string MapGenScriptPath = "";
 		private List<Entity> Particles = new List<Entity>();
 		private Entity Player = null;
 		private List<Entity> Mobs = new List<Entity>();
                 private GLib.Rand DungeonMaster = new GLib.Rand ();
-                public Room(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
-                        var vm = new LuaVM ();
-                        vm.open_libs();
-                        //vm.register ("generate_map", generate_map);
-                        //vm.do_string (code);
+                private static LuaVM vm = new LuaVM ();
+                public Room(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                        vm.open_libs(); MapGenScriptPath = scripts[0]; vm.do_file(MapGenScriptPath);
                         X = xyoffset[0]; Y = xyoffset[1];
                         Width = width; Height = height;
                         GenerateStructure(DM, 2, xyoffset, renderer);
                         stdout.printf("    Generated room. Length: %s\n", Particles.length().to_string());
 		}
-                public Room.WithPlayer(int width, int height, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
-                        var vm = new LuaVM ();
-                        vm.open_libs();
-                        //vm.register ("generate_map", generate_map);
-                        //vm.do_string (code);
+                public Room.WithPlayer(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                        vm.open_libs(); MapGenScriptPath = scripts[0]; vm.do_file(MapGenScriptPath);
                         X = xyoffset[0]; Y = xyoffset[1];
                         Width = width; Height = height;
                         GenerateStructure(DM, 2, xyoffset, renderer);
@@ -184,7 +180,7 @@ namespace LAIR{
 			return tmp;
 		}
                 //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
-/*                private void inject_particle(FileDB DM, int x, int y, string name, Video.Renderer* renderer){
+                private void inject_particle(FileDB DM, int x, int y, string name, Video.Renderer* renderer){
                         int XO = (x * 32) + X; int YO = (y * 32) + Y;
                         if ( XO < X + Width ){ if ( XO > X ){
                                 if ( YO < Y + Height ){ if ( YO > Y ){
@@ -199,6 +195,6 @@ namespace LAIR{
                                         Mobs.append(new Entity(Video.Point(){ x = XO, y = YO }, DM.ImageByName(name), DM.GetRandSound(), DM.GetRandFont(), renderer));
                                 }}
                         }}
-                }*/
+                }
 	}
 }

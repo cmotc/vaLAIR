@@ -2,7 +2,7 @@ using SDL;
 namespace LAIR{
 	class Tower : Object{
 		private List<Floor> floors = new List<Floor>();
-		public Tower(string size, FileDB DM, Video.Renderer? renderer){
+		public Tower(string size, string[] scripts, FileDB DM, Video.Renderer? renderer){
 			int w = 320;
 			int h = 320;
 			int count = 10;
@@ -31,9 +31,9 @@ namespace LAIR{
 			for (int c = 0; c <= count-1; c++){
                                 stdout.printf(" Creating new floor :%s\n", c.to_string());
                                 if (c == 0){
-                                        floors.append(new Floor.WithPlayer(w, h, count, 0, DM, renderer));
+                                        floors.append(new Floor.WithPlayer(w, h, count, 0, scripts, DM, renderer));
                                 }else{
-                                        floors.append(new Floor(w, h, count, DM, renderer));
+                                        floors.append(new Floor(w, h, count, scripts, DM, renderer));
                                 }
 			}
 		}

@@ -10,7 +10,7 @@ unix:
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -llua5.2 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \

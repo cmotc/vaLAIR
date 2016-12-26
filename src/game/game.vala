@@ -12,7 +12,10 @@ namespace LAIR{
 		private FileDB Resources;
 		private Tower GameEnvironment;
 
-		public Game(string imageListPath, string soundListPath, string fontsListPath, string mapSize, int screenW, int screenH) {
+		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
+                        string imageListPath = listPaths[0];
+                        string soundListPath = listPaths[1];
+                        string fontsListPath = listPaths[2];
 			window = new Video.Window("LAIR!", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, screenW, screenH, Video.WindowFlags.SHOWN);
 			WindowRenderer = Video.Renderer.create(window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
                         window.show();
@@ -25,7 +28,7 @@ namespace LAIR{
                         }
 
                         Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
-                        GameEnvironment = new Tower(mapSize, Resources, WindowRenderer);
+                        GameEnvironment = new Tower(mapSize, scriptPaths, Resources, WindowRenderer);
 		}
 		private int UpdateScreen(){
 			int r = GameEnvironment.TakeTurns();
