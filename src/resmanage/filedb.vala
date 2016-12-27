@@ -83,7 +83,7 @@ namespace LAIR{
 			}
 			return tmp;
 		}
-/*                public int GetImagesLength(){
+                /*public int GetImagesLength(){
                         return (int) imgRes.length();
                 }*/
                 public int GetSoundsLength(){
@@ -92,11 +92,6 @@ namespace LAIR{
                 public int GetFontsLength(){
                         return (int) ttfRes.length();
                 }
-                /*private int GetRandomImageIndex(){
-                        int tmp = Sorcerer.int_range(0, GetImagesLength());
-                        stdout.printf("Random Image from Index #: %s \n", tmp.to_string());
-                        return tmp;
-                }*/
                 private int GetRandomSoundIndex(){
                         int tmp = Sorcerer.int_range(0, GetSoundsLength());
                         stdout.printf("Random Sound from Index # %s \n", tmp.to_string());
@@ -190,14 +185,22 @@ namespace LAIR{
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
 		}
-                /*public List<Video.Surface*> ImageByTagList(List<string> tagList){
+                public List<Video.Surface*> ImageByTagList(List<string> tagList){
                         int c = 0;
                         List<int> tmp = new List<int>();
                         List<Video.Surface*> r = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
-				if (file.HasTag(tag)){
-					tmp.append(c);
-				}
+                                bool cx = false;
+                                foreach (string tag in tagList){
+                                        if (file.HasTag(tag)){
+                                                cx = true;
+                                        }else{
+                                                cx = false;
+                                        }
+                                }
+                                if (cx){
+                                        tmp.append(c);
+                                }
                                 c++;
 			}
                         int top = (int) tmp.length();
@@ -205,7 +208,7 @@ namespace LAIR{
                         stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
-		}*/
+		}
                 public List<Video.Surface*> ImageListByName(string name, int num){
                         int c = 0;
                         List<int> tmp = new List<int>();
@@ -224,6 +227,25 @@ namespace LAIR{
                         }
 			return r;
 		}
+                public List<Video.Surface*> ImageListByTag(string tag, int num){
+                        int c = 0;
+                        List<int> tmp = new List<int>();
+                        List<Video.Surface*> r = new List<Video.Surface*>();
+			foreach (Image file in imgRes){
+				if (file.HasTag(tag)){
+					tmp.append(c);
+				}
+                                c++;
+			}
+                        int top = (int) tmp.length();
+                        for (int i = 0; i < num; i++){
+                                int index = Sorcerer.int_range(0, top);
+                                stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                                r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
+                        }
+			return r;
+		}
+                //public List<Video.Surface*> BodyByTone(string tone){}
                 public List<Video.Surface*> BodyByTone(string tone){
                         //int c = 0;
                         List<List<int>> tmp = new List<List<int>>();
