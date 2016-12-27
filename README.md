@@ -64,8 +64,11 @@ to do:
   the map objects. I think for now I'll keep the generation of walls and basic
   structures something that is statically configured though because otherwise
   I think we might get some unpredictable behavior with the size of the maps.
+    - This is getting there, slowly. Forced efficiency. It'll be OK.
   * Add scripting to the resource management interface to demonstrate procedural
   content generation based on tagging
+    - Possibly a better idea: Make the interface to the FileDB a string and have
+    the map generation script emit the taglist and use the existing FileDB.
     - Possible idea? Generate lists of the most common tags in a person's
     avaialable resources and compare them against some kind of dictionary to
     generate new "dungeon seeds?" Also that's what I'm calling the tag lists

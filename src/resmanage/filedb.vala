@@ -174,6 +174,38 @@ namespace LAIR{
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
 		}
+                public List<Video.Surface*> ImageByTag(string tag){
+                        int c = 0;
+                        List<int> tmp = new List<int>();
+                        List<Video.Surface*> r = new List<Video.Surface*>();
+			foreach (Image file in imgRes){
+				if (file.HasTag(tag)){
+					tmp.append(c);
+				}
+                                c++;
+			}
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
+                        stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
+                        return r;
+		}
+                /*public List<Video.Surface*> ImageByTagList(List<string> tagList){
+                        int c = 0;
+                        List<int> tmp = new List<int>();
+                        List<Video.Surface*> r = new List<Video.Surface*>();
+			foreach (Image file in imgRes){
+				if (file.HasTag(tag)){
+					tmp.append(c);
+				}
+                                c++;
+			}
+                        int top = (int) tmp.length();
+                        int index = Sorcerer.int_range(0, top);
+                        stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
+                        return r;
+		}*/
                 public List<Video.Surface*> ImageListByName(string name, int num){
                         int c = 0;
                         List<int> tmp = new List<int>();
@@ -192,20 +224,6 @@ namespace LAIR{
                         }
 			return r;
 		}
-                /*
-		public Video.Surface* ImageByTag(string query){
-                        int c = 0;
-                        List<int> tmp = new List<int>();
-			foreach (Image file in imgRes){
-				if (file.HasTag(query)){
-					tmp.append(c);
-				}
-                                c++;
-			}
-                        int top = (int) tmp.length();
-                        int index = Sorcerer.int_range(0, top);
-			return imgRes.nth_data(tmp.nth_data(index)).GetImage();
-		}*/
                 public List<Video.Surface*> BodyByTone(string tone){
                         //int c = 0;
                         List<List<int>> tmp = new List<List<int>>();
@@ -233,10 +251,10 @@ namespace LAIR{
                                 r.append(imgRes.nth_data(tm.nth_data(index)).GetImage());
                         }
 			return r;
-                }/*
-                public List<Video.Surface*> BodyByTagList(List<string> query){
                 }
-                public Music* SoundByName(string name){
+                //public List<Video.Surface*> BodyByTagList(List<string> query){
+                //}
+                /*public Music* SoundByName(string name){
 			List<Music*> tmp = new List<Music*>();
 			foreach (Sound file in sndRes){
 				if (file.HasName(name)){

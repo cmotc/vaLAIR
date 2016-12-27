@@ -4,42 +4,78 @@ using Lua;
 namespace LAIR{
 	class Room : LuaConf{
 		private bool visited = false;
-                private int X = 0; private int Y = 0;
-                private int Width = 0; private int Height = 0;
+                private Video.Rect Border = Video.Rect(){ x = 0, y = 0, w = 0, h = 0 };
 		private List<Entity> Particles = new List<Entity>();
-		private Entity Player = null;
 		private List<Entity> Mobs = new List<Entity>();
-                private static string MapGenScriptPath = "";
+                private Entity Player = null;
                 private static FileDB GameMaster = null;
                 public Room(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
                         GameMaster = DM;
-                        MapGenScriptPath = scripts[0]; vm.do_file(MapGenScriptPath);
-                        vm.register("decide_image", decide_image); vm.register("decide_sound", decide_sound); vm.register("decide_font", decide_font);
-                        X = xyoffset[0]; Y = xyoffset[1]; Width = width; Height = height;
+                        RegisterLuaFunctions(scripts[0]);
+                        SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(0, xyoffset, renderer);
-                        stdout.printf("    Generated room. Length: %s\n", Particles.length().to_string());
 		}
                 public Room.WithPlayer(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
                         GameMaster = DM;
-                        MapGenScriptPath = scripts[0]; vm.do_file(MapGenScriptPath);
-                        vm.register("decide_image", decide_image); vm.register("decide_sound", decide_sound); vm.register("decide_font", decide_font);
-                        X = xyoffset[0]; Y = xyoffset[1]; Width = width; Height = height;
+                        RegisterLuaFunctions(scripts[0]);
+                        SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(0, xyoffset, renderer);
                         EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                        stdout.printf("    Generated room. Length: %s\n", Particles.length().to_string());
 		}
+                private void SetDimensions(int x, int y, int w, int h){
+                        Border.x = x;
+                        Border.y = y;
+                        Border.w = w;
+                        Border.h = h;
+                }
+                private int GetX(){     return (int) Border.x;}
+                private int GetY(){     return (int) Border.y;}
+                private int GetW(){     return (int) Border.w;}
+                private int GetH(){     return (int) Border.h;}
+                private static void RegisterLuaFunctions(string MapGenScriptPath){
+                        LoadLuaFile(MapGenScriptPath);
+                        LuaRegister("particle_count", particle_count);
+                        LuaRegister("mobile_count", mobile_count);
+                }
+                private static int particle_count(LuaVM vm){
+                        return 1;
+                }
+                private static int mobile_count(LuaVM vm){
+                        return 1;
+                }
+                private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
+                        //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                        LuaDoFunction("map_image_decide");
+                        List<string> imgtags = GetLuaLastReturn();
+                        LuaDoFunction("map_sound_decide");
+                        List<string> sndtags = GetLuaLastReturn();
+                        LuaDoFunction("map_font_decide");
+                        List<string> fnttags = GetLuaLastReturn();
+                        //Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(imgtags), GameMaster.GetRandSound(sndtags), GameMaster.GetRandFont(fnttags), renderer));
+                }
+                private void DecideMobileTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
+                        //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                        LuaDoFunction("map_image_decide");
+                        List<string> imgtags = GetLuaLastReturn();
+                        LuaDoFunction("map_sound_decide");
+                        List<string> sndtags = GetLuaLastReturn();
+                        LuaDoFunction("map_font_decide");
+                        List<string> fnttags = GetLuaLastReturn();
+                        //Mobiles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(imgtags), GameMaster.GetRandSound(sndtags), GameMaster.GetRandFont(fnttags), renderer));
+                }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
                 private void GenerateStructure( int CR, int[] xyoffset, Video.Renderer* renderer){
-                        int WT = (Width / 32); int HT = (Height / 32);
+                        int WT = (int)(GetW() / 32); int HT = (int)(GetH() / 32);
                         stdout.printf("    Generating room. Width: %s ", WT.to_string()); stdout.printf("Height %s\n", HT.to_string());
                         for (int x = 0; x < WT; x++){
                                 for (int y = 0; y < HT; y++){
                                         GenerateBlockTile(x, y, WT, HT, CR, renderer);
+                                        DecideBlockTile(x, y, WT, HT, renderer);
                                 }
                         }
                 }
-                private void GenerateBlockTile( int x, int y, int WT, int HT, int CR, Video.Renderer* renderer){
-                        int XO = (x * 32) + X; int YO = (y * 32) + Y;
+                private void GenerateBlockTile(int x, int y, int WT, int HT, int CR, Video.Renderer* renderer){
+                        int XO = (x * 32) + Border.x; int YO = (y * 32) + Border.y;
                         Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("stonefloor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         stdout.printf("     Generating Entity Particle X: %s ", XO.to_string()); stdout.printf("Y: %s \n", YO.to_string());
                         if ( x == (0 + GameMaster.int_range(0,CR)) ){
@@ -51,21 +87,6 @@ namespace LAIR{
                         }else if ( y == ((HT-1) - GameMaster.int_range(0,CR)) ){
                                 Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("stonewall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         }
-                }
-                private static int decide_image(LuaVM vm){
-                        lua_last_return = GetLuaLastReturn();
-                        return 1;
-                }
-                private static int decide_sound(LuaVM vm){
-                        lua_last_return = GetLuaLastReturn();
-                        return 1;
-                }
-                private static int decide_font(LuaVM vm){
-                        lua_last_return = GetLuaLastReturn();
-                        return 1;
-                }
-                private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
-                        //
                 }
                 public bool HasPlayer(){
 			bool tmp = false;
@@ -110,11 +131,7 @@ namespace LAIR{
                         return t;
                 }
                 private Video.Rect GetHitBox(){
-                        Video.Rect r = Video.Rect(){ x = X,
-                                                     y = Y,
-                                                     w = Width,
-                                                     h = Height };
-                        return r;
+                        return Border;
                 }
                 private bool InRange(Video.Point point, Video.Rect hitbox){
                         bool t = false;
@@ -197,17 +214,17 @@ namespace LAIR{
 		}
                 //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
                 private void inject_particle(int x, int y, string name, Video.Renderer* renderer){
-                        int XO = (x * 32) + X; int YO = (y * 32) + Y;
-                        if ( XO < X + Width ){ if ( XO > X ){
-                                if ( YO < Y + Height ){ if ( YO > Y ){
+                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                        if ( XO < GetX() + GetW() ){ if ( XO > GetX() ){
+                                if ( YO < GetY() + GetW() ){ if ( YO > GetY() ){
                                         Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(name), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }
                 private void inject_mobile(int x, int y, string name, Video.Renderer* renderer){
-                        int XO = (x * 32) + X; int YO = (y * 32) + Y;
-                        if ( XO < X + Width ){ if ( XO > X ){
-                                if ( YO < Y + Height ){ if ( YO > Y ){
+                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                        if ( XO < GetX() + GetW() ){ if ( XO > GetX() ){
+                                if ( YO < GetY() + GetW() ){ if ( YO > GetY() ){
                                         Mobs.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(name), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
