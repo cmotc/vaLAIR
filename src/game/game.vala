@@ -9,7 +9,6 @@ namespace LAIR{
 		private Video.Window window;
 		private Video.Renderer WindowRenderer;
 
-		private FileDB Resources;
 		private Tower GameEnvironment;
 
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
@@ -27,8 +26,7 @@ namespace LAIR{
 
                         }
 
-                        Resources = new FileDB(imageListPath, soundListPath, fontsListPath);
-                        GameEnvironment = new Tower(mapSize, scriptPaths, Resources, WindowRenderer);
+                        GameEnvironment = new Tower(mapSize, scriptPaths, new FileDB(imageListPath, soundListPath, fontsListPath), WindowRenderer);
 		}
 		private int UpdateScreen(){
 			int r = GameEnvironment.TakeTurns();

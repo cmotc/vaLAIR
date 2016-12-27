@@ -280,5 +280,8 @@ namespace LAIR{
                         int index = Sorcerer.int_range(0, top);
 			return tmp.nth_data(0);
 		}*/
+                public int int_range(int low, int high){
+                        return Sorcerer.int_range(low, high);
+                }
 	}
 }

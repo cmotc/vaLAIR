@@ -22,6 +22,7 @@ unix:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/luaconf.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -61,6 +62,7 @@ android:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/luaconf.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
