@@ -1,3 +1,4 @@
+
 using SDL;
 using SDLImage;
 using SDLGraphics;
@@ -11,6 +12,7 @@ namespace LAIR{
 		private LairFile imgListPath = null;
 		private LairFile sndListPath = null;
 		private LairFile ttfListPath = null;
+                private List<List<string>> BodyParts = new List<List<string>>();
                 private GLib.Rand Sorcerer = new GLib.Rand();
 		public FileDB(string imgList, string sndList, string ttfList){
 			var imgfile = new LairFile.WithPath(imgList);
@@ -36,7 +38,22 @@ namespace LAIR{
 				stderr.printf ("File '%s' doesn't exist.\n", ttffile.GetPath());
 			}
 			LoadFilesWithTags();
+                        InitBodyVars();
 		}
+                private void InitBodyVars(){
+                        List<string> head = new List<string>(); head.append("head");
+                        BodyParts.append(head.copy());
+                        List<string> leftarm = new List<string>(); leftarm.append("arms"); leftarm.append("left");
+                        BodyParts.append(leftarm.copy());
+                        List<string> rightarm = new List<string>(); rightarm.append("arms"); rightarm.append("right");
+                        BodyParts.append(rightarm.copy());
+                        List<string> body = new List<string>(); body.append("body");
+                        BodyParts.append(body.copy());
+                        List<string> leftleg = new List<string>(); leftleg.append("leg"); leftleg.append("left");
+                        BodyParts.append(leftleg.copy());
+                        List<string> rightleg = new List<string>(); rightleg.append("leg"); rightleg.append("right");
+                        BodyParts.append(rightleg.copy());
+                }
                 public bool LoadFilesWithTags(){
 			bool tmp = false;
 			if (imgListPath.CheckPath()){
@@ -102,45 +119,6 @@ namespace LAIR{
                         stdout.printf("Random Font from Index #: %s \n", tmp.to_string());
                         return tmp;
                 }
-/*                private int GetRandomImageIndexByRange(int bottom, int top){
-                        int t = top;
-                        int b = bottom;
-                        if (top > GetImagesLength()){
-                                t = GetImagesLength();
-                        }
-                        if (bottom > 0 ){
-                                b = 0;
-                        }
-                        return Sorcerer.int_range(bottom, top);
-                }
-                private int GetRandomSoundIndexByRange(int bottom, int top){
-                        int t = top;
-                        int b = bottom;
-                        if (top > GetSoundsLength()){
-                                t = GetSoundsLength();
-                        }
-                        if (bottom > 0 ){
-                                b = 0;
-                        }
-                        return Sorcerer.int_range(bottom, top);
-                }
-                private int GetRandomFontIndexByRange(int bottom, int top){
-                        int t = top;
-                        int b = bottom;
-                        if (top > GetFontsLength()){
-                                t = GetFontsLength();
-                        }
-                        if (bottom > 0 ){
-                                b = 0;
-                        }
-                        return Sorcerer.int_range(bottom, top);
-                }*/
-/*                public Video.Surface* GetRandImage(){
-                        return imgRes.nth_data(GetRandomImageIndex()).GetImage();
-                }
-                public Video.Surface* GetRandImageByRange(int bottom, int top){
-                        return imgRes.nth_data(GetRandomImageIndexByRange(bottom, top)).GetImage();
-                }*/
                 public Music* GetRandSound(){
                         return sndRes.nth_data(GetRandomSoundIndex()).GetSound();
                 }/*
@@ -169,7 +147,7 @@ namespace LAIR{
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
 		}
-                public List<Video.Surface*> ImageByTag(string tag){
+                /*public List<Video.Surface*> ImageByTag(string tag){
                         int c = 0;
                         List<int> tmp = new List<int>();
                         List<Video.Surface*> r = new List<Video.Surface*>();
@@ -184,32 +162,25 @@ namespace LAIR{
                         stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
-		}
-                public List<Video.Surface*> ImageByTagList(List<string> tagList){
-                        int c = 0;
-                        List<int> tmp = new List<int>();
+		}*/
+                private Video.Surface* ImageByTagList(List<string> tagList){
                         List<Video.Surface*> r = new List<Video.Surface*>();
 			foreach (Image file in imgRes){
-                                bool cx = false;
-                                foreach (string tag in tagList){
-                                        if (file.HasTag(tag)){
-                                                cx = true;
-                                        }else{
-                                                cx = false;
-                                        }
+                                if (file.HasTagList(tagList)){
+                                        r.append(file.GetImage());
+                                        stdout.printf("Found taglist ");
+                                                foreach(string t in tagList){
+                                                        stdout.printf("%s ", t);
+                                                }
+                                                stdout.printf("\n");
                                 }
-                                if (cx){
-                                        tmp.append(c);
-                                }
-                                c++;
 			}
-                        int top = (int) tmp.length();
+                        int top = (int) r.length();
                         int index = Sorcerer.int_range(0, top);
-                        stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
-			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
-                        return r;
+                        stdout.printf("Emitting random image from subindex #: %s \n:", index.to_string() );
+                        return r.nth_data(index);
 		}
-                public List<Video.Surface*> ImageListByName(string name, int num){
+                /*public List<Video.Surface*> ImageListByName(string name, int num){
                         int c = 0;
                         List<int> tmp = new List<int>();
                         List<Video.Surface*> r = new List<Video.Surface*>();
@@ -226,8 +197,8 @@ namespace LAIR{
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         }
 			return r;
-		}
-                public List<Video.Surface*> ImageListByTag(string tag, int num){
+		}*/
+                /*public List<Video.Surface*> ImageListByTag(string tag, int num){
                         int c = 0;
                         List<int> tmp = new List<int>();
                         List<Video.Surface*> r = new List<Video.Surface*>();
@@ -244,33 +215,17 @@ namespace LAIR{
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         }
 			return r;
-		}
+		}*/
                 //public List<Video.Surface*> BodyByTone(string tone){}
                 public List<Video.Surface*> BodyByTone(string tone){
-                        //int c = 0;
-                        List<List<int>> tmp = new List<List<int>>();
                         List<Video.Surface*> r = new List<Video.Surface*>();
-                        List<string> Names = new List<string>();
-                        Names.append("head"); Names.append("body"); Names.append("leftarms"); Names.append("leftleg"); Names.append("rightarms"); Names.append("rightleg");
-                        stdout.printf("Generating a body of %s ", tone);
-                        foreach(string name in Names){
-                                int c = 0;
-                                List<int> t = new List<int>();
-                                foreach (Image file in imgRes){
-                                        string fullname = tone + name;
-                                        if (file.HasName(fullname)){
-                                                stdout.printf("found component %s ", fullname);
-                                                t.append(c);
-                                        }
-                                        c++;
+                        foreach(var part in BodyParts.copy()){
+                                List<string> x = new List<string>();
+                                foreach(string s in part){
+                                        x.append(s);
                                 }
-                                tmp.append(t.copy());
-                        }
-                        foreach(var tm in tmp.copy()){
-                                int top = (int) tm.length();
-                                int index = Sorcerer.int_range(0, top);
-                                stdout.printf(" \n Emitting body component index #: %s \n", tm.nth_data(index).to_string() );
-                                r.append(imgRes.nth_data(tm.nth_data(index)).GetImage());
+                                x.append(tone);
+                                r.append(ImageByTagList(x));
                         }
 			return r;
                 }

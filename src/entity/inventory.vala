@@ -3,7 +3,7 @@ using SDLMixer;
 using SDLTTF;
 namespace LAIR{
 	class Inventory : Stats{
-                private List<Entity> Storage = new List<Entity>();
+                //private List<Entity> Storage = new List<Entity>();
                 //class BodyWear{
                         //Entity head;
                         //Entity eyes;

@@ -1,7 +1,6 @@
 unix:
 	valac -gv \
 		-o bin/LAIR \
-		--disable-warnings \
 		--pkg gio-2.0 \
 		--pkg lua \
 		--pkg sdl2 \

@@ -20,7 +20,8 @@ namespace LAIR{
                         RegisterLuaFunctions(scripts[0]);
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(0, xyoffset, renderer);
-                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        //EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.ImageByName("human"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
 		}
                 private void SetDimensions(int x, int y, int w, int h){
                         Border.x = x;
@@ -52,6 +53,19 @@ namespace LAIR{
                         LuaDoFunction("map_font_decide");
                         List<string> fnttags = GetLuaLastReturn();
                         //Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(imgtags), GameMaster.GetRandSound(sndtags), GameMaster.GetRandFont(fnttags), renderer));
+                        //inject_particle
+                        foreach(string i in imgtags){
+                                stdout.printf("%s, ", i);
+                        }
+                        stdout.printf("\n");
+                        foreach(string s in sndtags){
+                                stdout.printf("%s, ", s);
+                        }
+                        stdout.printf("\n");
+                        foreach(string t in fnttags){
+                                stdout.printf("%s, ", t);
+                        }
+                        stdout.printf("\n");
                 }
                 private void DecideMobileTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
                         //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
@@ -62,6 +76,19 @@ namespace LAIR{
                         LuaDoFunction("map_font_decide");
                         List<string> fnttags = GetLuaLastReturn();
                         //Mobiles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(imgtags), GameMaster.GetRandSound(sndtags), GameMaster.GetRandFont(fnttags), renderer));
+                        //inject_mobile
+                        foreach(string i in imgtags){
+                                stdout.printf("%s, ", i);
+                        }
+                        stdout.printf("\n");
+                        foreach(string s in sndtags){
+                                stdout.printf("%s, ", s);
+                        }
+                        stdout.printf("\n");
+                        foreach(string t in fnttags){
+                                stdout.printf("%s, ", t);
+                        }
+                        stdout.printf("\n");
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
                 private void GenerateStructure( int CR, int[] xyoffset, Video.Renderer* renderer){
@@ -71,21 +98,22 @@ namespace LAIR{
                                 for (int y = 0; y < HT; y++){
                                         GenerateBlockTile(x, y, WT, HT, CR, renderer);
                                         DecideBlockTile(x, y, WT, HT, renderer);
+                                        DecideMobileTile(x, y, WT, HT, renderer);
                                 }
                         }
                 }
                 private void GenerateBlockTile(int x, int y, int WT, int HT, int CR, Video.Renderer* renderer){
-                        int XO = (x * 32) + Border.x; int YO = (y * 32) + Border.y;
-                        Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("stonefloor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                        Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("floor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         stdout.printf("     Generating Entity Particle X: %s ", XO.to_string()); stdout.printf("Y: %s \n", YO.to_string());
                         if ( x == (0 + GameMaster.int_range(0,CR)) ){
-                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("stonewall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         }else if ( x == ((WT-1) - GameMaster.int_range(0,CR)) ){
-                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("stonewall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         }else if ( y == (0 + GameMaster.int_range(0,CR)) ){
-                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("stonewall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         }else if ( y == ((HT-1) - GameMaster.int_range(0,CR)) ){
-                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("stonewall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         }
                 }
                 public bool HasPlayer(){
@@ -213,7 +241,7 @@ namespace LAIR{
 			return tmp;
 		}
                 //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
-                private void inject_particle(int x, int y, string name, Video.Renderer* renderer){
+                /*private void inject_particle(int x, int y, string name, Video.Renderer* renderer){
                         int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                         if ( XO < GetX() + GetW() ){ if ( XO > GetX() ){
                                 if ( YO < GetY() + GetW() ){ if ( YO > GetY() ){
@@ -228,6 +256,6 @@ namespace LAIR{
                                         Mobs.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(name), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
-                }
+                }*/
 	}
 }

@@ -7,8 +7,9 @@ namespace LAIR{
                 private static string ScriptPath = "";
                 protected static List<string> GetLuaLastReturn(){
                         var sum = vm.to_number (-1);
-                        List<string> r = new List<string>();
-                        return r;
+
+                        vm.pop (1);
+                        return lua_last_return.copy();
                 }
                 public LuaConf(){
                         vm = new LuaVM();

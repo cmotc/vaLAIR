@@ -24,8 +24,7 @@ namespace LAIR{
                 public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, Music* music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base.Parameter(corner, Surfaces, music, font, renderer, "player");
                 }
-                private void DoActions(Entity t){
-                }
+                //private void DoActions(Entity t){}
                 private bool InRange(Video.Point point, Video.Rect hitbox){
                         bool t = false;
                         int xx = (int) (hitbox.x + hitbox.w);
@@ -48,7 +47,6 @@ namespace LAIR{
                         return t;
                 }
                 public bool DetectCollision(Entity t){
-                        int test = 0;
                         bool r = false;
                         assert(t != null);
                         if(GetBlock()){

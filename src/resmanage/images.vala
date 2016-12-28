@@ -44,8 +44,7 @@ namespace LAIR{
 			}
 		}
 		public Video.Surface* GetImage(){
-                        Video.Surface* tmp = surface;
-			return tmp;
+			return surface;
 		}
 	}
 }

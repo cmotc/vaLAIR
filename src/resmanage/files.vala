@@ -2,11 +2,7 @@ namespace LAIR{
 	public class LairFile : GLib.Object {
 		private string Path = null;
 		private string Name = null;
-                private int Length = 0;
-		private List<string> Tags = new List<string>();
-//		public LairFile(){
-//			Path = null;
-//		}
+		private List<string> Tags = null;//new List<string>();
 		public LairFile.WithPath(string path){
 			Path = SetPath(path);
 		}
@@ -28,6 +24,7 @@ namespace LAIR{
                         SetTags(tags);
                 }
 		protected List<string>* SetTags(List<string> tags){
+                        if(Tags == null){Tags = new List<string>();}
 			foreach (string tag in tags){
 				if (HasTag(tag) == false){
 					Tags.append(tag);
@@ -59,6 +56,21 @@ namespace LAIR{
 				}
 			}
 			return tmp;
+		}
+                public bool HasTagList(List<string> queryList){
+                        bool rtmp = true;
+                        int i = 0, j = 0;
+                        for(i = 0; i < queryList.length(); i++){
+                                for(j = 0; j < Tags.length(); j++){
+                                        if(queryList.nth_data(i) == Tags.nth_data(j)){
+                                                break;
+                                        }
+                                }
+                                if(j == Tags.length()){
+                                        rtmp = false;
+                                }
+                        }
+			return rtmp;
 		}
 		public string GetPath(){
                         stdout.printf("Getting Path: %s\n", Path);
@@ -98,7 +110,6 @@ namespace LAIR{
 					string []tl = line.split(" ", 2);
 					if (FileUtils.test(tl[0], FileTest.EXISTS)) {
 						tmp.append(tl[0]);
-                                                //tmp.append(line);
 						stdout.printf("Loaded Resource: %s\n", tl[0]);
 					}else{
 						stderr.printf("Failed to load Resource: %s\n", tl[0]);
@@ -111,6 +122,7 @@ namespace LAIR{
 			return tmp;
 		}
                 public int LenLineDelimitedConfig(){
+                        int Length = 0;
 			var file = File.new_for_path(Path);
                         int r = 0;
 			if (!file.query_exists ()) {
@@ -128,9 +140,8 @@ namespace LAIR{
                                         error ("%s", e.message);
                                 }
                                 Length = r;
-                        }else{
-                                r = Length;
                         }
+                        r = Length;
 			return r;
 		}
                 public List<string> GetConfigLine(int lineNum){
