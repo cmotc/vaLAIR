@@ -60,15 +60,28 @@ namespace LAIR{
                 public bool HasTagList(List<string> queryList){
                         bool rtmp = true;
                         int i = 0, j = 0;
-                        for(i = 0; i < queryList.length(); i++){
-                                for(j = 0; j < Tags.length(); j++){
-                                        if(queryList.nth_data(i) == Tags.nth_data(j)){
+                        //for(i = 0; i < queryList.length(); i++){
+                        foreach(string query in queryList){
+                                //for(j = 0; j < Tags.length(); j++){
+                                foreach(string tag in Tags){
+                                        //if(queryList.nth_data(i) == Tags.nth_data(j)){
+                                        if(query == tag){
                                                 break;
+                                        }else{
+                                                j++;
                                         }
                                 }
+                                i++;
                                 if(j == Tags.length()){
                                         rtmp = false;
                                 }
+                        }
+                        if(rtmp){
+                                stdout.printf("Found taglist: ");
+                                foreach(string t in Tags){
+                                        stdout.printf("%s ", t);
+                                }
+                                stdout.printf("\n");
                         }
 			return rtmp;
 		}

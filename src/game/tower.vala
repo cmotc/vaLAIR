@@ -26,6 +26,10 @@ namespace LAIR{
 				w = 320;
 				h = 320;
 				count = 2;
+			}else if (size == "oneroom"){
+				w = 320;
+				h = 320;
+				count = 1;
 			}
                         stdout.printf("Building %s-size Tower\n", size);
 			for (int c = 0; c <= count-1; c++){

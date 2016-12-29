@@ -168,11 +168,6 @@ namespace LAIR{
 			foreach (Image file in imgRes){
                                 if (file.HasTagList(tagList)){
                                         r.append(file.GetImage());
-                                        stdout.printf("Found taglist ");
-                                                foreach(string t in tagList){
-                                                        stdout.printf("%s ", t);
-                                                }
-                                                stdout.printf("\n");
                                 }
 			}
                         int top = (int) r.length();
@@ -219,13 +214,9 @@ namespace LAIR{
                 //public List<Video.Surface*> BodyByTone(string tone){}
                 public List<Video.Surface*> BodyByTone(string tone){
                         List<Video.Surface*> r = new List<Video.Surface*>();
-                        foreach(var part in BodyParts.copy()){
-                                List<string> x = new List<string>();
-                                foreach(string s in part){
-                                        x.append(s);
-                                }
-                                x.append(tone);
-                                r.append(ImageByTagList(x));
+                        foreach(unowned List<string> part in BodyParts.copy()){
+                                part.append(tone);
+                                r.append(ImageByTagList(part));
                         }
 			return r;
                 }
