@@ -21,7 +21,6 @@ namespace LAIR{
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(0, xyoffset, renderer);
                         EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                        //EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.ImageByName("human"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
 		}
                 private void SetDimensions(int x, int y, int w, int h){
                         Border.x = x;
@@ -33,17 +32,19 @@ namespace LAIR{
                 private int GetY(){     return (int) Border.y;}
                 private int GetW(){     return (int) Border.w;}
                 private int GetH(){     return (int) Border.h;}
-                private static void RegisterLuaFunctions(string MapGenScriptPath){
+                private void RegisterLuaFunctions(string MapGenScriptPath){
                         LoadLuaFile(MapGenScriptPath);
-                        LuaRegister("particle_count", particle_count);
-                        LuaRegister("mobile_count", mobile_count);
+                        LuaRegister("particle_count", particle_count_delegate);
+                        LuaRegister("mobile_count", mobile_count_delegate);
                 }
-                private static int particle_count(LuaVM vm){
+                private int particle_count(LuaVM vm = GetLuaVM()){
                         return 1;
                 }
-                private static int mobile_count(LuaVM vm){
+                private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
+                private int mobile_count(LuaVM vm = GetLuaVM()){
                         return 1;
                 }
+                private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
                 private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
                         //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                         LuaDoFunction("map_image_decide");

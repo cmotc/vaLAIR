@@ -2,29 +2,32 @@ using Lua;
 
 namespace LAIR{
 	class LuaConf : Object{
-                private static LuaVM vm = new LuaVM ();
-                protected static List<string> lua_last_return = new List<string>();
-                private static string ScriptPath = "";
-                protected static List<string> GetLuaLastReturn(){
-                        var sum = vm.to_number (-1);
+                private LuaVM VM = new LuaVM ();
+                protected List<string> lua_last_return = new List<string>();
+                private string ScriptPath = "";
+                public LuaConf(){
+                        lua_last_return = new List<string>();
+                        VM = new LuaVM();
+                        VM.open_libs();
+                }
+                protected List<string> GetLuaLastReturn(){
+                        var sum = VM.to_number (-1);
 
-                        vm.pop (1);
+                        VM.pop (1);
                         return lua_last_return.copy();
                 }
-                public LuaConf(){
-                        vm = new LuaVM();
-                        vm.open_libs();
+                protected void LuaRegister(string name, CallbackFunc f){
+                        VM.register(name, f);
                 }
-                protected static void LuaRegister(string name, CallbackFunc f){
-                        vm.register(name, f);
-                }
-                protected static void LoadLuaFile(string path){
-                        vm.do_file(path);
+                protected void LoadLuaFile(string path){
+                        VM.do_file(path);
                         ScriptPath = path;
                 }
-                protected static void LuaDoFunction(string function){
-                        vm.do_string(function);
+                protected void LuaDoFunction(string function){
+                        VM.do_string(function);
                 }
-
+                protected LuaVM* GetLuaVM(){
+                        return VM;
+                }
         }
 }
