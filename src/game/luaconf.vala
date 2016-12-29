@@ -11,8 +11,10 @@ namespace LAIR{
                         VM.open_libs();
                 }
                 protected List<string> GetLuaLastReturn(){
-                        var sum = VM.to_number (-1);
-
+                        //size_t sz = VM.strlen(-1);
+                        size_t sz;
+                        var word = VM.to_lstring(-1, out sz);
+                        stdout.printf(word);
                         VM.pop (1);
                         return lua_last_return.copy();
                 }
