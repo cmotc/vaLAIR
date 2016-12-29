@@ -29,4 +29,3 @@ function map_fonts_decide()
         return decided_font
 end
 
-map_image_decide()
