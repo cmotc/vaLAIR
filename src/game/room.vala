@@ -20,8 +20,8 @@ namespace LAIR{
                         RegisterLuaFunctions(scripts[0]);
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(0, xyoffset, renderer);
-                        //EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.ImageByName("human"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        //EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.ImageByName("human"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
 		}
                 private void SetDimensions(int x, int y, int w, int h){
                         Border.x = x;

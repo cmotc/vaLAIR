@@ -41,18 +41,18 @@ namespace LAIR{
                         InitBodyVars();
 		}
                 private void InitBodyVars(){
-                        List<string> head = new List<string>(); head.append("head");
-                        BodyParts.append(head.copy());
-                        List<string> leftarm = new List<string>(); leftarm.append("arms"); leftarm.append("left");
-                        BodyParts.append(leftarm.copy());
-                        List<string> rightarm = new List<string>(); rightarm.append("arms"); rightarm.append("right");
-                        BodyParts.append(rightarm.copy());
-                        List<string> body = new List<string>(); body.append("body");
-                        BodyParts.append(body.copy());
-                        List<string> leftleg = new List<string>(); leftleg.append("leg"); leftleg.append("left");
-                        BodyParts.append(leftleg.copy());
-                        List<string> rightleg = new List<string>(); rightleg.append("leg"); rightleg.append("right");
-                        BodyParts.append(rightleg.copy());
+                        BodyParts.append(new List<string>());
+                        BodyParts.nth_data(0).append("head");
+                        BodyParts.append(new List<string>());
+                        BodyParts.nth_data(1).append("arms"); BodyParts.nth_data(1).append("left");
+                        BodyParts.append(new List<string>());
+                        BodyParts.nth_data(2).append("arms"); BodyParts.nth_data(2).append("right");
+                        BodyParts.append(new List<string>());
+                        BodyParts.nth_data(3).append("body");
+                        BodyParts.append(new List<string>());
+                        BodyParts.nth_data(4).append("leg"); BodyParts.nth_data(4).append("left");
+                        BodyParts.append(new List<string>());
+                        BodyParts.nth_data(5).append("leg");BodyParts.nth_data(5).append("right");
                 }
                 public bool LoadFilesWithTags(){
 			bool tmp = false;

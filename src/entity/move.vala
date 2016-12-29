@@ -133,7 +133,24 @@ namespace LAIR{
                         stdout.printf("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
                                 stdout.printf(" Checking Event for Player Input\n");
-				if (e.type == EventType.KEYDOWN) {
+				if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
+                                        int x = 0, y = 0;
+                                        Input.Cursor.get_state(ref x, ref y);
+                                        bool inside = true;
+                                        if (inside){
+                                                switch (e.type) {
+                                                        case EventType.MOUSEMOTION:
+                                                                t = MouseMove(x, y);
+                                                                break;
+                                                        case EventType.MOUSEBUTTONDOWN:
+                                                                t = 7;
+                                                                break;
+                                                        case EventType.MOUSEBUTTONUP:
+                                                                t = 8;
+                                                                break;
+                                                }
+                                        }
+                                }else if (e.type == EventType.KEYDOWN) {
                                         switch(e.key.keysym.sym){
                                                 case Input.Keycode.ESCAPE:
                                                         t = Quit();
@@ -162,23 +179,6 @@ namespace LAIR{
                                                 case Input.Keycode.LEFT:
                                                         t = StepLeft();
                                                         break;
-                                        }
-                                }else if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
-                                        int x = 0, y = 0;
-                                        Input.Cursor.get_state(ref x, ref y);
-                                        bool inside = true;
-                                        if (inside){
-                                                switch (e.type) {
-                                                        case EventType.MOUSEMOTION:
-                                                                t = MouseMove(x, y);
-                                                                break;
-                                                        case EventType.MOUSEBUTTONDOWN:
-                                                                t = 7;
-                                                                break;
-                                                        case EventType.MOUSEBUTTONUP:
-                                                                t = 8;
-                                                                break;
-                                                }
                                         }
                                 }
 			}
