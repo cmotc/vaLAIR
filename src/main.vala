@@ -46,9 +46,9 @@ namespace LAIR{
                         ImageFilePath = GetFilePath("lair/images.list");
                         SoundFilePath = GetFilePath("lair/sounds.list");
                         FontsFilePath = GetFilePath("lair/fonts.list");
-                        MapGenLua = GetFilePath("lair/demodungeon.lua");
-                        PlayerConfig = GetFilePath("lair/demoplayer.lua");
-                        AiConfig = GetFilePath("lair/demoai.lua");
+                        MapGenLua = GetFilePath("lair/demo/dungeon.lua");
+                        PlayerConfig = GetFilePath("lair/demo/player.lua");
+                        AiConfig = GetFilePath("lair/demo/ai.lua");
 			List<string> Arguments = new List<string>();
 			string MapSize = "tiny";
 			int PixelW = 800;

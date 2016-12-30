@@ -16,8 +16,11 @@ namespace LAIR{
                         }
                         stdout.printf("\n");
                 }
+                private void LuaDoFile(string file){
+                        VM.do_file(file);
+                }
                 protected string[] GetLuaLastReturn(){
-                        string tmp = "Lua says: ";
+                        string tmp = "";
                         if(VM.is_number(-1)){
                                 double number = VM.to_number(-1);
                                 tmp += number.to_string();
@@ -26,15 +29,16 @@ namespace LAIR{
                                 tmp += word;
                         }
                         string[] tl = tmp.split(" ", -1);
-                        VM.pop(1);
                         return tl;
                 }
                 protected void LuaRegister(string name, CallbackFunc f){
                         VM.register(name, f);
                 }
                 protected void LuaDoFunction(string function){
-                        VM.do_file(ScriptPath);
-                        VM.do_string(function);
+                        LuaDoFile(ScriptPath);
+                        string tmp = "return ";
+                        tmp += function;
+                        VM.do_string(tmp);
                 }
                 protected LuaVM* GetLuaVM(){
                         return VM;

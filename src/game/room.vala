@@ -14,14 +14,14 @@ namespace LAIR{
                         GameMaster = DM;
                         RegisterLuaFunctions();
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
-                        GenerateStructure(0, xyoffset, renderer);
+                        GenerateStructure(2, xyoffset, renderer);
 		}
                 public Room.WithPlayer(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
                         base(scripts[0]);
                         GameMaster = DM;
                         RegisterLuaFunctions();
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
-                        GenerateStructure(0, xyoffset, renderer);
+                        GenerateStructure(2, xyoffset, renderer);
                         EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
 		}
                 private void SetDimensions(int x, int y, int w, int h){
@@ -48,31 +48,31 @@ namespace LAIR{
                 private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
                 private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
                         //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        LuaDoFunction("map_image_decide()");
+                        LuaDoFunction("""map_image_decide()""");
                         var imgtags = GetLuaLastReturn();
-                        LuaDoFunction("map_sound_decide()");
+                        LuaDoFunction("""map_sound_decide()""");
                         var sndtags = GetLuaLastReturn();
-                        LuaDoFunction("map_fonts_decide()");
+                        LuaDoFunction("""map_fonts_decide()""");
                         var fnttags = GetLuaLastReturn();
                         stdout.printf("Will it blend?\n");
                         List<string> imgTags = new List<string>();
                         stdout.printf("{");
                         foreach(string i in imgtags){
-                                imgTags.append(i);
+                                //imgTags.append(i);
                                 stdout.printf("%s}, {", i);
                         }
                         stdout.printf("}\n");
                         List<string> sndTags = new List<string>();
                         stdout.printf("{");
                         foreach(string s in sndtags){
-                                sndTags.append(s);
+                                //sndTags.append(s);
                                 stdout.printf("%s}, {", s);
                         }
                         stdout.printf("}\n");
                         List<string> fntTags = new List<string>();
                         stdout.printf("{");
                         foreach(string t in fnttags){
-                                fntTags.append(t);
+                                //fntTags.append(t);
                                 stdout.printf("%s}, {", t);
                         }
                         stdout.printf("}\n");
@@ -80,31 +80,31 @@ namespace LAIR{
                 }
                 private void DecideMobileTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
                         //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        LuaDoFunction("mob_image_decide()");
+                        LuaDoFunction("""mob_image_decide()""");
                         var imgtags = GetLuaLastReturn();
-                        LuaDoFunction("mob_sound_decide()");
+                        LuaDoFunction("""mob_sound_decide()""");
                         var sndtags = GetLuaLastReturn();
-                        LuaDoFunction("mob_fonts_decide()");
+                        LuaDoFunction("""mob_fonts_decide()""");
                         var fnttags = GetLuaLastReturn();
                         stdout.printf("Will it blend?\n");
                         List<string> imgTags = new List<string>();
                         stdout.printf("{");
                         foreach(string i in imgtags){
-                                imgTags.append(i);
+                                //imgTags.append(i);
                                 stdout.printf("%s}, {", i);
                         }
                         stdout.printf("}\n");
                         List<string> sndTags = new List<string>();
                         stdout.printf("{");
                         foreach(string s in sndtags){
-                                sndTags.append(s);
+                                //sndTags.append(s);
                                 stdout.printf("%s}, {", s);
                         }
                         stdout.printf("}\n");
                         List<string> fntTags = new List<string>();
                         stdout.printf("{");
                         foreach(string t in fnttags){
-                                fntTags.append(t);
+                                //fntTags.append(t);
                                 stdout.printf("%s}, {", t);
                         }
                         stdout.printf("}\n");
