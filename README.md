@@ -32,14 +32,15 @@ As far as the actual configuration files go, it's pretty simple. Here's an
 example line.
 
         "Path to a file containing a resource"    "Name"    "List of tags"
-        /usr/share/lair/stonewall/stonewall-1.png stonewall wall stone
+        /usr/share/lair/wall_stone_bricked/wall_stone_bricked-4.png wall stone bricked default
 
 The first part is obviously a path to a png file. Followed by a space, the first
 word following the path is the name of the file. The name is also the first tag
 that can be used to produce a random tile from a specific category with the game
 engine, or it can be used to retrieve a specific tile with the game engine. So
-the first tag, the name, should be unique, and the remaining tags could be
-non-unique. For more example configuration files, see the [art repository](https://github.com/cmotc/lairart).
+the first tag, the name, should be unique for things you want to refer to
+specifically, and the remaining tags could be non-unique. For more example
+configuration files, see the [art repository](https://github.com/cmotc/lairart).
 
 How it works
 ------------
@@ -61,20 +62,7 @@ it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
   * Add scripting to map generation for modifying maps after the construction of
-  the map objects. I think for now I'll keep the generation of walls and basic
-  structures something that is statically configured though because otherwise
-  I think we might get some unpredictable behavior with the size of the maps.
-    - This is getting there, slowly. Forced efficiency. It'll be OK.
-  * Add scripting to the resource management interface to demonstrate procedural
-  content generation based on tagging
-    - Possibly a better idea: Make the interface to the FileDB a string and have
-    the map generation script emit the taglist and use the existing FileDB.
-    - Possible idea? Generate lists of the most common tags in a person's
-    avaialable resources and compare them against some kind of dictionary to
-    generate new "dungeon seeds?" Also that's what I'm calling the tag lists
-    that are used to generate the dungeons right now, and it's what the scripts
-    will be called.
-  * Configuration with Environment Variables as well as Flags and Files
+  the map objects. Like 90% of the way there.
   * Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
   * Write some example AI scripts
@@ -84,8 +72,12 @@ to do:
   * Low GUI Mode for running a game without a player, in order to behave like a
     server.
   * I'm sure that there's more but I'll have to come to that.
+  * Make More Art! digitalAndy is making this alot easier.
   * Add a few features to digitalAndy: Trianges. Adjustable Sizes. Final images
   Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
+    - Can work-around many shortcomings of digitalAndy with imageMagick. Maybe
+    it should become part of a toolchain for procedural pixel art.
     - Port digitalAndy to Android with a simple pixel-painting interface capable
     of outputting a configuration file for PC digitalAndy as well as a script.
     Do it to learn Android app development in Go.
+  * Configuration with Environment Variables as well as Flags and Files.

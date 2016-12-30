@@ -175,6 +175,11 @@ namespace LAIR{
                         stdout.printf("Emitting random image from subindex #: %s \n:", index.to_string() );
                         return r.nth_data(index);
 		}
+                public List<Video.Surface*> SingleImageByTagList(List<string> tagList){
+                        List<Video.Surface*> r = new List<Video.Surface*>();
+                        r.append(ImageByTagList(tagList));
+                        return r;
+                }
                 /*public List<Video.Surface*> ImageListByName(string name, int num){
                         int c = 0;
                         List<int> tmp = new List<int>();
