@@ -8,11 +8,16 @@ namespace LAIR{
                         VM = new LuaVM();
                         VM.open_libs();
                         ScriptPath = path;
+                        stdout.printf("Loading a dungeon generator script: %s\n", ScriptPath);
                         VM.do_file(ScriptPath);
+                        var test = GetLuaLastReturn();
+                        foreach(string i in test){
+                                stdout.printf(" %s ", i);
+                        }
+                        stdout.printf("\n");
                 }
                 protected string[] GetLuaLastReturn(){
                         string tmp = "Lua says: ";
-                        List<string> lua_last_return = new List<string>();
                         if(VM.is_number(-1)){
                                 double number = VM.to_number(-1);
                                 tmp += number.to_string();
@@ -21,6 +26,7 @@ namespace LAIR{
                                 tmp += word;
                         }
                         string[] tl = tmp.split(" ", -1);
+                        VM.pop(1);
                         return tl;
                 }
                 protected void LuaRegister(string name, CallbackFunc f){

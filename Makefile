@@ -86,3 +86,15 @@ unlog:
 clean:
 	rm bin/LAIR
 	make unlog
+
+check:
+	luacheck share/lair/demodungeon.lua
+	luacheck share/lair/demoplayer.lua
+	luacheck share/lair/demoai.lua
+
+install:
+	cp bin/LAIR /usr/bin/
+	cp share/lair/demodungeon.lua /usr/share/lair/
+	cp share/lair/demoplayer.lua /usr/share/lair/
+	cp share/lair/demoai.lua /usr/share/lair/
+

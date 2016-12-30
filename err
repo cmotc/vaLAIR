@@ -1,0 +1,22 @@
+</usr/share/lair/sounds.list
+</usr/share/lair/fonts.list
+</usr/share/lair/demodungeon.lua
+</usr/share/lair/demoplayer.lua
+</usr/share/lair/demoai.lua
+LAIR
+Image file path from options: /usr/share/lair/images.list 
+--
+</usr/share/lair/sounds.list
+</usr/share/lair/fonts.list
+</usr/share/lair/demodungeon.lua
+</usr/share/lair/demoplayer.lua
+</usr/share/lair/demoai.lua
+Setting Path: /usr/share/lair/images.list
+Pre-Loading the game data files.
+--
+<< count 0 
+<< generating room with player
+Loading a dungeon generator script: /usr/share/lair/demodungeon.lua
+loaded demodungeon.lua
+ Lua  says:   
+    Generating room. Width: 10 Height 10

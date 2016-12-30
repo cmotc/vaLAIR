@@ -50,7 +50,7 @@ namespace LAIR{
                         PlayerConfig = GetFilePath("lair/demoplayer.lua");
                         AiConfig = GetFilePath("lair/demoai.lua");
 			List<string> Arguments = new List<string>();
-			string MapSize = "oneroom";
+			string MapSize = "tiny";
 			int PixelW = 800;
 			int PixelH = 600;
 			foreach(string arg in args){
