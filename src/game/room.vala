@@ -37,6 +37,14 @@ namespace LAIR{
                 private void RegisterLuaFunctions(){
                         LuaRegister("particle_count", particle_count_delegate);
                         LuaRegister("mobile_count", mobile_count_delegate);
+                        /*
+                        Here's where I'm going to develop the Lua API for
+                        manipulating rooms. I'm not entirely sure what I need
+                        here besides particle count and mobile count, but I also
+                        know that I'll need ways to look up the tiles by their
+                        coordinates and make the Lua VM aware of the
+                        environment. Noteynoteynotes.
+                        */
                 }
                 private int particle_count(LuaVM vm = GetLuaVM()){
                         return 1;
@@ -46,6 +54,14 @@ namespace LAIR{
                         return 1;
                 }
                 private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
+                /*private int particle_count(LuaVM vm = GetLuaVM()){
+                        return 1;
+                }
+                private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
+                private int mobile_count(LuaVM vm = GetLuaVM()){
+                        return 1;
+                }
+                private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;*/
                 private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
                         //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                         LuaDoFunction("""map_image_decide()""");

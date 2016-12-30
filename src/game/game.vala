@@ -42,8 +42,8 @@ namespace LAIR{
                                 WindowRenderer.clear();
 				exit = UpdateScreen();
                                 stdout.printf(" -> input was:%s\n", exit.to_string());
-                                //SDL.Timer.delay(120);
-                                SDL.Timer.delay(1200);
+                                SDL.Timer.delay(120);
+                                //SDL.Timer.delay(1200);
                                 //SDL.Timer.delay(12000);
 			}
 			return exit;

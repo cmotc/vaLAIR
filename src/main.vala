@@ -7,23 +7,51 @@ using SDLMixer;
 namespace LAIR{
 	public class Lair {
 		private Game GameMap;
-                private static string HELP = "<^^>____<^^^>_________<^^^>____<^^>\n || L        A    IIIII RRRRR   ||\n || L       A A     I   R    R  ||\n || L      AAAAA    I   RRRRR   ||\n || LLLLL A     A IIIII R    R  ||\n<vv>___________________________<vv>\n\tThis is a game called LAIR, a free, self-hosted, worldbuilding, procedurally\ngenerated 2D survival RPG. It can be played in a wide variety of ways, as\neverything from a coffee-break roguelike to a political strategy game. The\nfollowing options can be used to configure it at runtime. For more information,\nplease see the manual as soon as I finish writing it.\n\t-i : display this menu\n\t-p : path to the image file listing\n\t-s : path to the sound file listing\n\t-f : path to the fonts file listing\n\t-m : map size(tiny, small, medium, large, giant\n\t-c : path to map generation script\n\t-e : path to character generation script\n\t-a : path to ai library script\n\t-w : screen width\n\t-h : screen height\n";
+                private static bool help = false;
                 private static string ImageFilePath = GetFilePath("lair/images.list");
 		private static string SoundFilePath = GetFilePath("lair/sounds.list");
 		private static string FontsFilePath = GetFilePath("lair/fonts.list");
-                private static string MapGenLua = GetFilePath("lair/demodungeon.lua");
-                private static string PlayerConfig = GetFilePath("lair/demoplayer.lua");
-                private static string AiConfig = GetFilePath("lair/demoai.lua");
+                private static string MapGenLua = GetFilePath("lair/demo/dungeon.lua");
+                private static string PlayerConfig = GetFilePath("lair/demo/player.lua");
+                private static string AiConfig = GetFilePath("lair/demo/ai.lua");
 		public Lair(string[] lspt, string[] scrpt, string mapSize, int screenW, int screenH){
-                        if (SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL) > 0){
-                                //log some shit here.
+                        if (!help){
+                                if (SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL) > 0){
+                                        //log some shit here.
+                                }
+                                if (SDLImage.init(SDLImage.InitFlags.PNG) < 0) {
+                                        //log some more shit.
+                                }
+                                SDLTTF.init();
+                                GameMap = new Game(lspt, scrpt, mapSize, screenW, screenH);
+                                GameMap.run();
+                        }else{
+                                stdout.printf("***********************************************************************************\n\n\n");
+                                stdout.printf("<I      <I I>         <I I>      I>\n");
+                                stdout.printf(" |       | |           | |       |\n");
+                                stdout.printf("<^^>____<^^^>_________<^^^>____<^^>\n");
+                                stdout.printf(" || L        A    IIIII RRRRR   ||\n");
+                                stdout.printf(" || L       A A     I   R    R  ||\n");
+                                stdout.printf(" || L      AAAAA    I   RRRRR   ||\n");
+                                stdout.printf(" || LLLLL A     A IIIII R    R  ||\n");
+                                stdout.printf("<vv>___________________________<vv>\n\n");
+                                stdout.printf("This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally\n");
+                                stdout.printf("generated 2D survival RPG. It can be played in a wide variety of ways, as\n");
+                                stdout.printf("everything from a coffee-break roguelike to a political strategy game. The\n");
+                                stdout.printf("following options can be used to configure it at runtime. For more information,\n");
+                                stdout.printf("please see the manual as soon as I finish writing it.\n");
+                                stdout.printf("     -i : display this menu\n");
+                                stdout.printf("     -p : path to the image file listing\n");
+                                stdout.printf("     -s : path to the sound file listing\n");
+                                stdout.printf("     -f : path to the fonts file listing\n");
+                                stdout.printf("     -m : map size(tiny, small, medium, large, giant\n");
+                                stdout.printf("     -c : path to map generation script\n");
+                                stdout.printf("     -e : path to character generation script\n");
+                                stdout.printf("     -a : path to ai library script\n");
+                                stdout.printf("     -w : screen width\n");
+                                stdout.printf("     -h : screen height\n");
+                                stdout.printf("\n***********************************************************************************\n");
                         }
-                        if (SDLImage.init(SDLImage.InitFlags.PNG) < 0) {
-                                //log some more shit.
-                        }
-			SDLTTF.init();
-			GameMap = new Game(lspt, scrpt, mapSize, screenW, screenH);
-			GameMap.run();
 		}
 		~Lair() {
 			SDL.quit();
@@ -61,7 +89,7 @@ namespace LAIR{
 				stdout.printf("\n");
 				switch (Arguments.nth_data(index)){
                                         case "-i":
-                                                stdout.printf(HELP);
+                                                help = true;
 						break;
 					case "-p":
 						ImageFilePath = GetFilePath(Arguments.nth_data(index+1));
