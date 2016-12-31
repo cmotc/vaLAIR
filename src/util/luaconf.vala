@@ -11,10 +11,8 @@ namespace LAIR{
                         ScriptPath = path;
                         prints("Loading a dungeon generator script: %s\n", ScriptPath);
                         VM.do_file(ScriptPath);
-                        var test = GetLuaLastReturn();
-                        foreach(string i in test){
-                                prints(" %s ", i);
-                        }
+                        //var test = GetLuaLastReturn();
+                        printas(GetLuaLastReturn());
                         prints("\n");
                 }
                 private void LuaDoFile(string file){

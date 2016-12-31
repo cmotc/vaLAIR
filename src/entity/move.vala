@@ -48,17 +48,17 @@ namespace LAIR{
                 protected bool Bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
                         if(tl){
-                                stdout.printf("Collision detected, Top Left Corner");
+                                prints("Collision detected, Top Left Corner");
                                 if(bl){
-                                        stdout.printf(" and Bottom Left Corner\n");
+                                        prints(" and Bottom Left Corner\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         StepRight();
                                 }else if(tr){
-                                        stdout.printf(" and Top Right Corner\n");
+                                        prints(" and Top Right Corner\n");
                                         SetY((int)(evenout.y + evenout.h));
                                         StepDown();
                                 }else{
-                                        stdout.printf("\n");
+                                        prints("\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         SetY((int)(evenout.y + evenout.h));
                                         StepRight();
@@ -67,17 +67,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(tr){
-                                stdout.printf("Collision detected, Top Right Corner");
+                                prints("Collision detected, Top Right Corner");
                                 if(br){
-                                        stdout.printf(" and Bottom Right Corner\n");
+                                        prints(" and Bottom Right Corner\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         StepLeft();
                                 }else if(tl){
-                                        stdout.printf(" and Top Left Corner\n");
+                                        prints(" and Top Left Corner\n");
                                         SetY((int)(evenout.y + evenout.h));
                                         StepDown();
                                 }else{
-                                        stdout.printf("\n");
+                                        prints("\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         SetY((int)(evenout.y + evenout.h));
                                         StepLeft();
@@ -86,17 +86,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(bl){
-                                stdout.printf("Collision detected, Bottom Left Corner");
+                                prints("Collision detected, Bottom Left Corner");
                                 if(tl){
-                                        stdout.printf(" and Top Left Corner\n");
+                                        prints(" and Top Left Corner\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         StepRight();
                                 }else if(br){
-                                        stdout.printf(" and Bottom Right Corner\n");
+                                        prints(" and Bottom Right Corner\n");
                                         SetY((int)(evenout.y - evenout.h));
                                         StepUp();
                                 }else{
-                                        stdout.printf("\n");
+                                        prints("\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         SetY((int)(evenout.y - evenout.h));
                                         StepRight();
@@ -105,17 +105,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(br){
-                                stdout.printf("Collision detected, Bottom Right Corner");
+                                prints("Collision detected, Bottom Right Corner");
                                 if(tr){
-                                        stdout.printf("and Top Right Corner\n");
+                                        prints("and Top Right Corner\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         StepLeft();
                                 }else if(bl){
-                                        stdout.printf("and Bottom Left Corner\n");
+                                        prints("and Bottom Left Corner\n");
                                         SetY((int)(evenout.y - evenout.h));
                                         StepUp();
                                 }else{
-                                        stdout.printf("\n");
+                                        prints("\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         SetY((int)(evenout.y - evenout.h));
                                         StepLeft();
@@ -130,9 +130,9 @@ namespace LAIR{
 		public int PInput(){
                         int t = 1;
                         Event e;
-                        stdout.printf("     Player is taking a turn : ");
+                        prints("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
-                                stdout.printf(" Checking Event for Player Input\n");
+                                prints(" Checking Event for Player Input\n");
 				if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
                                         int x = 0, y = 0;
                                         Input.Cursor.get_state(ref x, ref y);

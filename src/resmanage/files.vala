@@ -43,7 +43,7 @@ namespace LAIR{
 			if ( query == Name ) {
 				tmp = true;
                                 if (!ptd){
-                                        stdout.printf("Name found in FileDB: %s", query);
+                                        prints("Name found in FileDB: %s", query);
                                         ptd = true;
                                 }
 			}
@@ -79,44 +79,44 @@ namespace LAIR{
                                 }
                         }
                         if(rtmp){
-                                stdout.printf("Found taglist: ");
+                                prints("Found taglist: ");
                                 foreach(string t in Tags){
-                                        stdout.printf("%s ", t);
+                                        prints("%s ", t);
                                 }
-                                stdout.printf("\n");
+                                prints("\n");
                         }
 			return rtmp;
 		}
 		public string GetPath(){
-                        stdout.printf("Getting Path: %s\n", Path);
+                        prints("Getting Path: %s\n", Path);
                         return Path;
 		}
 		protected string SetPath(string path){
                         string []tmp = path.split(" ", 2);
 			if (FileUtils.test(tmp[0], FileTest.EXISTS)) {
 				Path = tmp[0];
-				stdout.printf("Setting Path: %s\n", Path);
+				prints("Setting Path: %s\n", Path);
 			}else{
 				Path = null;
-				stdout.printf("Setting Path failed: %s doesn't exist\n", Path);
+				prints("Setting Path failed: %s doesn't exist\n", Path);
 			}
 			return path;
 		}
 		public bool CheckPath(){
 			if (Path != null){
-				stdout.printf("Validating Path: %s\n", Path);
+				prints("Validating Path: %s\n", Path);
 				return true;
 			}else{
-				stdout.printf("Validating Path failed: %s doesn't exist.\n", Path);
+				prints("Validating Path failed: %s doesn't exist.\n", Path);
 				return false;
 			}
 		}
 		public List<string> LoadLineDelimitedConfig(){
 			List<string> tmp = new List<string>();
 			var file = File.new_for_path(Path);
-			stdout.printf("Loading configuration file %s\n", Path);
+			prints("Loading configuration file %s\n", Path);
 			if (!file.query_exists ()) {
-				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
+				prints ("File '%s' doesn't exist.\n", file.get_path ());
 			}
 			try {
 				var dis = new DataInputStream (file.read());
@@ -125,12 +125,12 @@ namespace LAIR{
 					string []tl = line.split(" ", 2);
 					if (FileUtils.test(tl[0], FileTest.EXISTS)) {
 						tmp.append(tl[0]);
-						stdout.printf("Loaded Resource: %s\n", tl[0]);
+						prints("Loaded Resource: %s\n", tl[0]);
 					}else{
-						stderr.printf("Failed to load Resource: %s\n", tl[0]);
+						prints("Failed to load Resource: %s\n", tl[0]);
 					}
 				}
-				stdout.printf("Loaded configuration file %s\n", Path);
+				prints("Loaded configuration file %s\n", Path);
 			} catch (Error e) {
 				error ("%s", e.message);
 			}
@@ -141,7 +141,7 @@ namespace LAIR{
 			var file = File.new_for_path(Path);
                         int r = 0;
 			if (!file.query_exists ()) {
-				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
+				prints ("File '%s' doesn't exist.\n", file.get_path ());
 			}
                         if (Length == 0){
                                 try {
@@ -150,7 +150,7 @@ namespace LAIR{
                                         while ((line = dis.read_line (null)) != null) {
                                                 r++;
                                         }
-                                        stdout.printf("Configuration File Length %s\n", r.to_string());
+                                        prints("Configuration File Length %s\n", r.to_string());
                                 } catch (Error e) {
                                         error ("%s", e.message);
                                 }
@@ -162,9 +162,9 @@ namespace LAIR{
                 public List<string> GetConfigLine(int lineNum){
                         List<string> tmp = new List<string>();
                         var file = File.new_for_path(Path);
-                        stdout.printf("line %s\n", lineNum.to_string());
+                        prints("line %s\n", lineNum.to_string());
 			if (!file.query_exists ()) {
-				stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
+				prints ("File '%s' doesn't exist.\n", file.get_path ());
 			}
                         try {
 				var dis = new DataInputStream (file.read());
@@ -178,9 +178,9 @@ namespace LAIR{
                                                                 tmp.append(token);
                                                         }
                                                         //tmp.append(line);
-                                                        stdout.printf("Loaded Resource: %s\n", tl[0]);
+                                                        prints("Loaded Resource: %s\n", tl[0]);
                                                 }else{
-                                                        stderr.printf("Failed to load Resource: %s\n", tl[0]);
+                                                        prints("Failed to load Resource: %s\n", tl[0]);
                                                 }
                                         }
                                         x++;

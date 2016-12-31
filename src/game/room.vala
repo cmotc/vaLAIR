@@ -37,6 +37,10 @@ namespace LAIR{
                 private void RegisterLuaFunctions(){
                         LuaRegister("particle_count", particle_count_delegate);
                         LuaRegister("mobile_count", mobile_count_delegate);
+                        LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
+                        LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
+                        LuaRegister("particle_count_bytag", particle_count_bytag_delegate);
+                        LuaRegister("mobile_count_bytag", mobile_count_bytag_delegate);
                         /*
                         Here's where I'm going to develop the Lua API for
                         manipulating rooms. I'm not entirely sure what I need
@@ -47,21 +51,29 @@ namespace LAIR{
                         */
                 }
                 private int particle_count(LuaVM vm = GetLuaVM()){
-                        return 1;
+                        return (int) Particles.length();
                 }
                 private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
                 private int mobile_count(LuaVM vm = GetLuaVM()){
-                        return 1;
+                        return (int) Mobs.length();
                 }
                 private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
-                /*private int particle_count(LuaVM vm = GetLuaVM()){
+                private int particle_index_byxy(LuaVM vm = GetLuaVM()){
                         return 1;
                 }
-                private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
-                private int mobile_count(LuaVM vm = GetLuaVM()){
+                private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_count;
+                private int mobile_index_byxy(LuaVM vm = GetLuaVM()){
                         return 1;
                 }
-                private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;*/
+                private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;
+                private int particle_count_bytag(LuaVM vm = GetLuaVM()){
+                        return 1;
+                }
+                private CallbackFunc particle_count_bytag_delegate = (CallbackFunc) particle_count;
+                private int mobile_count_bytag(LuaVM vm = GetLuaVM()){
+                        return 1;
+                }
+                private CallbackFunc mobile_count_bytag_delegate = (CallbackFunc) mobile_count;
                 private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
                         //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                         LuaDoFunction("""map_image_decide()""");

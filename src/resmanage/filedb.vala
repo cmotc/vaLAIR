@@ -1,9 +1,9 @@
-
 using SDL;
 using SDLImage;
 using SDLGraphics;
 using SDLMixer;
 using SDLTTF;
+
 namespace LAIR{
 	public class FileDB : Scribe {
 		private List<Image> imgRes = new List<Image>();
@@ -22,21 +22,21 @@ namespace LAIR{
 				prints("Pre-Loading the image files(data at %s).\n", imgfile.GetPath());
 				imgListPath = imgfile;
 			}else{
-				stderr.printf ("File '%s' doesn't exist.\n", imgfile.GetPath());
+				prints("File '%s' doesn't exist.\n", imgfile.GetPath());
 			}
 			var sndfile = new LairFile.WithPath(sndList);
 			if (sndfile.CheckPath()){
 				prints("Pre-Loading the sound files(data at %s).\n", sndfile.GetPath());
 				sndListPath = sndfile;
 			}else{
-				stderr.printf ("File '%s' doesn't exist.\n", sndfile.GetPath());
+				prints("File '%s' doesn't exist.\n", sndfile.GetPath());
 			}
 			var ttffile = new LairFile.WithPath(ttfList);
 			if (ttffile.CheckPath()){
 				prints("Pre-Loading the font files(data at %s).\n", ttffile.GetPath());
 				ttfListPath = ttffile;
 			}else{
-				stderr.printf ("File '%s' doesn't exist.\n", ttffile.GetPath());
+				prints("File '%s' doesn't exist.\n", ttffile.GetPath());
 			}
 			LoadFilesWithTags();
                         InitBodyVars();
