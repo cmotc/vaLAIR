@@ -39,6 +39,17 @@ namespace LAIR{
                         tmp += function;
                         VM.do_string(tmp);
                 }
+                protected void PushNamedPairToLuaTable(string tableName, string[] membernames, int[] members){
+                        VM.new_table ();
+                        int i = 0;
+                        foreach(int member in members) {
+                                VM.push_string(membernames[i]);
+                                VM.push_number (member);
+                                i++;
+                        }
+                        VM.raw_set ((i+1)*-1);            // Stores the pair in the table
+                        VM.set_global (tableName);
+                }
                 protected LuaVM* GetLuaVM(){
                         return VM;
                 }

@@ -1,3 +1,4 @@
+dofile("../lua/common.lua")
 -- The return value of this function tells the map what image to use to select
 -- a list of surfaces by tag to create an entity. It's not as complicated as it
 -- sounds. It just has to return an array of tags for the resource manager to

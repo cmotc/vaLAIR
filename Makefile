@@ -97,6 +97,8 @@ check:
 install:
 	cp bin/LAIR /usr/bin/
 	mkdir -p /usr/share/lair/demo/
+	mkdir -p /usr/share/lair/lua/
+	cp share/lair/lua/common.lua /usr/share/lair/lua/
 	cp share/lair/demo/dungeon.lua /usr/share/lair/demo/
 	cp share/lair/demo/player.lua /usr/share/lair/demo/
 	cp share/lair/demo/ai.lua /usr/share/lair/demo/

@@ -35,9 +35,19 @@ namespace LAIR{
                 private int GetW(){     return (int) Border.w;}
                 private int GetH(){     return (int) Border.h;}
                 private void RegisterLuaFunctions(){
+                        //This returns the total count of particles in the room
+                        //so far. It can be used to measure room density from
+                        //within lua.
                         LuaRegister("particle_count", particle_count_delegate);
+                        //This returns the total count of mobile entities in
+                        //the room so far. It can be used to measure a room's
+                        //population density.
                         LuaRegister("mobile_count", mobile_count_delegate);
+                        //
+                        //
                         LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
+                        //
+                        //
                         LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
                         LuaRegister("particle_count_bytag", particle_count_bytag_delegate);
                         LuaRegister("mobile_count_bytag", mobile_count_bytag_delegate);
@@ -50,6 +60,10 @@ namespace LAIR{
                         environment. Noteynoteynotes.
                         */
                 }
+                private void GeneratorPushXYToLua(int x, int y){
+                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                        PushNamedPairToLuaTable("cur_gen_coords",{"x","y"}, {XO,YO});
+                }
                 private int particle_count(LuaVM vm = GetLuaVM()){
                         return (int) Particles.length();
                 }
@@ -59,11 +73,37 @@ namespace LAIR{
                 }
                 private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
                 private int particle_index_byxy(LuaVM vm = GetLuaVM()){
-                        return 1;
+                        LuaDoFunction("""lua_get_x()""");
+                        int x = GetLuaLastReturn()[0].to_int();
+                        LuaDoFunction("""lua_get_y()""");
+                        int y = GetLuaLastReturn()[1].to_int();
+                        int i = 0;
+                        foreach(Entity particle in Particles){
+                                if(particle.GetX() == x){
+                                        if(particle.GetY() == y){
+                                                break;
+                                        }
+                                }
+                                i++;
+                        }
+                        return i;
                 }
                 private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_count;
                 private int mobile_index_byxy(LuaVM vm = GetLuaVM()){
-                        return 1;
+                        LuaDoFunction("""lua_get_x()""");
+                        int x = GetLuaLastReturn()[0].to_int();
+                        LuaDoFunction("""lua_get_y()""");
+                        int y = GetLuaLastReturn()[1].to_int();
+                        int i = 0;
+                        foreach(Entity mob in Mobs){
+                                if(mob.GetX() == x){
+                                        if(mob.GetY() == y){
+                                                break;
+                                        }
+                                }
+                                i++;
+                        }
+                        return i;
                 }
                 private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;
                 private int particle_count_bytag(LuaVM vm = GetLuaVM()){
@@ -108,6 +148,7 @@ namespace LAIR{
                         prints("    Generating room. Width: %s ", WT.to_string()); prints("Height %s\n", HT.to_string());
                         for (int x = 0; x < WT; x++){
                                 for (int y = 0; y < HT; y++){
+                                        GeneratorPushXYToLua(x, y);
                                         GenerateBlockTile(x, y, WT, HT, CR, renderer);
                                         DecideBlockTile(x, y, WT, HT, renderer);
                                         DecideMobileTile(x, y, WT, HT, renderer);

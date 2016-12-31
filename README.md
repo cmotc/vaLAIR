@@ -6,27 +6,64 @@ from the classic 2D Legend of Zelda games(Gameplay), Teleglitch: Die More
 Edition(Aesthetically), Borderlands(Mechanically), and MMORPG's. It's been
 something I've been developing for a long time, and I'll probably never consider
 it truly done, but it's abou time I start documenting how to actually play it
-now that I'm going to have a version in a week or two.
+now that I'm going to have a version in a week or two. Also it's capitalized for
+now because it used to be an abbreviation. That might change because it's not
+anymore.
 
 Installation
 ------------
 
-It's getting there. I keep fiddling about with it and it's a little
-transitional. That said, somebody with all the dependencies can build it on
-Linux and probably other unixes and start playing with it for now. It's just
-a makefile now, just running "Make" in the working directory will build the
-executable in the ./bin/ directory. Then there's art and the configuration files
-to install, which are in the [art repository](https://github.com/cmotc/lairart),
-which you can install with make; sudo make install.
+It's just a makefile now, just running "make" in the working directory will
+build the executable in the ./bin/ directory. After that, running "sudo make
+install" will install the executable and the configuration files, or if you'd
+prefer not to install that way, you can specify the paths to the configuration
+files via the command-line flags for now:
+
+        ***********************************************************************************
+
+        <I      <I I>         <I I>      I>
+         |       | |           | |       |
+        <^^>____<^^^>_________<^^^>____<^^>
+         || L        A    IIIII RRRRR   ||
+         || L       A A     I   R    R  ||
+         || L      AAAAA    I   RRRRR   ||
+         || LLLLL A     A IIIII R    R  ||
+        <vv>___________________________<vv>
+
+        This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally
+        generated 2D survival RPG. It can be played in a wide variety of ways, as
+        everything from a coffee-break roguelike to a political strategy game. The
+        following options can be used to configure it at runtime. For more information,
+        please see the manual as soon as I finish writing it.
+
+        ----------------------------
+             -i : display this info
+             -p : path to the image file listing
+             -s : path to the sound file listing
+             -f : path to the fonts file listing
+             -m : map size(tiny, small, medium, large, giant
+             -c : path to map generation script
+             -e : path to character generation script
+             -a : path to ai library script
+             -w : log output verbosity
+             -w : screen width
+             -h : screen height
+
+        ***********************************************************************************
+
+which are in the [art repository](https://github.com/cmotc/lairart), which you
+can install with make; sudo make install.
 
 Configuration(You probably don't need to read this unless you want to mod)
 --------------------------------------------------------------------------
 
-Configuration is done with plain text files and a shell-script based launcher
-for the actual binary /usr/bin/LAIR. You can hypothetically use the launcher
-to combine multiple configuration files together and expand the content of the
-game. Examples forthcoming, but if you've ever used sources.list.d you know
-what I'm about.
+###Static Configuration
+
+Static Configuration done with plain text files and a shell-script based
+launcher for the actual binary /usr/bin/LAIR on Unix, or a Lua based config file
+on Windows. You can hypothetically use either launcher to combine multiple
+configuration files together and expand the content of the game. Examples
+forthcoming, but if you've ever used sources.list.d you know what I'm about.
 
 As far as the actual configuration files go, it's pretty simple. Here's an
 example line.
@@ -41,6 +78,18 @@ engine, or it can be used to retrieve a specific tile with the game engine. So
 the first tag, the name, should be unique for things you want to refer to
 specifically, and the remaining tags could be non-unique. For more example
 configuration files, see the [art repository](https://github.com/cmotc/lairart).
+
+###Dynamic(Lua) Configuration
+
+Dynamic configuration is only enabled for the Maps at this time.
+
+Dynamic Map configuration is done by using Lua to define what actions the game
+takes to generate effects in a particular set of circumstances. The maps inform
+the Lua virtual machine of what the state of the map is while the map is being
+generated, and this information can be used to control how the generation
+proceeds. They're fully functioning Lua scripts and can do everything Lua can
+do, but they are only run once when the game is initialized. The interface is
+a work in progress right now. Please see [LUA.md](https://github.com/cmotc/valair/lua.md)
 
 How it works
 ------------
