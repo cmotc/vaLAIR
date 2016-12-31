@@ -89,7 +89,8 @@ the Lua virtual machine of what the state of the map is while the map is being
 generated, and this information can be used to control how the generation
 proceeds. They're fully functioning Lua scripts and can do everything Lua can
 do, but they are only run once when the game is initialized. The interface is
-a work in progress right now. Please see [LUA.md](https://github.com/cmotc/valair/lua.md)
+a work in progress right now. Please see [LUA.md](https://github.com/cmotc/vaLAIR/blob/master/LUA.md)
+as it changes.
 
 How it works
 ------------
