@@ -1,12 +1,13 @@
 namespace LAIR{
 	public class Scribe : Object{
                 private static int LogLevel;
-                private int LocalLogLevel = 2;
+                private string name = "global log: ";
+                private int LocalLogLevel = 6;
                 public Scribe.LL(int ll){
                         LogLevel = 1;
                         LocalLogLevel = 2;
                 }
-                public Scribe.LLL(int lll){
+                public Scribe.LLL(int lll, string name){
                         LocalLogLevel = lll;
                 }
                 public Scribe.LLLLL(int ll, int lll){

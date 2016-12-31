@@ -3,7 +3,7 @@ namespace LAIR{
 	class Tower : Scribe{
 		private List<Floor> floors = new List<Floor>();
 		public Tower(string size, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.LLL(4);
+                        base.LLL(4, "tower:");
 			int w = 320;
 			int h = 320;
 			int count = 10;

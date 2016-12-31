@@ -12,7 +12,7 @@ namespace LAIR{
 		private Tower GameEnvironment;
 
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
-                        base.LLL(5);
+                        base.LLL(3, "floor:");
                         string imageListPath = listPaths[0];
                         string soundListPath = listPaths[1];
                         string fontsListPath = listPaths[2];

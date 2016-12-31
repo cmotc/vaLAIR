@@ -3,7 +3,7 @@ namespace LAIR{
 	class Floor : Scribe{
 		private List<Room> rooms = new List<Room>();
 		public Floor(int width, int height, int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.LLL(5);
+                        base.LLL(4, "floor:");
 			for (int x = 1; x <= count; x++){
                                 for (int y = 1; y <= count; y++){
                                         int [2] xyo = {(x*width)-width, (y*height)-height};
@@ -13,7 +13,7 @@ namespace LAIR{
 			}
 		}
 		public Floor.WithPlayer(int width, int height, int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.LLL(5);
+                        base.LLL(4, "floor:");
                         int c = 0;
 			for (int x = 1; x <= count; x++){
                                 for (int y = 1; y <= count; y++){

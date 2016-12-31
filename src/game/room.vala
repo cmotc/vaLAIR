@@ -10,14 +10,14 @@ namespace LAIR{
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
                 public Room(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
-                        base(scripts[0], 1);
+                        base(scripts[0], 2, "room:");
                         GameMaster = DM;
                         RegisterLuaFunctions();
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(2, xyoffset, renderer);
 		}
                 public Room.WithPlayer(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
-                        base(scripts[0], 1);
+                        base(scripts[0], 2, "room:");
                         GameMaster = DM;
                         RegisterLuaFunctions();
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);

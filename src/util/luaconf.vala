@@ -4,18 +4,18 @@ namespace LAIR{
 	public class LuaConf : Scribe{
                 private LuaVM VM;
                 private string ScriptPath;
-                public LuaConf(string path, int lll){
-                        base.LLL(lll);
+                public LuaConf(string path, int lll, string name){
+                        base.LLL(lll, name);
                         VM = new LuaVM();
                         VM.open_libs();
                         ScriptPath = path;
-                        stdout.printf("Loading a dungeon generator script: %s\n", ScriptPath);
+                        prints("Loading a dungeon generator script: %s\n", ScriptPath);
                         VM.do_file(ScriptPath);
                         var test = GetLuaLastReturn();
                         foreach(string i in test){
-                                stdout.printf(" %s ", i);
+                                prints(" %s ", i);
                         }
-                        stdout.printf("\n");
+                        prints("\n");
                 }
                 private void LuaDoFile(string file){
                         VM.do_file(file);

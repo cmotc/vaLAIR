@@ -1,5 +1,5 @@
 namespace LAIR{
-	public class Type : Object{
+	public class Type : Scribe{
 		private bool player = false;
                 private int b = 0;
                 private List<string> tags = new List<string>();
@@ -11,6 +11,11 @@ namespace LAIR{
                 }
                 public Type.Blocked(){
                         SetType("blocked");
+		}
+                public Type.Player(string name){
+                        base.LLL(1, name);
+                        SetType("blocked");
+                        SetType("player");
 		}
                 public Type.Parameter(string type){
                         SetType(type);
@@ -49,7 +54,7 @@ namespace LAIR{
                         }
                         if (t){
                                 tags.append(NewType);
-                                stdout.printf("   Added tag: %s \n", NewType);
+                                prints("   Added tag: %s \n", NewType);
                                 b = 0;
                         }
                         if ( NewType == "blocked" ){
