@@ -15,11 +15,11 @@ namespace LAIR{
                 public bool Load(){
                         bool tmp = false;
 			if (CheckPath()){
-				stdout.printf("Loading the sound to a Music %s \n", GetPath());
+				prints("Loading the sound to a Music %s \n", GetPath());
 				music = new Music(GetPath());
 				tmp = true;
 			}else{
-				stderr.printf("Sound not found at location %s \n", GetPath());
+				prints("Sound not found at location %s \n", GetPath());
 			}
 			return tmp;
                 }
@@ -27,11 +27,11 @@ namespace LAIR{
                         SetPath(path);
 			bool tmp = false;
 			if (CheckPath()){
-				stdout.printf("Loading the sound to a Music %s \n", GetPath());
+				prints("Loading the sound to a Music %s \n", GetPath());
 				music = new Music(GetPath());
 				tmp = true;
 			}else{
-				stderr.printf("Sound not found at location %s \n", GetPath());
+				prints("Sound not found at location %s \n", GetPath());
 			}
 			return tmp;
                 }

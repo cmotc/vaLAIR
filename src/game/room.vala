@@ -10,14 +10,14 @@ namespace LAIR{
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
                 public Room(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
-                        base(scripts[0]);
+                        base(scripts[0], 1);
                         GameMaster = DM;
                         RegisterLuaFunctions();
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(2, xyoffset, renderer);
 		}
                 public Room.WithPlayer(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
-                        base(scripts[0]);
+                        base(scripts[0], 1);
                         GameMaster = DM;
                         RegisterLuaFunctions();
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
@@ -70,28 +70,10 @@ namespace LAIR{
                         var sndtags = GetLuaLastReturn();
                         LuaDoFunction("""map_fonts_decide()""");
                         var fnttags = GetLuaLastReturn();
-                        stdout.printf("Will it blend?\n");
-                        List<string> imgTags = new List<string>();
-                        stdout.printf("{");
-                        foreach(string i in imgtags){
-                                //imgTags.append(i);
-                                stdout.printf("%s}, {", i);
-                        }
-                        stdout.printf("}\n");
-                        List<string> sndTags = new List<string>();
-                        stdout.printf("{");
-                        foreach(string s in sndtags){
-                                //sndTags.append(s);
-                                stdout.printf("%s}, {", s);
-                        }
-                        stdout.printf("}\n");
-                        List<string> fntTags = new List<string>();
-                        stdout.printf("{");
-                        foreach(string t in fnttags){
-                                //fntTags.append(t);
-                                stdout.printf("%s}, {", t);
-                        }
-                        stdout.printf("}\n");
+                        prints("Will it blend?\n");
+                        List<string> imgTags = printas(imgtags);
+                        List<string> sndTags = printas(sndtags);
+                        List<string> fntTags = printas(fnttags);
                         //Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                 }
                 private void DecideMobileTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
@@ -102,34 +84,16 @@ namespace LAIR{
                         var sndtags = GetLuaLastReturn();
                         LuaDoFunction("""mob_fonts_decide()""");
                         var fnttags = GetLuaLastReturn();
-                        stdout.printf("Will it blend?\n");
-                        List<string> imgTags = new List<string>();
-                        stdout.printf("{");
-                        foreach(string i in imgtags){
-                                //imgTags.append(i);
-                                stdout.printf("%s}, {", i);
-                        }
-                        stdout.printf("}\n");
-                        List<string> sndTags = new List<string>();
-                        stdout.printf("{");
-                        foreach(string s in sndtags){
-                                //sndTags.append(s);
-                                stdout.printf("%s}, {", s);
-                        }
-                        stdout.printf("}\n");
-                        List<string> fntTags = new List<string>();
-                        stdout.printf("{");
-                        foreach(string t in fnttags){
-                                //fntTags.append(t);
-                                stdout.printf("%s}, {", t);
-                        }
-                        stdout.printf("}\n");
+                        prints("Will it blend?\n");
+                        List<string> imgTags = printas(imgtags);
+                        List<string> sndTags = printas(sndtags);
+                        List<string> fntTags = printas(fnttags);
                         //Mobs.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.BodyByTone(imgTags.nth_data(0)), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
                 private void GenerateStructure( int CR, int[] xyoffset, Video.Renderer* renderer){
                         int WT = (int)(GetW() / 32); int HT = (int)(GetH() / 32);
-                        stdout.printf("    Generating room. Width: %s ", WT.to_string()); stdout.printf("Height %s\n", HT.to_string());
+                        prints("    Generating room. Width: %s ", WT.to_string()); prints("Height %s\n", HT.to_string());
                         for (int x = 0; x < WT; x++){
                                 for (int y = 0; y < HT; y++){
                                         GenerateBlockTile(x, y, WT, HT, CR, renderer);
@@ -141,7 +105,7 @@ namespace LAIR{
                 private void GenerateBlockTile(int x, int y, int WT, int HT, int CR, Video.Renderer* renderer){
                         int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                         Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("floor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                        stdout.printf("     Generating Entity Particle X: %s ", XO.to_string()); stdout.printf("Y: %s \n", YO.to_string());
+                        prints("     Generating Entity Particle X: %s ", XO.to_string()); prints("Y: %s \n", YO.to_string());
                         if(CR > 0){
                                 if ( x == (0 + GameMaster.int_range(0,CR)) ){
                                         Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
@@ -174,7 +138,7 @@ namespace LAIR{
                         if (HasPlayer()){
                                 tmp = Player.run();
                                 if (tmp > 0){
-                                        stdout.printf("    Player took a turn : %s \n", tmp.to_string());
+                                        prints("    Player took a turn : %s \n", tmp.to_string());
                                 }
                         }else{
                                 foreach(Entity mob in Mobs){
@@ -259,7 +223,7 @@ namespace LAIR{
 		}
 		public bool EnterRoom(Entity player){
 			if (player != null){
-                                stdout.printf("    Player Entering Room. \n");
+                                prints("    Player Entering Room. \n");
 				Player = player;
                                 visited = true;
 			}else{
@@ -279,7 +243,7 @@ namespace LAIR{
 			return tmp;
 		}
                 //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
-                /*private void inject_particle(int x, int y, string name, Video.Renderer* renderer){
+                private void inject_particle(int x, int y, string name, Video.Renderer* renderer){
                         int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                         if ( XO < GetX() + GetW() ){ if ( XO > GetX() ){
                                 if ( YO < GetY() + GetW() ){ if ( YO > GetY() ){
@@ -294,6 +258,6 @@ namespace LAIR{
                                         Mobs.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(name), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
-                }*/
+                }
 	}
 }

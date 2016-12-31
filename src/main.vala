@@ -5,7 +5,7 @@ using SDLTTF;
 using SDLMixer;
 
 namespace LAIR{
-	public class Lair {
+	public class Lair : Scribe {
 		private Game GameMap;
                 private static bool help = false;
                 private static string ImageFilePath = GetFilePath("lair/images.list");
@@ -14,7 +14,8 @@ namespace LAIR{
                 private static string MapGenLua = GetFilePath("lair/demo/dungeon.lua");
                 private static string PlayerConfig = GetFilePath("lair/demo/player.lua");
                 private static string AiConfig = GetFilePath("lair/demo/ai.lua");
-		public Lair(string[] lspt, string[] scrpt, string mapSize, int screenW, int screenH){
+		public Lair(string[] lspt, string[] scrpt, string mapSize, int screenW, int screenH, int verbosity){
+                        base.LL(verbosity);
                         if (!help){
                                 if (SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL) > 0){
                                         //log some shit here.
@@ -26,31 +27,33 @@ namespace LAIR{
                                 GameMap = new Game(lspt, scrpt, mapSize, screenW, screenH);
                                 GameMap.run();
                         }else{
-                                stdout.printf("***********************************************************************************\n\n\n");
-                                stdout.printf("<I      <I I>         <I I>      I>\n");
-                                stdout.printf(" |       | |           | |       |\n");
-                                stdout.printf("<^^>____<^^^>_________<^^^>____<^^>\n");
-                                stdout.printf(" || L        A    IIIII RRRRR   ||\n");
-                                stdout.printf(" || L       A A     I   R    R  ||\n");
-                                stdout.printf(" || L      AAAAA    I   RRRRR   ||\n");
-                                stdout.printf(" || LLLLL A     A IIIII R    R  ||\n");
-                                stdout.printf("<vv>___________________________<vv>\n\n");
-                                stdout.printf("This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally\n");
-                                stdout.printf("generated 2D survival RPG. It can be played in a wide variety of ways, as\n");
-                                stdout.printf("everything from a coffee-break roguelike to a political strategy game. The\n");
-                                stdout.printf("following options can be used to configure it at runtime. For more information,\n");
-                                stdout.printf("please see the manual as soon as I finish writing it.\n");
-                                stdout.printf("     -i : display this menu\n");
-                                stdout.printf("     -p : path to the image file listing\n");
-                                stdout.printf("     -s : path to the sound file listing\n");
-                                stdout.printf("     -f : path to the fonts file listing\n");
-                                stdout.printf("     -m : map size(tiny, small, medium, large, giant\n");
-                                stdout.printf("     -c : path to map generation script\n");
-                                stdout.printf("     -e : path to character generation script\n");
-                                stdout.printf("     -a : path to ai library script\n");
-                                stdout.printf("     -w : screen width\n");
-                                stdout.printf("     -h : screen height\n");
-                                stdout.printf("\n***********************************************************************************\n");
+                                prints("***********************************************************************************\n\n\n");
+                                prints("<I      <I I>         <I I>      I>\n");
+                                prints(" |       | |           | |       |\n");
+                                prints("<^^>____<^^^>_________<^^^>____<^^>\n");
+                                prints(" || L        A    IIIII RRRRR   ||\n");
+                                prints(" || L       A A     I   R    R  ||\n");
+                                prints(" || L      AAAAA    I   RRRRR   ||\n");
+                                prints(" || LLLLL A     A IIIII R    R  ||\n");
+                                prints("<vv>___________________________<vv>\n\n");
+                                prints("This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally\n");
+                                prints("generated 2D survival RPG. It can be played in a wide variety of ways, as\n");
+                                prints("everything from a coffee-break roguelike to a political strategy game. The\n");
+                                prints("following options can be used to configure it at runtime. For more information,\n");
+                                prints("please see the manual as soon as I finish writing it.\n\n");
+                                prints("----------------------------\n");
+                                prints("     -i : display this info\n");
+                                prints("     -p : path to the image file listing\n");
+                                prints("     -s : path to the sound file listing\n");
+                                prints("     -f : path to the fonts file listing\n");
+                                prints("     -m : map size(tiny, small, medium, large, giant\n");
+                                prints("     -c : path to map generation script\n");
+                                prints("     -e : path to character generation script\n");
+                                prints("     -a : path to ai library script\n");
+                                prints("     -w : log output verbosity\n");
+                                prints("     -w : screen width\n");
+                                prints("     -h : screen height\n");
+                                prints("\n***********************************************************************************\n");
                         }
 		}
 		~Lair() {
@@ -67,7 +70,6 @@ namespace LAIR{
                                         RETURN = File.new_for_path(DEFAULT.get_path());
                                 }
                         }
-                        stdout.printf("<%s\n", RETURN.get_path());
                         return RETURN.get_path();
                 }
 		public static void main(string args[]){
@@ -81,12 +83,11 @@ namespace LAIR{
 			string MapSize = "tiny";
 			int PixelW = 800;
 			int PixelH = 600;
+                        int Verbosity = 0;
 			foreach(string arg in args){
 				Arguments.append(arg);
 			}
 			for (int index = 0; index < Arguments.length(); index++){
-				stdout.printf(Arguments.nth_data(index));
-				stdout.printf("\n");
 				switch (Arguments.nth_data(index)){
                                         case "-i":
                                                 help = true;
@@ -112,6 +113,9 @@ namespace LAIR{
                                         case "-a":
                                                 AiConfig = GetFilePath(Arguments.nth_data(index+1));
 						break;
+                                        case "-v":
+                                                Verbosity = Arguments.nth_data(index+1).to_int();
+						break;
 					case "-w":
 						PixelW = Arguments.nth_data(index+1).to_int();
 						break;
@@ -122,12 +126,15 @@ namespace LAIR{
 						break;
 				}
 			}
-			stdout.printf("Image file path from options: %s \n", ImageFilePath);
-			stdout.printf("Sound file path from options: %s \n", SoundFilePath);
-			stdout.printf("Font file path from options: %s \n", FontsFilePath);
+			printc("Image file path from options: %s \n", ImageFilePath);
+			printc("Sound file path from options: %s \n", SoundFilePath);
+			printc("Font file path from options: %s \n", FontsFilePath);
+                        printc("Dungeon file path from options: %s \n", MapGenLua);
+                        printc("Player file path from options: %s \n", PlayerConfig);
+                        printc("AI file path from options: %s \n", AiConfig);
                         string[2] listPaths = { ImageFilePath, SoundFilePath, FontsFilePath };
                         string[2] scriptPaths = { MapGenLua, PlayerConfig, AiConfig};
-			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH);
+			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);
 		}
 	}
 }

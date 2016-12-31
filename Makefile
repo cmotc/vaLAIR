@@ -16,12 +16,13 @@ unix:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/scribe.vala \
+		src/util/luaconf.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
-		src/game/luaconf.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -56,12 +57,13 @@ android:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/scribe.vala \
+		src/util/luaconf.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
-		src/game/luaconf.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \

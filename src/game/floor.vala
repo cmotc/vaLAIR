@@ -1,27 +1,29 @@
 using SDL;
 namespace LAIR{
-	class Floor : Object{
+	class Floor : Scribe{
 		private List<Room> rooms = new List<Room>();
 		public Floor(int width, int height, int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                        base.LLL(5);
 			for (int x = 1; x <= count; x++){
                                 for (int y = 1; y <= count; y++){
                                         int [2] xyo = {(x*width)-width, (y*height)-height};
-                                        stdout.printf("<< generating room\n");
+                                        prints("<< generating room\n");
                                         rooms.append(new Room(width, height, scripts, DM, renderer, xyo));
                                 }
 			}
 		}
 		public Floor.WithPlayer(int width, int height, int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                        base.LLL(5);
                         int c = 0;
 			for (int x = 1; x <= count; x++){
                                 for (int y = 1; y <= count; y++){
                                         int [2] xyo = {(x*width)-width, (y*height)-height};
-                                        stdout.printf("<< count %s \n", c.to_string());
+                                        prints("<< count %s \n", c.to_string());
                                         if (c == entry){
-                                                stdout.printf("<< generating room with player\n");
+                                                prints("<< generating room with player\n");
                                                 rooms.append(new Room.WithPlayer(width, height, scripts, DM, renderer, xyo));
                                         }else{
-                                                stdout.printf("<< generating room\n");
+                                                prints("<< generating room\n");
                                                 rooms.append(new Room(width, height, scripts, DM, renderer, xyo));
                                         }
                                         c++;
@@ -56,7 +58,7 @@ namespace LAIR{
                 public int TakeTurns(){
                         int tmp = 1;
                         foreach(Room room in rooms){
-                                stdout.printf("   Entities on the floor are taking turns\n");
+                                prints("   Entities on the floor are taking turns\n");
                                 tmp = room.TakeTurns();
                         }
                         return tmp;

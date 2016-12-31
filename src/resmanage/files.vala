@@ -1,12 +1,14 @@
 namespace LAIR{
-	public class LairFile : GLib.Object {
+	public class LairFile : Scribe {
 		private string Path = null;
 		private string Name = null;
 		private List<string> Tags = null;//new List<string>();
 		public LairFile.WithPath(string path){
+                        base.LLL(4);
 			Path = SetPath(path);
 		}
                 public LairFile.WithAttList(List<string> atts){
+                        base.LLL(4);
                         string path = null;
                         List<string> tags = new List<string>();
                         int x = 0;

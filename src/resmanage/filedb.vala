@@ -5,7 +5,7 @@ using SDLGraphics;
 using SDLMixer;
 using SDLTTF;
 namespace LAIR{
-	class FileDB {
+	public class FileDB : Scribe {
 		private List<Image> imgRes = new List<Image>();
 		private List<Sound> sndRes = new List<Sound>();
 		private List<Fonts> ttfRes = new List<Fonts>();
@@ -15,24 +15,25 @@ namespace LAIR{
                 private List<List<string>> BodyParts = new List<List<string>>();
                 private GLib.Rand Sorcerer = new GLib.Rand();
 		public FileDB(string imgList, string sndList, string ttfList){
+                        base.LLL(4);
 			var imgfile = new LairFile.WithPath(imgList);
-			stdout.printf("Pre-Loading the game data files.\n");
+			prints("Pre-Loading the game data files.\n");
 			if (imgfile.CheckPath()){
-				stdout.printf("Pre-Loading the image files(data at %s).\n", imgfile.GetPath());
+				prints("Pre-Loading the image files(data at %s).\n", imgfile.GetPath());
 				imgListPath = imgfile;
 			}else{
 				stderr.printf ("File '%s' doesn't exist.\n", imgfile.GetPath());
 			}
 			var sndfile = new LairFile.WithPath(sndList);
 			if (sndfile.CheckPath()){
-				stdout.printf("Pre-Loading the sound files(data at %s).\n", sndfile.GetPath());
+				prints("Pre-Loading the sound files(data at %s).\n", sndfile.GetPath());
 				sndListPath = sndfile;
 			}else{
 				stderr.printf ("File '%s' doesn't exist.\n", sndfile.GetPath());
 			}
 			var ttffile = new LairFile.WithPath(ttfList);
 			if (ttffile.CheckPath()){
-				stdout.printf("Pre-Loading the font files(data at %s).\n", ttffile.GetPath());
+				prints("Pre-Loading the font files(data at %s).\n", ttffile.GetPath());
 				ttfListPath = ttffile;
 			}else{
 				stderr.printf ("File '%s' doesn't exist.\n", ttffile.GetPath());
@@ -57,13 +58,13 @@ namespace LAIR{
                 public bool LoadFilesWithTags(){
 			bool tmp = false;
 			if (imgListPath.CheckPath()){
-				stdout.printf("Loading the image files\n");
+				prints("Loading the image files\n");
                                 for (int x = 0; x < imgListPath.LenLineDelimitedConfig(); x++){
                                         List<string> image = imgListPath.GetConfigLine(x);
                                         foreach(string y in image){
-                                                stdout.printf("(%s)", y);
+                                                prints("(%s)", y);
                                         }
-                                        stdout.printf(".\n");
+                                        prints(".\n");
 					imgRes.append(new Image.WithAttList(image));
                                 }
 				tmp = true;
@@ -71,13 +72,13 @@ namespace LAIR{
 				tmp = false;
 			}
 			if (sndListPath.CheckPath()){
-				stdout.printf("Loading the sound files\n");
+				prints("Loading the sound files\n");
                                 for (int x = 0; x < sndListPath.LenLineDelimitedConfig(); x++){
                                         List<string> sound = sndListPath.GetConfigLine(x);
                                         foreach(string y in sound){
-                                                stdout.printf("(%s)", y);
+                                                prints("(%s)", y);
                                         }
-                                        stdout.printf(".\n");
+                                        prints(".\n");
 					sndRes.append(new Sound.WithAttList(sound));
                                 }
 				tmp = true;
@@ -85,13 +86,13 @@ namespace LAIR{
 				tmp = false;
 			}
 			if (ttfListPath.CheckPath()){
-				stdout.printf("Loading the font files\n");
+				prints("Loading the font files\n");
                                 for (int x = 0; x < ttfListPath.LenLineDelimitedConfig(); x++){
                                         List<string> font = ttfListPath.GetConfigLine(x);
                                         foreach(string y in font){
-                                                stdout.printf("(%s)", y);
+                                                prints("(%s)", y);
                                         }
-                                        stdout.printf(".\n");
+                                        prints(".\n");
 					ttfRes.append(new Fonts.WithAttList(font, "medium"));
                                 }
 				tmp = true;
@@ -111,12 +112,12 @@ namespace LAIR{
                 }
                 private int GetRandomSoundIndex(){
                         int tmp = Sorcerer.int_range(0, GetSoundsLength());
-                        stdout.printf("Random Sound from Index # %s \n", tmp.to_string());
+                        prints("Random Sound from Index # %s \n", tmp.to_string());
                         return tmp;
                 }
                 private int GetRandomFontIndex(){
                         int tmp = Sorcerer.int_range(0, GetFontsLength());
-                        stdout.printf("Random Font from Index #: %s \n", tmp.to_string());
+                        prints("Random Font from Index #: %s \n", tmp.to_string());
                         return tmp;
                 }
                 public Music* GetRandSound(){
@@ -143,7 +144,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         int index = Sorcerer.int_range(0, top);
-                        stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                        prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
 		}
@@ -159,7 +160,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         int index = Sorcerer.int_range(0, top);
-                        stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                        prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
 		}*/
@@ -172,7 +173,7 @@ namespace LAIR{
 			}
                         int top = (int) r.length();
                         int index = Sorcerer.int_range(0, top);
-                        stdout.printf("Emitting random image from subindex #: %s \n:", index.to_string() );
+                        prints("Emitting random image from subindex #: %s \n:", index.to_string() );
                         return r.nth_data(index);
 		}
                 public List<Video.Surface*> SingleImageByTagList(List<string> tagList){
@@ -193,7 +194,7 @@ namespace LAIR{
                         int top = (int) tmp.length();
                         for (int i = 0; i < num; i++){
                                 int index = Sorcerer.int_range(0, top);
-                                stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                                prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         }
 			return r;
@@ -211,7 +212,7 @@ namespace LAIR{
                         int top = (int) tmp.length();
                         for (int i = 0; i < num; i++){
                                 int index = Sorcerer.int_range(0, top);
-                                stdout.printf("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                                prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         }
 			return r;

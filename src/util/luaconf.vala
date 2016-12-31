@@ -1,10 +1,11 @@
 using Lua;
 
 namespace LAIR{
-	class LuaConf : Object{
+	public class LuaConf : Scribe{
                 private LuaVM VM;
                 private string ScriptPath;
-                public LuaConf(string path){
+                public LuaConf(string path, int lll){
+                        base.LLL(lll);
                         VM = new LuaVM();
                         VM.open_libs();
                         ScriptPath = path;

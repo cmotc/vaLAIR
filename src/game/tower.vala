@@ -1,8 +1,9 @@
 using SDL;
 namespace LAIR{
-	class Tower : Object{
+	class Tower : Scribe{
 		private List<Floor> floors = new List<Floor>();
 		public Tower(string size, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                        base.LLL(4);
 			int w = 320;
 			int h = 320;
 			int count = 10;
@@ -31,9 +32,9 @@ namespace LAIR{
 				h = 320;
 				count = 1;
 			}
-                        stdout.printf("Building %s-size Tower\n", size);
+                        prints("Building %s-size Tower\n", size);
 			for (int c = 0; c <= count-1; c++){
-                                stdout.printf(" Creating new floor :%s\n", c.to_string());
+                                prints(" Creating new floor :%s\n", c.to_string());
                                 if (c == 0){
                                         floors.append(new Floor.WithPlayer(w, h, count, 0, scripts, DM, renderer));
                                 }else{
@@ -43,7 +44,7 @@ namespace LAIR{
 		}
                 public int TakeTurns(){
                         int tmp = 1;
-                        stdout.printf(" Entities in the tower are taking turns.\n");
+                        prints(" Entities in the tower are taking turns.\n");
                         foreach(Floor floor in floors){
                                 tmp = floor.TakeTurns();
                         }

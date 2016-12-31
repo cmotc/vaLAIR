@@ -5,13 +5,14 @@ using SDLTTF;
 using SDLMixer;
 
 namespace LAIR{
-	class Game{
+	class Game : Scribe{
 		private Video.Window window;
 		private Video.Renderer WindowRenderer;
 
 		private Tower GameEnvironment;
 
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
+                        base.LLL(5);
                         string imageListPath = listPaths[0];
                         string soundListPath = listPaths[1];
                         string fontsListPath = listPaths[2];
@@ -41,7 +42,7 @@ namespace LAIR{
                                 WindowRenderer.set_draw_color(0xFF, 0xFF, 0xFF, Video.Alpha.TRANSPARENT);
                                 WindowRenderer.clear();
 				exit = UpdateScreen();
-                                stdout.printf(" -> input was:%s\n", exit.to_string());
+                                prints(" -> input was:%s\n", exit.to_string());
                                 SDL.Timer.delay(120);
                                 //SDL.Timer.delay(1200);
                                 //SDL.Timer.delay(12000);

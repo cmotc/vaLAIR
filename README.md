@@ -60,6 +60,7 @@ God, I'm really trying to get a handle on planning all this stuff.
 I've been making some unsatisfying version or other of this for so long that
 it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
+
   * Implement Lua API for configuring maps and write a complete demo dungeon.
   * Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
