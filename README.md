@@ -112,6 +112,11 @@ it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
   * Implement Lua API for configuring maps and write a complete demo dungeon.
+    - So far, some bare-bones communication about Room information is possible
+    from the Vala code to the Lua Scripts and the Lua Scripts to the Vala Code.
+    -Documenting this stuff as I get it working is going to be really important,
+    especially because once it works coarse dungeon generation will be removed
+    entirely.
   * Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
   * Write some example AI scripts

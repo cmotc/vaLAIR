@@ -1,4 +1,4 @@
---dofile("../lua/common.lua")
+--dofile("/usr/share/lair/lua/common.lua")
 
 --
 function map_cares_insert()

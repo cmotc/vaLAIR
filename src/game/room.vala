@@ -31,7 +31,15 @@ namespace LAIR{
                         Border.h = h;
                 }
                 private int GetX(){     return (int) Border.x;}
+                private int GetOffsetX(int x){
+                        int r = (x * 32) + GetX();
+                        return r;
+                }
                 private int GetY(){     return (int) Border.y;}
+                private int GetOffsetY(int y) {
+                        int r = (y * 32) + GetY();
+                        return r;
+                }
                 private int GetW(){     return (int) Border.w;}
                 private int GetH(){     return (int) Border.h;}
                 private void RegisterLuaFunctions(){
@@ -61,8 +69,8 @@ namespace LAIR{
                         */
                 }
                 private void GeneratorPushXYToLua(int x, int y){
-                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        //PushNamedPairToLuaTable("cur_gen_coords",{"x","y"}, {XO,YO});
+                        int XO = GetOffsetX(x); int YO = GetOffsetY(y);
+                        PushNamedPairToLuaTable("cur_gen_coords",{"x","y"}, {XO,YO});
                 }
                 private int particle_count(LuaVM vm = GetLuaVM()){
                         return (int) Particles.length();
@@ -118,7 +126,6 @@ namespace LAIR{
                         LuaDoFunction("""map_cares_insert()""");
                         var cares = printas(GetLuaLastReturn());
                         if(cares.nth_data(0) == "true"){
-                                //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                                 LuaDoFunction("""map_image_decide()""");
                                 var imgtags = GetLuaLastReturn();
                                 LuaDoFunction("""map_sound_decide()""");
@@ -129,14 +136,13 @@ namespace LAIR{
                                 List<string> imgTags = printas(imgtags);
                                 List<string> sndTags = printas(sndtags);
                                 List<string> fntTags = printas(fnttags);
-                                //inject_particle(Video.Point(){x=XO, y=YO}, GameMaster.SingleImageByTagList(imgTags.nth_data(0)), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer);
+                                inject_particle(Video.Point(){x=GetOffsetX(x), y=GetOffsetY(y)}, imgTags, sndTags, fntTags, renderer);
                         }
                 }
                 private void DecideMobileTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
                         LuaDoFunction("""mob_cares_insert()""");
                         var cares = printas(GetLuaLastReturn());
                         if(cares.nth_data(0) == "true"){
-                                //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
                                 LuaDoFunction("""mob_image_decide()""");
                                 var imgtags = GetLuaLastReturn();
                                 LuaDoFunction("""mob_sound_decide()""");
@@ -147,7 +153,7 @@ namespace LAIR{
                                 List<string> imgTags = printas(imgtags);
                                 List<string> sndTags = printas(sndtags);
                                 List<string> fntTags = printas(fnttags);
-                                //inject_mobile(Video.Point(){x=XO, y=YO}, GameMaster.SingleImageByTagList(imgTags.nth_data(0)), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer);
+                                inject_mobile(Video.Point(){x=GetOffsetX(x), y=GetOffsetY(y)}, imgTags, sndTags, fntTags, renderer);
                         }
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
@@ -164,7 +170,7 @@ namespace LAIR{
                         }
                 }
                 private void GenerateBlockTile(int x, int y, int WT, int HT, int CR, Video.Renderer* renderer){
-                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                        int XO = GetOffsetX(x); int YO = GetOffsetY(y);
                         Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("floor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                         prints("     Generating Entity Particle X: %s ", XO.to_string()); prints("Y: %s \n", YO.to_string());
                         if(CR > 0){

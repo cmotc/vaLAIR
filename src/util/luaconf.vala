@@ -11,7 +11,6 @@ namespace LAIR{
                         ScriptPath = path;
                         prints("Loading a dungeon generator script: %s\n", ScriptPath);
                         VM.do_file(ScriptPath);
-                        //var test = GetLuaLastReturn();
                         printas(GetLuaLastReturn());
                         prints("\n");
                 }
@@ -39,20 +38,27 @@ namespace LAIR{
                         tmp += function;
                         VM.do_string(tmp);
                 }
+                //This creates a new global Lua table containing a pair of
+                //parameters, such as X, Y or Width, Height. As such it's kind
+                //of specific and might end up getting superceded, but it's at
+                //a helpful shortfut for now.
+                //I think maybe a 1 dimentionsional array with one member might
+                //be the same as a single parameter.
                 protected void PushNamedPairToLuaTable(string tableName, string[] membernames, int[] members){
-                        //VM.new_table ();
                         int i = 0;
-                        if(membernames.length != members.length){
+                        if(membernames.length == members.length){
+                                VM.new_table ();
                                 foreach(int member in members) {
                                         prints("index: %s", membernames[i]);
                                         prints("member: %s \n", member.to_string());
-                                        //VM.push_string(membernames[i]);
-                                        //VM.push_number (member);
+                                        VM.push_string(membernames[i]);
+                                        VM.push_number (member);
+
                                         i++;
                                 }
+                                VM.raw_set (((i-(i*2))*2)-1);
+                                VM.set_global (tableName);
                         }
-                        //VM.raw_set ((i+1)*-1);            // Stores the pair in the table
-                        //VM.set_global (tableName);
                 }
                 protected LuaVM* GetLuaVM(){
                         return VM;
