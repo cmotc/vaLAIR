@@ -1,4 +1,10 @@
-dofile("../lua/common.lua")
+--dofile("../lua/common.lua")
+
+--
+function map_cares_insert()
+        decided_to = "false"
+        return decided_to
+end
 -- The return value of this function tells the map what image to use to select
 -- a list of surfaces by tag to create an entity. It's not as complicated as it
 -- sounds. It just has to return an array of tags for the resource manager to
@@ -18,6 +24,12 @@ end
 function map_fonts_decide()
         decided_font = "font"
         return decided_font
+end
+
+--
+function mob_cares_insert()
+        decided_to = "false"
+        return decided_to
 end
 -- The return value of this function tells the map what image to use to select
 -- a list of surfaces by tag to create an entity that is mobile.

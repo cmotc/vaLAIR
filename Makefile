@@ -102,4 +102,5 @@ install:
 	cp share/lair/demo/dungeon.lua /usr/share/lair/demo/
 	cp share/lair/demo/player.lua /usr/share/lair/demo/
 	cp share/lair/demo/ai.lua /usr/share/lair/demo/
+	chmod -R a+r /usr/share/lair
 

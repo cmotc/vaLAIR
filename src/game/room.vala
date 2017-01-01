@@ -62,7 +62,7 @@ namespace LAIR{
                 }
                 private void GeneratorPushXYToLua(int x, int y){
                         int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        PushNamedPairToLuaTable("cur_gen_coords",{"x","y"}, {XO,YO});
+                        //PushNamedPairToLuaTable("cur_gen_coords",{"x","y"}, {XO,YO});
                 }
                 private int particle_count(LuaVM vm = GetLuaVM()){
                         return (int) Particles.length();
@@ -115,32 +115,40 @@ namespace LAIR{
                 }
                 private CallbackFunc mobile_count_bytag_delegate = (CallbackFunc) mobile_count;
                 private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
-                        //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        LuaDoFunction("""map_image_decide()""");
-                        var imgtags = GetLuaLastReturn();
-                        LuaDoFunction("""map_sound_decide()""");
-                        var sndtags = GetLuaLastReturn();
-                        LuaDoFunction("""map_fonts_decide()""");
-                        var fnttags = GetLuaLastReturn();
-                        prints("Will it blend?\n");
-                        List<string> imgTags = printas(imgtags);
-                        List<string> sndTags = printas(sndtags);
-                        List<string> fntTags = printas(fnttags);
-                        //Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        LuaDoFunction("""map_cares_insert()""");
+                        var cares = printas(GetLuaLastReturn());
+                        if(cares.nth_data(0) == "true"){
+                                //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                                LuaDoFunction("""map_image_decide()""");
+                                var imgtags = GetLuaLastReturn();
+                                LuaDoFunction("""map_sound_decide()""");
+                                var sndtags = GetLuaLastReturn();
+                                LuaDoFunction("""map_fonts_decide()""");
+                                var fnttags = GetLuaLastReturn();
+                                prints("Will it blend?\n");
+                                List<string> imgTags = printas(imgtags);
+                                List<string> sndTags = printas(sndtags);
+                                List<string> fntTags = printas(fnttags);
+                                //inject_particle(Video.Point(){x=XO, y=YO}, GameMaster.SingleImageByTagList(imgTags.nth_data(0)), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer);
+                        }
                 }
                 private void DecideMobileTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
-                        //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        LuaDoFunction("""mob_image_decide()""");
-                        var imgtags = GetLuaLastReturn();
-                        LuaDoFunction("""mob_sound_decide()""");
-                        var sndtags = GetLuaLastReturn();
-                        LuaDoFunction("""mob_fonts_decide()""");
-                        var fnttags = GetLuaLastReturn();
-                        prints("Will it blend?\n");
-                        List<string> imgTags = printas(imgtags);
-                        List<string> sndTags = printas(sndtags);
-                        List<string> fntTags = printas(fnttags);
-                        //Mobs.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.BodyByTone(imgTags.nth_data(0)), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        LuaDoFunction("""mob_cares_insert()""");
+                        var cares = printas(GetLuaLastReturn());
+                        if(cares.nth_data(0) == "true"){
+                                //int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
+                                LuaDoFunction("""mob_image_decide()""");
+                                var imgtags = GetLuaLastReturn();
+                                LuaDoFunction("""mob_sound_decide()""");
+                                var sndtags = GetLuaLastReturn();
+                                LuaDoFunction("""mob_fonts_decide()""");
+                                var fnttags = GetLuaLastReturn();
+                                prints("Will it blend?\n");
+                                List<string> imgTags = printas(imgtags);
+                                List<string> sndTags = printas(sndtags);
+                                List<string> fntTags = printas(fnttags);
+                                //inject_mobile(Video.Point(){x=XO, y=YO}, GameMaster.SingleImageByTagList(imgTags.nth_data(0)), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer);
+                        }
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
                 private void GenerateStructure( int CR, int[] xyoffset, Video.Renderer* renderer){
@@ -233,29 +241,30 @@ namespace LAIR{
                 }
                 public bool DetectTransition(Entity t){
                         bool r = false;
-                        assert(t != null);
-                        Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
-                                y=t.GetHitBox().y };
-                        bool TLeftCorner = InRange(tlc, GetHitBox());
+                        //if(t != null){
+                                assert(t != null);
+                                Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
+                                        y=t.GetHitBox().y };
+                                bool TLeftCorner = InRange(tlc, GetHitBox());
 
-                        Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
-                                y = t.GetHitBox().y };
-                        bool TRightCorner = InRange(trc, GetHitBox());
+                                Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                        y = t.GetHitBox().y };
+                                bool TRightCorner = InRange(trc, GetHitBox());
 
-                        Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
-                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
-                        bool BLeftCorner = InRange(blc, GetHitBox());
+                                Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
+                                        y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                                bool BLeftCorner = InRange(blc, GetHitBox());
 
-                        Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
-                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
-                        bool BRightCorner = InRange( brc, GetHitBox());
+                                Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                        y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                                bool BRightCorner = InRange( brc, GetHitBox());
 
-                        if (TLeftCorner){if (TRightCorner){
-                                if (BLeftCorner){if (BRightCorner){
-                                        r = true;
+                                if (TLeftCorner){if (TRightCorner){
+                                        if (BLeftCorner){if (BRightCorner){
+                                                r = true;
+                                        }}
                                 }}
-                        }}
-
+                        //}
                         return r;
                 }
 		public void RenderCopy(Video.Renderer renderer){
@@ -296,19 +305,17 @@ namespace LAIR{
 			return tmp;
 		}
                 //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
-                private void inject_particle(int x, int y, string name, Video.Renderer* renderer){
-                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        if ( XO < GetX() + GetW() ){ if ( XO > GetX() ){
-                                if ( YO < GetY() + GetW() ){ if ( YO > GetY() ){
-                                        Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(name), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
+                        if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
+                                if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
+                                        Particles.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }
-                private void inject_mobile(int x, int y, string name, Video.Renderer* renderer){
-                        int XO = (x * 32) + GetX(); int YO = (y * 32) + GetY();
-                        if ( XO < GetX() + GetW() ){ if ( XO > GetX() ){
-                                if ( YO < GetY() + GetW() ){ if ( YO > GetY() ){
-                                        Mobs.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName(name), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                private void inject_mobile(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
+                        if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
+                                if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
+                                        Mobs.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }
