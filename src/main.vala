@@ -5,7 +5,7 @@ using SDLTTF;
 using SDLMixer;
 
 namespace LAIR{
-	public class Lair : Scribe {
+	class Lair : Scribe {
 		private Game GameMap;
                 private static bool help = false;
                 private static string ImageFilePath = GetFilePath("lair/images.list");

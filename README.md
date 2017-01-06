@@ -5,10 +5,10 @@ LAIR! is a rogue-like dungeon crawling game that draws it's influences primarily
 from the classic 2D Legend of Zelda games(Gameplay), Teleglitch: Die More
 Edition(Aesthetically), Borderlands(Mechanically), and MMORPG's. It's been
 something I've been developing for a long time, and I'll probably never consider
-it truly done, but it's abou time I start documenting how to actually play it
-now that I'm going to have a version in a week or two. Also it's capitalized for
-now because it used to be an abbreviation. That might change because it's not
-anymore.
+it truly done, but it's about time I start documenting how to actually play it
+now that I'm going to have a version in a week or four. Also it's capitalized
+for now because it used to be an abbreviation. That might change because it's
+not anymore.
 
 Installation
 ------------

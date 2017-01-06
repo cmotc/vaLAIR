@@ -3,7 +3,7 @@ using SDLImage;
 using SDLGraphics;
 
 namespace LAIR{
-	public class Image : LairFile {
+	class Image : LairFile {
 		private Video.Surface surface;
 		public Image(string Path){
 			base.WithPath(Path);
@@ -24,7 +24,7 @@ namespace LAIR{
 			}
 			return tmp;
 		}
-		public bool ImageLoad(string Path){
+		/*public bool ImageLoad(string Path){
 			SetPath(Path);
 			bool tmp = false;
 			if (CheckPath()){
@@ -35,14 +35,7 @@ namespace LAIR{
 				prints("Image not found at location %s \n", GetPath());
 			}
 			return tmp;
-		}
-		public bool CheckImage(){
-			if (CheckPath()){
-				return true;
-			}else{
-				return false;
-			}
-		}
+		}*/
 		public Video.Surface* GetImage(){
 			return surface;
 		}

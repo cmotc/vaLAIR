@@ -23,7 +23,7 @@ namespace LAIR{
 			}
 			return tmp;
                 }
-/*                public bool SoundLoad(string path){
+                /*public bool SoundLoad(string path){
                         SetPath(path);
 			bool tmp = false;
 			if (CheckPath()){

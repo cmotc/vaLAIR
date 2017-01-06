@@ -1,5 +1,5 @@
 namespace LAIR{
-	public class LairFile : Scribe {
+	class LairFile : Scribe {
 		private string Path = null;
 		private string Name = null;
 		private List<string> Tags = null;//new List<string>();
@@ -25,18 +25,18 @@ namespace LAIR{
                         }
                         SetTags(tags);
                 }
-		protected List<string>* SetTags(List<string> tags){
+		protected List<string*> SetTags(List<string> tags){
                         if(Tags == null){Tags = new List<string>();}
 			foreach (string tag in tags){
 				if (HasTag(tag) == false){
 					Tags.append(tag);
 				}
 			}
-			return Tags;
+			return Tags.copy();
 		}
-		public List<string>* GetTags(){
-			return Tags;
-		}
+		/*public List<string*> GetTags(){
+			return Tags.copy();
+		}*/
                 public bool HasName(string query){
 			bool tmp = false;
                         bool ptd = false;
@@ -51,7 +51,7 @@ namespace LAIR{
 		}
 		public bool HasTag(string query){
 			bool tmp = false;
-			foreach (string Tag in Tags){
+			foreach (string Tag in Tags.copy()){
 				if ( query == Tag ) {
 					tmp = true;
 					break;
@@ -63,9 +63,9 @@ namespace LAIR{
                         bool rtmp = true;
                         int i = 0, j = 0;
                         //for(i = 0; i < queryList.length(); i++){
-                        foreach(string query in queryList){
+                        foreach(string query in queryList.copy()){
                                 //for(j = 0; j < Tags.length(); j++){
-                                foreach(string tag in Tags){
+                                foreach(string tag in Tags.copy()){
                                         //if(queryList.nth_data(i) == Tags.nth_data(j)){
                                         if(query == tag){
                                                 break;
@@ -110,31 +110,6 @@ namespace LAIR{
 				prints("Validating Path failed: %s doesn't exist.\n", Path);
 				return false;
 			}
-		}
-		public List<string> LoadLineDelimitedConfig(){
-			List<string> tmp = new List<string>();
-			var file = File.new_for_path(Path);
-			prints("Loading configuration file %s\n", Path);
-			if (!file.query_exists ()) {
-				prints ("File '%s' doesn't exist.\n", file.get_path ());
-			}
-			try {
-				var dis = new DataInputStream (file.read());
-				string line;
-				while ((line = dis.read_line (null)) != null) {
-					string []tl = line.split(" ", 2);
-					if (FileUtils.test(tl[0], FileTest.EXISTS)) {
-						tmp.append(tl[0]);
-						prints("Loaded Resource: %s\n", tl[0]);
-					}else{
-						prints("Failed to load Resource: %s\n", tl[0]);
-					}
-				}
-				prints("Loaded configuration file %s\n", Path);
-			} catch (Error e) {
-				error ("%s", e.message);
-			}
-			return tmp;
 		}
                 public int LenLineDelimitedConfig(){
                         int Length = 0;

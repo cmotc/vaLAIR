@@ -5,7 +5,7 @@ using SDLMixer;
 using SDLTTF;
 
 namespace LAIR{
-	public class FileDB : Scribe {
+	class FileDB : Scribe {
 		private List<Image> imgRes = new List<Image>();
 		private List<Sound> sndRes = new List<Sound>();
 		private List<Fonts> ttfRes = new List<Fonts>();
@@ -111,12 +111,12 @@ namespace LAIR{
                         return (int) ttfRes.length();
                 }
                 private int GetRandomSoundIndex(){
-                        int tmp = Sorcerer.int_range(0, GetSoundsLength());
+                        int tmp = int_range(0, GetSoundsLength());
                         prints("Random Sound from Index # %s \n", tmp.to_string());
                         return tmp;
                 }
                 private int GetRandomFontIndex(){
-                        int tmp = Sorcerer.int_range(0, GetFontsLength());
+                        int tmp = int_range(0, GetFontsLength());
                         prints("Random Font from Index #: %s \n", tmp.to_string());
                         return tmp;
                 }
@@ -143,7 +143,7 @@ namespace LAIR{
                                 c++;
 			}
                         int top = (int) tmp.length();
-                        int index = Sorcerer.int_range(0, top);
+                        int index = int_range(0, top);
                         prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
@@ -159,7 +159,7 @@ namespace LAIR{
                                 c++;
 			}
                         int top = (int) tmp.length();
-                        int index = Sorcerer.int_range(0, top);
+                        int index = int_range(0, top);
                         prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         return r;
@@ -172,7 +172,7 @@ namespace LAIR{
                                 }
 			}
                         int top = (int) r.length();
-                        int index = Sorcerer.int_range(0, top);
+                        int index = int_range(0, top);
                         prints("Emitting random image from subindex #: %s \n:", index.to_string() );
                         return r.nth_data(index);
 		}
@@ -193,7 +193,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         for (int i = 0; i < num; i++){
-                                int index = Sorcerer.int_range(0, top);
+                                int index = int_range(0, top);
                                 prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         }
@@ -211,7 +211,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         for (int i = 0; i < num; i++){
-                                int index = Sorcerer.int_range(0, top);
+                                int index = int_range(0, top);
                                 prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).GetImage());
                         }
@@ -236,7 +236,7 @@ namespace LAIR{
 				}
 			}
                         int top = (int) tmp.length();
-                        int index = Sorcerer.int_range(0, top);
+                        int index = int_range(0, top);
 			return tmp.nth_data(index);
 		}
 		public Music* SoundByTag(string query){
@@ -247,7 +247,7 @@ namespace LAIR{
 				}
 			}
                         int top = (int) tmp.length();
-                        int index = Sorcerer.int_range(0, top);
+                        int index = int_range(0, top);
 			return tmp.nth_data(0);
 		}
                 public SDLTTF.Font* FontByName(string name){
@@ -258,7 +258,7 @@ namespace LAIR{
 				}
 			}
                         int top = (int) tmp.length();
-                        int index = Sorcerer.int_range(0, top);
+                        int index = int_range(0, top);
 			return tmp.nth_data(index);
 		}
 		public SDLTTF.Font* FontByTag(string query){
@@ -269,7 +269,7 @@ namespace LAIR{
 				}
 			}
                         int top = (int) tmp.length();
-                        int index = Sorcerer.int_range(0, top);
+                        int index = int_range(0, top);
 			return tmp.nth_data(0);
 		}*/
                 public int int_range(int low, int high){

@@ -68,9 +68,9 @@ namespace LAIR{
                         environment. Noteynoteynotes.
                         */
                 }
-                private void GeneratorPushXYToLua(int x, int y){
-                        int XO = GetOffsetX(x); int YO = GetOffsetY(y);
-                        PushNamedPairToLuaTable("cur_gen_coords",{"x","y"}, {XO,YO});
+                //private void GeneratorPushXYToLua(int x, int y){
+                private void GeneratorPushXYToLua(Video.Point current){
+                        PushCoordsToLuaTable(current);
                 }
                 private int particle_count(LuaVM vm = GetLuaVM()){
                         return (int) Particles.length();
@@ -122,68 +122,54 @@ namespace LAIR{
                         return 1;
                 }
                 private CallbackFunc mobile_count_bytag_delegate = (CallbackFunc) mobile_count;
-                private void DecideBlockTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
+                private void DecideBlockTile(Video.Point coords, Video.Renderer* renderer){
                         LuaDoFunction("""map_cares_insert()""");
                         var cares = printas(GetLuaLastReturn());
-                        if(cares.nth_data(0) == "true"){
-                                LuaDoFunction("""map_image_decide()""");
-                                var imgtags = GetLuaLastReturn();
-                                LuaDoFunction("""map_sound_decide()""");
-                                var sndtags = GetLuaLastReturn();
-                                LuaDoFunction("""map_fonts_decide()""");
-                                var fnttags = GetLuaLastReturn();
-                                prints("Will it blend?\n");
-                                List<string> imgTags = printas(imgtags);
-                                List<string> sndTags = printas(sndtags);
-                                List<string> fntTags = printas(fnttags);
-                                inject_particle(Video.Point(){x=GetOffsetX(x), y=GetOffsetY(y)}, imgTags, sndTags, fntTags, renderer);
+                        if(cares != null){
+                                if(cares.nth_data(0) == "true"){
+                                        LuaDoFunction("""map_image_decide()""");
+                                        List<string> imgTags = printas(GetLuaLastReturn());
+                                        LuaDoFunction("""map_sound_decide()""");
+                                        List<string> sndTags = printas(GetLuaLastReturn());
+                                        LuaDoFunction("""map_fonts_decide()""");
+                                        List<string> fntTags = printas(GetLuaLastReturn());
+                                        prints("Will it blend?\n");
+                                        inject_particle(coords, imgTags, sndTags, fntTags, renderer);
+                                }
                         }
                 }
-                private void DecideMobileTile(int x, int y, int WT, int HT, Video.Renderer* renderer){
+                private void DecideMobileTile(Video.Point coords, Video.Renderer* renderer){
                         LuaDoFunction("""mob_cares_insert()""");
                         var cares = printas(GetLuaLastReturn());
-                        if(cares.nth_data(0) == "true"){
-                                LuaDoFunction("""mob_image_decide()""");
-                                var imgtags = GetLuaLastReturn();
-                                LuaDoFunction("""mob_sound_decide()""");
-                                var sndtags = GetLuaLastReturn();
-                                LuaDoFunction("""mob_fonts_decide()""");
-                                var fnttags = GetLuaLastReturn();
-                                prints("Will it blend?\n");
-                                List<string> imgTags = printas(imgtags);
-                                List<string> sndTags = printas(sndtags);
-                                List<string> fntTags = printas(fnttags);
-                                inject_mobile(Video.Point(){x=GetOffsetX(x), y=GetOffsetY(y)}, imgTags, sndTags, fntTags, renderer);
+                        if(cares != null){
+                                if(cares.nth_data(0) == "true"){
+                                        LuaDoFunction("""mob_image_decide()""");
+                                        List<string> imgTags = printas(GetLuaLastReturn());
+                                        LuaDoFunction("""mob_sound_decide()""");
+                                        List<string> sndTags = printas(GetLuaLastReturn());
+                                        LuaDoFunction("""mob_fonts_decide()""");
+                                        List<string> fntTags = printas(GetLuaLastReturn());
+                                        prints("Will it blend?\n");
+                                        inject_mobile(coords, imgTags, sndTags, fntTags, renderer);
+                                }
                         }
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
-                private void GenerateStructure( int CR, int[] xyoffset, Video.Renderer* renderer){
+                private void GenerateStructure(int CR, int[] xyoffset, Video.Renderer* renderer){
                         int WT = (int)(GetW() / 32); int HT = (int)(GetH() / 32);
                         prints("    Generating room. Width: %s ", WT.to_string()); prints("Height %s\n", HT.to_string());
-                        for (int x = 0; x < WT; x++){
-                                for (int y = 0; y < HT; y++){
-                                        GeneratorPushXYToLua(x, y);
-                                        GenerateBlockTile(x, y, WT, HT, CR, renderer);
-                                        DecideBlockTile(x, y, WT, HT, renderer);
-                                        DecideMobileTile(x, y, WT, HT, renderer);
+                        for (int xx = 0; xx < WT; xx++){
+                                for (int yy = 0; yy < HT; yy++){
+                                        Video.Point coords = Video.Point(){x=GetOffsetX(xx), y=GetOffsetX(yy)};
+                                        GeneratorPushXYToLua(coords);
+                                        GenerateFloorTile(coords, renderer);
+                                        DecideBlockTile(coords, renderer);
+                                        //DecideMobileTile(coords, renderer);
                                 }
                         }
                 }
-                private void GenerateBlockTile(int x, int y, int WT, int HT, int CR, Video.Renderer* renderer){
-                        int XO = GetOffsetX(x); int YO = GetOffsetY(y);
-                        Particles.append(new Entity(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("floor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                        prints("     Generating Entity Particle X: %s ", XO.to_string()); prints("Y: %s \n", YO.to_string());
-                        if(CR > 0){
-                                if ( x == (0 + GameMaster.int_range(0,CR)) ){
-                                        Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                                }else if ( x == ((WT-1) - GameMaster.int_range(0,CR)) ){
-                                        Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                                }else if ( y == (0 + GameMaster.int_range(0,CR)) ){
-                                        Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                                }else if ( y == ((HT-1) - GameMaster.int_range(0,CR)) ){
-                                        Particles.append(new Entity.Blocked(Video.Point(){ x = XO, y = YO }, GameMaster.ImageByName("wall"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
-                                }
-                        }
+                private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
+                        Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                 }
                 public bool HasPlayer(){
 			bool tmp = false;
@@ -248,7 +234,6 @@ namespace LAIR{
                 public bool DetectTransition(Entity t){
                         bool r = false;
                         //if(t != null){
-                                assert(t != null);
                                 Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
                                         y=t.GetHitBox().y };
                                 bool TLeftCorner = InRange(tlc, GetHitBox());
@@ -314,7 +299,7 @@ namespace LAIR{
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        Particles.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                        Particles.append(new Entity.Blocked(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }

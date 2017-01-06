@@ -1,6 +1,6 @@
 namespace LAIR{
-	public class Scribe : Object{
-                private static int LogLevel = 0;
+	class Scribe : Object{
+                private static int LogLevel;// = 1;
                 private string Name = "global log: ";
                 private int LocalLogLevel = 6;
                 public Scribe.LL(int ll){
@@ -11,8 +11,9 @@ namespace LAIR{
                         LocalLogLevel = lll;
                         Name = name;
                         Name += " ";
+                        int llcache = LogLevel;
                         if(ll != -1){
-                                LogLevel = LogLevel;
+                                LogLevel = llcache;
                         }
                 }
                 public Scribe.LLLLL(int ll, int lll){
@@ -21,14 +22,9 @@ namespace LAIR{
                         }
                         LocalLogLevel = lll;
                 }
-                public static void printsnl(){
-                        if(LogLevel > 0){
-                                stdout.printf("Void Main: %s", LogLevel.to_string());
-                        }
-                }
                 public static void printc(string item, string item2 = ""){
                         if(LogLevel > 0){
-                                printsnl();
+                                stdout.printf("Void Main: %s", LogLevel.to_string());
                                 stdout.printf(item, item2);
                         }
                 }
@@ -41,7 +37,7 @@ namespace LAIR{
                                 stdout.printf(LogLevel.to_string());
                         }
                 }
-                public void prints(string item, string item2 = ""){
+                public void prints(string item="", string item2 = ""){
                         if(LogLevel > LocalLogLevel){
                                 printnl();
                                 stdout.printf(item, item2);
@@ -54,66 +50,13 @@ namespace LAIR{
                         List<string> r = new List<string>();
                         if(LogLevel > LocalLogLevel){
                                 printnl();
-                                foreach(string s in item){
-                                        stdout.printf(s);
-                                        r.append(s);
+                                //foreach(string s in item){
+                                for(int i = 0; i < item.length - 1; i++){
+                                        stdout.printf(" %s ", item[i].to_string());
+                                        r.append(item[i].to_string());
                                 }
                         }
                         return r.copy();
-                }
-                public void printls(List<string> item){
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                foreach(string s in item){
-                                        stdout.printf(s);
-                                }
-                        }
-                }
-                public void printi(int item){
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                stdout.printf(item.to_string());
-                        }
-                }
-                public void printai(int[] item){
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                foreach(int s in item){
-                                        stdout.printf(s.to_string());
-                                }
-                        }
-                }
-                public void printli(List<int> item){
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                foreach(int s in item){
-                                        stdout.printf(s.to_string());
-                                }
-                        }
-                }
-                public void pprinti(string prefix, int item){
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                stdout.printf(prefix, item.to_string());
-                        }
-                }
-                public void pprintai(string prefix, int[] item){
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                stdout.printf(prefix);
-                                foreach(int s in item){
-                                        stdout.printf(s.to_string());
-                                }
-                        }
-                }
-                public void pprintli(string prefix, List<int> item){
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                stdout.printf(prefix);
-                                foreach(int s in item){
-                                        stdout.printf(s.to_string());
-                                }
-                        }
                 }
         }
 }

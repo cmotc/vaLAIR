@@ -1,5 +1,5 @@
 namespace LAIR{
-	public class Type : Scribe{
+	class Type : Scribe{
 		private bool player = false;
                 private int b = 0;
                 private List<string> tags = new List<string>();

@@ -2,7 +2,7 @@
 
 --
 function map_cares_insert()
-        decided_to = "false"
+        decided_to = "true"
         return decided_to
 end
 -- The return value of this function tells the map what image to use to select

@@ -1,8 +1,8 @@
 using Lua;
-
+using SDL;
 namespace LAIR{
-	public class LuaConf : Scribe{
-                private LuaVM VM;
+	class LuaConf : Scribe{
+                private static LuaVM VM;
                 private string ScriptPath;
                 public LuaConf(string path, int lll, string name){
                         base.LLL(lll, name);
@@ -11,8 +11,8 @@ namespace LAIR{
                         ScriptPath = path;
                         prints("Loading a dungeon generator script: %s\n", ScriptPath);
                         VM.do_file(ScriptPath);
-                        printas(GetLuaLastReturn());
-                        prints("\n");
+                        //printas(GetLuaLastReturn());
+                        //prints("\n");
                 }
                 private void LuaDoFile(string file){
                         VM.do_file(file);
@@ -38,27 +38,74 @@ namespace LAIR{
                         tmp += function;
                         VM.do_string(tmp);
                 }
-                //This creates a new global Lua table containing a pair of
-                //parameters, such as X, Y or Width, Height. As such it's kind
-                //of specific and might end up getting superceded, but it's at
-                //a helpful shortfut for now.
-                //I think maybe a 1 dimentionsional array with one member might
-                //be the same as a single parameter.
-                protected void PushNamedPairToLuaTable(string tableName, string[] membernames, int[] members){
+                //This pushes a series of key-value pairs into a global Lua table.
+                /*protected void PushNamedPairToLuaTable(string tableName, string[] membernames, int[] members){
                         int i = 0;
                         if(membernames.length == members.length){
+                                //int max = membernames.length - 1;
                                 VM.new_table ();
                                 foreach(int member in members) {
-                                        prints("index: %s", membernames[i]);
-                                        prints("member: %s \n", member.to_string());
+                                        stdout.printf(" %s ", membernames[i]);
+                                        stdout.printf(" %s \n", members[i].to_string());
                                         VM.push_string(membernames[i]);
                                         VM.push_number (member);
-
                                         i++;
                                 }
                                 VM.raw_set (((i-(i*2))*2)-1);
                                 VM.set_global (tableName);
                         }
+                }*/
+                protected void NewLuaTable(){
+                        VM.new_table();
+                }
+                protected void PushNamedPairToLuaTable(string key, int val = -2147483647){
+                        if( key != null){
+                                prints("pushing values to lua table");
+                                VM.push_string(key);
+                                VM.push_number(val);
+                                prints("%s ", key);
+                                prints("%s \n", val.to_string());
+                                VM.raw_set(-3);
+                        }else{
+                                key = "error";
+                                string errval = "Error pushing entry to global Lua table. Key was null. Value was: ";
+                                VM.push_string(key);
+                                VM.push_string(errval);
+                                prints(key, errval);
+                                prints(val.to_string());
+                                VM.raw_set(-3);
+                        }
+                }
+                protected void CloseLuaTable(string tableName){
+                        if(tableName != null){
+                                VM.set_global (tableName);
+                        }else{
+                                prints("something is wrong, table name cannot be null");
+                        }
+                }
+                //This pushes a set of coordinates into a global Lua table.
+                /*protected void PushCoordsToLuaTable(string tableName, Video.Point current){
+                        int i = 2;
+                        //if(current != null){
+                                VM.new_table ();
+                                //stdout.printf(membernames[i]);
+                                VM.push_string("x");
+                                VM.push_number (current.x);
+                                stdout.printf("x %s \n", current.x.to_string());
+                                VM.push_string("y");
+                                VM.push_number (current.y);
+                                stdout.printf("y %s \n ", current.y.to_string());
+                                VM.raw_set (((i-(i*2))*2)-1);
+                                VM.set_global (tableName);
+                        //}
+                }*/
+                protected void PushCoordsToLuaTable(Video.Point current){
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("x", current.x);
+                        CloseLuaTable("generator_x");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("y", current.y);
+                        CloseLuaTable("generator_y");
                 }
                 protected LuaVM* GetLuaVM(){
                         return VM;

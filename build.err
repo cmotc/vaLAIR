@@ -1,0 +1,217 @@
+valac -gv \
+	-o bin/LAIR \
+	--pkg gio-2.0 \
+	--pkg lua \
+	--pkg sdl2 \
+	--pkg sdl2-gfx \
+	--pkg sdl2-image \
+	--pkg sdl2-ttf \
+	--pkg sdl2-mixer \
+	--pkg=tartrazine \
+	-X -Og \
+	-X -g3 \
+	-X -ggdb \
+	-X -llua5.1 \
+	-X -lSDL2 \
+	-X -lSDL2_gfx \
+	-X -lSDL2_image \
+	-X -lSDL2_ttf \
+	-X -lSDL2_mixer \
+	src/main.vala \
+	src/util/scribe.vala \
+	src/util/luaconf.vala \
+	src/resmanage/files.vala \
+	src/resmanage/images.vala \
+	src/resmanage/filedb.vala \
+	src/resmanage/fonts.vala \
+	src/resmanage/sounds.vala \
+	src/game/room.vala \
+	src/game/floor.vala \
+	src/game/tower.vala \
+	src/game/game.vala \
+	src/entity/type.vala \
+	src/entity/sprite.vala \
+	src/entity/anim.vala \
+	src/entity/text.vala \
+	src/entity/sound.vala \
+	src/entity/net.vala \
+	src/entity/stats.vala \
+	src/entity/inventory.vala \
+	src/entity/move.vala \
+	src/entity/entity.vala
+sdl2.vapi:1277.3-1277.38: warning: the modifier `static' is not applicable to constants
+		public static const uint8 TEXT_SIZE;
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:1290.3-1290.38: warning: the modifier `static' is not applicable to constants
+		public static const uint8 TEXT_SIZE;
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2470.4-2470.43: warning: the modifier `static' is not applicable to constants
+			public static const uint8 POS_UNDEFINED;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2473.4-2473.42: warning: the modifier `static' is not applicable to constants
+			public static const uint8 POS_CENTERED;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2476.4-2476.53: warning: the modifier `static' is not applicable to constants
+			private static const int8 SDL_NONSHAPEABLE_WINDOW;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2478.4-2478.56: warning: the modifier `static' is not applicable to constants
+			private static const int8 SDL_INVALID_SHAPE_ARGUMENT;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2.vapi:2480.4-2480.52: warning: the modifier `static' is not applicable to constants
+			private static const int8 SDL_WINDOW_LACKS_SHAPE;
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sdl2-mixer.vapi:224.2-224.54: warning: the modifier `static' is not applicable to constants
+	public static const SDLMixer.Channel DEFAULT_CHANNEL;
+	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:85.33-85.60: warning: string.to_int is deprecated. Use int.parse
+src/game/room.vala:87.33-87.60: warning: string.to_int is deprecated. Use int.parse
+src/game/room.vala:102.33-102.60: warning: string.to_int is deprecated. Use int.parse
+src/game/room.vala:104.33-104.60: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:117.61-117.94: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:120.16-120.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:123.16-123.49: warning: string.to_int is deprecated. Use int.parse
+src/main.vala:138.8-138.81: warning: local variable `app' declared but never used
+			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);
+			    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:39.17-39.38: warning: method `LAIR.Room.GetOffsetY' never used
+                private int GetOffsetY(int y) {
+                ^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:83.17-83.47: warning: method `LAIR.Room.particle_index_byxy' never used
+                private int particle_index_byxy(LuaVM vm = GetLuaVM()){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:100.17-100.45: warning: method `LAIR.Room.mobile_index_byxy' never used
+                private int mobile_index_byxy(LuaVM vm = GetLuaVM()){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:117.17-117.48: warning: method `LAIR.Room.particle_count_bytag' never used
+                private int particle_count_bytag(LuaVM vm = GetLuaVM()){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:121.17-121.46: warning: method `LAIR.Room.mobile_count_bytag' never used
+                private int mobile_count_bytag(LuaVM vm = GetLuaVM()){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/room.vala:141.17-141.45: warning: method `LAIR.Room.DecideMobileTile' never used
+                private void DecideMobileTile(Video.Point coords, Video.Renderer* renderer){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/entity/text.vala:35.17-35.38: warning: method `LAIR.Text.RenderText' never used
+                public void RenderText(Video.Renderer* renderer){
+                ^^^^^^^^^^^^^^^^^^^^^^
+/home/idk/Projects/valair/src/main.vala: In function ‘lair_lair_main’:
+/home/idk/Projects/valair/src/main.vala:87:18: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+    foreach(string arg in args){
+                  ^
+/home/idk/Projects/valair/src/main.vala: In function ‘main’:
+/home/idk/Projects/valair/src/main.vala:75:18: warning: passing argument 1 of ‘lair_lair_main’ from incompatible pointer type [-Wincompatible-pointer-types]
+   public static void main(string args[]){
+                  ^~~~
+main.vala.c:411:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
+/home/idk/Projects/valair/src/util/luaconf.vala: In function ‘lair_lua_conf_construct’:
+/home/idk/Projects/valair/src/util/luaconf.vala:10:2: warning: implicit declaration of function ‘luaL_openlibs’ [-Wimplicit-function-declaration]
+                         VM.open_libs();
+  ^            
+/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_InitBodyVars’:
+/home/idk/Projects/valair/src/resmanage/filedb.vala:46:26: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(0).append("head");
+                          ^~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:48:26: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(1).append("arms"); BodyParts.nth_data(1).append("left");
+                          ^~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:48:26: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(1).append("arms"); BodyParts.nth_data(1).append("left");
+                          ^~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:50:27: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(2).append("arms"); BodyParts.nth_data(2).append("right");
+                           ^~~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:50:27: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(2).append("arms"); BodyParts.nth_data(2).append("right");
+                           ^~~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:52:27: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(3).append("body");
+                           ^~~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:54:27: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(4).append("leg"); BodyParts.nth_data(4).append("left");
+                           ^~~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:54:27: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(4).append("leg"); BodyParts.nth_data(4).append("left");
+                           ^~~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:56:27: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(5).append("leg");BodyParts.nth_data(5).append("right");
+                           ^~~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala:56:27: warning: passing argument 1 of ‘g_list_append’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         BodyParts.nth_data(5).append("leg");BodyParts.nth_data(5).append("right");
+                           ^~~~~~~
+In file included from /usr/include/glib-2.0/glib/ghash.h:33:0,
+                 from /usr/include/glib-2.0/glib.h:50,
+                 from /home/idk/Projects/valair/src/resmanage/filedb.vala.c:5:
+/usr/include/glib-2.0/glib/glist.h:59:10: note: expected ‘GList * {aka struct _GList *}’ but argument is of type ‘gconstpointer {aka const void *}’
+ GList*   g_list_append                  (GList            *list,
+          ^~~~~~~~~~~~~
+/home/idk/Projects/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_ImageByTagList’:
+/home/idk/Projects/valair/src/resmanage/filedb.vala:177:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+                         return r.nth_data(index);
+         ^
+Loaded package `/usr/share/vala-0.34/vapi/glib-2.0.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/gobject-2.0.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/gio-2.0.vapi'
+Loaded package `/usr/share/vala-0.34/vapi/lua.vapi'
+Loaded package `/usr/share/vala/vapi/sdl2.vapi'
+Loaded package `/usr/share/vala/vapi/sdl2-gfx.vapi'
+Loaded package `/usr/share/vala/vapi/sdl2-image.vapi'
+Loaded package `/usr/share/vala/vapi/sdl2-ttf.vapi'
+Loaded package `/usr/share/vala/vapi/sdl2-mixer.vapi'
+Loaded package `/usr/share/vala/vapi/tartrazine.vapi'
+Loaded package `/usr/share/vala/vapi/libtoxcore.vapi'
+cc -g -o '/home/idk/Projects/valair/bin/LAIR' '/home/idk/Projects/valair/src/main.vala.c' '/home/idk/Projects/valair/src/util/scribe.vala.c' '/home/idk/Projects/valair/src/util/luaconf.vala.c' '/home/idk/Projects/valair/src/resmanage/files.vala.c' '/home/idk/Projects/valair/src/resmanage/images.vala.c' '/home/idk/Projects/valair/src/resmanage/filedb.vala.c' '/home/idk/Projects/valair/src/resmanage/fonts.vala.c' '/home/idk/Projects/valair/src/resmanage/sounds.vala.c' '/home/idk/Projects/valair/src/game/room.vala.c' '/home/idk/Projects/valair/src/game/floor.vala.c' '/home/idk/Projects/valair/src/game/tower.vala.c' '/home/idk/Projects/valair/src/game/game.vala.c' '/home/idk/Projects/valair/src/entity/type.vala.c' '/home/idk/Projects/valair/src/entity/sprite.vala.c' '/home/idk/Projects/valair/src/entity/anim.vala.c' '/home/idk/Projects/valair/src/entity/text.vala.c' '/home/idk/Projects/valair/src/entity/sound.vala.c' '/home/idk/Projects/valair/src/entity/net.vala.c' '/home/idk/Projects/valair/src/entity/stats.vala.c' '/home/idk/Projects/valair/src/entity/inventory.vala.c' '/home/idk/Projects/valair/src/entity/move.vala.c' '/home/idk/Projects/valair/src/entity/entity.vala.c' -pthread -D_REENTRANT -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/SDL2 -I/usr/include/lua5.1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -llua5.1 -lSDL2 -ltoxdns -ltoxencryptsave -ltoxcore -lsodium -lm -lpthread '-Og' '-g3' '-ggdb' '-llua5.1' '-lSDL2' '-lSDL2_gfx' '-lSDL2_image' '-lSDL2_ttf' '-lSDL2_mixer'
+Compilation succeeded - 23 warning(s)

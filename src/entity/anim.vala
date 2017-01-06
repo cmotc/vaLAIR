@@ -1,7 +1,7 @@
 using SDL;
 using SDLImage;
 namespace LAIR{
-	public class Anim : Type{
+	class Anim : Type{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=6, y=6, w=20, h=16 };
@@ -75,6 +75,23 @@ namespace LAIR{
                                                 y = GetY() + 1,
                                                 w = (GetWidth() - 1),
                                                 h = (GetHeight() - 1) };
+                                }
+                        }
+                        return r;
+                }
+                protected Video.Rect GetTextPosition(){
+                        Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
+                        if(GetBlock()){
+                                if(IsPlayer()){
+                                        r = Video.Rect(){ x = GetX() + offsetHitBox.x,
+                                                y = GetY() + offsetHitBox.y,
+                                                w = offsetHitBox.w,
+                                                h = offsetHitBox.h };
+                                }else{
+                                        r = Video.Rect(){ x = GetX() + 31,
+                                                y = GetY() + 1,
+                                                w = (GetWidth() - 63),
+                                                h = (GetHeight() - 63) };
                                 }
                         }
                         return r;
