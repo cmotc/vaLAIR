@@ -122,7 +122,27 @@ namespace LAIR{
                 }
                 public Music* GetRandSound(){
                         return sndRes.nth_data(GetRandomSoundIndex()).GetSound();
-                }/*
+                }
+                public List<Music*> NoSound(){
+                        return new List<Music*>();
+                }
+                public List<Music*> SoundByName(string name){
+                        int c = 0;
+                        List<int> tmp = new List<int>();
+                        List<Music*> r = new List<Music*>();
+			foreach (Sound file in sndRes){
+				if (file.HasName(name)){
+					tmp.append(c);
+				}
+                                c++;
+			}
+                        int top = (int) tmp.length();
+                        int index = int_range(0, top);
+                        prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+			r.append(sndRes.nth_data(tmp.nth_data(index)).GetSound());
+                        return r;
+		}
+                /*
                 public Music* GetRandSoundByRange(int bottom, int top){
                         return sndRes.nth_data(GetRandomSoundIndexByRange(bottom,top)).GetSound();
                 }*/

@@ -34,7 +34,7 @@ namespace LAIR{
                 public void printnl(){
                         if(LogLevel > LocalLogLevel){
                                 stdout.printf(Name);
-                                stdout.printf(LogLevel.to_string());
+                                stdout.printf(" %s", LogLevel.to_string());
                         }
                 }
                 public void prints(string item="", string item2 = ""){

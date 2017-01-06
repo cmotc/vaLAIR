@@ -19,8 +19,9 @@ unix:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
-		src/util/scribe.vala \
+		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/scribe.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -35,7 +36,6 @@ unix:
 		src/entity/anim.vala \
 		src/entity/text.vala \
 		src/entity/sound.vala \
-		src/entity/net.vala \
 		src/entity/stats.vala \
 		src/entity/inventory.vala \
 		src/entity/move.vala \
@@ -60,8 +60,9 @@ android:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
-		src/util/scribe.vala \
+		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/scribe.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -76,7 +77,6 @@ android:
 		src/entity/anim.vala \
 		src/entity/text.vala \
 		src/entity/sound.vala \
-		src/entity/net.vala \
 		src/entity/stats.vala \
 		src/entity/inventory.vala \
 		src/entity/move.vala \

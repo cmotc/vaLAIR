@@ -22,7 +22,7 @@ namespace LAIR{
                         RegisterLuaFunctions();
                         SetDimensions(xyoffset[0], xyoffset[1], width, height);
                         GenerateStructure(2, xyoffset, renderer);
-                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.SoundByName("footstep"), GameMaster.GetRandFont(), renderer));
 		}
                 private void SetDimensions(int x, int y, int w, int h){
                         Border.x = x;
@@ -169,7 +169,7 @@ namespace LAIR{
                         }
                 }
                 private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
-                        Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                        Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                 }
                 public bool HasPlayer(){
 			bool tmp = false;
@@ -234,43 +234,43 @@ namespace LAIR{
                 public bool DetectTransition(Entity t){
                         bool r = false;
                         //if(t != null){
-                                Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
-                                        y=t.GetHitBox().y };
-                                bool TLeftCorner = InRange(tlc, GetHitBox());
+                        Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
+                                y=t.GetHitBox().y };
+                        bool TLeftCorner = InRange(tlc, GetHitBox());
 
-                                Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
-                                        y = t.GetHitBox().y };
-                                bool TRightCorner = InRange(trc, GetHitBox());
+                        Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                y = t.GetHitBox().y };
+                        bool TRightCorner = InRange(trc, GetHitBox());
 
-                                Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
-                                        y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
-                                bool BLeftCorner = InRange(blc, GetHitBox());
+                        Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
+                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                        bool BLeftCorner = InRange(blc, GetHitBox());
 
-                                Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
-                                        y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
-                                bool BRightCorner = InRange( brc, GetHitBox());
+                        Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                        bool BRightCorner = InRange( brc, GetHitBox());
 
-                                if (TLeftCorner){if (TRightCorner){
-                                        if (BLeftCorner){if (BRightCorner){
-                                                r = true;
-                                        }}
+                        if (TLeftCorner){if (TRightCorner){
+                                if (BLeftCorner){if (BRightCorner){
+                                        r = true;
                                 }}
+                        }}
                         //}
                         return r;
                 }
 		public void RenderCopy(Video.Renderer renderer){
 			if (visited){
 				foreach(Entity particle in Particles){
-					particle.RenderCopy(renderer);
+					particle.Render(renderer);
 				}
 			}
                         if (HasPlayer()){
-				Player.RenderCopy(renderer);
+				Player.Render(renderer);
 				if (visited = false){
 					visited = true;
 				}
 				foreach(Entity mob in Mobs){
-					mob.RenderCopy(renderer);
+					mob.Render(renderer);
 				}
 			}
 		}
@@ -299,14 +299,14 @@ namespace LAIR{
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        Particles.append(new Entity.Blocked(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                        //Particles.append(new Entity.Blocked(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }
                 private void inject_mobile(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        Mobs.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                        //Mobs.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }
