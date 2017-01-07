@@ -50,9 +50,22 @@ namespace LAIR{
                         Font = font;
                         InsertLabel(Labels, renderer);
                 }
+                protected void ShowStats(){
+                        showStats = !showStats;
+                }
+                protected void ShowSkills(){
+                        showSkills = !showSkills;
+                }
                 public void RenderText(Video.Renderer* renderer){
+                        if(showStats){
+                                prints("Showing Skills\n");
+                                for(int i = 5; i < 5; i++){
+                                        renderer->copyex(Text.nth_data(i), GetSource(), GetTextPosition(), 0.0, null, Video.RendererFlip.VERTICAL);
+                                }
+                        }
                         if(showSkills){
-                                for(int i = 0; i < Text.length(); i++){
+                                prints("Showing Stats\n");
+                                for(int i = 6; i < Text.length(); i++){
                                         renderer->copyex(Text.nth_data(i), GetSource(), GetTextPosition(), 0.0, null, Video.RendererFlip.VERTICAL);
                                 }
                         }

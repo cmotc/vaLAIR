@@ -4,41 +4,27 @@ namespace LAIR{
 		private List<Floor> floors = new List<Floor>();
 		public Tower(string size, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base.LLL(4, "tower:");
-			int w = 320;
-			int h = 320;
-			int count = 10;
+                        int count = 1;
 			if (size == "giant"){
-				w = 2560;
-				h = 2560;
 				count = 6;
 			}else if (size == "large"){
-				w = 1280;
-				h = 1280;
 				count = 5;
 			}else if (size == "medium"){
-				w = 640;
-				h = 640;
 				count = 4;
 			}else if (size == "small"){
-				w = 480;
-				h = 480;
-				count = 2;
+				count = 3;
 			}else if (size == "tiny"){
-				w = 320;
-				h = 320;
 				count = 2;
 			}else if (size == "oneroom"){
-				w = 320;
-				h = 320;
 				count = 1;
 			}
                         prints("Building %s-size Tower\n", size);
 			for (int c = 0; c <= count-1; c++){
                                 prints(" Creating new floor :%s\n", c.to_string());
                                 if (c == 0){
-                                        floors.append(new Floor.WithPlayer(w, h, count, 0, scripts, DM, renderer));
+                                        floors.append(new Floor.WithPlayer(count, 0, scripts, DM, renderer));
                                 }else{
-                                        floors.append(new Floor(w, h, count, scripts, DM, renderer));
+                                        floors.append(new Floor(count, scripts, DM, renderer));
                                 }
 			}
 		}

@@ -45,6 +45,14 @@ namespace LAIR{
                         SetCursorPosition(tmp);
                         return 6;
                 }
+                protected int ShowMyStats(){
+                        ShowStats();
+                        return 7;
+                }
+                protected int ShowMySkills(){
+                        ShowSkills();
+                        return 8;
+                }
                 protected bool Bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
                         if(tl){
@@ -178,6 +186,12 @@ namespace LAIR{
                                                         break;
                                                 case Input.Keycode.LEFT:
                                                         t = StepLeft();
+                                                        break;
+                                                case Input.Keycode.TAB:
+                                                        t = ShowMyStats();
+                                                        break;
+                                                case Input.Keycode.CAPSLOCK:
+                                                        t = ShowMySkills();
                                                         break;
                                         }
                                 }

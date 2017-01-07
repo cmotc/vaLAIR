@@ -80,20 +80,7 @@ namespace LAIR{
                         return r;
                 }
                 protected Video.Rect GetTextPosition(){
-                        Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
-                        if(GetBlock()){
-                                if(IsPlayer()){
-                                        r = Video.Rect(){ x = GetX() + offsetHitBox.x,
-                                                y = GetY() + offsetHitBox.y,
-                                                w = offsetHitBox.w,
-                                                h = offsetHitBox.h };
-                                }else{
-                                        r = Video.Rect(){ x = GetX() + 31,
-                                                y = GetY() + 1,
-                                                w = (GetWidth() - 63),
-                                                h = (GetHeight() - 63) };
-                                }
-                        }
+                        Video.Rect r = Video.Rect(){x=48,y=48,w=160,h=160};
                         return r;
                 }
                 public Video.Point GetCenter(){

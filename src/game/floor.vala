@@ -2,29 +2,29 @@ using SDL;
 namespace LAIR{
 	class Floor : Scribe{
 		private List<Room> rooms = new List<Room>();
-		public Floor(int width, int height, int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
+		public Floor(int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base.LLL(4, "floor:");
-			for (int x = 1; x <= count; x++){
-                                for (int y = 1; y <= count; y++){
-                                        int [2] xyo = {(x*width)-width, (y*height)-height};
-                                        prints("<< generating room\n");
-                                        rooms.append(new Room(width, height, scripts, DM, renderer, xyo));
+			for (int x = 0; x < count; x++){
+                                for (int y = 0; y < count; y++){
+                                        int width = (((count + 1) * 5) * 32);
+                                        int height = (((count + 1) * 5) * 32);
+                                        Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};
+                                        rooms.append(new Room(XYOffset, scripts, DM, renderer));
                                 }
 			}
 		}
-		public Floor.WithPlayer(int width, int height, int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.LLL(4, "floor:");
+		public Floor.WithPlayer(int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                        base.LLL(3, "floor:");
                         int c = 0;
-			for (int x = 1; x <= count; x++){
-                                for (int y = 1; y <= count; y++){
-                                        int [2] xyo = {(x*width)-width, (y*height)-height};
-                                        prints("<< count %s \n", c.to_string());
+			for (int x = 0; x < count; x++){
+                                for (int y = 0; y < count; y++){
+                                        int width = (((count + 1) * 5) * 32);
+                                        int height = (((count + 1) * 5) * 32);
+                                        Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};
                                         if (c == entry){
-                                                prints("<< generating room with player\n");
-                                                rooms.append(new Room.WithPlayer(width, height, scripts, DM, renderer, xyo));
+                                                rooms.append(new Room.WithPlayer(XYOffset, scripts, DM, renderer));
                                         }else{
-                                                prints("<< generating room\n");
-                                                rooms.append(new Room(width, height, scripts, DM, renderer, xyo));
+                                                rooms.append(new Room(XYOffset, scripts, DM, renderer));
                                         }
                                         c++;
                                 }

@@ -13,6 +13,7 @@ namespace LAIR{
 		private LairFile sndListPath = null;
 		private LairFile ttfListPath = null;
                 private List<List<string>> BodyParts = new List<List<string>>();
+                private List<string> SoundParts = new List<string>();
                 private GLib.Rand Sorcerer = new GLib.Rand();
 		public FileDB(string imgList, string sndList, string ttfList){
                         base.LLL(4, "filedb:");
@@ -54,6 +55,9 @@ namespace LAIR{
                         BodyParts.nth_data(4).append("leg"); BodyParts.nth_data(4).append("left");
                         BodyParts.append(new List<string>());
                         BodyParts.nth_data(5).append("leg");BodyParts.nth_data(5).append("right");
+                        SoundParts.append("footstep");
+                        SoundParts.append("bonk");
+                        SoundParts.append("ambient");
                 }
                 public bool LoadFilesWithTags(){
 			bool tmp = false;
@@ -132,6 +136,22 @@ namespace LAIR{
                         List<Music*> r = new List<Music*>();
 			foreach (Sound file in sndRes){
 				if (file.HasName(name)){
+					tmp.append(c);
+				}
+                                c++;
+			}
+                        int top = (int) tmp.length();
+                        int index = int_range(0, top);
+                        prints("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+			r.append(sndRes.nth_data(tmp.nth_data(index)).GetSound());
+                        return r;
+		}
+                public List<Music*> SoundByTag(string tag){
+                        int c = 0;
+                        List<int> tmp = new List<int>();
+                        List<Music*> r = new List<Music*>();
+			foreach (Image file in imgRes){
+				if (file.HasTag(tag)){
 					tmp.append(c);
 				}
                                 c++;
@@ -243,6 +263,13 @@ namespace LAIR{
                         foreach(unowned List<string> part in BodyParts.copy()){
                                 part.append(tone);
                                 r.append(ImageByTagList(part));
+                        }
+			return r;
+                }
+                public List<Music*> BasicSounds(){
+                        List<Music*> r = new List<Music*>();
+                        foreach(string part in SoundParts.copy()){
+                                r.append(SoundByTag(part));
                         }
 			return r;
                 }

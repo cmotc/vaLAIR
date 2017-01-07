@@ -8,14 +8,14 @@ namespace LAIR{
 		private int Toughness = 10;
 		private int Intelligence = 10;
 		private int Special = 10;
-		private int speed = 0;
-		private int exert = 0;
-		private int dodge = 0;
-		private int aim = 0;
-		private int will = 0;
-		private int resist = 0;
-		private int magic = 0;
-		private int tech = 0;
+		private int speed = 1;
+		private int exert = 1;
+		private int dodge = 1;
+		private int aim = 1;
+		private int will = 1;
+		private int resist = 1;
+		private int magic = 1;
+		private int tech = 1;
                 public Stats(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, GenerateLabels(), renderer);
                 }
@@ -35,61 +35,54 @@ namespace LAIR{
                         base.ParameterListBlocked(corner, Surfaces, music, font, GenerateLabels(), renderer, tags);
 
                 }
-                private List<string> GenerateLabels(){
+                private static List<string> GenerateLabels(){
                         List<string> tmp = new List<string>();
-                        tmp.append("Strength:" + Strength.to_string());
-                        tmp.append("Agility:" + Agility.to_string());
-                        tmp.append("Toughness:" + Toughness.to_string());
-                        tmp.append("Intelligence:" + Intelligence.to_string());
-                        tmp.append("Special:" + Special.to_string());
-                        tmp.append("  speed:" + speed.to_string());
-                        tmp.append("  exert:" + exert.to_string());
-                        tmp.append("  dodge:" + dodge.to_string());
-                        tmp.append("  aim:" + aim.to_string());
-                        tmp.append("  will:" + will.to_string());
-                        tmp.append("  resist:" + resist.to_string());
-                        tmp.append("  magic:" + magic.to_string());
-                        tmp.append("  tech:" + tech.to_string());
+                        tmp.append("Strength:");
+                        tmp.append("Agility:");
+                        tmp.append("Toughness:");
+                        tmp.append("Intelligence:");
+                        tmp.append("Special:");
+                        tmp.append("  speed:");
+                        tmp.append("  exert:");
+                        tmp.append("  dodge:");
+                        tmp.append("  aim:");
+                        tmp.append("  will:");
+                        tmp.append("  resist:");
+                        tmp.append("  magic:");
+                        tmp.append("  tech:");
                         return tmp;
                 }
 		public int Speed(){
 			int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + speed;
-		}/*
+			return (tmp + speed) -1;
+		}
 		public int Exert(){
-			int tmp = (Strength + Toughness) / 4;
-                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + exert;
+                        int tmp = ( ( (Strength / 5) + (Toughness / 2) ) / 2 ) ;
+			return (tmp + exert);
 		}
 		public int Dodge(){
-			int tmp = (Agility + Toughness) / 4;
-                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + dodge;
+                        int tmp = ( ( (Agility / 5) + (Toughness / 2) ) / 2 ) ;
+			return (tmp + dodge);
 		}
 		public int Aim(){
-			int tmp = (Agility + Intelligence) / 4;
-                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + aim;
+                        int tmp = ( ( (Agility / 5) + (Intelligence / 2) ) / 2 ) ;
+			return (tmp + aim);
 		}
 		public int Will(){
-			int tmp = (Toughness + Intelligence) / 4;
-                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + will;
+                        int tmp = ( ( (Toughness / 5) + (Intelligence / 2) ) / 2 ) ;
+			return (tmp + will);
 		}
 		public int Resist(){
-			int tmp = (Toughness + Special) / 4;
-                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + resist;
+                        int tmp = ( ( (Toughness / 5) + (Special / 2) ) / 2 ) ;
+			return (tmp + resist);
 		}
 		public int Magic(){
-			int tmp = (Intelligence + Special) / 4;
-                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + magic;
+                        int tmp = ( ( (Intelligence / 5) + (Special / 2) ) / 2 ) ;
+			return (tmp + magic);
 		}
 		public int Tech(){
-			int tmp = (Intelligence + Agility) / 4;
-                        int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
-			return tmp + tech;
-		}*/
+                        int tmp = ( ( (Intelligence / 5) + (Agility / 2) ) / 2 ) ;
+			return (tmp + tech);
+		}
 	}
 }

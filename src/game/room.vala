@@ -9,22 +9,26 @@ namespace LAIR{
 		private List<Entity> Mobs = new List<Entity>();
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
-                public Room(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                public Room(Video.Rect position, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
+                        SetDimensions(position.x, position.y, position.w, position.h);
+                        SetName("room ("+HitBoxToString()+"): ");
+                        prints("generating room\n");
                         GameMaster = DM;
                         RegisterLuaFunctions();
-                        SetDimensions(xyoffset[0], xyoffset[1], width, height);
-                        GenerateStructure(2, xyoffset, renderer);
+                        GenerateStructure(2, renderer);
 		}
-                public Room.WithPlayer(int width, int height, string[] scripts, FileDB DM, Video.Renderer? renderer, int[] xyoffset){
+                public Room.WithPlayer(Video.Rect position, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
+                        SetDimensions(position.x, position.y, position.w, position.h);
+                        SetName("room ("+HitBoxToString()+"): ");
+                        prints("generating room with player\n");
                         GameMaster = DM;
                         RegisterLuaFunctions();
-                        SetDimensions(xyoffset[0], xyoffset[1], width, height);
-                        GenerateStructure(2, xyoffset, renderer);
-                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.SoundByName("footstep"), GameMaster.GetRandFont(), renderer));
+                        GenerateStructure(2, renderer);
+                        EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
 		}
-                private void SetDimensions(int x, int y, int w, int h){
+                private void SetDimensions(int x, int y, uint w, uint h){
                         Border.x = x;
                         Border.y = y;
                         Border.w = w;
@@ -40,8 +44,8 @@ namespace LAIR{
                         int r = (y * 32) + GetY();
                         return r;
                 }
-                private int GetW(){     return (int) Border.w;}
-                private int GetH(){     return (int) Border.h;}
+                private uint GetW(){     return Border.w;}
+                private uint GetH(){     return Border.h;}
                 private void RegisterLuaFunctions(){
                         //This returns the total count of particles in the room
                         //so far. It can be used to measure room density from
@@ -122,17 +126,24 @@ namespace LAIR{
                         return 1;
                 }
                 private CallbackFunc mobile_count_bytag_delegate = (CallbackFunc) mobile_count;
+                private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
+                        Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
+                }
                 private void DecideBlockTile(Video.Point coords, Video.Renderer* renderer){
                         LuaDoFunction("""map_cares_insert()""");
                         var cares = printas(GetLuaLastReturn());
+                        prints("\n");
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
                                         LuaDoFunction("""map_image_decide()""");
                                         List<string> imgTags = printas(GetLuaLastReturn());
+                                        prints("\n");
                                         LuaDoFunction("""map_sound_decide()""");
                                         List<string> sndTags = printas(GetLuaLastReturn());
+                                        prints("\n");
                                         LuaDoFunction("""map_fonts_decide()""");
                                         List<string> fntTags = printas(GetLuaLastReturn());
+                                        prints("\n");
                                         prints("Will it blend?\n");
                                         inject_particle(coords, imgTags, sndTags, fntTags, renderer);
                                 }
@@ -141,35 +152,35 @@ namespace LAIR{
                 private void DecideMobileTile(Video.Point coords, Video.Renderer* renderer){
                         LuaDoFunction("""mob_cares_insert()""");
                         var cares = printas(GetLuaLastReturn());
+                        prints("\n");
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
                                         LuaDoFunction("""mob_image_decide()""");
                                         List<string> imgTags = printas(GetLuaLastReturn());
+                                        prints("\n");
                                         LuaDoFunction("""mob_sound_decide()""");
                                         List<string> sndTags = printas(GetLuaLastReturn());
+                                        prints("\n");
                                         LuaDoFunction("""mob_fonts_decide()""");
                                         List<string> fntTags = printas(GetLuaLastReturn());
+                                        prints("\n");
                                         prints("Will it blend?\n");
                                         inject_mobile(coords, imgTags, sndTags, fntTags, renderer);
                                 }
                         }
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
-                private void GenerateStructure(int CR, int[] xyoffset, Video.Renderer* renderer){
+                private void GenerateStructure(int CR, Video.Renderer* renderer){
                         int WT = (int)(GetW() / 32); int HT = (int)(GetH() / 32);
-                        prints("    Generating room. Width: %s ", WT.to_string()); prints("Height %s\n", HT.to_string());
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        Video.Point coords = Video.Point(){x=GetOffsetX(xx), y=GetOffsetX(yy)};
+                                        Video.Point coords = Video.Point(){x=GetOffsetX(xx), y=GetOffsetY(yy)};
                                         GeneratorPushXYToLua(coords);
                                         GenerateFloorTile(coords, renderer);
                                         DecideBlockTile(coords, renderer);
-                                        //DecideMobileTile(coords, renderer);
+                                        DecideMobileTile(coords, renderer);
                                 }
                         }
-                }
-                private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
-                        Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                 }
                 public bool HasPlayer(){
 			bool tmp = false;
@@ -190,7 +201,7 @@ namespace LAIR{
                         int tmp = 1;
                         if (HasPlayer()){
                                 tmp = Player.run();
-                                if (tmp > 0){
+                                if (tmp > 1){
                                         prints("    Player took a turn : %s \n", tmp.to_string());
                                 }
                         }else{
@@ -216,6 +227,17 @@ namespace LAIR{
                 private Video.Rect GetHitBox(){
                         return Border;
                 }
+                private string HitBoxToString(){
+                        string HBSUM = "x:";
+                        HBSUM += GetHitBox().x.to_string();
+                        HBSUM += "y:";
+                        HBSUM += GetHitBox().y.to_string();
+                        HBSUM += "w:";
+                        HBSUM += GetHitBox().w.to_string();
+                        HBSUM += "h:";
+                        HBSUM += GetHitBox().h.to_string();
+                        return HBSUM;
+                }
                 private bool InRange(Video.Point point, Video.Rect hitbox){
                         bool t = false;
                         int xx = (int) (hitbox.x + hitbox.w);
@@ -233,33 +255,30 @@ namespace LAIR{
                 }
                 public bool DetectTransition(Entity t){
                         bool r = false;
-                        //if(t != null){
+                        if(t!=null){
                         Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
                                 y=t.GetHitBox().y };
                         bool TLeftCorner = InRange(tlc, GetHitBox());
-
                         Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
                                 y = t.GetHitBox().y };
                         bool TRightCorner = InRange(trc, GetHitBox());
-
                         Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
                                 y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
                         bool BLeftCorner = InRange(blc, GetHitBox());
-
                         Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
                                 y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
                         bool BRightCorner = InRange( brc, GetHitBox());
-
                         if (TLeftCorner){if (TRightCorner){
                                 if (BLeftCorner){if (BRightCorner){
                                         r = true;
                                 }}
                         }}
-                        //}
+                        }
                         return r;
                 }
 		public void RenderCopy(Video.Renderer renderer){
 			if (visited){
+                                //prints("Drawing Room at: %s\n", HitBoxToString());
 				foreach(Entity particle in Particles){
 					particle.Render(renderer);
 				}
@@ -299,14 +318,14 @@ namespace LAIR{
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        //Particles.append(new Entity.Blocked(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                        Particles.append(new Entity.Blocked(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }
                 private void inject_mobile(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        //Mobs.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.GetRandSound(), GameMaster.GetRandFont(), renderer));
+                                        Mobs.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }

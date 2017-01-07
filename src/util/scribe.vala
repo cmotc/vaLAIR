@@ -25,7 +25,7 @@ namespace LAIR{
                 public static void printc(string item, string item2 = ""){
                         if(LogLevel > 0){
                                 stdout.printf("Void Main: %s", LogLevel.to_string());
-                                stdout.printf(item, item2);
+                                stdout.printf(item, item2, " ");
                         }
                 }
                 public static void setll(int newll){
@@ -34,17 +34,17 @@ namespace LAIR{
                 public void printnl(){
                         if(LogLevel > LocalLogLevel){
                                 stdout.printf(Name);
-                                stdout.printf(" %s", LogLevel.to_string());
+                                //stdout.printf(" %s ", LogLevel.to_string());
                         }
                 }
                 public void prints(string item="", string item2 = ""){
                         if(LogLevel > LocalLogLevel){
                                 printnl();
-                                stdout.printf(item, item2);
+                                stdout.printf(item, item2, " ");
                         }
                 }
                 public void printncs(string item, string item2 = ""){
-                        stdout.printf(item, item2);
+                        stdout.printf(item, item2, " ");
                 }
                 public List<string> printas(string[] item){
                         List<string> r = new List<string>();
@@ -54,9 +54,23 @@ namespace LAIR{
                                 for(int i = 0; i < item.length - 1; i++){
                                         stdout.printf(" %s ", item[i].to_string());
                                         r.append(item[i].to_string());
+                                        //stdout.printf(" %s ", s.to_string());
+                                        //r.append(s.to_string());
                                 }
                         }
                         return r.copy();
+                }
+                public List<string> dumpas(string[] item){
+                        List<string> r = new List<string>();
+                        if(LogLevel > LocalLogLevel){
+                                for(int i = 0; i < item.length - 1; i++){
+                                        r.append(item[i].to_string());
+                                }
+                        }
+                        return r.copy();
+                }
+                public void SetName(string name){
+                        Name = name;
                 }
         }
 }

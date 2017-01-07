@@ -9,7 +9,7 @@ namespace LAIR{
                         VM = new LuaVM();
                         VM.open_libs();
                         ScriptPath = path;
-                        prints("Loading a dungeon generator script: %s\n", ScriptPath);
+                        //prints("Loading a dungeon generator script: %s\n", ScriptPath);
                         VM.do_file(ScriptPath);
                         //printas(GetLuaLastReturn());
                         //prints("\n");
@@ -35,6 +35,7 @@ namespace LAIR{
                 protected void LuaDoFunction(string function){
                         LuaDoFile(ScriptPath);
                         string tmp = "return ";
+                        //string tmp = function;
                         tmp += function;
                         VM.do_string(tmp);
                 }
@@ -60,19 +61,19 @@ namespace LAIR{
                 }
                 protected void PushNamedPairToLuaTable(string key, int val = -2147483647){
                         if( key != null){
-                                prints("pushing values to lua table");
+                                //prints("pushing values to lua table");
                                 VM.push_string(key);
                                 VM.push_number(val);
-                                prints("%s ", key);
-                                prints("%s \n", val.to_string());
+                                //prints("%s ", key);
+                                //prints("%s \n", val.to_string());
                                 VM.raw_set(-3);
                         }else{
                                 key = "error";
                                 string errval = "Error pushing entry to global Lua table. Key was null. Value was: ";
                                 VM.push_string(key);
                                 VM.push_string(errval);
-                                prints(key, errval);
-                                prints(val.to_string());
+                                //prints(key, errval);
+                                //prints(val.to_string());
                                 VM.raw_set(-3);
                         }
                 }
@@ -80,7 +81,7 @@ namespace LAIR{
                         if(tableName != null){
                                 VM.set_global (tableName);
                         }else{
-                                prints("something is wrong, table name cannot be null");
+                                prints("something is wrong, table name cannot be null\n");
                         }
                 }
                 //This pushes a set of coordinates into a global Lua table.
