@@ -34,7 +34,6 @@ namespace LAIR{
                 public void printnl(){
                         if(LogLevel > LocalLogLevel){
                                 stdout.printf(Name);
-                                //stdout.printf(" %s ", LogLevel.to_string());
                         }
                 }
                 public void prints(string item="", string item2 = ""){
@@ -43,31 +42,26 @@ namespace LAIR{
                                 stdout.printf(item, item2, " ");
                         }
                 }
+                public void printns(string item="", string item2 = ""){
+                        if(LogLevel > LocalLogLevel){
+                                stdout.printf(item, item2, " ");
+                        }
+                }
                 public void printncs(string item, string item2 = ""){
                         stdout.printf(item, item2, " ");
                 }
                 public List<string> printas(string[] item){
                         List<string> r = new List<string>();
+                        for(int i = 0; i < item.length - 1; i++){
+                                r.append(item[i]);
+                        }
                         if(LogLevel > LocalLogLevel){
                                 printnl();
-                                //foreach(string s in item){
-                                for(int i = 0; i < item.length - 1; i++){
-                                        stdout.printf(" %s ", item[i].to_string());
-                                        r.append(item[i].to_string());
-                                        //stdout.printf(" %s ", s.to_string());
-                                        //r.append(s.to_string());
+                                foreach(string s in r){
+                                        stdout.printf(s);
                                 }
                         }
-                        return r.copy();
-                }
-                public List<string> dumpas(string[] item){
-                        List<string> r = new List<string>();
-                        if(LogLevel > LocalLogLevel){
-                                for(int i = 0; i < item.length - 1; i++){
-                                        r.append(item[i].to_string());
-                                }
-                        }
-                        return r.copy();
+                        return r;
                 }
                 public void SetName(string name){
                         Name = name;

@@ -71,10 +71,11 @@ namespace LAIR{
                         coordinates and make the Lua VM aware of the
                         environment. Noteynoteynotes.
                         */
+                        PushDimsToLuaTable(GetHitBox());
                 }
                 //private void GeneratorPushXYToLua(int x, int y){
-                private void GeneratorPushXYToLua(Video.Point current){
-                        PushCoordsToLuaTable(current);
+                private void GeneratorPushXYToLua(Video.Point current, Video.Point simplecurrent){
+                        PushCoordsToLuaTable(current, simplecurrent);
                 }
                 private int particle_count(LuaVM vm = GetLuaVM()){
                         return (int) Particles.length();
@@ -86,9 +87,9 @@ namespace LAIR{
                 private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
                 private int particle_index_byxy(LuaVM vm = GetLuaVM()){
                         LuaDoFunction("""lua_get_x()""");
-                        int x = GetLuaLastReturn()[0].to_int();
+                        int x = GetLuaLastReturn().nth_data(0).to_int();
                         LuaDoFunction("""lua_get_y()""");
-                        int y = GetLuaLastReturn()[1].to_int();
+                        int y = GetLuaLastReturn().nth_data(1).to_int();
                         int i = 0;
                         foreach(Entity particle in Particles){
                                 if(particle.GetX() == x){
@@ -103,9 +104,9 @@ namespace LAIR{
                 private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_count;
                 private int mobile_index_byxy(LuaVM vm = GetLuaVM()){
                         LuaDoFunction("""lua_get_x()""");
-                        int x = GetLuaLastReturn()[0].to_int();
+                        int x = GetLuaLastReturn().nth_data(0).to_int();
                         LuaDoFunction("""lua_get_y()""");
-                        int y = GetLuaLastReturn()[1].to_int();
+                        int y = GetLuaLastReturn().nth_data(1).to_int();
                         int i = 0;
                         foreach(Entity mob in Mobs){
                                 if(mob.GetX() == x){
@@ -131,40 +132,34 @@ namespace LAIR{
                 }
                 private void DecideBlockTile(Video.Point coords, Video.Renderer* renderer){
                         LuaDoFunction("""map_cares_insert()""");
-                        var cares = printas(GetLuaLastReturn());
+                        List<string> cares = GetLuaLastReturn();
                         prints("\n");
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        LuaDoFunction("""map_image_decide()""");
-                                        List<string> imgTags = printas(GetLuaLastReturn());
-                                        prints("\n");
-                                        LuaDoFunction("""map_sound_decide()""");
-                                        List<string> sndTags = printas(GetLuaLastReturn());
-                                        prints("\n");
-                                        LuaDoFunction("""map_fonts_decide()""");
-                                        List<string> fntTags = printas(GetLuaLastReturn());
-                                        prints("\n");
                                         prints("Will it blend?\n");
+                                        LuaDoFunction("""map_image_decide()""");
+                                        List<string> imgTags = GetLuaLastReturn();
+                                        LuaDoFunction("""map_sound_decide()""");
+                                        List<string> sndTags = GetLuaLastReturn();
+                                        LuaDoFunction("""map_fonts_decide()""");
+                                        List<string> fntTags = GetLuaLastReturn();
                                         inject_particle(coords, imgTags, sndTags, fntTags, renderer);
                                 }
                         }
                 }
                 private void DecideMobileTile(Video.Point coords, Video.Renderer* renderer){
                         LuaDoFunction("""mob_cares_insert()""");
-                        var cares = printas(GetLuaLastReturn());
+                        List<string> cares = GetLuaLastReturn();
                         prints("\n");
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        LuaDoFunction("""mob_image_decide()""");
-                                        List<string> imgTags = printas(GetLuaLastReturn());
-                                        prints("\n");
-                                        LuaDoFunction("""mob_sound_decide()""");
-                                        List<string> sndTags = printas(GetLuaLastReturn());
-                                        prints("\n");
-                                        LuaDoFunction("""mob_fonts_decide()""");
-                                        List<string> fntTags = printas(GetLuaLastReturn());
-                                        prints("\n");
                                         prints("Will it blend?\n");
+                                        LuaDoFunction("""mob_image_decide()""");
+                                        List<string> imgTags = GetLuaLastReturn();
+                                        LuaDoFunction("""mob_sound_decide()""");
+                                        List<string> sndTags = GetLuaLastReturn();
+                                        LuaDoFunction("""mob_fonts_decide()""");
+                                        List<string> fntTags = GetLuaLastReturn();
                                         inject_mobile(coords, imgTags, sndTags, fntTags, renderer);
                                 }
                         }
@@ -174,8 +169,9 @@ namespace LAIR{
                         int WT = (int)(GetW() / 32); int HT = (int)(GetH() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
+                                        Video.Point simplecoords = Video.Point(){x=xx, y=yy};
                                         Video.Point coords = Video.Point(){x=GetOffsetX(xx), y=GetOffsetY(yy)};
-                                        GeneratorPushXYToLua(coords);
+                                        GeneratorPushXYToLua(coords, simplecoords);
                                         GenerateFloorTile(coords, renderer);
                                         DecideBlockTile(coords, renderer);
                                         DecideMobileTile(coords, renderer);
@@ -318,14 +314,14 @@ namespace LAIR{
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        Particles.append(new Entity.Blocked(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
+                                        Particles.append(new Entity.Blocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }
                 private void inject_mobile(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        Mobs.append(new Entity(coords, GameMaster.SingleImageByTagList(imgTags), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
+                                        Mobs.append(new Entity(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
                                 }}
                         }}
                 }

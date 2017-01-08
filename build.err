@@ -63,25 +63,31 @@ sdl2.vapi:2480.4-2480.52: warning: the modifier `static' is not applicable to co
 sdl2-mixer.vapi:224.2-224.54: warning: the modifier `static' is not applicable to constants
 	public static const SDLMixer.Channel DEFAULT_CHANNEL;
 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/game/room.vala:89.33-89.60: warning: string.to_int is deprecated. Use int.parse
-src/game/room.vala:91.33-91.60: warning: string.to_int is deprecated. Use int.parse
-src/game/room.vala:106.33-106.60: warning: string.to_int is deprecated. Use int.parse
-src/game/room.vala:108.33-108.60: warning: string.to_int is deprecated. Use int.parse
+src/game/room.vala:89.33-89.69: warning: string.to_int is deprecated. Use int.parse
+src/game/room.vala:91.33-91.69: warning: string.to_int is deprecated. Use int.parse
+src/game/room.vala:106.33-106.69: warning: string.to_int is deprecated. Use int.parse
+src/game/room.vala:108.33-108.69: warning: string.to_int is deprecated. Use int.parse
 src/main.vala:117.61-117.94: warning: string.to_int is deprecated. Use int.parse
 src/main.vala:120.16-120.49: warning: string.to_int is deprecated. Use int.parse
 src/main.vala:123.16-123.49: warning: string.to_int is deprecated. Use int.parse
 src/main.vala:138.8-138.81: warning: local variable `app' declared but never used
 			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);
 			    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/util/scribe.vala:61.17-61.42: warning: method `LAIR.Scribe.dumpas' never used
-                public List<string> dumpas(string[] item){
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/util/luaconf.vala:16.17-16.38: warning: method `LAIR.LuaConf.LuaDoFile' never used
+                private void LuaDoFile(string file){
+                ^^^^^^^^^^^^^^^^^^^^^^
+src/util/scribe.vala:53.17-53.43: warning: method `LAIR.Scribe.printas' never used
+                public List<string> printas(string[] item){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/resmanage/filedb.vala:127.17-127.42: warning: method `LAIR.FileDB.GetRandSound' never used
                 public Music* GetRandSound(){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/resmanage/filedb.vala:133.17-133.47: warning: method `LAIR.FileDB.SoundByName' never used
                 public List<Music*> SoundByName(string name){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/resmanage/filedb.vala:219.17-219.64: warning: method `LAIR.FileDB.SingleImageByTagList' never used
+                public List<Video.Surface*> SingleImageByTagList(List<string> tagList){
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/game/room.vala:87.17-87.47: warning: method `LAIR.Room.particle_index_byxy' never used
                 private int particle_index_byxy(LuaVM vm = GetLuaVM()){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -245,4 +251,4 @@ Loaded package `/usr/share/vala/vapi/sdl2-mixer.vapi'
 Loaded package `/usr/share/vala/vapi/tartrazine.vapi'
 Loaded package `/usr/share/vala/vapi/libtoxcore.vapi'
 cc -g -o '/home/idk/Projects/valair/bin/LAIR' '/home/idk/Projects/valair/src/main.vala.c' '/home/idk/Projects/valair/src/util/net.vala.c' '/home/idk/Projects/valair/src/util/luaconf.vala.c' '/home/idk/Projects/valair/src/util/scribe.vala.c' '/home/idk/Projects/valair/src/resmanage/files.vala.c' '/home/idk/Projects/valair/src/resmanage/images.vala.c' '/home/idk/Projects/valair/src/resmanage/filedb.vala.c' '/home/idk/Projects/valair/src/resmanage/fonts.vala.c' '/home/idk/Projects/valair/src/resmanage/sounds.vala.c' '/home/idk/Projects/valair/src/game/room.vala.c' '/home/idk/Projects/valair/src/game/floor.vala.c' '/home/idk/Projects/valair/src/game/tower.vala.c' '/home/idk/Projects/valair/src/game/game.vala.c' '/home/idk/Projects/valair/src/entity/type.vala.c' '/home/idk/Projects/valair/src/entity/sprite.vala.c' '/home/idk/Projects/valair/src/entity/anim.vala.c' '/home/idk/Projects/valair/src/entity/text.vala.c' '/home/idk/Projects/valair/src/entity/sound.vala.c' '/home/idk/Projects/valair/src/entity/stats.vala.c' '/home/idk/Projects/valair/src/entity/inventory.vala.c' '/home/idk/Projects/valair/src/entity/move.vala.c' '/home/idk/Projects/valair/src/entity/entity.vala.c' -pthread -D_REENTRANT -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/SDL2 -I/usr/include/lua5.1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -llua5.1 -lSDL2 -ltoxdns -ltoxencryptsave -ltoxcore -lsodium -lm -lpthread '-Og' '-g3' '-ggdb' '-llua5.1' '-lSDL2' '-lSDL2_gfx' '-lSDL2_image' '-lSDL2_ttf' '-lSDL2_mixer'
-Compilation succeeded - 30 warning(s)
+Compilation succeeded - 32 warning(s)

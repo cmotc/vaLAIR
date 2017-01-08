@@ -47,8 +47,9 @@ Dynamic Map Configuration works by populating a group of variables which can
 be used to determine if an entity should be placed on the map and if so, what
 type. You can script this behavior by retrieving information from the map in
 Lua and using it to decide what values those variables have at any given moment.
-This is done by defining functions that return the desired values. Those
-functions are:
+This is done by defining functions that return the desired values, which are
+then repeatedly run during the map generation process to determine what
+entities get placed where. Those functions are:
 
 ####Selecting Particle Entities
 
@@ -94,12 +95,48 @@ functions are:
   against the game resources and a random image with all the tags will be
   retrieved.
 
+These functions must be defined in your dungeon generate script in order for it
+to work. If not, a common one will be used which I haven't written yet, but
+it'll shoot for the bare minimum.
+
+###Global Variables Exported to Lua VM during Map Generation
+
+  * generator\_coarse\_x.x: This is updated every time a new particle is
+  generated and it reflects the current X position where the new particle will
+  be generated, divided by the tile size.
+  * generator\_coarse\_y.y: This is updated every time a new particle is
+  generated and it reflects the current Y position where the new particle will
+  be generated, divided by the tile size.
+  * generator\_x.x: This is updated every time a new particle is generated and
+  it reflects the current X position where the new particle will be generated.
+  * generator\_y.y: This is updated every time a new particle is generated and
+  it reflects the current Y position where the new particle will be generated.
+  * generator\_w.w: This is sent to the Lua VM only once and it's the width of
+  a room, in pixels.
+  * generator\_h.h: This is sent to the Lua VM only once and it's the height of
+  a room, in pixels.
+  * generator\_coarse\_w.w: This is sent to the Lua VM only once and it's the width of
+  a room, in pixels, divided by the tile size.
+  * generator\_coarse\_h.h: This is sent to the Lua VM only once and it's the height of
+  a room, in pixels, divided by the tile size.
+  * generator\_xw.w: This is sent to the Lua VM only once and it's the width of
+  a room, in pixels, divided by the tile size, plus the width.
+  * generator\_wh.h: This is sent to the Lua VM only once and it's the height of
+  a room, in pixels, divided by the tile size, plus the height.
+  * generator\_coarse\_xw.w: This is sent to the Lua VM only once and it's the width of
+  a room, in pixels, divided by the tile size, plus the coarse width.
+  * generator\_coarse\_wh.h: This is sent to the Lua VM only once and it's the height of
+  a room, in pixels, divided by the tile size, plus the coarse height.
+
 ###Vala Functions registered with Lua for Map Generation
 
-
 Besides that, you need to be able to retrieve different types of information
-from the map. The same information you can pass to the map generator can be
-retrieved from the
+from the map in order to control which results your decider functions feed to
+the map generator. Damn I'm bad at explaining this, but I promise it works.
+Maybe it'll get better when I've written the first example. These functions are
+used to retrieve information from the map about it's properties and the
+properties associated with specific areas and tags. Probably more things as I
+think of them.
 
   * particle\_count :
   * particle\_index\_byxy :

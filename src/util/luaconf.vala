@@ -9,31 +9,40 @@ namespace LAIR{
                         VM = new LuaVM();
                         VM.open_libs();
                         ScriptPath = path;
-                        //prints("Loading a dungeon generator script: %s\n", ScriptPath);
+                        prints("Loading a dungeon generator script: %s\n", ScriptPath);
                         VM.do_file(ScriptPath);
-                        //printas(GetLuaLastReturn());
-                        //prints("\n");
+                        printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
                 private void LuaDoFile(string file){
-                        VM.do_file(file);
+                        VM.do_file(file);ss
                 }
-                protected string[] GetLuaLastReturn(){
+                protected List<string> GetLuaLastReturn(){
                         string tmp = "";
                         if(VM.is_number(-1)){
                                 double number = VM.to_number(-1);
                                 tmp += number.to_string();
+                                VM.pop(1);
                         }else if(VM.is_string(-1)){
                                 string word = VM.to_string(-1);
                                 tmp += word;
+                                VM.pop(1);
                         }
-                        string[] tl = tmp.split(" ", -1);
-                        return tl;
+                        //prints(" %s \n", tmp);
+                        string[] tl = tmp.split(" ", 0);
+                        List<string> tr = new List<string>();
+                        for(int i = 0; i < tl.length; i++){
+                                if(tl[i] != null){
+                                        printns(" %s ", tl[i]);
+                                        tr.append(tl[i]);
+                                }
+                        }
+                        return tr;
                 }
                 protected void LuaRegister(string name, CallbackFunc f){
                         VM.register(name, f);
                 }
                 protected void LuaDoFunction(string function){
-                        LuaDoFile(ScriptPath);
+                        //LuaDoFile(ScriptPath);
                         string tmp = "return ";
                         //string tmp = function;
                         tmp += function;
@@ -100,13 +109,57 @@ namespace LAIR{
                                 VM.set_global (tableName);
                         //}
                 }*/
-                protected void PushCoordsToLuaTable(Video.Point current){
+                protected void PushCoordsToLuaTable(Video.Point current, Video.Point simplecurrent){
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", current.x);
                         CloseLuaTable("generator_x");
                         NewLuaTable();
                         PushNamedPairToLuaTable("y", current.y);
                         CloseLuaTable("generator_y");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("x", simplecurrent.x);
+                        CloseLuaTable("generator_coarse_x");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("y", simplecurrent.y);
+                        CloseLuaTable("generator_coarse_y");
+                }
+                protected void PushDimsToLuaTable(Video.Rect current){
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("x", (int) current.x);
+                        CloseLuaTable("room_x");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("y", (int) current.y);
+                        CloseLuaTable("room_y");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("x", (int) current.x / 32);
+                        CloseLuaTable("room_coarse_x");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("y", (int) current.y / 32);
+                        CloseLuaTable("room_coarse_y");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("w", (int) current.w);
+                        CloseLuaTable("generator_w");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("h", (int) current.h);
+                        CloseLuaTable("generator_h");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("w", (int) current.w / 32);
+                        CloseLuaTable("generator_coarse_w");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("h", (int) current.h / 32);
+                        CloseLuaTable("generator_coarse_h");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("x", (int) ((current.x / 32) + (current.w / 32)));
+                        CloseLuaTable("room_coarse_xw");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("y", (int) ((current.y / 32) + (current.y / 32)));
+                        CloseLuaTable("room_coarse_yh");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("x", (int) (current.x + current.w));
+                        CloseLuaTable("room_xw");
+                        NewLuaTable();
+                        PushNamedPairToLuaTable("y", (int) (current.y + current.y));
+                        CloseLuaTable("room_yh");
                 }
                 protected LuaVM* GetLuaVM(){
                         return VM;
