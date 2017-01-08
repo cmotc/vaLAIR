@@ -21,7 +21,31 @@ function map_cares_insert()
 	print("  Segment Ends at Y+Height: " .. room_yh.y)
         print("  Generator Segment Height: " .. generator_w.w)
 	print("  Generator Segment Width: " .. generator_h.h)
-        --if generator_coarse_x.x
+        if generator_coarse_x.x < 3 then
+                if generator_coarse_x.x < 7 then
+                        decided_to="true";
+                elseif generator_coarse_x.x > 8 then
+                        decided_to="true";
+                end
+        elseif generator_coarse_x.x > generator_coarse_w.w - 3 then
+                if generator_coarse_x.x < 7 then
+                        decided_to="true";
+                elseif generator_coarse_x.x > 8 then
+                        decided_to="true";
+                end
+        elseif generator_coarse_x.x < 3 then
+                if generator_coarse_y.y < 7 then
+                        decided_to="true";
+                elseif generator_coarse_y.y > 8 then
+                        decided_to="true";
+                end
+        elseif generator_coarse_y.y > generator_coarse_h.h - 3 then
+                if generator_coarse_y.y < 7 then
+                        decided_to="true";
+                elseif generator_coarse_y.y > 8 then
+                        decided_to="true";
+                end
+        end
         return decided_to
 end
 -- The return value of this function tells the map what image to use to select
