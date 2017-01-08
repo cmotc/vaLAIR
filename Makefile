@@ -93,9 +93,9 @@ clean:
 	make unlog
 
 check:
-	luacheck share/lair/demodungeon.lua
-	luacheck share/lair/demoplayer.lua
-	luacheck share/lair/demoai.lua
+	luacheck share/lair/demo/dungeon.lua
+	luacheck share/lair/demo/player.lua
+	luacheck share/lair/demo/ai.lua
 
 install:
 	cp bin/LAIR /usr/bin/

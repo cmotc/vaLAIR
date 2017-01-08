@@ -115,18 +115,24 @@ it'll shoot for the bare minimum.
   a room, in pixels.
   * generator\_h.h: This is sent to the Lua VM only once and it's the height of
   a room, in pixels.
-  * generator\_coarse\_w.w: This is sent to the Lua VM only once and it's the width of
-  a room, in pixels, divided by the tile size.
-  * generator\_coarse\_h.h: This is sent to the Lua VM only once and it's the height of
-  a room, in pixels, divided by the tile size.
+  * generator\_coarse\_w.w: This is sent to the Lua VM only once and it's the
+  width of a room, in pixels, divided by the tile size.
+  * generator\_coarse\_h.h: This is sent to the Lua VM only once and it's the
+  height of a room, in pixels, divided by the tile size.
   * generator\_xw.w: This is sent to the Lua VM only once and it's the width of
   a room, in pixels, divided by the tile size, plus the width.
   * generator\_wh.h: This is sent to the Lua VM only once and it's the height of
   a room, in pixels, divided by the tile size, plus the height.
-  * generator\_coarse\_xw.w: This is sent to the Lua VM only once and it's the width of
-  a room, in pixels, divided by the tile size, plus the coarse width.
-  * generator\_coarse\_wh.h: This is sent to the Lua VM only once and it's the height of
-  a room, in pixels, divided by the tile size, plus the coarse height.
+  * generator\_coarse\_xw.w: This is sent to the Lua VM only once and it's the
+  width of a room, in pixels, divided by the tile size, plus the coarse width.
+  * generator\_coarse\_wh.h: This is sent to the Lua VM only once and it's the
+  height of a room, in pixels, divided by the tile size, plus the coarse height.
+  * generator\_mobile\_count.c: This is sent to the Lua VM every time a new
+  mobile entity as it is generated. It is the total count of mobile entities in
+  the room.
+  * generator\_particle\_count.c: This is sent to the Lua VM every time a new
+  particle is generated as it is generated. It is the total count of blocked and
+  non-blocked particles in the room.
 
 ###Vala Functions registered with Lua for Map Generation
 
