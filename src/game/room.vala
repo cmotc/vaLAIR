@@ -1,5 +1,6 @@
 using SDL;
 using Lua;
+//using Gee;
 
 namespace LAIR{
 	class Room : LuaConf{
@@ -79,8 +80,22 @@ namespace LAIR{
                         return (int) Mobs.length();
                 }
                 private void particle_count_bytag(){
+                        List<string> uniquetags = new List<string>();
+                        Gee.ArrayList<int> tagcounts = new Gee.ArrayList<int>();
+                        bool has = false;
                         foreach(Entity particle in Particles){
                                 foreach(string tag in particle.GetTags()){
+                                        for(int i = 0; i < uniquetags.length(); i++){
+                                                if(tag==uniquetags.nth_data(i)){
+                                                        has=true;
+                                                        tagcounts.insert( tagcounts.get(i) + 1 ,i);
+                                                        tagcounts.remove_at( i + 1 );
+                                                }
+                                        }
+                                        if(!has){
+                                                uniquetags.append(tag);
+                                                tagcounts.insert(tagcounts.size, 1);
+                                        }
                                 }
                         }
                 }
