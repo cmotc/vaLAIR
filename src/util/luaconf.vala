@@ -14,7 +14,7 @@ namespace LAIR{
                         printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
                 private void LuaDoFile(string file){
-                        VM.do_file(file);ss
+                        VM.do_file(file);
                 }
                 protected List<string> GetLuaLastReturn(){
                         string tmp = "";
