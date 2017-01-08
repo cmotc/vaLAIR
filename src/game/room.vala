@@ -53,8 +53,6 @@ namespace LAIR{
                         //
                         //
                         LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
-                        LuaRegister("particle_count_bytag", particle_count_bytag_delegate);
-                        LuaRegister("mobile_count_bytag", mobile_count_bytag_delegate);
                         /*
                         Here's where I'm going to develop the Lua API for
                         manipulating rooms. I'm not entirely sure what I need
@@ -72,17 +70,19 @@ namespace LAIR{
                         mobile_count();
                 }
                 private int particle_count(){
-                //(LuaVM vm = GetLuaVM())
                         PushUintToLuaTable("""generator_particle_count""", """c""", Particles.length());
-                        //LuaDoFunction("""return particle_count.c""");
                         return (int) Particles.length();
                 }
                 //private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
                 private int mobile_count(){
-                //(LuaVM vm = GetLuaVM())
                         PushUintToLuaTable("""generator_mobile_count""", """c""", Mobs.length());
-                        //LuaDoFunction("""return mobile_count.c""");
                         return (int) Mobs.length();
+                }
+                private void particle_count_bytag(){
+                        foreach(Entity particle in Particles){
+                                foreach(string tag in particle.GetTags()){
+                                }
+                        }
                 }
                 //private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
                 private int particle_index_byxy(LuaVM vm = GetLuaVM()){
@@ -119,14 +119,6 @@ namespace LAIR{
                         return i;
                 }
                 private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;
-                private int particle_count_bytag(LuaVM vm = GetLuaVM()){
-                        return 1;
-                }
-                private CallbackFunc particle_count_bytag_delegate = (CallbackFunc) particle_count;
-                private int mobile_count_bytag(LuaVM vm = GetLuaVM()){
-                        return 1;
-                }
-                private CallbackFunc mobile_count_bytag_delegate = (CallbackFunc) mobile_count;
                 private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
                         Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                 }

@@ -90,5 +90,8 @@ namespace LAIR{
 		public bool IsPlayer(){
 			return player;
 		}
+                public List<string> GetTags(){
+                        return tags.copy();
+                }
 	}
 }
