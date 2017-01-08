@@ -109,16 +109,26 @@ namespace LAIR{
                                 VM.set_global (tableName);
                         //}
                 }*/
+                protected void PushUintToLuaTable(string tablename, string varname, uint varval){
+                        NewLuaTable();
+                        int tmp = (int) varval;
+                        PushNamedPairToLuaTable(varname,tmp);
+                        CloseLuaTable(tablename);
+                }
+
                 protected void PushCoordsToLuaTable(Video.Point current, Video.Point simplecurrent){
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", current.x);
                         CloseLuaTable("generator_x");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("y", current.y);
                         CloseLuaTable("generator_y");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", simplecurrent.x);
                         CloseLuaTable("generator_coarse_x");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("y", simplecurrent.y);
                         CloseLuaTable("generator_coarse_y");
@@ -127,36 +137,47 @@ namespace LAIR{
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", (int) current.x);
                         CloseLuaTable("room_x");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("y", (int) current.y);
                         CloseLuaTable("room_y");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", (int) current.x / 32);
                         CloseLuaTable("room_coarse_x");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("y", (int) current.y / 32);
                         CloseLuaTable("room_coarse_y");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("w", (int) current.w);
                         CloseLuaTable("generator_w");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("h", (int) current.h);
                         CloseLuaTable("generator_h");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("w", (int) current.w / 32);
                         CloseLuaTable("generator_coarse_w");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("h", (int) current.h / 32);
                         CloseLuaTable("generator_coarse_h");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", (int) ((current.x / 32) + (current.w / 32)));
                         CloseLuaTable("room_coarse_xw");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("y", (int) ((current.y / 32) + (current.y / 32)));
                         CloseLuaTable("room_coarse_yh");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", (int) (current.x + current.w));
                         CloseLuaTable("room_xw");
+
                         NewLuaTable();
                         PushNamedPairToLuaTable("y", (int) (current.y + current.y));
                         CloseLuaTable("room_yh");

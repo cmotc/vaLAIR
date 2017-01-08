@@ -47,14 +47,6 @@ namespace LAIR{
                 private uint GetW(){     return Border.w;}
                 private uint GetH(){     return Border.h;}
                 private void RegisterLuaFunctions(){
-                        //This returns the total count of particles in the room
-                        //so far. It can be used to measure room density from
-                        //within lua.
-                        LuaRegister("particle_count", particle_count_delegate);
-                        //This returns the total count of mobile entities in
-                        //the room so far. It can be used to measure a room's
-                        //population density.
-                        LuaRegister("mobile_count", mobile_count_delegate);
                         //
                         //
                         LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
@@ -76,15 +68,23 @@ namespace LAIR{
                 //private void GeneratorPushXYToLua(int x, int y){
                 private void GeneratorPushXYToLua(Video.Point current, Video.Point simplecurrent){
                         PushCoordsToLuaTable(current, simplecurrent);
+                        particle_count();
+                        mobile_count();
                 }
-                private int particle_count(LuaVM vm = GetLuaVM()){
+                private int particle_count(){
+                //(LuaVM vm = GetLuaVM())
+                        PushUintToLuaTable("""generator_particle_count""", """c""", Particles.length());
+                        //LuaDoFunction("""return particle_count.c""");
                         return (int) Particles.length();
                 }
-                private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
-                private int mobile_count(LuaVM vm = GetLuaVM()){
+                //private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
+                private int mobile_count(){
+                //(LuaVM vm = GetLuaVM())
+                        PushUintToLuaTable("""generator_mobile_count""", """c""", Mobs.length());
+                        //LuaDoFunction("""return mobile_count.c""");
                         return (int) Mobs.length();
                 }
-                private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
+                //private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
                 private int particle_index_byxy(LuaVM vm = GetLuaVM()){
                         LuaDoFunction("""lua_get_x()""");
                         int x = GetLuaLastReturn().nth_data(0).to_int();
