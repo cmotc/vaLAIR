@@ -112,6 +112,9 @@ namespace LAIR{
                 protected void PushUintToLuaTable(string tablename, string varname, uint varval){
                         NewLuaTable();
                         int tmp = (int) varval;
+                        prints("Creating new Lua table: %s. ", tablename);
+                        printns(" Containing field: %s. ", varname);
+                        printns(" of value: %s. \n", varval.to_string());
                         PushNamedPairToLuaTable(varname,tmp);
                         CloseLuaTable(tablename);
                 }

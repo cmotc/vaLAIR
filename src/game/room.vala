@@ -49,10 +49,10 @@ namespace LAIR{
                 private void RegisterLuaFunctions(){
                         //
                         //
-                        LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
+                        //LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
                         //
                         //
-                        LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
+                        //LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
                         /*
                         Here's where I'm going to develop the Lua API for
                         manipulating rooms. I'm not entirely sure what I need
@@ -128,7 +128,7 @@ namespace LAIR{
                         }
                 }
                 //private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
-                private int particle_index_byxy(LuaVM vm = GetLuaVM()){
+                /*private int particle_index_byxy(LuaVM vm = GetLuaVM()){
                         LuaDoFunction("""lua_get_x()""");
                         int x = GetLuaLastReturn().nth_data(0).to_int();
                         LuaDoFunction("""lua_get_y()""");
@@ -161,7 +161,7 @@ namespace LAIR{
                         }
                         return i;
                 }
-                private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;
+                private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;*/
                 private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
                         Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                 }
@@ -349,14 +349,18 @@ namespace LAIR{
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        Particles.append(new Entity.Blocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
+                                        //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
+                                        //Particles.append(new Entity.Blocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
+                                        Particles.append(new Entity.ParameterListBlocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer, imgTags));
                                 }}
                         }}
                 }
                 private void inject_mobile(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
                                 if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
-                                        Mobs.append(new Entity(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
+                                        //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
+                                        //Mobs.append(new Entity(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
+                                        Mobs.append(new Entity.ParameterList(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer, imgTags));
                                 }}
                         }}
                 }

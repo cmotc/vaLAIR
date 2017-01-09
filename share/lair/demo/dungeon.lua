@@ -24,7 +24,9 @@ function map_cares_insert()
 	print("  Generator Segment Width: " .. generator_h.h)
         print("  Generator Particle Count: " .. generator_particle_count.c)
 	print("  Generator Mobile Count: " .. generator_mobile_count.c)
-        --print("  Generator Wall Particle Count: " .. wall.c)
+        if type(wall) == "table" then
+                print("  Generator Wall Particle Count: " .. wall.c)
+        end
         --print("  Generator Particle Count: " .. generator_particle_count.c)
         if generator_coarse_x.x < 3 then
                 if generator_coarse_x.x < 7 then
