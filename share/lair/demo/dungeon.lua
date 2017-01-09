@@ -25,7 +25,7 @@ function map_cares_insert()
         print("  Generator Particle Count: " .. generator_particle_count.c)
 	print("  Generator Mobile Count: " .. generator_mobile_count.c)
         if type(wall) == "table" then
-                print("  Generator Wall Particle Count: " .. wall.c)
+                print("  Generator Wall Particle Count: " .. get_tag_count(wall))
         end
         --print("  Generator Particle Count: " .. generator_particle_count.c)
         if generator_coarse_x.x < 3 then

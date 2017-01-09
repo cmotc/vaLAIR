@@ -6,3 +6,11 @@ end
 function lua_get_y()
         return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
 end
+
+function get_tag_count(variable)
+        if type(variable) == "table" then
+                return variable.c
+        else
+                return "0"
+        end
+end
