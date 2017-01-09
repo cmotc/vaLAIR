@@ -1,6 +1,5 @@
 using SDL;
 using Lua;
-//using Gee;
 
 namespace LAIR{
 	class Room : LuaConf{
@@ -68,7 +67,9 @@ namespace LAIR{
                 private void GeneratorPushXYToLua(Video.Point current, Video.Point simplecurrent){
                         PushCoordsToLuaTable(current, simplecurrent);
                         particle_count();
+                        particle_count_bytag();
                         mobile_count();
+                        mobile_count_bytag();
                 }
                 private int particle_count(){
                         PushUintToLuaTable("""generator_particle_count""", """c""", Particles.length());
@@ -79,24 +80,51 @@ namespace LAIR{
                         PushUintToLuaTable("""generator_mobile_count""", """c""", Mobs.length());
                         return (int) Mobs.length();
                 }
+                //Todo: Instead of doing it this way, pass a new entity to this
+                //function and have it do the appending, so we can skip the
+                //first for loop here and just add tags for new entities.
+                //Requires caching the tag count, but arguably should be doing
+                //that anyway. Not important right now. Thiw way works.
                 private void particle_count_bytag(){
-                        List<string> uniquetags = new List<string>();
-                        Gee.ArrayList<int> tagcounts = new Gee.ArrayList<int>();
-                        bool has = false;
+                        List<TagCounter> tagcount = new List<TagCounter>();
                         foreach(Entity particle in Particles){
                                 foreach(string tag in particle.GetTags()){
-                                        for(int i = 0; i < uniquetags.length(); i++){
-                                                if(tag==uniquetags.nth_data(i)){
-                                                        has=true;
-                                                        tagcounts.insert( tagcounts.get(i) + 1 ,i);
-                                                        tagcounts.remove_at( i + 1 );
+                                        bool has = false;
+                                        foreach(TagCounter count in tagcount){
+                                                if(count.CheckName(tag)){
+                                                        count.Inc();
+                                                        has = true;
+                                                        break;
                                                 }
                                         }
                                         if(!has){
-                                                uniquetags.append(tag);
-                                                tagcounts.insert(tagcounts.size, 1);
+                                                tagcount.append(new TagCounter(tag));
                                         }
                                 }
+                        }
+                        foreach(TagCounter count in tagcount){
+                                PushUintToLuaTable(count.GetName(), "c", count.GetCount());
+                        }
+                }
+                private void mobile_count_bytag(){
+                        List<TagCounter> tagcount = new List<TagCounter>();
+                        foreach(Entity mob in Mobs){
+                                foreach(string tag in mob.GetTags()){
+                                        bool has = false;
+                                        foreach(TagCounter count in tagcount){
+                                                if(count.CheckName(tag)){
+                                                        count.Inc();
+                                                        has = true;
+                                                        break;
+                                                }
+                                        }
+                                        if(!has){
+                                                tagcount.append(new TagCounter(tag));
+                                        }
+                                }
+                        }
+                        foreach(TagCounter count in tagcount){
+                                PushUintToLuaTable(count.GetName(), "c", count.GetCount());
                         }
                 }
                 //private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;

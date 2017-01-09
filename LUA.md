@@ -134,6 +134,17 @@ it'll shoot for the bare minimum.
   particle is generated as it is generated. It is the total count of blocked and
   non-blocked particles in the room.
 
+###Dynamic Variables Exported to Global Scope in Lua From Vala During Map Generation
+
+During map generation, Vala also keeps a running list of the tags associated
+with the entities in all the rooms on a per-room basis. This list is then
+exported along with the numeric prevalence of the tag
+
+####Why Tables?
+
+I'd like to say I planned this or even that I think it's inherently the best
+way, but neither of those things are true. I think it's an acceptable way.
+
 ###Vala Functions registered with Lua for Map Generation
 
 Besides that, you need to be able to retrieve different types of information
@@ -144,10 +155,8 @@ used to retrieve information from the map about it's properties and the
 properties associated with specific areas and tags. Probably more things as I
 think of them.
 
-  * particle\_count :
   * particle\_index\_byxy :
   * particle\_count\_bytag :
-  * mobile\_count :
   * mobile\_index\_byxy :
   * mobile\_count\_bytag :
 

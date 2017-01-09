@@ -2,7 +2,6 @@ unix:
 	valac -gv \
 		-o bin/LAIR \
 		--pkg gio-2.0 \
-		--pkg gee-0.8 \
 		--pkg lua \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
@@ -23,6 +22,7 @@ unix:
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/scribe.vala \
+		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \

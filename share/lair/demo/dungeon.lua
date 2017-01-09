@@ -1,12 +1,13 @@
---dofile("/usr/share/lair/lua/common.lua")
+--
+dofile("/usr/share/lair/lua/common.lua")
 
 --
 function map_cares_insert()
         local decided_to = "false"
         print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
         print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
-        print("  Generator is at Coarse X: " .. generator_coarse_x.x .." + ".. room_coarse_x.x .. " on the floor")
-	print("  Generator is at Coarse Y: " .. generator_coarse_y.y .." + ".. room_coarse_y.y .." on the floor")
+        print("  Generator is at Coarse X: " .. lua_get_x() .. " on the floor")
+	print("  Generator is at Coarse Y: " .. lua_get_y() .." on the floor")
         print("  Generator Segment Coarse Width: " .. generator_coarse_w.w)
 	print("  Generator Segment Coarse Height: " .. generator_coarse_h.h)
 	print("  Generator is at X: " .. generator_x.x)
@@ -23,6 +24,8 @@ function map_cares_insert()
 	print("  Generator Segment Width: " .. generator_h.h)
         print("  Generator Particle Count: " .. generator_particle_count.c)
 	print("  Generator Mobile Count: " .. generator_mobile_count.c)
+        --print("  Generator Wall Particle Count: " .. wall.c)
+        --print("  Generator Particle Count: " .. generator_particle_count.c)
         if generator_coarse_x.x < 3 then
                 if generator_coarse_x.x < 7 then
                         decided_to="true";
