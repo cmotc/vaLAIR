@@ -347,8 +347,8 @@ namespace LAIR{
 		}
                 //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
-                        if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
-                                if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
+                        if ( coords.x < GetX() + GetW() ){ if ( coords.x >= GetX() ){
+                                if ( coords.y < GetY() + GetW() ){ if ( coords.y >= GetY() ){
                                         //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
                                         //Particles.append(new Entity.Blocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                                         Particles.append(new Entity.ParameterListBlocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer, imgTags));
@@ -356,8 +356,8 @@ namespace LAIR{
                         }}
                 }
                 private void inject_mobile(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
-                        if ( coords.x < GetX() + GetW() ){ if ( coords.x > GetX() ){
-                                if ( coords.y < GetY() + GetW() ){ if ( coords.y > GetY() ){
+                        if ( coords.x < GetX() + GetW() ){ if ( coords.x >= GetX() ){
+                                if ( coords.y < GetY() + GetW() ){ if ( coords.y >= GetY() ){
                                         //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
                                         //Mobs.append(new Entity(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
                                         Mobs.append(new Entity.ParameterList(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer, imgTags));

@@ -14,3 +14,11 @@ function get_tag_count(variable)
                 return "0"
         end
 end
+
+function print_tag_count(variable)
+        if type(variable) == "table" then
+                print("  Generator " .. tostring(variable) .. " Particle Count: " .. get_tag_count(variable))
+        else
+                return "0"
+        end
+end
