@@ -4,28 +4,38 @@ dofile("/usr/share/lair/lua/common.lua")
 --
 function map_cares_insert()
         local decided_to = "false"
-        print_props()
-        if lua_get_x() < 3 then
+        print_general_props()
+        if where_in_room_gen_x() < 3 then
                 decided_to="true"
-        elseif lua_get_x() > (room_coarse_xw.x - 3) then
-                decided_to="true"
-        end
-        if lua_get_y() < 3 then
-                decided_to="true"
-        elseif lua_get_y() > (room_coarse_yh.y - 3) then
+        elseif where_in_room_gen_x() > (where_is_room_farcorner_x()- 3) then
                 decided_to="true"
         end
-        if generator_coarse_x.x > 5 then
-                if generator_coarse_x.x < 9 then
-                        print("x " .. generator_coarse_x.x .. " " .. 5 .. " " .. 9)
+        if where_in_room_gen_y() < 3 then
+                decided_to="true"
+        elseif where_in_room_gen_y() > (where_is_room_farcorner_x() - 3) then
+                decided_to="true"
+        end
+        if where_in_room_gen_x() > 5 then
+                if where_in_room_gen_x() < 9 then
+                        print("x " .. where_in_room_gen_x() .. " " .. 5 .. " " .. 9)
+                        decided_to="false"
+                end
+        end
+        if where_in_room_gen_y() > 5 then
+                if where_in_room_gen_y() < 9 then
+                        print("y " .. where_in_room_gen_y() .. " " .. 5 .. " " .. 9)
                         decided_to="false"
                 end
         end
 
-        if generator_coarse_y.y > 5 then
-                if generator_coarse_y.y < 9 then
-                        print("y " .. generator_coarse_y.y .. " " .. 5 .. " " .. 9)
-                        decided_to="false"
+        if where_in_floor_get_x() < 2 then
+                if where_is_room_corner_x() == 0 then
+                        decided_to="true"
+                end
+        end
+        if where_in_floor_get_y() < 2 then
+                if where_is_room_corner_y() == 0 then
+                        decided_to="true"
                 end
         end
         return decided_to
