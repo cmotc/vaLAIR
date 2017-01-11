@@ -97,7 +97,7 @@ namespace LAIR{
                                                 prints("(%s)", y);
                                         }
                                         prints(".\n");
-					ttfRes.append(new Fonts.WithAttList(font, "medium"));
+					ttfRes.append(new Fonts.WithAttList(font, "tiny"));
                                 }
 				tmp = true;
 			}else{

@@ -37,19 +37,19 @@ namespace LAIR{
                 }
                 private static List<string> GenerateLabels(){
                         List<string> tmp = new List<string>();
-                        tmp.append("Strength:");
-                        tmp.append("Agility:");
-                        tmp.append("Toughness:");
-                        tmp.append("Intelligence:");
-                        tmp.append("Special:");
-                        tmp.append("  speed:");
-                        tmp.append("  exert:");
-                        tmp.append("  dodge:");
-                        tmp.append("  aim:");
-                        tmp.append("  will:");
-                        tmp.append("  resist:");
-                        tmp.append("  magic:");
-                        tmp.append("  tech:");
+                        tmp.append("Strength : ");
+                        tmp.append("Agility  : ");
+                        tmp.append("Toughness: ");
+                        tmp.append("Intellect: ");
+                        tmp.append("Special  : ");
+                        tmp.append(" _speed : ");
+                        tmp.append(" _exert : ");
+                        tmp.append(" _dodge : ");
+                        tmp.append(" _aim   : ");
+                        tmp.append(" _will  : ");
+                        tmp.append(" _resist: ");
+                        tmp.append(" _magic : ");
+                        tmp.append(" _tech  : ");
                         return tmp;
                 }
 		public int Speed(){

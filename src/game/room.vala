@@ -9,18 +9,20 @@ namespace LAIR{
 		private List<Entity> Mobs = new List<Entity>();
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
-                public Room(Video.Rect position, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
                         SetDimensions(position.x, position.y, position.w, position.h);
+                        SetFloorDimensions(floordims);
                         SetName("room ("+HitBoxToString()+"): ");
                         prints("generating room\n");
                         GameMaster = DM;
                         RegisterLuaFunctions();
                         GenerateStructure(2, renderer);
 		}
-                public Room.WithPlayer(Video.Rect position, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
                         SetDimensions(position.x, position.y, position.w, position.h);
+                        SetFloorDimensions(floordims);
                         SetName("room ("+HitBoxToString()+"): ");
                         prints("generating room with player\n");
                         GameMaster = DM;
@@ -34,6 +36,12 @@ namespace LAIR{
                         Border.w = w;
                         Border.h = h;
                 }
+                private void SetFloorDimensions(Video.Rect floordims){
+                        PushUintToLuaTable("floor_w", "w", floordims.w );
+                        PushUintToLuaTable("floor_h", "h", floordims.h );
+                        PushUintToLuaTable("floor_coarse_w", "w", (floordims.w / 32) );
+                        PushUintToLuaTable("floor_coarse_h", "h", (floordims.h / 32) );
+                }
                 private int GetX(){     return (int) Border.x;}
                 private int GetOffsetX(int x){
                         int r = (x * 32) + GetX();
@@ -44,8 +52,12 @@ namespace LAIR{
                         int r = (y * 32) + GetY();
                         return r;
                 }
-                private uint GetW(){     return Border.w;}
-                private uint GetH(){     return Border.h;}
+                public Video.Point GetCorner(){
+                        Video.Point r = Video.Point(){x=GetX(), y=GetY()};
+                        return r;
+                }
+                public uint GetW(){     return Border.w;}
+                public uint GetH(){     return Border.h;}
                 private void RegisterLuaFunctions(){
                         //
                         //
@@ -260,13 +272,13 @@ namespace LAIR{
                 }
                 private string HitBoxToString(){
                         string HBSUM = "x:";
-                        HBSUM += GetHitBox().x.to_string();
+                        HBSUM += Border.x.to_string();
                         HBSUM += "y:";
-                        HBSUM += GetHitBox().y.to_string();
+                        HBSUM += Border.y.to_string();
                         HBSUM += "w:";
-                        HBSUM += GetHitBox().w.to_string();
+                        HBSUM += Border.w.to_string();
                         HBSUM += "h:";
-                        HBSUM += GetHitBox().h.to_string();
+                        HBSUM += Border.h.to_string();
                         return HBSUM;
                 }
                 private bool InRange(Video.Point point, Video.Rect hitbox){
@@ -287,40 +299,47 @@ namespace LAIR{
                 public bool DetectTransition(Entity t){
                         bool r = false;
                         if(t!=null){
-                        Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
-                                y=t.GetHitBox().y };
-                        bool TLeftCorner = InRange(tlc, GetHitBox());
-                        Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
-                                y = t.GetHitBox().y };
-                        bool TRightCorner = InRange(trc, GetHitBox());
-                        Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
-                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
-                        bool BLeftCorner = InRange(blc, GetHitBox());
-                        Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
-                                y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
-                        bool BRightCorner = InRange( brc, GetHitBox());
-                        if (TLeftCorner){if (TRightCorner){
-                                if (BLeftCorner){if (BRightCorner){
+                                Video.Point tlc = Video.Point(){ x = t.GetHitBox().x,
+                                        y=t.GetHitBox().y };
+                                bool TLeftCorner = InRange(tlc, GetHitBox());
+                                Video.Point trc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                        y = t.GetHitBox().y };
+                                bool TRightCorner = InRange(trc, GetHitBox());
+                                Video.Point blc = Video.Point(){ x = t.GetHitBox().x,
+                                        y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                                bool BLeftCorner = InRange(blc, GetHitBox());
+                                Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
+                                        y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
+                                bool BRightCorner = InRange( brc, GetHitBox());
+                                if (TLeftCorner){
                                         r = true;
-                                }}
-                        }}
+                                }
+                                if (TRightCorner){
+                                        r = true;
+                                }
+                                if (BLeftCorner){
+                                        r = true;
+                                }
+                                if (BRightCorner){
+                                        r = true;
+                                }
                         }
                         return r;
                 }
-		public void RenderCopy(Video.Renderer renderer){
+                public void RenderCopy(Video.Renderer renderer, Video.Point player_pos){
 			if (visited){
                                 //prints("Drawing Room at: %s\n", HitBoxToString());
 				foreach(Entity particle in Particles){
-					particle.Render(renderer);
+					particle.RenderOffset(renderer, player_pos);
 				}
 			}
                         if (HasPlayer()){
-				Player.Render(renderer);
+				Player.RenderOffset(renderer, player_pos);
 				if (visited = false){
 					visited = true;
 				}
 				foreach(Entity mob in Mobs){
-					mob.Render(renderer);
+					mob.RenderOffset(renderer, player_pos);
 				}
 			}
 		}

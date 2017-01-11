@@ -76,9 +76,9 @@ namespace LAIR{
                         }
                         return r;
                 }
-                public void Render(Video.Renderer renderer){
-                        RenderCopy(renderer);
-                        RenderText(renderer);
+                public void RenderOffset(Video.Renderer renderer, Video.Point player_pos){
+                        RenderCopy(renderer, player_pos);
+                        RenderText(renderer, player_pos);
                 }
 	}
 }
