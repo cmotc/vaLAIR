@@ -166,7 +166,7 @@ map generation cursor on the *room containing the cursor's current position*.
         end
 
 **where\_is\_room\_corner\_x:** returns the current Coarse(tile) X position of
-the map generation cursor on the *room containing the cursor's current*
+the room corner on the *room containing the cursor's current*
 *position*.
 
         function where_is_room_corner_x()
@@ -174,92 +174,114 @@ the map generation cursor on the *room containing the cursor's current*
         end
 
 **where\_is\_room\_corner\_y:** returns the current Coarse(tile) Y position of
-the map generation cursor on the *room containing the cursor's current*
+the room corner on the *room containing the cursor's current*
 *position*.
 
         function where_is_room_corner_y()
                 return room_coarse_y.y
         end
 
-**where\_is\_room\_farcorner\_x:**
+**where\_is\_room\_farcorner\_x:** returns the current Coarse(tile) Y position
+of the room far corner on the *room containing the cursor's current*
+*position*.
 
         function where_is_room_farcorner_x()
                 return room_coarse_xw.x
         end
 
-**where\_is\_room\_farcorner\_y:**
+**where\_is\_room\_farcorner\_y:** returns the current Coarse(tile) Y position
+of the room far corner on the *room containing the cursor's current*
+*position*.
 
         function where_is_room_farcorner_y()
                 return room_coarse_yh.y
         end
 
-**where\_is\_floor\_farcorner\_x:**
+**where\_is\_floor\_farcorner\_x:** returns the current Coarse(tile) X position
+of the room far corner on the *whole floor*.
 
         function where_is_floor_farcorner_x()
                 return floor_coarse_yh.h
         end
 
-**where\_is\_floor\_farcorner_y:**
+**where\_is\_floor\_farcorner_y:** returns the current Coarse(tile) Y position
+of the room far corner on the *whole floor*.
 
         function where_is_floor_farcorner_y()
                 return floor_coarse_w.w
         end
 
-**what\_pixel\_is\_room\_corner\_x:**
+**what\_pixel\_is\_room\_corner\_x:** returns the current Fine(pixel) X
+position of the room corner on the *room containing the cursor's*
+*current position*.
 
         function what_pixel_is_room_corner_x()
                 return room_x.x
         end
 
-**what\_pixel\_is\_room\_corner\_y:**
+**what\_pixel\_is\_room\_corner\_y:** returns the current Fine(pixel) Y
+position of the room corner on the *room containing the cursor's*
+*current position*.
 
         function what_pixel_is_room_corner_y()
                 return room_y.y
         end
 
-**what\_pixel\_is\_room\_farcorner\_x:**
+**what\_pixel\_is\_room\_farcorner\_x:** returns the current Fine(pixel) X
+position of the room far corner on the *room containing the cursor's*
+*current position*.
 
         function what_pixel_is_room_farcorner_x()
                 return room_xw.x
         end
 
-**what\_pixel\_is\_room\_farcorner\_y:**
+**what\_pixel\_is\_room\_farcorner\_y:** returns the current Fine(pixel) Y
+position of the room far corner on the *room containing the cursor's*
+*current position*.
 
         function what_pixel_is_room_farcorner_y()
                 return room_yh.y
         end
 
-**what\_pixel\_is\_room\_farcorner\_x:**
+**what\_pixel\_is\_floor\_farcorner\_x:** returns the current Fine(pixel) X
+position of the floor far corner on the *room containing the cursor's*
+*current position*.
 
         function what_pixel_is_floor_farcorner_x()
                 return floor_h.h
         end
 
-**what\_pixel\_is\_room\_farcorner\_y:**
+**what\_pixel\_is\_floor\_farcorner\_y:** returns the current Fine(pixel) Y
+position of the floor far corner on the *room containing the cursor's*
+*current position*.
 
         function what_pixel_is_floor_farcorner_y()
                 return floor_w.w
         end
 
-**how\_long\_room\_pixels\_w:**
+**how\_long\_room\_pixels\_w:** returns the Fine(pixel) X length of the *room*
+*containing the cursor's current position*.
 
         function how_long_room_pixels_w()
                 return generator_w.w
         end
 
-**how\_long\_room\_pixels\_h:**
+**how\_long\_room\_pixels\_h:** returns the Fine(pixel) Y length of the *room*
+*containing the cursor's current position*.
 
         function how_long_room_pixels_h()
                 return generator_h.h
         end
 
-**how\_many\_particles\_so\_far:**
+**how\_many\_particles\_so\_far:** returns the total count of particles already
+placed in the *room containing the cursor's current position*.
 
         function how_many_particles_so_far()
                 return generator_particle_count.c
         end
 
-**how\_many\_mobiles\_so\_far:**
+**how\_many\_mobiles\_so\_far:** returns the total count of particles already
+placed in the *room containing the cursor's current position*.
 
         function how_many_mobiles_so_far()
                 return generator_mobile_count.c
