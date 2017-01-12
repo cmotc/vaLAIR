@@ -342,12 +342,15 @@ think of them. These don't work yet but once they do all the remaining map
 generation helpers will be placed in common.lua.
 
   * **particle\_index\_byxy** :
+
   * **mobile\_index\_byxy** :
 
 Current Limitations
 -------------------
 
-Obviously, the programming interface isn't really finished yet.
+The programming interface will be as complete as required when it's possible to
+get a single particle's tags from Lua indiscriminate of the cursor's current
+position.
 
 Because the map generator currently works from left to right, then from top to
 bottom, and because by definition all the information that the map can recieve
@@ -358,8 +361,7 @@ isolated.
 
 I still haven't done the Lua configuration for AI controlled entities.
 
-I still haven't decided whether I'll be using Lua to script how player
-characters are generated.
-
 Some of the tables are counter-intuitively or unclearly named. I'll get to it
-about the time I get to converting the Vala to standard formatting.
+about the time I get to converting the Vala to standard formatting. The
+functions are the preferred way to access the variables.
+
