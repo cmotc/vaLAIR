@@ -1,9 +1,14 @@
 --
 dofile("/usr/share/lair/lua/common.lua")
 dofile("/usr/share/lair/lua/map/basicwall_cares_insert.lua")
---
+dofile("/usr/share/lair/lua/map/cut_hallways.lua")
+
+--The return value of this function tells the map whether it should place a new
+--particle at all.
 function map_cares_insert()
-        result = basicwall_cares_insert()
+        result = thickwall_cares_insert()
+        result = cut_hallways(result)
+        result = thinwall_cares_insert(result)
         return result
 end
 -- The return value of this function tells the map what image to use to select
@@ -27,7 +32,8 @@ function map_fonts_decide()
         return decided_font
 end
 
---
+--The return value of this function tells the map whether it should place a new
+--mobile at all.
 function mob_cares_insert()
         local decided_to = "false"
         return decided_to

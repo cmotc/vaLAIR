@@ -97,12 +97,16 @@ check:
 	luacheck share/lair/demo/dungeon.lua
 	luacheck share/lair/demo/player.lua
 	luacheck share/lair/demo/ai.lua
+	luacheck share/lair/lua/common.lua
+	luacheck share/lair/lua/map/basicwall_cares_insert.lua
+	luacheck share/lair/lua/map/cut_hallways.lua
 
 install:
 	cp bin/LAIR /usr/bin/
 	mkdir -p /usr/share/lair/demo/
 	mkdir -p /usr/share/lair/lua/map
 	cp share/lair/lua/common.lua /usr/share/lair/lua/
+	cp share/lair/lua/map/cut_hallways.lua /usr/share/lair/lua/map
 	cp share/lair/lua/map/basicwall_cares_insert.lua /usr/share/lair/lua/map
 	cp share/lair/demo/dungeon.lua /usr/share/lair/demo/
 	cp share/lair/demo/player.lua /usr/share/lair/demo/
