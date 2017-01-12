@@ -22,6 +22,7 @@ unix:
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/scribe.vala \
+		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \

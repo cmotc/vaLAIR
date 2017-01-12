@@ -90,5 +90,9 @@ namespace LAIR{
 		public bool IsPlayer(){
 			return player;
 		}
+                public unowned List<string> GetTags(){
+                        unowned List<string> r = tags;
+                        return r;
+                }
 	}
 }

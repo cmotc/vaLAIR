@@ -56,17 +56,25 @@ namespace LAIR{
                 protected void ShowSkills(){
                         showSkills = !showSkills;
                 }
-                public void RenderText(Video.Renderer* renderer){
+                public void RenderText(Video.Renderer* renderer, Video.Point player_pos){
                         if(showStats){
-                                prints("Showing Skills\n");
-                                for(int i = 5; i < 5; i++){
-                                        renderer->copyex(Text.nth_data(i), GetSource(), GetTextPosition(), 0.0, null, Video.RendererFlip.VERTICAL);
+                                prints("Showing Stats\n");
+                                for(int i = 0; i < 5; i++){
+                                        Video.Point tmp = Video.Point(){
+                                                x = player_pos.x - 34,
+                                                y = player_pos.y - 2 - (i*11)
+                                        };
+                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPositionOffset(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }
                         if(showSkills){
-                                prints("Showing Stats\n");
-                                for(int i = 6; i < Text.length(); i++){
-                                        renderer->copyex(Text.nth_data(i), GetSource(), GetTextPosition(), 0.0, null, Video.RendererFlip.VERTICAL);
+                                prints("Showing Skills\n");
+                                for(int i = 5; i < 5 + Text.length(); i++){
+                                        Video.Point tmp = Video.Point(){
+                                                x = player_pos.x - 34,
+                                                y = player_pos.y - 2 - (i*11)
+                                        };
+                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPositionOffset(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }
 		}

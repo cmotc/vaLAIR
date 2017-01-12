@@ -24,7 +24,8 @@ namespace LAIR{
                 public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base.Parameter(corner, Surfaces, music, font, renderer, "player");
                 }
-                //private void DoActions(Entity t){}
+                /*private void DoActions(Entity t){
+                }*/
                 private bool InRange(Video.Point point, Video.Rect hitbox){
                         bool t = false;
                         int xx = (int) (hitbox.x + hitbox.w);
@@ -75,9 +76,9 @@ namespace LAIR{
                         }
                         return r;
                 }
-                public void Render(Video.Renderer renderer){
-                        RenderCopy(renderer);
-                        RenderText(renderer);
+                public void RenderOffset(Video.Renderer renderer, Video.Point player_pos){
+                        RenderCopy(renderer, player_pos);
+                        RenderText(renderer, player_pos);
                 }
 	}
 }

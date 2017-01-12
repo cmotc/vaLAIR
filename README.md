@@ -112,8 +112,10 @@ it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
   * Implement Lua API for configuring maps and write a complete demo dungeon.
-    - So far, some bare-bones communication about Room information is possible
-    from the Vala code to the Lua Scripts and the Lua Scripts to the Vala Code.
+    - Now much more fine-grained detail is available from Lua during Map
+    Generation. Every time a new entity is generated, a running total of all
+    the tags associated with the map is updated, giving you a high-level
+    overview of the properties of each room.
     -Documenting this stuff as I get it working is going to be really important,
     especially because once it works coarse dungeon generation will be removed
     entirely.

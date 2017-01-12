@@ -71,9 +71,9 @@ namespace LAIR{
                                 prints("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
-		public void RenderCopy(Video.Renderer* renderer){
+                public void RenderCopy(Video.Renderer* renderer, Video.Point player_pos){
                         foreach(var texture in body.copy()){
-                                renderer->copyex(texture, GetSource(), GetPosition(), GetAngle(), null, Video.RendererFlip.VERTICAL);
+                                renderer->copyex(texture, GetSource(), GetPositionOffset(player_pos), GetAngle(), null, Video.RendererFlip.VERTICAL);
                         }
 
 		}

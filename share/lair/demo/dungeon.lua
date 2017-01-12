@@ -1,52 +1,45 @@
---dofile("/usr/share/lair/lua/common.lua")
+--
+dofile("/usr/share/lair/lua/common.lua")
 
 --
 function map_cares_insert()
         local decided_to = "false"
-        print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
-        print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
-        print("  Generator is at Coarse X: " .. generator_coarse_x.x .." + ".. room_coarse_x.x .. " on the floor")
-	print("  Generator is at Coarse Y: " .. generator_coarse_y.y .." + ".. room_coarse_y.y .." on the floor")
-        print("  Generator Segment Coarse Width: " .. generator_coarse_w.w)
-	print("  Generator Segment Coarse Height: " .. generator_coarse_h.h)
-	print("  Generator is at X: " .. generator_x.x)
-	print("  Generator is at Y: " .. generator_y.y)
-        print("  Segment Starts at Coarse X: " .. room_coarse_x.x)
-	print("  Segment Starts at Coarse Y: " .. room_coarse_y.y)
-        print("  Segment Ends at Coarse X+Width: " .. room_coarse_xw.x)
-	print("  Segment Ends at Coarse Y+Height: " .. room_coarse_yh.y)
-        print("  Segment Starts at X: " .. room_x.x)
-	print("  Segment Starts at Y: " .. room_y.y)
-        print("  Segment Ends at X+Width: " .. room_xw.x)
-	print("  Segment Ends at Y+Height: " .. room_yh.y)
-        print("  Generator Segment Height: " .. generator_w.w)
-	print("  Generator Segment Width: " .. generator_h.h)
-        print("  Generator Particle Count: " .. generator_particle_count.c)
-	print("  Generator Mobile Count: " .. generator_mobile_count.c)
-        if generator_coarse_x.x < 3 then
-                if generator_coarse_x.x < 7 then
-                        decided_to="true";
-                elseif generator_coarse_x.x > 8 then
-                        decided_to="true";
+        --print_general_props()
+        if where_in_room_gen_x() < 3 then
+                decided_to="true"
+        end
+        --[[if where_in_room_gen_x() > where_is_room_farcorner_x()- 3 then
+                decided_to="true"
+        end]]
+        if where_in_room_gen_y() < 3 then
+                decided_to="true"
+        end
+        --[[if where_in_room_gen_y() > where_is_room_farcorner_y() - 3 then
+                decided_to="true"
+        end]]
+        if where_in_room_gen_x() > 5 then
+                if where_in_room_gen_x() < 9 then
+                        print("x " .. where_in_room_gen_x() .. " " .. 5 .. " " .. 9)
+                        decided_to="false"
                 end
-        elseif generator_coarse_x.x > generator_coarse_w.w - 3 then
-                if generator_coarse_x.x < 7 then
-                        decided_to="true";
-                elseif generator_coarse_x.x > 8 then
-                        decided_to="true";
+        end
+        if where_in_room_gen_y() > 5 then
+                if where_in_room_gen_y() < 9 then
+                        print("y " .. where_in_room_gen_y() .. " " .. 5 .. " " .. 9)
+                        decided_to="false"
                 end
-        elseif generator_coarse_y.y < 3 then
-                if generator_coarse_y.y < 7 then
-                        decided_to="true";
-                elseif generator_coarse_y.y > 8 then
-                        decided_to="true";
-                end
-        elseif generator_coarse_y.y > generator_coarse_h.h - 3 then
-                if generator_coarse_y.y < 7 then
-                        decided_to="true";
-                elseif generator_coarse_y.y > 8 then
-                        decided_to="true";
-                end
+        end
+        if where_in_floor_get_x() < 2 then
+                decided_to="true"
+        end
+        if where_in_floor_get_y() < 2 then
+                decided_to="true"
+        end
+        if where_in_floor_get_x() > where_is_floor_farcorner_x() - 2 then
+                decided_to="true"
+        end
+        if where_in_floor_get_y() > where_is_floor_farcorner_y() - 2 then
+                decided_to="true"
         end
         return decided_to
 end

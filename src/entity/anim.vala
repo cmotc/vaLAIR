@@ -4,7 +4,7 @@ namespace LAIR{
 	class Anim : Type{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
-                private Video.Rect offsetHitBox = Video.Rect(){ x=6, y=6, w=20, h=16 };
+                private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
                 private Video.Point cursorPosition = Video.Point(){x=0,y=0};
                 public Anim(Video.Rect rect){
                         base();
@@ -38,6 +38,28 @@ namespace LAIR{
                 }
 		public Video.Rect GetPosition(){
 			return position;
+		}
+                public Video.Rect GetPositionOffset(Video.Point offset_px){
+                        Video.Rect r = Video.Rect(){
+                                x = position.x - offset_px.x,
+                                y = position.y - offset_px.y,
+                                w = position.w,
+                                h = position.h
+                        };
+			return r;
+		}
+                public Video.Rect GetTextSource(){
+                        return Video.Rect(){x=0,y=0,w=200,h=11};
+
+                }
+                public Video.Rect GetTextPositionOffset(Video.Point offset_px){
+                        Video.Rect r = Video.Rect(){
+                                x = position.x - offset_px.x,
+                                y = position.y - offset_px.y,
+                                w = 200,
+                                h = 11
+                        };
+			return r;
 		}
 		public Video.Rect GetSource(){
                         return source;
@@ -85,6 +107,10 @@ namespace LAIR{
                 }
                 public Video.Point GetCenter(){
                         Video.Point coords = Video.Point(){x=GetX()+GetHalfWidth(), y=GetY()+GetHalfHeight()};
+                        return coords;
+                }
+                public Video.Point GetCorner(){
+                        Video.Point coords = Video.Point(){x=GetX(), y=GetY()};
                         return coords;
                 }
                 private double RadiansToDegrees(double radians){

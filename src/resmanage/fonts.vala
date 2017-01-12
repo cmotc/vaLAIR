@@ -29,8 +29,6 @@ namespace LAIR{
 					sz = 10;
 				}else if (Size == "tiny"){
 					sz = 8;
-				}else {
-					sz = 12;
 				}
 				font = new SDLTTF.Font(GetPath(), sz);
 				tmp = true;
