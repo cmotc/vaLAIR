@@ -345,6 +345,67 @@ generation helpers will be placed in common.lua.
 
   * **mobile\_index\_byxy** :
 
+Building Upon the Basic Functions Effectively
+---------------------------------------------
+
+In order to create re-usable code chunks which can help produce better maps
+faster, some basic patterns should be followed. It is possible to write your
+own functions, in your own external files, to influence the output of the
+dungeon generator scripts in any complex way you want as long as it's possible
+to accomplish with Lua.
+
+###Example Function: Build a Thick Wall around the Outside of the Floor
+
+First thing to notice is that the functions usually take an optional argument.
+This optional argument is the running result of the parent decision function.
+If the argument isn't provided, have the result default to "false."
+
+        function thinwall_cares_insert(vari)
+                if type(vari) == "string" then
+                        decided_to = vari
+                else
+                        decided_to = "false"
+                end
+
+Because the coordinates of the tiles start at 0 and not 1, when the cursor is
+at less than 1 we draw a wall.
+
+                if where_in_floor_get_x() < 1 then
+                        decided_to="true"
+                end
+                if where_in_floor_get_y() < 1 then
+                        decided_to="true"
+                end
+
+And again, because we count from zero, to get a wall of thickness 1 on the far
+side we test if we are greater than farcorner - 2.
+
+                if where_in_floor_get_x() > where_is_floor_farcorner_x() - 2 then
+                        decided_to="true"
+                end
+                if where_in_floor_get_y() > where_is_floor_farcorner_y() - 2 then
+                        decided_to="true"
+                end
+
+Finally, return the result.
+
+                return decided_to
+        end
+
+By doing this, you can declare a single variable in your map\_cares\_insert
+function and transform it by repeatedly feeding it to functions like this.
+
+        function map_cares_insert()
+                result = thickwall_cares_insert()
+                result = cut_hallways(result)
+                result = thinwall_cares_insert(result)
+                return result
+        end
+
+This map\_cares\_insert function in the share/lair/demo/dungeon.lua file creates
+a thick border, then textures it, then seals the walls with a thin border, while
+leaving a vast empty space between. Minimal demo map achieved.
+
 Current Limitations
 -------------------
 
