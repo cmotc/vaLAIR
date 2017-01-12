@@ -291,13 +291,44 @@ placed in the *room containing the cursor's current position*.
 
 During map generation, Vala also keeps a running list of the tags associated
 with the entities in all the rooms on a per-room basis. This list is then
-exported along with the numeric prevalence of the tag.
+exported along with the numeric prevalence of the tag. This allows you to
+retrieve stats about what the room contains from Lua in greater detail and grow
+a more balanced dungeon. These are all created as Table entries with a default
+field "*c*" containing a running count of the tag's prevalence.
 
-####Why Tables?
+Retrieving these values safely without stopping the Lua interpreter requires
+first checking if they are *nil*. An invalid script will result in an empty or
+malfunctioning dungeon. To help keep this from happening, I recommend using
+the accessor functions
+
+**get\_tag\_count:** checks for the existence of a table and if it exists,
+returns it, otherwise, returns entry "*c*," for count.
+
+        function get_tag_count(variable)
+                if type(variable) == "table" then
+                        return variable.c
+                else
+                        return 0
+                end
+        end
+
+**get\_tag\_table:** checks for the existence of a table and if it exists,
+returns it, otherwise, returns zero.
+
+        function get_tag_table(variable)
+                if type(variable) == "table" then
+                        return variable
+                else
+                        return 0
+                end
+        end
+
+##### \*Why Tables?
 
 I'd like to say I planned this or even that I think it's inherently the best
 way, but neither of those things are true. I think it's an acceptable way, and
-that it might be useful to add things on to the tables for each variable
+that it might be useful to add things on to the tables for each variable while
+the dungeon is being generated.
 
 ###Vala Functions registered with Lua for Map Generation
 
@@ -310,8 +341,8 @@ properties associated with specific areas and tags. Probably more things as I
 think of them. These don't work yet but once they do all the remaining map
 generation helpers will be placed in common.lua.
 
-  * particle\_index\_byxy :
-  * mobile\_index\_byxy :
+  * **particle\_index\_byxy** :
+  * **mobile\_index\_byxy** :
 
 Current Limitations
 -------------------
@@ -329,3 +360,6 @@ I still haven't done the Lua configuration for AI controlled entities.
 
 I still haven't decided whether I'll be using Lua to script how player
 characters are generated.
+
+Some of the tables are counter-intuitively or unclearly named. I'll get to it
+about the time I get to converting the Vala to standard formatting.

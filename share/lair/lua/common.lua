@@ -4,7 +4,15 @@ function get_tag_count(variable)
         if type(variable) == "table" then
                 return variable.c
         else
-                return "0"
+                return 0
+        end
+end
+
+function get_tag_table(variable)
+        if type(variable) == "table" then
+                return variable
+        else
+                return 0
         end
 end
 
