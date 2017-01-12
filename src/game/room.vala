@@ -146,8 +146,11 @@ namespace LAIR{
                         foreach(Entity particle in Particles){
                                 if(particle.GetX() == x){
                                         if(particle.GetY() == y){
+                                                PushEntityDetailsToLuaTable(particle);
                                                 break;
                                         }
+                                }else{
+                                        break;
                                 }
                                 i++;
                         }
@@ -161,8 +164,11 @@ namespace LAIR{
                         foreach(Entity mob in Mobs){
                                 if(mob.GetX() == x){
                                         if(mob.GetY() == y){
+                                                PushEntityDetailsToLuaTable(mob);
                                                 break;
                                         }
+                                }else{
+                                        break;
                                 }
                                 i++;
                         }

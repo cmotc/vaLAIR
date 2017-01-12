@@ -132,6 +132,14 @@ namespace LAIR{
                         PushStringPairToLuaTable(varname, varval);
                         CloseLuaTable(tablename);
                 }
+                protected void PushEntityDetailsToLuaTable(Entity requested){
+                        string t = "";
+                        foreach(string tag in requested.GetTags()){
+                                t += " ";
+                                t += tag;
+                        }
+                        PushStringToLuaTable("requested_data", "tags" , t);
+                }
                 protected void PushCoordsToLuaTable(Video.Point current, Video.Point simplecurrent){
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", current.x);

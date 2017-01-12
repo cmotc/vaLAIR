@@ -94,12 +94,12 @@ clean:
 	make unlog
 
 check:
-	luacheck share/lair/demo/dungeon.lua
-	luacheck share/lair/demo/player.lua
-	luacheck share/lair/demo/ai.lua
-	luacheck share/lair/lua/common.lua
-	luacheck share/lair/lua/map/basicwall_cares_insert.lua
-	luacheck share/lair/lua/map/cut_hallways.lua
+	luacheck -g share/lair/demo/dungeon.lua \
+	share/lair/demo/player.lua \
+	share/lair/demo/ai.lua \
+	share/lair/lua/common.lua \
+	share/lair/lua/map/basicwall_cares_insert.lua \
+	share/lair/lua/map/cut_hallways.lua
 
 install:
 	cp bin/LAIR /usr/bin/
