@@ -61,10 +61,10 @@ namespace LAIR{
                 private void RegisterLuaFunctions(){
                         //
                         //
-                        //LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
+                        LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
                         //
                         //
-                        //LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
+                        LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
                         /*
                         Here's where I'm going to develop the Lua API for
                         manipulating rooms. I'm not entirely sure what I need
@@ -139,13 +139,10 @@ namespace LAIR{
                                 PushUintToLuaTable(count.GetName(), "c", count.GetCount());
                         }
                 }
-                //private CallbackFunc mobile_count_delegate = (CallbackFunc) mobile_count;
-                /*private int particle_index_byxy(LuaVM vm = GetLuaVM()){
-                        LuaDoFunction("""lua_get_x()""");
-                        int x = GetLuaLastReturn().nth_data(0).to_int();
-                        LuaDoFunction("""lua_get_y()""");
-                        int y = GetLuaLastReturn().nth_data(1).to_int();
+                private int particle_index_byxy(LuaVM vm = GetLuaVM()){
                         int i = 0;
+                        double x = vm.to_number(1);
+                        double y = vm.to_number(2);
                         foreach(Entity particle in Particles){
                                 if(particle.GetX() == x){
                                         if(particle.GetY() == y){
@@ -158,11 +155,9 @@ namespace LAIR{
                 }
                 private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_count;
                 private int mobile_index_byxy(LuaVM vm = GetLuaVM()){
-                        LuaDoFunction("""lua_get_x()""");
-                        int x = GetLuaLastReturn().nth_data(0).to_int();
-                        LuaDoFunction("""lua_get_y()""");
-                        int y = GetLuaLastReturn().nth_data(1).to_int();
                         int i = 0;
+                        double x = vm.to_number(1);
+                        double y = vm.to_number(2);
                         foreach(Entity mob in Mobs){
                                 if(mob.GetX() == x){
                                         if(mob.GetY() == y){
@@ -173,7 +168,7 @@ namespace LAIR{
                         }
                         return i;
                 }
-                private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;*/
+                private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;
                 private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
                         Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                 }

@@ -26,6 +26,10 @@ namespace LAIR{
                                 string word = VM.to_string(-1);
                                 tmp += word;
                                 VM.pop(1);
+                        }else if(VM.is_boolean(-1)){
+                                string word = VM.to_string(-1);
+                                tmp += word;
+                                VM.pop(1);
                         }
                         //prints(" %s \n", tmp);
                         string[] tl = tmp.split(" ", 0);
@@ -86,6 +90,24 @@ namespace LAIR{
                                 VM.raw_set(-3);
                         }
                 }
+                protected void PushStringPairToLuaTable(string key, string val = ""){
+                        if( key != null){
+                                //prints("pushing values to lua table");
+                                VM.push_string(key);
+                                VM.push_string(val);
+                                //prints("%s ", key);
+                                //prints("%s \n", val.to_string());
+                                VM.raw_set(-3);
+                        }else{
+                                key = "error";
+                                string errval = "Error pushing entry to global Lua table. Key was null. Value was: ";
+                                VM.push_string(key);
+                                VM.push_string(errval);
+                                //prints(key, errval);
+                                //prints(val.to_string());
+                                VM.raw_set(-3);
+                        }
+                }
                 protected void CloseLuaTable(string tableName){
                         if(tableName != null){
                                 VM.set_global (tableName);
@@ -93,22 +115,6 @@ namespace LAIR{
                                 prints("something is wrong, table name cannot be null\n");
                         }
                 }
-                //This pushes a set of coordinates into a global Lua table.
-                /*protected void PushCoordsToLuaTable(string tableName, Video.Point current){
-                        int i = 2;
-                        //if(current != null){
-                                VM.new_table ();
-                                //stdout.printf(membernames[i]);
-                                VM.push_string("x");
-                                VM.push_number (current.x);
-                                stdout.printf("x %s \n", current.x.to_string());
-                                VM.push_string("y");
-                                VM.push_number (current.y);
-                                stdout.printf("y %s \n ", current.y.to_string());
-                                VM.raw_set (((i-(i*2))*2)-1);
-                                VM.set_global (tableName);
-                        //}
-                }*/
                 protected void PushUintToLuaTable(string tablename, string varname, uint varval){
                         NewLuaTable();
                         int tmp = (int) varval;
@@ -118,7 +124,14 @@ namespace LAIR{
                         PushNamedPairToLuaTable(varname,tmp);
                         CloseLuaTable(tablename);
                 }
-
+                protected void PushStringToLuaTable(string tablename, string varname, string varval){
+                        NewLuaTable();
+                        prints("Creating new Lua table: %s. ", tablename);
+                        printns(" Containing field: %s. ", varname);
+                        printns(" of value: %s. \n", varval);
+                        PushStringPairToLuaTable(varname, varval);
+                        CloseLuaTable(tablename);
+                }
                 protected void PushCoordsToLuaTable(Video.Point current, Video.Point simplecurrent){
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", current.x);
