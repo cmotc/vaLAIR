@@ -104,12 +104,166 @@ it'll shoot for the bare minimum.
 Obviously you need to have some information about the map to be able to "decide"
 what tiles to place where. To accomplish this, every time the loop runs LAIR
 informs the Lua VM of the maps characteristics. The map generation scripts can
-then query this information to decide whether they want to place a
-
+then query this information to decide whether they want to place a new Particle
+or Mobile in a given place.
 
 ####General Information: Dungeon Generator Cursor Positon, Dimensions of Room and Floor, Coarse Count
 
+**where\_in\_floor\_get\_x:** returns the current coarse(tile) X position of the
+map generation cursor on the *whole floor*.
 
+        function where_in_floor_get_x()
+                return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
+        end
+
+**where\_in\_floor\_get\_y:** returns the current coarse(tile) Y position of the
+map generation cursor on the *whole floor*.
+
+        function where_in_floor_get_y()
+                return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
+        end
+
+**where\_in\_room\_gen\_y:** returns the current coarse(tile) X position of the
+map generation cursor on the *room containing the cursor's current position*.
+
+        function where_in_room_gen_x()
+                return generator_coarse_x.x
+        end
+
+**where\_in\_room\_gen\_y:** returns the current coarse(tile) Y position of the
+map generation cursor on the *room containing the cursor's current position*.
+
+        function where_in_room_gen_y()
+                return generator_coarse_y.y
+        end
+
+**how\_long\_room\_gen\_w:** returns the width of the rooms in coarse(tile)
+units.
+
+        function how_long_room_gen_w()
+                return generator_coarse_w.w
+        end
+
+**how\_long\_room\_gen\_h:** returns the width of the rooms in coarse(tile)
+units.
+
+        function how_long_room_gen_h()
+                return generator_coarse_h.h
+        end
+
+**what\_pixel\_is\_gen\_x:** returns the current Fine(pixel) X position of the
+map generation cursor on the *room containing the cursor's current position*.
+
+        function what_pixel_is_gen_x()
+                return generator_x.x
+        end
+
+**what\_pixel\_is\_gen\_y:** returns the current Fine(pixel) Y position of the
+map generation cursor on the *room containing the cursor's current position*.
+
+        function what_pixel_is_gen_y()
+                return generator_y.y
+        end
+
+**where\_is\_room\_corner\_x:** returns the current Coarse(tile) X position of
+the map generation cursor on the *room containing the cursor's current*
+*position*.
+
+        function where_is_room_corner_x()
+                return room_coarse_x.x
+        end
+
+**where\_is\_room\_corner\_y:** returns the current Coarse(tile) Y position of
+the map generation cursor on the *room containing the cursor's current*
+*position*.
+
+        function where_is_room_corner_y()
+                return room_coarse_y.y
+        end
+
+**where\_is\_room\_farcorner\_x:**
+
+        function where_is_room_farcorner_x()
+                return room_coarse_xw.x
+        end
+
+**where\_is\_room\_farcorner\_y:**
+
+        function where_is_room_farcorner_y()
+                return room_coarse_yh.y
+        end
+
+**where\_is\_floor\_farcorner\_x:**
+
+        function where_is_floor_farcorner_x()
+                return floor_coarse_yh.h
+        end
+
+**where\_is\_floor\_farcorner_y:**
+
+        function where_is_floor_farcorner_y()
+                return floor_coarse_w.w
+        end
+
+**what\_pixel\_is\_room\_corner\_x:**
+
+        function what_pixel_is_room_corner_x()
+                return room_x.x
+        end
+
+**what\_pixel\_is\_room\_corner\_y:**
+
+        function what_pixel_is_room_corner_y()
+                return room_y.y
+        end
+
+**what\_pixel\_is\_room\_farcorner\_x:**
+
+        function what_pixel_is_room_farcorner_x()
+                return room_xw.x
+        end
+
+**what\_pixel\_is\_room\_farcorner\_y:**
+
+        function what_pixel_is_room_farcorner_y()
+                return room_yh.y
+        end
+
+**what\_pixel\_is\_room\_farcorner\_x:**
+
+        function what_pixel_is_floor_farcorner_x()
+                return floor_h.h
+        end
+
+**what\_pixel\_is\_room\_farcorner\_y:**
+
+        function what_pixel_is_floor_farcorner_y()
+                return floor_w.w
+        end
+
+**how\_long\_room\_pixels\_w:**
+
+        function how_long_room_pixels_w()
+                return generator_w.w
+        end
+
+**how\_long\_room\_pixels\_h:**
+
+        function how_long_room_pixels_h()
+                return generator_h.h
+        end
+
+**how\_many\_particles\_so\_far:**
+
+        function how_many_particles_so_far()
+                return generator_particle_count.c
+        end
+
+**how\_many\_mobiles\_so\_far:**
+
+        function how_many_mobiles_so_far()
+                return generator_mobile_count.c
+        end
 
 ####Dynamic Variables Exported to Global Scope in Lua From Vala During Map Generation
 
