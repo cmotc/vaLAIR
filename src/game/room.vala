@@ -60,11 +60,15 @@ namespace LAIR{
                 public uint GetH(){     return Border.h;}
                 private void RegisterLuaFunctions(){
                         //
+                        //CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_index_byxy_delegate;
                         //
-                        LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
+                        //LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
+                        LuaRegister("particle_index_byxy", (CallbackFunc) particle_index_byxy);
                         //
+                        //CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_index_byxy_delegate;
                         //
-                        LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
+                        //LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
+                        LuaRegister("mobile_index_byxy", (CallbackFunc) mobile_index_byxy);
                         /*
                         Here's where I'm going to develop the Lua API for
                         manipulating rooms. I'm not entirely sure what I need
@@ -139,9 +143,13 @@ namespace LAIR{
                                 PushUintToLuaTable(count.GetName(), "c", count.GetCount());
                         }
                 }
-                private int particle_index_byxy(LuaVM vm = GetLuaVM()){
+                private CallbackFunc particle_index_byxy(LuaVM vm = this.GetLuaVM()){
+                //private int particle_index_byxy(LuaVM vm = this.GetLuaVM()){
                         int i = 0;
-                        double x = vm.to_number(1);
+                        PushStringToLuaTable("requested_data", "tags", "zzz");
+                        //PushUintToLuaTable("requested_data", "tags", 1);
+                        //PushEntityDetailsToLuaTable(Particles.nth_data(0));
+                        /*double x = vm.to_number(1);
                         double y = vm.to_number(2);
                         foreach(Entity particle in Particles){
                                 if(particle.GetX() == x){
@@ -149,17 +157,18 @@ namespace LAIR{
                                                 PushEntityDetailsToLuaTable(particle);
                                                 break;
                                         }
-                                }else{
-                                        break;
                                 }
                                 i++;
-                        }
-                        return i;
+                        }*/
+                        return (vm) => {return 0;};
                 }
-                private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_count;
-                private int mobile_index_byxy(LuaVM vm = GetLuaVM()){
+                //private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_index_byxy;
+                private CallbackFunc mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
+                //private int mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
                         int i = 0;
-                        double x = vm.to_number(1);
+                        PushStringToLuaTable("requested_data", "tags", "zzz");
+                        //PushEntityDetailsToLuaTable(Mobs.nth_data(0));
+                        /*double x = vm.to_number(1);
                         double y = vm.to_number(2);
                         foreach(Entity mob in Mobs){
                                 if(mob.GetX() == x){
@@ -167,14 +176,12 @@ namespace LAIR{
                                                 PushEntityDetailsToLuaTable(mob);
                                                 break;
                                         }
-                                }else{
-                                        break;
                                 }
                                 i++;
-                        }
-                        return i;
+                        }*/
+                        return (vm) => {return 0;};
                 }
-                private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_count;
+                //private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_index_byxy;
                 private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
                         Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                 }

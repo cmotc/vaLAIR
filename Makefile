@@ -103,6 +103,8 @@ check:
 
 install:
 	cp bin/LAIR /usr/bin/
+	cp bin/lair /usr/bin/
+	cp etc/lair/lairrc /etc/
 	mkdir -p /usr/share/lair/demo/ \
 		/usr/share/lair/lua/map
 	cp share/lair/lua/common.lua \

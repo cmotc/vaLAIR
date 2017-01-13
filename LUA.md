@@ -323,27 +323,26 @@ returns it, otherwise, returns zero.
                 end
         end
 
+####Tile-Specific Data Retrieval Functions
+
+  * **particle\_index\_byxy** : pushes the tags of any particle found at pixel
+  x, y into the Lua VM to the table requested_data.tags as a single string.
+
+  * **particle\_coarse\_index\_byxy** : pushes the tags of any particle found at
+  tile x, y into the Lua VM to the table requested_data.tags as a single string.
+
+  * **mobile\_index\_byxy** : pushes the tags of any particle found at pixel
+  x, y into the Lua VM to the table requested_data.tags as a single string.
+
+  * **mobile\_coarse\_index\_byxy** : pushes the tags of any particle found at
+  tile x, y into the Lua VM to the table requested_data.tags as a single string.
+
 ##### \*Why Tables?
 
 I'd like to say I planned this or even that I think it's inherently the best
 way, but neither of those things are true. I think it's an acceptable way, and
 that it might be useful to add things on to the tables for each variable while
 the dungeon is being generated.
-
-###Vala Functions registered with Lua for Map Generation
-
-Besides that, you need to be able to retrieve different types of information
-from the map in order to control which results your decider functions feed to
-the map generator. Damn I'm bad at explaining this, but I promise it works.
-Maybe it'll get better when I've written the first example. These functions are
-used to retrieve information from the map about it's properties and the
-properties associated with specific areas and tags. Probably more things as I
-think of them. These don't work yet but once they do all the remaining map
-generation helpers will be placed in common.lua.
-
-  * **particle\_index\_byxy** :
-
-  * **mobile\_index\_byxy** :
 
 Building Upon the Basic Functions Effectively
 ---------------------------------------------

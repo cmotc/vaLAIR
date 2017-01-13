@@ -4,20 +4,29 @@ namespace LAIR{
                 private int b = 0;
                 private List<string> tags = new List<string>();
                 public Type(){
+                        base.LLL(6, "default");
                         player = false;
                         b = 0;
                         tags = new List<string>();
                         SetType("default");
                 }
                 public Type.Blocked(){
+                        base.LLL(6, "default");
+                        b = 0;
+                        tags = new List<string>();
                         SetType("blocked");
 		}
                 public Type.Player(string name){
                         base.LLL(1, name);
+                        b = 0;
+                        tags = new List<string>();
                         SetType("blocked");
                         SetType("player");
 		}
                 public Type.Parameter(string type){
+                        base.LLL(6, "default");
+                        b = 0;
+                        tags = new List<string>();
                         SetType(type);
                         player = CheckType("player");
                         if (player) {
@@ -25,6 +34,9 @@ namespace LAIR{
                         }
                 }
                 public Type.ParameterList(List<string> types){
+                        base.LLL(6, "default");
+                        b = 0;
+                        tags = new List<string>();
                         foreach(string type in types.copy()){
                                 SetType(type);
                         }
@@ -34,11 +46,17 @@ namespace LAIR{
                         }
                 }
                 public Type.ParameterBlocked(string type){
+                        base.LLL(6, "default");
+                        b = 0;
+                        tags = new List<string>();
                         SetType("blocked");
                         SetType(type);
                         player = CheckType("player");
                 }
                 public Type.ParameterListBlocked(List<string> types){
+                        base.LLL(6, "default");
+                        b = 0;
+                        tags = new List<string>();
                         SetType("blocked");
                         foreach(string type in types.copy()){
                                 SetType(type);
@@ -93,6 +111,10 @@ namespace LAIR{
                 public unowned List<string> GetTags(){
                         unowned List<string> r = tags;
                         return r;
+                }
+                public string TagString(){
+                        string t = tags.nth_data(0);
+                        return t;
                 }
 	}
 }

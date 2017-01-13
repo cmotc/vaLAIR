@@ -6,6 +6,8 @@ dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 --The return value of this function tells the map whether it should place a new
 --particle at all.
 function map_cares_insert()
+        particle_index_byxy();
+        --print(requested_data.tags)
         result = thickwall_cares_insert()
         result = cut_hallways(result)
         result = thinwall_cares_insert(result)
@@ -22,7 +24,7 @@ end
 -- The return value of this function tells the map what sound to use to select a
 -- list of sounds by tag to create an entity.
 function map_sound_decide()
-        local decided_sound = "step"
+        local decided_sound = "footsteps"
         return decided_sound
 end
 -- The return value of this function tells the map what font to use to select a
@@ -47,7 +49,7 @@ end
 -- The return value of this function tells the map what sound to use to select
 -- a list of sound by tag to create an entity that is mobile.
 function mob_sound_decide()
-        local decided_mob_sound = "step"
+        local decided_mob_sound = "footsteps"
         return decided_mob_sound
 end
 -- The return value of this function tells the map what font to use to select

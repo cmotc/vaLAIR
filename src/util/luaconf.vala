@@ -2,7 +2,7 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaConf : Scribe{
-                private static LuaVM VM;
+                private LuaVM VM;
                 private string ScriptPath;
                 public LuaConf(string path, int lll, string name){
                         base.LLL(lll, name);
@@ -126,6 +126,7 @@ namespace LAIR{
                 }
                 protected void PushStringToLuaTable(string tablename, string varname, string varval){
                         NewLuaTable();
+                        string tmp = (string) varval;
                         prints("Creating new Lua table: %s. ", tablename);
                         printns(" Containing field: %s. ", varname);
                         printns(" of value: %s. \n", varval);
@@ -133,12 +134,7 @@ namespace LAIR{
                         CloseLuaTable(tablename);
                 }
                 protected void PushEntityDetailsToLuaTable(Entity requested){
-                        string t = "";
-                        foreach(string tag in requested.GetTags()){
-                                t += " ";
-                                t += tag;
-                        }
-                        PushStringToLuaTable("requested_data", "tags" , t);
+                        PushStringToLuaTable("requested_data", "tags" , requested.TagString());
                 }
                 protected void PushCoordsToLuaTable(Video.Point current, Video.Point simplecurrent){
                         NewLuaTable();
@@ -206,7 +202,7 @@ namespace LAIR{
                         PushNamedPairToLuaTable("y", (int) (current.y + current.y));
                         CloseLuaTable("room_yh");
                 }
-                protected LuaVM* GetLuaVM(){
+                protected unowned LuaVM GetLuaVM(){
                         return VM;
                 }
         }
