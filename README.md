@@ -13,28 +13,24 @@ not anymore.
 Installation
 ------------
 
+###Debian/Ubuntu:
+
+Now it's possible to build a .deb package and if you want, install it
+automatically. To build the .deb package(but not install), do
+
+        make deb-pkg
+
+or to install it automaticall just run it as root.
+
+        sudo make deb-pkg
+
+###Other Linux:
+
 It's just a makefile now, just running "make" in the working directory will
 build the executable in the ./bin/ directory. After that, running "sudo make
 install" will install the executable and the configuration files, or if you'd
 prefer not to install that way, you can specify the paths to the configuration
 files via the command-line flags for now:
-
-        ***********************************************************************************
-
-        <I      <I I>         <I I>      I>
-         |       | |           | |       |
-        <^^>____<^^^>_________<^^^>____<^^>
-         || L        A    IIIII RRRRR   ||
-         || L       A A     I   R    R  ||
-         || L      AAAAA    I   RRRRR   ||
-         || LLLLL A     A IIIII R    R  ||
-        <vv>___________________________<vv>
-
-        This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally
-        generated 2D survival RPG. It can be played in a wide variety of ways, as
-        everything from a coffee-break roguelike to a political strategy game. The
-        following options can be used to configure it at runtime. For more information,
-        please see the manual as soon as I finish writing it.
 
         ----------------------------
              -i : display this info
@@ -48,8 +44,6 @@ files via the command-line flags for now:
              -w : log output verbosity
              -w : screen width
              -h : screen height
-
-        ***********************************************************************************
 
 which are in the [art repository](https://github.com/cmotc/lairart), which you
 can install with make; sudo make install.

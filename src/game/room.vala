@@ -143,8 +143,9 @@ namespace LAIR{
                                 PushUintToLuaTable(count.GetName(), "c", count.GetCount());
                         }
                 }
-                private CallbackFunc particle_index_byxy(LuaVM vm = this.GetLuaVM()){
+                //private CallbackFunc particle_index_byxy(LuaVM vm = this.GetLuaVM()){
                 //private int particle_index_byxy(LuaVM vm = this.GetLuaVM()){
+                private CallbackFunc particle_index_byxy(){
                         int i = 0;
                         PushStringToLuaTable("requested_data", "tags", "zzz");
                         //PushUintToLuaTable("requested_data", "tags", 1);
@@ -163,7 +164,8 @@ namespace LAIR{
                         return (vm) => {return 0;};
                 }
                 //private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_index_byxy;
-                private CallbackFunc mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
+                //private CallbackFunc mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
+                private CallbackFunc mobile_index_byxy() {
                 //private int mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
                         int i = 0;
                         PushStringToLuaTable("requested_data", "tags", "zzz");
