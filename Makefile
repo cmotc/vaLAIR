@@ -90,7 +90,7 @@ unlog:
 		bin/*err
 
 clean:
-	rm -f bin/LAIR
+	rm -f bin/LAIR *.tgz *.deb
 	make unlog
 
 check:

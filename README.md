@@ -123,7 +123,7 @@ to do:
     server.
   * I'm sure that there's more but I'll have to come to that.
   * Make More Art! digitalAndy is making this alot easier.
-  * Add a few features to digitalAndy: Trianges. Adjustable Sizes. Final images
+  * Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
   Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
     - Can work-around many shortcomings of digitalAndy with imageMagick. Maybe
     it should become part of a toolchain for procedural pixel art.
