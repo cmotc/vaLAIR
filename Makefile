@@ -118,3 +118,6 @@ install:
 		/usr/share/lair/demo/
 	chmod -R a+r /usr/share/lair
 
+deb-pkg:
+	make
+	checkinstall
