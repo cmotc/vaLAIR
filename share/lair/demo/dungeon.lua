@@ -6,7 +6,7 @@ dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 --The return value of this function tells the map whether it should place a new
 --particle at all.
 function map_cares_insert()
-        particle_index_byxy();
+        particle_index_byxy(32, 32);
         --print(requested_data.tags)
         result = thickwall_cares_insert()
         result = cut_hallways(result)

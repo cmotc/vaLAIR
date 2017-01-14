@@ -42,6 +42,19 @@ namespace LAIR{
                         }
                         return tr;
                 }
+                //protected Video.Point
+                protected int GetNumber(int index, string name=null){
+                        int r = -1;
+                        if(name != null){
+                                VM.get_global(name);
+                        }
+                        if(VM.is_number(index)){
+                                r = (int) VM.to_number(index);
+                        }else{
+                                r = -1;
+                        }
+                        return r;
+                }
                 protected void LuaRegister(string name, CallbackFunc f){
                         VM.register(name, f);
                 }
@@ -52,23 +65,6 @@ namespace LAIR{
                         tmp += function;
                         VM.do_string(tmp);
                 }
-                //This pushes a series of key-value pairs into a global Lua table.
-                /*protected void PushNamedPairToLuaTable(string tableName, string[] membernames, int[] members){
-                        int i = 0;
-                        if(membernames.length == members.length){
-                                //int max = membernames.length - 1;
-                                VM.new_table ();
-                                foreach(int member in members) {
-                                        stdout.printf(" %s ", membernames[i]);
-                                        stdout.printf(" %s \n", members[i].to_string());
-                                        VM.push_string(membernames[i]);
-                                        VM.push_number (member);
-                                        i++;
-                                }
-                                VM.raw_set (((i-(i*2))*2)-1);
-                                VM.set_global (tableName);
-                        }
-                }*/
                 protected void NewLuaTable(){
                         VM.new_table();
                 }
@@ -124,17 +120,10 @@ namespace LAIR{
                         PushNamedPairToLuaTable(varname,tmp);
                         CloseLuaTable(tablename);
                 }
-                protected void PushStringToLuaTable(string tablename, string varname, string varval){
-                        NewLuaTable();
-                        string tmp = (string) varval;
-                        prints("Creating new Lua table: %s. ", tablename);
-                        printns(" Containing field: %s. ", varname);
-                        printns(" of value: %s. \n", varval);
-                        PushStringPairToLuaTable(varname, varval);
-                        CloseLuaTable(tablename);
-                }
                 protected void PushEntityDetailsToLuaTable(Entity requested){
-                        PushStringToLuaTable("requested_data", "tags" , requested.TagString());
+                        NewLuaTable();
+                        PushStringPairToLuaTable("tags" , requested.TagString());
+                        CloseLuaTable("requested_data");
                 }
                 protected void PushCoordsToLuaTable(Video.Point current, Video.Point simplecurrent){
                         NewLuaTable();

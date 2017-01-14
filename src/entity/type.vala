@@ -113,8 +113,12 @@ namespace LAIR{
                         return r;
                 }
                 public string TagString(){
-                        string t = tags.nth_data(0);
-                        return t;
+                        string r = "";
+                        foreach(string i in tags.copy()){
+                                r += i;
+                                r += " ";
+                        }
+                        return r;
                 }
 	}
 }

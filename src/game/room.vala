@@ -145,14 +145,19 @@ namespace LAIR{
                 }
                 //private CallbackFunc particle_index_byxy(LuaVM vm = this.GetLuaVM()){
                 //private int particle_index_byxy(LuaVM vm = this.GetLuaVM()){
-                private CallbackFunc particle_index_byxy(){
+                private CallbackFunc particle_index_byxy(double ekkks, double whyyy){
                         int i = 0;
-                        prints("\n\ncalling particle index lookup\n\n");
+                        //prints("\n\ncalling particle index lookup\n\n");
+                        //PushEntityDetailsToLuaTable(Particles.nth_data(0));
                         //PushStringToLuaTable("requested_data", "tags", "zzz");
                         //PushUintToLuaTable("requested_data", "tags", 1);
-                        //PushEntityDetailsToLuaTable(Particles.nth_data(0));
-                        /*double x = vm.to_number(1);
-                        double y = vm.to_number(2);
+                        double x = GetNumber(1);
+                        //double y = GetNumber(2);
+                        stdout.printf("x: %s \n", x.to_string());
+                        stdout.printf("x: %s \n", ekkks.to_string());
+                        //double x = GetNumber(1);
+                        //stdout.printf("y: %s \n", y.to_string());
+                        /*
                         foreach(Entity particle in Particles){
                                 if(particle.GetX() == x){
                                         if(particle.GetY() == y){
@@ -166,14 +171,18 @@ namespace LAIR{
                 }
                 //private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_index_byxy;
                 //private CallbackFunc mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
-                private CallbackFunc mobile_index_byxy() {
+                private CallbackFunc mobile_index_byxy(double ekkks, double whyyy) {
                 //private int mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
                         int i = 0;
-                        prints("\n\ncalling mobile index lookup\n\n");
+                        //prints("\n\ncalling mobile index lookup\n\n");
                         //PushStringToLuaTable("requested_data", "tags", "zzz");
                         //PushEntityDetailsToLuaTable(Mobs.nth_data(0));
-                        /*double x = vm.to_number(1);
-                        double y = vm.to_number(2);
+                        double x = GetNumber(1, "passed_x");
+                        //double x = GetNumber(1);
+                        //double y = GetLuaVM().to_number(2);
+                        prints("x: %s", x.to_string());
+                        //prints("y: %s \n", y.to_string());
+                        /*
                         foreach(Entity mob in Mobs){
                                 if(mob.GetX() == x){
                                         if(mob.GetY() == y){

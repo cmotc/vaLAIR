@@ -41,7 +41,7 @@ files via the command-line flags for now:
              -c : path to map generation script
              -e : path to character generation script
              -a : path to ai library script
-             -w : log output verbosity
+             -v : log output verbosity
              -w : screen width
              -h : screen height
 
