@@ -91,6 +91,71 @@ function how_many_mobiles_so_far()
         return generator_mobile_count.c
 end
 
+function get_map_savepath()
+        local home = os.getenv("HOME")
+        local map = home .. "/.config/lair/map_table.lua"
+        return map
+end
+function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
+
+function reload_map()
+        if file_exists(get_map_savepath()) then
+                print("re-loading map" .. get_map_savepath() .. "\n")
+                dofile(get_map_savepath())
+                print(tostring(cell))
+        end
+end
+function stringup_cell(variable)
+        local member = tostring(variable)
+        local table = "cell"
+        local key = tostring(what_pixel_is_gen_x()) .. "_" .. tostring(what_pixel_is_gen_y())
+        local command = table .. "[\"" .. key .. "\"] = \"" .. member .. "\"\n"
+        return command
+end
+function delete_old_map()
+        if file_exists(get_map_savepath()) then
+                os.remove(get_map_savepath())
+        end
+end
+function setup_new_map()
+        if file_exists(get_map_savepath()) == false then
+                file = io.open(get_map_savepath(), "a")
+                file:write("cell = {}\n")
+                file:close()
+        end
+end
+function record_cell(variable)
+        --print(tostring(variable))
+        setup_new_map()
+        local local_table = stringup_cell(variable)
+        file = io.open(get_map_savepath(), "a")
+        file:write(local_table)
+        file:close()
+end
+
+function particle_index_byxy(xx, yy)
+        local cell_index = tostring(xx) .. "_" .. tostring(yy)
+        if type(cell) == "table" then
+                print("cell table present")
+                if cell[cell_index] ~= "nil" then
+                        print(cell_index)
+                        print(cell[cell_index])
+                else
+                        print("Cell member not present " .. cell_index)
+                        for key, value in pairs(cell) do
+                                io.write(key .. " " .. value .. " : ")
+                        end
+                        print("")
+                end
+        else
+                print("cell table not present")
+        end
+end
+--function particle_index_by
+
 function print_general_props()
         print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
         print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")

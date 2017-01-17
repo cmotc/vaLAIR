@@ -88,9 +88,13 @@ unlog:
 		*err \
 		bin/*log \
 		bin/*err
+debclean:
+	rm -f *.tgz *.deb
+	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
-	rm -f bin/LAIR *.tgz *.deb
+	rm -f bin/LAIR
+	make debclean
 	make unlog
 
 check:
@@ -106,7 +110,7 @@ install:
 	cp bin/lair /usr/bin/
 	cp etc/lair/lairrc /etc/
 	mkdir -p /usr/share/lair/demo/ \
-		/usr/share/lair/lua/map
+		/usr/share/lair/lua/map/
 	cp share/lair/lua/common.lua \
 		/usr/share/lair/lua/
 	cp share/lair/lua/map/cut_hallways.lua \
@@ -117,7 +121,12 @@ install:
 		share/lair/demo/ai.lua \
 		/usr/share/lair/demo/
 	chmod -R a+r /usr/share/lair
+	#chown -R /var/cache/lair/map/
 
 deb-pkg:
 	make
-	checkinstall
+	checkinstall --deldoc=yes -Dy
+
+rpm-pkg:
+	make
+	checkinstall --deldoc=yes --delspec=yes -Ry

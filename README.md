@@ -130,4 +130,3 @@ to do:
     - Port digitalAndy to Android with a simple pixel-painting interface capable
     of outputting a configuration file for PC digitalAndy as well as a script.
     Do it to learn Android app development in Go.
-  * Configuration with Environment Variables as well as Flags and Files.

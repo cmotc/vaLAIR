@@ -16,7 +16,8 @@ namespace LAIR{
                         SetName("room ("+HitBoxToString()+"): ");
                         prints("generating room\n");
                         GameMaster = DM;
-                        RegisterLuaFunctions();
+                        //RegisterLuaFunctions();
+                        PushDimsToLuaTable(GetHitBox());
                         GenerateStructure(2, renderer);
 		}
                 public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
@@ -26,7 +27,8 @@ namespace LAIR{
                         SetName("room ("+HitBoxToString()+"): ");
                         prints("generating room with player\n");
                         GameMaster = DM;
-                        RegisterLuaFunctions();
+                        //RegisterLuaFunctions();
+                        PushDimsToLuaTable(GetHitBox());
                         GenerateStructure(2, renderer);
                         EnterRoom(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.BodyByTone("med"), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
 		}
@@ -63,12 +65,12 @@ namespace LAIR{
                         //CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_index_byxy_delegate;
                         //
                         //LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
-                        LuaRegister("particle_index_byxy", (CallbackFunc) particle_index_byxy);
+                        //LuaRegister("particle_index_byxy", (CallbackFunc) particle_index_byxy);
                         //
                         //CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_index_byxy_delegate;
                         //
                         //LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
-                        LuaRegister("mobile_index_byxy", (CallbackFunc) mobile_index_byxy);
+                        //LuaRegister("mobile_index_byxy", (CallbackFunc) mobile_index_byxy);
                         /*
                         Here's where I'm going to develop the Lua API for
                         manipulating rooms. I'm not entirely sure what I need
@@ -143,58 +145,6 @@ namespace LAIR{
                                 PushUintToLuaTable(count.GetName(), "c", count.GetCount());
                         }
                 }
-                //private CallbackFunc particle_index_byxy(LuaVM vm = this.GetLuaVM()){
-                //private int particle_index_byxy(LuaVM vm = this.GetLuaVM()){
-                private CallbackFunc particle_index_byxy(double ekkks, double whyyy){
-                        int i = 0;
-                        //prints("\n\ncalling particle index lookup\n\n");
-                        //PushEntityDetailsToLuaTable(Particles.nth_data(0));
-                        //PushStringToLuaTable("requested_data", "tags", "zzz");
-                        //PushUintToLuaTable("requested_data", "tags", 1);
-                        double x = GetNumber(1);
-                        //double y = GetNumber(2);
-                        stdout.printf("x: %s \n", x.to_string());
-                        stdout.printf("x: %s \n", ekkks.to_string());
-                        //double x = GetNumber(1);
-                        //stdout.printf("y: %s \n", y.to_string());
-                        /*
-                        foreach(Entity particle in Particles){
-                                if(particle.GetX() == x){
-                                        if(particle.GetY() == y){
-                                                PushEntityDetailsToLuaTable(particle);
-                                                break;
-                                        }
-                                }
-                                i++;
-                        }*/
-                        return (vm) => {return 0;};
-                }
-                //private CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_index_byxy;
-                //private CallbackFunc mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
-                private CallbackFunc mobile_index_byxy(double ekkks, double whyyy) {
-                //private int mobile_index_byxy(LuaVM vm = this.GetLuaVM()){
-                        int i = 0;
-                        //prints("\n\ncalling mobile index lookup\n\n");
-                        //PushStringToLuaTable("requested_data", "tags", "zzz");
-                        //PushEntityDetailsToLuaTable(Mobs.nth_data(0));
-                        double x = GetNumber(1, "passed_x");
-                        //double x = GetNumber(1);
-                        //double y = GetLuaVM().to_number(2);
-                        prints("x: %s", x.to_string());
-                        //prints("y: %s \n", y.to_string());
-                        /*
-                        foreach(Entity mob in Mobs){
-                                if(mob.GetX() == x){
-                                        if(mob.GetY() == y){
-                                                PushEntityDetailsToLuaTable(mob);
-                                                break;
-                                        }
-                                }
-                                i++;
-                        }*/
-                        return (vm) => {return 0;};
-                }
-                //private CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_index_byxy;
                 private void GenerateFloorTile(Video.Point coords, Video.Renderer* renderer){
                         Particles.append(new Entity(coords, GameMaster.ImageByName("floor"), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                 }
@@ -332,6 +282,11 @@ namespace LAIR{
                                 Video.Point brc = Video.Point(){ x = (int)(t.GetHitBox().x + t.GetHitBox().w),
                                         y = (int)(t.GetHitBox().y + t.GetHitBox().h) };
                                 bool BRightCorner = InRange( brc, GetHitBox());
+
+                                //TLeftCorner = GetHitBox().contains(tlc);
+                                //TRightCorner = GetHitBox().contains(trc);
+                                //BLeftCorner = GetHitBox().contains(blc);
+                                //BRightCorner = GetHitBox().contains( brc);
                                 if (TLeftCorner){
                                         r = true;
                                 }
@@ -392,6 +347,7 @@ namespace LAIR{
                                         //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
                                         //Particles.append(new Entity.Blocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer));
                                         Particles.append(new Entity.ParameterListBlocked(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.GetRandFont(), renderer, imgTags));
+                                        LuaDoFunction("record_cell(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}
                 }
@@ -401,6 +357,7 @@ namespace LAIR{
                                         //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
                                         //Mobs.append(new Entity(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
                                         Mobs.append(new Entity.ParameterList(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer, imgTags));
+                                        LuaDoFunction("record_cell(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}
                 }

@@ -10,8 +10,8 @@ namespace LAIR{
                         VM.open_libs();
                         ScriptPath = path;
                         prints("Loading a dungeon generator script: %s\n", ScriptPath);
-                        VM.do_file(ScriptPath);
-                        printc(GetLuaLastReturn().nth_data(0), "\n");
+                        LuaDoFile(ScriptPath);
+                        //printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
                 private void LuaDoFile(string file){
                         VM.do_file(file);
@@ -41,19 +41,6 @@ namespace LAIR{
                                 }
                         }
                         return tr;
-                }
-                //protected Video.Point
-                protected int GetNumber(int index, string name=null){
-                        int r = -1;
-                        if(name != null){
-                                VM.get_global(name);
-                        }
-                        if(VM.is_number(index)){
-                                r = (int) VM.to_number(index);
-                        }else{
-                                r = -1;
-                        }
-                        return r;
                 }
                 protected void LuaRegister(string name, CallbackFunc f){
                         VM.register(name, f);
