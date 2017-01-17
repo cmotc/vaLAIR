@@ -145,7 +145,7 @@ function particle_index_byxy(xx, yy)
                 if cell[cell_index] ~= "nil" then
                         print(cell_index)
                         print(cell[cell_index])
-                        r = cell[cell_index]
+                        r = tostring(cell[cell_index)
                 else
                         print("Cell member not present " .. cell_index)
                         for key, value in pairs(cell) do
@@ -167,7 +167,7 @@ function mobile_index_byxy(xx, yy)
                 if cell[cell_index] ~= "nil" then
                         print(cell_index)
                         print(cell[cell_index])
-                        r = cell[cell_index]
+                        r = tostring(cell[cell_index)
                 else
                         print("Cell member not present " .. cell_index)
                         for key, value in pairs(cell) do
