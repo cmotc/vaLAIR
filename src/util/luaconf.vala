@@ -27,8 +27,8 @@ namespace LAIR{
                                 tmp += word;
                                 VM.pop(1);
                         }else if(VM.is_boolean(-1)){
-                                string word = VM.to_string(-1);
-                                tmp += word;
+                                bool word = VM.to_boolean(-1);
+                                tmp += word.to_string();
                                 VM.pop(1);
                         }
                         //prints(" %s \n", tmp);

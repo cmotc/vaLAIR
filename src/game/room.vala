@@ -357,7 +357,7 @@ namespace LAIR{
                                         //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
                                         //Mobs.append(new Entity(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer));
                                         Mobs.append(new Entity.ParameterList(coords, GameMaster.ImageByName(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.GetRandFont(), renderer, imgTags));
-                                        LuaDoFunction("record_cell(\"" + imgTags.nth_data(0) + "\")");
+                                        LuaDoFunction("record_mobile(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}
                 }

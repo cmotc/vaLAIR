@@ -53,21 +53,21 @@ a dungeon generation script must contain the following 8 functions.
 
 ####User-Defined Lua Functions Selecting Particle Entities
 
-  * **map\_cares\_insert()** : \[ *Returns: bool* \] This determines whether the map
+  * **map\_cares\_insert:()**  \[ *Returns: bool* \] This determines whether the map
   is going to bother to insert a Particle in this square whatsoever. If the
   value is false, then none of the other selection functions will be run for
   that Particle.
-  * **map\_image\_decide()** : \[ *Returns: Array of Strings* \] This determines what
+  * **map\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new particle should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random image with all the tags will be
   retrieved.
-  * **map\_sound\_decide()** : \[ *Returns: Array of Strings* \] This determines what
+  * **map\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the sound selected for the new particle should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random sound with all the tags will be
   retrieved.
-  * **map\_fonts\_decide()** : \[ *Returns: Array of Strings* \] This determines what
+  * **map\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the font selected for the new particle should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random font with all the tags will be
@@ -75,21 +75,21 @@ a dungeon generation script must contain the following 8 functions.
 
 ####User-Defined Lua Functions Selecting Mobile Entities
 
-  * **mob\_cares\_insert()** : \[ *Returns: bool* \] This determines whether the map
+  * **mob\_cares\_insert:()**  \[ *Returns: bool* \] This determines whether the map
   is going to bother to insert a Mobile in this square whatsoever. If the value
   is false, then none of the other selection functions will be run for that
   Mobile.
-  * **mob\_image\_decide()** : \[ *Returns: Array of Strings* \] This determines what
+  * **mob\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new mobile should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random image with all the tags will be
   retrieved.
-  * **mob\_sound\_decide()** : \[ *Returns: Array of Strings* \] This determines what
+  * **mob\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new mobile should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random image with all the tags will be
   retrieved.
-  * **mob\_fonts\_decide()** : \[ *Returns: Array of Strings* \] This determines what
+  * **mob\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new mobile should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random image with all the tags will be
@@ -109,63 +109,63 @@ or Mobile in a given place.
 
 ####General Information: Dungeon Generator Cursor Positon, Dimensions of Room and Floor, Coarse Count
 
-**where\_in\_floor\_get\_x:** returns the current coarse(tile) X position of the
+**where\_in\_floor\_get\_x():** returns the current coarse(tile) X position of the
 map generation cursor on the *whole floor*.
 
         function where_in_floor_get_x()
                 return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
         end
 
-**where\_in\_floor\_get\_y:** returns the current coarse(tile) Y position of the
+**where\_in\_floor\_get\_y():** returns the current coarse(tile) Y position of the
 map generation cursor on the *whole floor*.
 
         function where_in_floor_get_y()
                 return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
         end
 
-**where\_in\_room\_gen\_y:** returns the current coarse(tile) X position of the
+**where\_in\_room\_gen\_y():** returns the current coarse(tile) X position of the
 map generation cursor on the *room containing the cursor's current position*.
 
         function where_in_room_gen_x()
                 return generator_coarse_x.x
         end
 
-**where\_in\_room\_gen\_y:** returns the current coarse(tile) Y position of the
+**where\_in\_room\_gen\_y():** returns the current coarse(tile) Y position of the
 map generation cursor on the *room containing the cursor's current position*.
 
         function where_in_room_gen_y()
                 return generator_coarse_y.y
         end
 
-**how\_long\_room\_gen\_w:** returns the width of the rooms in coarse(tile)
+**how\_long\_room\_gen\_w():** returns the width of the rooms in coarse(tile)
 units.
 
         function how_long_room_gen_w()
                 return generator_coarse_w.w
         end
 
-**how\_long\_room\_gen\_h:** returns the width of the rooms in coarse(tile)
+**how\_long\_room\_gen\_h():** returns the width of the rooms in coarse(tile)
 units.
 
         function how_long_room_gen_h()
                 return generator_coarse_h.h
         end
 
-**what\_pixel\_is\_gen\_x:** returns the current Fine(pixel) X position of the
+**what\_pixel\_is\_gen\_x():** returns the current Fine(pixel) X position of the
 map generation cursor on the *room containing the cursor's current position*.
 
         function what_pixel_is_gen_x()
                 return generator_x.x
         end
 
-**what\_pixel\_is\_gen\_y:** returns the current Fine(pixel) Y position of the
+**what\_pixel\_is\_gen\_y():** returns the current Fine(pixel) Y position of the
 map generation cursor on the *room containing the cursor's current position*.
 
         function what_pixel_is_gen_y()
                 return generator_y.y
         end
 
-**where\_is\_room\_corner\_x:** returns the current Coarse(tile) X position of
+**where\_is\_room\_corner\_x():** returns the current Coarse(tile) X position of
 the room corner on the *room containing the cursor's current*
 *position*.
 
@@ -173,7 +173,7 @@ the room corner on the *room containing the cursor's current*
                 return room_coarse_x.x
         end
 
-**where\_is\_room\_corner\_y:** returns the current Coarse(tile) Y position of
+**where\_is\_room\_corner\_y():** returns the current Coarse(tile) Y position of
 the room corner on the *room containing the cursor's current*
 *position*.
 
@@ -181,7 +181,7 @@ the room corner on the *room containing the cursor's current*
                 return room_coarse_y.y
         end
 
-**where\_is\_room\_farcorner\_x:** returns the current Coarse(tile) Y position
+**where\_is\_room\_farcorner\_x():** returns the current Coarse(tile) Y position
 of the room far corner on the *room containing the cursor's current*
 *position*.
 
@@ -189,7 +189,7 @@ of the room far corner on the *room containing the cursor's current*
                 return room_coarse_xw.x
         end
 
-**where\_is\_room\_farcorner\_y:** returns the current Coarse(tile) Y position
+**where\_is\_room\_farcorner\_y():** returns the current Coarse(tile) Y position
 of the room far corner on the *room containing the cursor's current*
 *position*.
 
@@ -197,21 +197,21 @@ of the room far corner on the *room containing the cursor's current*
                 return room_coarse_yh.y
         end
 
-**where\_is\_floor\_farcorner\_x:** returns the current Coarse(tile) X position
+**where\_is\_floor\_farcorner\_x():** returns the current Coarse(tile) X position
 of the room far corner on the *whole floor*.
 
         function where_is_floor_farcorner_x()
                 return floor_coarse_yh.h
         end
 
-**where\_is\_floor\_farcorner_y:** returns the current Coarse(tile) Y position
+**where\_is\_floor\_farcorner_y():** returns the current Coarse(tile) Y position
 of the room far corner on the *whole floor*.
 
         function where_is_floor_farcorner_y()
                 return floor_coarse_w.w
         end
 
-**what\_pixel\_is\_room\_corner\_x:** returns the current Fine(pixel) X
+**what\_pixel\_is\_room\_corner\_x():** returns the current Fine(pixel) X
 position of the room corner on the *room containing the cursor's*
 *current position*.
 
@@ -219,7 +219,7 @@ position of the room corner on the *room containing the cursor's*
                 return room_x.x
         end
 
-**what\_pixel\_is\_room\_corner\_y:** returns the current Fine(pixel) Y
+**what\_pixel\_is\_room\_corner\_y():** returns the current Fine(pixel) Y
 position of the room corner on the *room containing the cursor's*
 *current position*.
 
@@ -227,7 +227,7 @@ position of the room corner on the *room containing the cursor's*
                 return room_y.y
         end
 
-**what\_pixel\_is\_room\_farcorner\_x:** returns the current Fine(pixel) X
+**what\_pixel\_is\_room\_farcorner\_x():** returns the current Fine(pixel) X
 position of the room far corner on the *room containing the cursor's*
 *current position*.
 
@@ -235,7 +235,7 @@ position of the room far corner on the *room containing the cursor's*
                 return room_xw.x
         end
 
-**what\_pixel\_is\_room\_farcorner\_y:** returns the current Fine(pixel) Y
+**what\_pixel\_is\_room\_farcorner\_y():** returns the current Fine(pixel) Y
 position of the room far corner on the *room containing the cursor's*
 *current position*.
 
@@ -243,7 +243,7 @@ position of the room far corner on the *room containing the cursor's*
                 return room_yh.y
         end
 
-**what\_pixel\_is\_floor\_farcorner\_x:** returns the current Fine(pixel) X
+**what\_pixel\_is\_floor\_farcorner\_x():** returns the current Fine(pixel) X
 position of the floor far corner on the *room containing the cursor's*
 *current position*.
 
@@ -251,7 +251,7 @@ position of the floor far corner on the *room containing the cursor's*
                 return floor_h.h
         end
 
-**what\_pixel\_is\_floor\_farcorner\_y:** returns the current Fine(pixel) Y
+**what\_pixel\_is\_floor\_farcorner\_y():** returns the current Fine(pixel) Y
 position of the floor far corner on the *room containing the cursor's*
 *current position*.
 
@@ -259,28 +259,28 @@ position of the floor far corner on the *room containing the cursor's*
                 return floor_w.w
         end
 
-**how\_long\_room\_pixels\_w:** returns the Fine(pixel) X length of the *room*
+**how\_long\_room\_pixels\_w():** returns the Fine(pixel) X length of the *room*
 *containing the cursor's current position*.
 
         function how_long_room_pixels_w()
                 return generator_w.w
         end
 
-**how\_long\_room\_pixels\_h:** returns the Fine(pixel) Y length of the *room*
+**how\_long\_room\_pixels\_h():** returns the Fine(pixel) Y length of the *room*
 *containing the cursor's current position*.
 
         function how_long_room_pixels_h()
                 return generator_h.h
         end
 
-**how\_many\_particles\_so\_far:** returns the total count of particles already
+**how\_many\_particles\_so\_far():** returns the total count of particles already
 placed in the *room containing the cursor's current position*.
 
         function how_many_particles_so_far()
                 return generator_particle_count.c
         end
 
-**how\_many\_mobiles\_so\_far:** returns the total count of particles already
+**how\_many\_mobiles\_so\_far():** returns the total count of particles already
 placed in the *room containing the cursor's current position*.
 
         function how_many_mobiles_so_far()
@@ -301,7 +301,7 @@ first checking if they are *nil*. An invalid script will result in an empty or
 malfunctioning dungeon. To help keep this from happening, I recommend using
 the accessor functions
 
-**get\_tag\_count:** checks for the existence of a table and if it exists,
+**get\_tag\_count():** checks for the existence of a table and if it exists,
 returns it, otherwise, returns entry "*c*," for count.
 
         function get_tag_count(variable)
@@ -312,7 +312,7 @@ returns it, otherwise, returns entry "*c*," for count.
                 end
         end
 
-**get\_tag\_table:** checks for the existence of a table and if it exists,
+**get\_tag\_table():** checks for the existence of a table and if it exists,
 returns it, otherwise, returns zero.
 
         function get_tag_table(variable)
@@ -325,16 +325,16 @@ returns it, otherwise, returns zero.
 
 ####Tile-Specific Data Retrieval Functions
 
-  * **particle\_index\_byxy** : pushes the tags of any particle found at pixel
+  * **particle\_index\_byxy():** pushes the tags of any particle found at pixel
   x, y into the Lua VM to the table requested_data.tags as a single string.
 
-  * **particle\_coarse\_index\_byxy** : pushes the tags of any particle found at
+  * **particle\_coarse\_index\_byxy():** pushes the tags of any particle found at
   tile x, y into the Lua VM to the table requested_data.tags as a single string.
 
-  * **mobile\_index\_byxy** : pushes the tags of any particle found at pixel
+  * **mobile\_index\_byxy():** pushes the tags of any particle found at pixel
   x, y into the Lua VM to the table requested_data.tags as a single string.
 
-  * **mobile\_coarse\_index\_byxy** : pushes the tags of any particle found at
+  * **mobile\_coarse\_index\_byxy():** pushes the tags of any particle found at
   tile x, y into the Lua VM to the table requested_data.tags as a single string.
 
 ##### \*Why Tables?
@@ -407,10 +407,6 @@ leaving a vast empty space between. Minimal demo map achieved.
 
 Current Limitations
 -------------------
-
-The programming interface will be as complete as required when it's possible to
-get a single particle's tags from Lua indiscriminate of the cursor's current
-position.
 
 Because the map generator currently works from left to right, then from top to
 bottom, and because by definition all the information that the map can recieve

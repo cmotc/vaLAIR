@@ -105,14 +105,8 @@ I've been making some unsatisfying version or other of this for so long that
 it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
-  * Implement Lua API for configuring maps and write a complete demo dungeon.
-    - Now much more fine-grained detail is available from Lua during Map
-    Generation. Every time a new entity is generated, a running total of all
-    the tags associated with the map is updated, giving you a high-level
-    overview of the properties of each room.
-    -Documenting this stuff as I get it working is going to be really important,
-    especially because once it works coarse dungeon generation will be removed
-    entirely.
+  * Maps are working and generator can be extended in pure Lua rather than in
+  Vala.
   * Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
   * Write some example AI scripts
