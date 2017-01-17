@@ -184,16 +184,14 @@ end
 function particle_index_by_coarse_xy(xx, yy)
         xxx = xx /32
         yyy = yy /32
-        particle_index_byxy()
+        particle_index_byxy(xxx,yyy)
 end
 
 function mobile_index_by_coarse_xy(xx, yy)
         xxx = xx /32
         yyy = yy /32
-        mobile_index_byxy()
+        mobile_index_byxy(xxx,yyy)
 end
-
---function particle_index_by
 
 function print_general_props()
         print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
