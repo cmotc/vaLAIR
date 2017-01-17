@@ -60,28 +60,6 @@ namespace LAIR{
                 }
                 public uint GetW(){     return Border.w;}
                 public uint GetH(){     return Border.h;}
-                private void RegisterLuaFunctions(){
-                        //
-                        //CallbackFunc particle_index_byxy_delegate = (CallbackFunc) particle_index_byxy_delegate;
-                        //
-                        //LuaRegister("particle_index_byxy", particle_index_byxy_delegate);
-                        //LuaRegister("particle_index_byxy", (CallbackFunc) particle_index_byxy);
-                        //
-                        //CallbackFunc mobile_index_byxy_delegate = (CallbackFunc) mobile_index_byxy_delegate;
-                        //
-                        //LuaRegister("mobile_index_byxy", mobile_index_byxy_delegate);
-                        //LuaRegister("mobile_index_byxy", (CallbackFunc) mobile_index_byxy);
-                        /*
-                        Here's where I'm going to develop the Lua API for
-                        manipulating rooms. I'm not entirely sure what I need
-                        here besides particle count and mobile count, but I also
-                        know that I'll need ways to look up the tiles by their
-                        coordinates and make the Lua VM aware of the
-                        environment. Noteynoteynotes.
-                        */
-                        PushDimsToLuaTable(GetHitBox());
-                }
-                //private void GeneratorPushXYToLua(int x, int y){
                 private void GeneratorPushXYToLua(Video.Point current, Video.Point simplecurrent){
                         PushCoordsToLuaTable(current, simplecurrent);
                         particle_count();
