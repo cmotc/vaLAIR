@@ -325,16 +325,16 @@ returns it, otherwise, returns zero.
 
 ####Tile-Specific Data Retrieval Functions
 
-  * **particle\_index\_byxy():** pushes the tags of any particle found at pixel
+  * **particle\_index\_byxy(x, y):** pushes the tags of any particle found at pixel
   x, y into the Lua VM to the table requested_data.tags as a single string.
 
-  * **particle\_coarse\_index\_byxy():** pushes the tags of any particle found at
+  * **particle\_coarse\_index\_byxy(x, y):** pushes the tags of any particle found at
   tile x, y into the Lua VM to the table requested_data.tags as a single string.
 
-  * **mobile\_index\_byxy():** pushes the tags of any particle found at pixel
+  * **mobile\_index\_byxy(x, y):** pushes the tags of any particle found at pixel
   x, y into the Lua VM to the table requested_data.tags as a single string.
 
-  * **mobile\_coarse\_index\_byxy():** pushes the tags of any particle found at
+  * **mobile\_coarse\_index\_byxy(x, y):** pushes the tags of any particle found at
   tile x, y into the Lua VM to the table requested_data.tags as a single string.
 
 ##### \*Why Tables?
