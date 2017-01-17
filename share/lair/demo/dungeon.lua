@@ -1,47 +1,18 @@
 --
 dofile("/usr/share/lair/lua/common.lua")
+dofile("/usr/share/lair/lua/map/basicwall_cares_insert.lua")
+dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 
---
+--The return value of this function tells the map whether it should place a new
+--particle at all.
+
 function map_cares_insert()
-        local decided_to = "false"
-        --print_general_props()
-        if where_in_room_gen_x() < 3 then
-                decided_to="true"
-        end
-        --[[if where_in_room_gen_x() > where_is_room_farcorner_x()- 3 then
-                decided_to="true"
-        end]]
-        if where_in_room_gen_y() < 3 then
-                decided_to="true"
-        end
-        --[[if where_in_room_gen_y() > where_is_room_farcorner_y() - 3 then
-                decided_to="true"
-        end]]
-        if where_in_room_gen_x() > 5 then
-                if where_in_room_gen_x() < 9 then
-                        print("x " .. where_in_room_gen_x() .. " " .. 5 .. " " .. 9)
-                        decided_to="false"
-                end
-        end
-        if where_in_room_gen_y() > 5 then
-                if where_in_room_gen_y() < 9 then
-                        print("y " .. where_in_room_gen_y() .. " " .. 5 .. " " .. 9)
-                        decided_to="false"
-                end
-        end
-        if where_in_floor_get_x() < 2 then
-                decided_to="true"
-        end
-        if where_in_floor_get_y() < 2 then
-                decided_to="true"
-        end
-        if where_in_floor_get_x() > where_is_floor_farcorner_x() - 2 then
-                decided_to="true"
-        end
-        if where_in_floor_get_y() > where_is_floor_farcorner_y() - 2 then
-                decided_to="true"
-        end
-        return decided_to
+        reload_map()
+        particle_index_byxy(0, 0)
+        result = thickwall_cares_insert()
+        result = cut_hallways(result)
+        result = thinwall_cares_insert(result)
+        return result
 end
 -- The return value of this function tells the map what image to use to select
 -- a list of surfaces by tag to create an entity. It's not as complicated as it
@@ -54,7 +25,7 @@ end
 -- The return value of this function tells the map what sound to use to select a
 -- list of sounds by tag to create an entity.
 function map_sound_decide()
-        local decided_sound = "step"
+        local decided_sound = "footsteps"
         return decided_sound
 end
 -- The return value of this function tells the map what font to use to select a
@@ -64,7 +35,8 @@ function map_fonts_decide()
         return decided_font
 end
 
---
+--The return value of this function tells the map whether it should place a new
+--mobile at all.
 function mob_cares_insert()
         local decided_to = "false"
         return decided_to
@@ -78,7 +50,7 @@ end
 -- The return value of this function tells the map what sound to use to select
 -- a list of sound by tag to create an entity that is mobile.
 function mob_sound_decide()
-        local decided_mob_sound = "step"
+        local decided_mob_sound = "footsteps"
         return decided_mob_sound
 end
 -- The return value of this function tells the map what font to use to select

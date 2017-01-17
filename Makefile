@@ -84,27 +84,49 @@ android:
 		src/entity/entity.vala
 
 unlog:
-	rm *log;
-	rm *err
-	rm bin/*log
-	rm bin/*err
+	rm -f *log \
+		*err \
+		bin/*log \
+		bin/*err
+debclean:
+	rm -f *.tgz *.deb
+	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
-	rm bin/LAIR
+	rm -f bin/LAIR
+	make debclean
 	make unlog
 
 check:
-	luacheck share/lair/demo/dungeon.lua
-	luacheck share/lair/demo/player.lua
-	luacheck share/lair/demo/ai.lua
+	luacheck -g share/lair/demo/dungeon.lua \
+		share/lair/demo/player.lua \
+		share/lair/demo/ai.lua \
+		share/lair/lua/common.lua \
+		share/lair/lua/map/basicwall_cares_insert.lua \
+		share/lair/lua/map/cut_hallways.lua
 
 install:
 	cp bin/LAIR /usr/bin/
-	mkdir -p /usr/share/lair/demo/
-	mkdir -p /usr/share/lair/lua/
-	cp share/lair/lua/common.lua /usr/share/lair/lua/
-	cp share/lair/demo/dungeon.lua /usr/share/lair/demo/
-	cp share/lair/demo/player.lua /usr/share/lair/demo/
-	cp share/lair/demo/ai.lua /usr/share/lair/demo/
+	cp bin/lair /usr/bin/
+	cp etc/lair/lairrc /etc/
+	mkdir -p /usr/share/lair/demo/ \
+		/usr/share/lair/lua/map/
+	cp share/lair/lua/common.lua \
+		/usr/share/lair/lua/
+	cp share/lair/lua/map/cut_hallways.lua \
+		share/lair/lua/map/basicwall_cares_insert.lua \
+		/usr/share/lair/lua/map
+	cp share/lair/demo/dungeon.lua \
+		share/lair/demo/player.lua \
+		share/lair/demo/ai.lua \
+		/usr/share/lair/demo/
 	chmod -R a+r /usr/share/lair
+	#chown -R /var/cache/lair/map/
 
+deb-pkg:
+	make
+	checkinstall --deldoc=yes -Dy
+
+rpm-pkg:
+	make
+	checkinstall --deldoc=yes --delspec=yes -Ry

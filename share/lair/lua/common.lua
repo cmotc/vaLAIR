@@ -90,6 +90,142 @@ end
 function how_many_mobiles_so_far()
         return generator_mobile_count.c
 end
+function get_map_savepath()
+        local home = os.getenv("HOME")
+        local map = home .. "/.config/lair/map_table.lua"
+        return map
+end
+function get_mob_savepath()
+        local home = os.getenv("HOME")
+        local map = home .. "/.config/lair/mob_table.lua"
+        return map
+end
+function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
+
+function reload_map()
+        if file_exists(get_map_savepath()) then
+                dofile(get_map_savepath())
+        end
+end
+function reload_mobs()
+        if file_exists(get_mob_savepath()) then
+                dofile(get_mob_savepath())
+        end
+end
+function stringup_cell(variable)
+        local member = tostring(variable)
+        local table = "cell"
+        local key = tostring(what_pixel_is_gen_x()) .. "_" .. tostring(what_pixel_is_gen_y())
+        local command = table .. "[\"" .. key .. "\"] = \"" .. member .. "\"\n"
+        return command
+end
+function delete_old_map()
+        if file_exists(get_map_savepath()) then
+                os.remove(get_map_savepath())
+        end
+end
+function setup_new_map()
+        if file_exists(get_map_savepath()) == false then
+                file = io.open(get_map_savepath(), "a")
+                file:write("cell = {}\n")
+                file:close()
+        end
+end
+function setup_new_mob()
+        if file_exists(get_mob_savepath()) == false then
+                file = io.open(get_mob_savepath(), "a")
+                file:write("mobs = {}\n")
+                file:close()
+        end
+end
+
+function record_cell(variable)
+        --print(tostring(variable))
+        setup_new_map()
+        local local_table = stringup_cell(variable)
+        file = io.open(get_map_savepath(), "a")
+        file:write(local_table)
+        file:close()
+end
+
+function record_mobile(variable)
+        --print(tostring(variable))
+        setup_new_mob()
+        local local_table = stringup_cell(variable)
+        file = io.open(get_mob_savepath(), "a")
+        file:write(local_table)
+        file:close()
+end
+
+function particle_index_byxy(xx, yy)
+        local cell_index = tostring(xx) .. "_" .. tostring(yy)
+        local r
+        if type(cell) == "table" then
+                print("cell table present")
+                if cell[cell_index] ~= "nil" then
+                        print(cell_index)
+                        print(cell[cell_index])
+                        r = tostring(cell[cell_index])
+                else
+                        print("Cell member not present " .. cell_index)
+                        for key, value in pairs(cell) do
+                                io.write(key .. " " .. value .. " : ")
+                        end
+                        print("")
+                end
+        else
+                print("cell table not present")
+        end
+        return r
+end
+
+function mobile_index_byxy(xx, yy)
+        local mob_index = tostring(xx) .. "_" .. tostring(yy)
+        local r
+        if type(mobs) == "table" then
+                print("mob table present")
+                if mobs[mob_index] ~= "nil" then
+                        print(mobs .. " " .. mob_index .. " " .. mobs[mob_index])
+                        r = tostring(mobs[mob_index])
+                else
+                        print("mob member not present " .. mob_index)
+                        for key, value in pairs(mobs) do
+                                io.write(key .. " " .. value .. " : ")
+                        end
+                        print("")
+                end
+        else
+                print("mob table not present")
+        end
+        return r
+end
+
+function what_is_tile_w()
+        local w = tonumber(generator_w.w) / tonumber(generator_coarse_w.w)
+        return w
+end
+
+function what_is_tile_h()
+        local h = tonumber(generator_h.h) / tonumber(generator_coarse_h.h)
+        return h
+end
+
+function particle_index_by_coarse_xy(xx, yy)
+        xxx = xx * what_is_tile_w()
+        yyy = yy * what_is_tile_h()
+        local r = particle_index_byxy(xxx,yyy)
+        return r
+end
+
+function mobile_index_by_coarse_xy(xx, yy)
+        xxx = xx * what_is_tile_w()
+        yyy = yy * what_is_tile_h()
+        local r = mobile_index_byxy(xxx,yyy)
+        return r
+end
 
 function print_general_props()
         print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
@@ -111,9 +247,11 @@ function print_general_props()
         print("  Generator is at Coarse X: " .. where_in_floor_get_x() .. " on the floor")
 	print("  Generator is at Coarse Y: " .. where_in_floor_get_y() .." on the floor")
         print("  Floor Coarse Width: " .. floor_coarse_w.w)
-        print("  Floor Coarse Height: " .. floor_coarse_h.h )
+        print("  Floor Coarse Height: " .. floor_coarse_h.h)
         print("  Floor Pixel Width: " .. floor_w.w)
-        print("  Floor Pixel Height: " .. floor_h.h )
+        print("  Floor Pixel Height: " .. floor_h.h)
         print("  Generator Particle Count: " .. generator_particle_count.c)
 	print("  Generator Mobile Count: " .. generator_mobile_count.c)
+        print("  Generator Tile Width: " .. tostring(what_is_tile_w()))
+        print("  Generator Tile Height: " .. tostring(what_is_tile_h()))
 end

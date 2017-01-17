@@ -2,7 +2,7 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaConf : Scribe{
-                private static LuaVM VM;
+                private LuaVM VM;
                 private string ScriptPath;
                 public LuaConf(string path, int lll, string name){
                         base.LLL(lll, name);
@@ -10,8 +10,8 @@ namespace LAIR{
                         VM.open_libs();
                         ScriptPath = path;
                         prints("Loading a dungeon generator script: %s\n", ScriptPath);
-                        VM.do_file(ScriptPath);
-                        printc(GetLuaLastReturn().nth_data(0), "\n");
+                        LuaDoFile(ScriptPath);
+                        //printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
                 private void LuaDoFile(string file){
                         VM.do_file(file);
@@ -25,6 +25,10 @@ namespace LAIR{
                         }else if(VM.is_string(-1)){
                                 string word = VM.to_string(-1);
                                 tmp += word;
+                                VM.pop(1);
+                        }else if(VM.is_boolean(-1)){
+                                bool word = VM.to_boolean(-1);
+                                tmp += word.to_string();
                                 VM.pop(1);
                         }
                         //prints(" %s \n", tmp);
@@ -48,23 +52,6 @@ namespace LAIR{
                         tmp += function;
                         VM.do_string(tmp);
                 }
-                //This pushes a series of key-value pairs into a global Lua table.
-                /*protected void PushNamedPairToLuaTable(string tableName, string[] membernames, int[] members){
-                        int i = 0;
-                        if(membernames.length == members.length){
-                                //int max = membernames.length - 1;
-                                VM.new_table ();
-                                foreach(int member in members) {
-                                        stdout.printf(" %s ", membernames[i]);
-                                        stdout.printf(" %s \n", members[i].to_string());
-                                        VM.push_string(membernames[i]);
-                                        VM.push_number (member);
-                                        i++;
-                                }
-                                VM.raw_set (((i-(i*2))*2)-1);
-                                VM.set_global (tableName);
-                        }
-                }*/
                 protected void NewLuaTable(){
                         VM.new_table();
                 }
@@ -86,6 +73,24 @@ namespace LAIR{
                                 VM.raw_set(-3);
                         }
                 }
+                protected void PushStringPairToLuaTable(string key, string val = ""){
+                        if( key != null){
+                                //prints("pushing values to lua table");
+                                VM.push_string(key);
+                                VM.push_string(val);
+                                //prints("%s ", key);
+                                //prints("%s \n", val.to_string());
+                                VM.raw_set(-3);
+                        }else{
+                                key = "error";
+                                string errval = "Error pushing entry to global Lua table. Key was null. Value was: ";
+                                VM.push_string(key);
+                                VM.push_string(errval);
+                                //prints(key, errval);
+                                //prints(val.to_string());
+                                VM.raw_set(-3);
+                        }
+                }
                 protected void CloseLuaTable(string tableName){
                         if(tableName != null){
                                 VM.set_global (tableName);
@@ -93,22 +98,6 @@ namespace LAIR{
                                 prints("something is wrong, table name cannot be null\n");
                         }
                 }
-                //This pushes a set of coordinates into a global Lua table.
-                /*protected void PushCoordsToLuaTable(string tableName, Video.Point current){
-                        int i = 2;
-                        //if(current != null){
-                                VM.new_table ();
-                                //stdout.printf(membernames[i]);
-                                VM.push_string("x");
-                                VM.push_number (current.x);
-                                stdout.printf("x %s \n", current.x.to_string());
-                                VM.push_string("y");
-                                VM.push_number (current.y);
-                                stdout.printf("y %s \n ", current.y.to_string());
-                                VM.raw_set (((i-(i*2))*2)-1);
-                                VM.set_global (tableName);
-                        //}
-                }*/
                 protected void PushUintToLuaTable(string tablename, string varname, uint varval){
                         NewLuaTable();
                         int tmp = (int) varval;
@@ -118,7 +107,11 @@ namespace LAIR{
                         PushNamedPairToLuaTable(varname,tmp);
                         CloseLuaTable(tablename);
                 }
-
+                protected void PushEntityDetailsToLuaTable(Entity requested){
+                        NewLuaTable();
+                        PushStringPairToLuaTable("tags" , requested.TagString());
+                        CloseLuaTable("requested_data");
+                }
                 protected void PushCoordsToLuaTable(Video.Point current, Video.Point simplecurrent){
                         NewLuaTable();
                         PushNamedPairToLuaTable("x", current.x);
@@ -185,7 +178,7 @@ namespace LAIR{
                         PushNamedPairToLuaTable("y", (int) (current.y + current.y));
                         CloseLuaTable("room_yh");
                 }
-                protected LuaVM* GetLuaVM(){
+                protected unowned LuaVM GetLuaVM(){
                         return VM;
                 }
         }

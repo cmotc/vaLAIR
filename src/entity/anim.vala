@@ -78,11 +78,32 @@ namespace LAIR{
                         int hH = (int) (position.h / 2);
 			return hH;
 		}
-		public int GetX(){
-			return (int) position.x;
+		public unowned int GetX(){
+                        //int t = 0;
+                        //if(!position.is_empty()){
+                        unowned int t = position.x;
+                        //if(&position != null){
+                                //Video.Rect p = new Video.Rect(){x=0,y=0,w=32,h=32};
+                                //p = position;
+                                //Video.Rect* p = &position;
+                                //if(!position.is_equal(Video.Rect(){x=0,y=0,w=32,h=32})){
+                                //t = &position.x;
+                                //t = (int) p.x;
+                        //}
+			return t;
 		}
-		public int GetY(){
-			return (int) position.y;
+		public unowned int GetY(){
+                        //int t = 0;
+                        //if(!position.is_empty()){
+                        unowned int t = position.y;
+                        //if(&position != null){
+                                //Video.Rect p = new Video.Rect(){x=0,y=0,w=32,h=32};
+                                //p = position;
+                                //Video.Rect* p = &position;
+                                //if(!position.is_equal(Video.Rect(){x=0,y=0,w=32,h=32})){
+                                //t = &position.y;
+                        //}
+			return t;
 		}
                 public Video.Rect GetHitBox(){
                         Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
@@ -110,7 +131,7 @@ namespace LAIR{
                         return coords;
                 }
                 public Video.Point GetCorner(){
-                        Video.Point coords = Video.Point(){x=GetX(), y=GetY()};
+                        unowned Video.Point coords = Video.Point(){x=GetX(), y=GetY()};
                         return coords;
                 }
                 private double RadiansToDegrees(double radians){
@@ -139,5 +160,12 @@ namespace LAIR{
 			position.y = y;
 			return position.y;
 		}
+                public bool CheckXY(Video.Point toCheck){
+                        bool r = false;
+                        if(toCheck == this.GetCorner()){
+                                r = true;
+                        }
+                        return r;
+                }
 	}
 }

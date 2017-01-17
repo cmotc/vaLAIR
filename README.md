@@ -13,28 +13,24 @@ not anymore.
 Installation
 ------------
 
+###Debian/Ubuntu:
+
+Now it's possible to build a .deb package and if you want, install it
+automatically. To build the .deb package(but not install), do
+
+        make deb-pkg
+
+or to install it automaticall just run it as root.
+
+        sudo make deb-pkg
+
+###Other Linux:
+
 It's just a makefile now, just running "make" in the working directory will
 build the executable in the ./bin/ directory. After that, running "sudo make
 install" will install the executable and the configuration files, or if you'd
 prefer not to install that way, you can specify the paths to the configuration
 files via the command-line flags for now:
-
-        ***********************************************************************************
-
-        <I      <I I>         <I I>      I>
-         |       | |           | |       |
-        <^^>____<^^^>_________<^^^>____<^^>
-         || L        A    IIIII RRRRR   ||
-         || L       A A     I   R    R  ||
-         || L      AAAAA    I   RRRRR   ||
-         || LLLLL A     A IIIII R    R  ||
-        <vv>___________________________<vv>
-
-        This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally
-        generated 2D survival RPG. It can be played in a wide variety of ways, as
-        everything from a coffee-break roguelike to a political strategy game. The
-        following options can be used to configure it at runtime. For more information,
-        please see the manual as soon as I finish writing it.
 
         ----------------------------
              -i : display this info
@@ -45,11 +41,9 @@ files via the command-line flags for now:
              -c : path to map generation script
              -e : path to character generation script
              -a : path to ai library script
-             -w : log output verbosity
+             -v : log output verbosity
              -w : screen width
              -h : screen height
-
-        ***********************************************************************************
 
 which are in the [art repository](https://github.com/cmotc/lairart), which you
 can install with make; sudo make install.
@@ -111,14 +105,8 @@ I've been making some unsatisfying version or other of this for so long that
 it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
-  * Implement Lua API for configuring maps and write a complete demo dungeon.
-    - Now much more fine-grained detail is available from Lua during Map
-    Generation. Every time a new entity is generated, a running total of all
-    the tags associated with the map is updated, giving you a high-level
-    overview of the properties of each room.
-    -Documenting this stuff as I get it working is going to be really important,
-    especially because once it works coarse dungeon generation will be removed
-    entirely.
+  * Maps are working and generator can be extended in pure Lua rather than in
+  Vala.
   * Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
   * Write some example AI scripts
@@ -129,11 +117,10 @@ to do:
     server.
   * I'm sure that there's more but I'll have to come to that.
   * Make More Art! digitalAndy is making this alot easier.
-  * Add a few features to digitalAndy: Trianges. Adjustable Sizes. Final images
+  * Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
   Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
     - Can work-around many shortcomings of digitalAndy with imageMagick. Maybe
     it should become part of a toolchain for procedural pixel art.
     - Port digitalAndy to Android with a simple pixel-painting interface capable
     of outputting a configuration file for PC digitalAndy as well as a script.
     Do it to learn Android app development in Go.
-  * Configuration with Environment Variables as well as Flags and Files.

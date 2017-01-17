@@ -50,19 +50,6 @@ namespace LAIR{
                 public void printncs(string item, string item2 = ""){
                         stdout.printf(item, item2, " ");
                 }
-                public List<string> printas(string[] item){
-                        List<string> r = new List<string>();
-                        for(int i = 0; i < item.length - 1; i++){
-                                r.append(item[i]);
-                        }
-                        if(LogLevel > LocalLogLevel){
-                                printnl();
-                                foreach(string s in r){
-                                        stdout.printf(s);
-                                }
-                        }
-                        return r;
-                }
                 public void SetName(string name){
                         Name = name;
                 }
