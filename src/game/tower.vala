@@ -18,9 +18,9 @@ namespace LAIR{
 			}else if (size == "oneroom"){
 				count = 1;
 			}
-                        prints("Building %s-size Tower\n", size);
+                        print_withname("Building %s-size Tower\n", size);
 			for (int c = 0; c <= count-1; c++){
-                                prints(" Creating new floor :%s\n", c.to_string());
+                                print_withname(" Creating new floor :%s\n", c.to_string());
                                 if (c == 0){
                                         floors.append(new Floor.WithPlayer(count, 0, scripts, DM, renderer));
                                 }else{
@@ -28,24 +28,24 @@ namespace LAIR{
                                 }
 			}
 		}
-                public int TakeTurns(){
+                public int take_turns(){
                         int tmp = 1;
-                        prints(" Entities in the tower are taking turns.\n");
+                        print_withname(" Entities in the tower are taking turns.\n");
                         foreach(Floor floor in floors){
-                                tmp = floor.TakeTurns();
+                                tmp = floor.take_turns();
                         }
                         return tmp;
                 }
-                public bool DetectCollisions(){
+                public bool detect_collisions(){
                         bool tmp = false;
                         foreach(Floor floor in floors){
-                                tmp = floor.DetectCollisions() ? true : tmp;
+                                tmp = floor.detect_collisions() ? true : tmp;
                         }
                         return tmp;
                 }
-		public void RenderCopy(Video.Renderer renderer){
+		public void render_copy(Video.Renderer renderer){
 			foreach(Floor floor in floors){
-				floor.RenderCopy(renderer);
+				floor.render_copy(renderer);
 			}
 		}
 	}

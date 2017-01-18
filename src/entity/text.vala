@@ -58,23 +58,23 @@ namespace LAIR{
                 }
                 public void RenderText(Video.Renderer* renderer, Video.Point player_pos){
                         if(showStats){
-                                prints("Showing Stats\n");
+                                print_withname("Showing Stats\n");
                                 for(int i = 0; i < 5; i++){
                                         Video.Point tmp = Video.Point(){
                                                 x = player_pos.x - 34,
                                                 y = player_pos.y - 2 - (i*11)
                                         };
-                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPositionOffset(tmp), 0.0, null, Video.RendererFlip.NONE);
+                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPosition(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }
                         if(showSkills){
-                                prints("Showing Skills\n");
+                                print_withname("Showing Skills\n");
                                 for(int i = 5; i < 5 + Text.length(); i++){
                                         Video.Point tmp = Video.Point(){
                                                 x = player_pos.x - 34,
                                                 y = player_pos.y - 2 - (i*11)
                                         };
-                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPositionOffset(tmp), 0.0, null, Video.RendererFlip.NONE);
+                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPosition(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }
 		}

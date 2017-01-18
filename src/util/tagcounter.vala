@@ -8,18 +8,18 @@ namespace LAIR{
                         Count = 1;
                         Name = name;
                 }
-                public void Inc(){
+                public void increment_count(){
                         Count++;
                 }
-                public uint GetCount(){
-                        printns(" %s .", Count.to_string());
+                public uint get_count(){
+                        print_noname(" %s .", Count.to_string());
                         return Count;
                 }
-                public string GetName(){
-                        prints(Name);
+                public string get_name(){
+                        print_withname(Name);
                         return Name;
                 }
-                public bool CheckName(string tocheck){
+                public bool check_name(string tocheck){
                         bool r = false;
                         if(tocheck == Name){
                                 r = true;

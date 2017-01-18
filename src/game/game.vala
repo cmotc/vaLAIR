@@ -29,10 +29,10 @@ namespace LAIR{
 
                         GameEnvironment = new Tower(mapSize, scriptPaths, new FileDB(imageListPath, soundListPath, fontsListPath), WindowRenderer);
 		}
-		private int UpdateScreen(){
-			int r = GameEnvironment.TakeTurns();
-                        GameEnvironment.DetectCollisions();
-			GameEnvironment.RenderCopy(WindowRenderer);
+		private int update_screen(){
+			int r = GameEnvironment.take_turns();
+                        GameEnvironment.detect_collisions();
+			GameEnvironment.render_copy(WindowRenderer);
 			WindowRenderer.present();
 			return r;
 		}
@@ -41,8 +41,8 @@ namespace LAIR{
 			while(exit != 0){
                                 WindowRenderer.set_draw_color(0xFF, 0xFF, 0xFF, Video.Alpha.TRANSPARENT);
                                 WindowRenderer.clear();
-				exit = UpdateScreen();
-                                prints(" -> input was:%s\n", exit.to_string());
+				exit = update_screen();
+                                print_withname(" -> input was:%s\n", exit.to_string());
                                 SDL.Timer.delay(120);
 			}
 			return exit;

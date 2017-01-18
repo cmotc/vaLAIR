@@ -25,19 +25,19 @@ namespace LAIR{
                         return 0;
                 }
                 protected int StepDown(){
-                        SetY(GetY() + Speed());
+                        SetY(get_y() + Speed());
                         return 2;
                 }
                 protected int StepUp(){
-                        SetY(GetY() - Speed());
+                        SetY(get_y() - Speed());
                         return 3;
                 }
                 protected int StepRight(){
-                        SetX(GetX() + Speed());
+                        SetX(get_x() + Speed());
                         return 4;
                 }
                 protected int StepLeft(){
-                        SetX(GetX() - Speed());
+                        SetX(get_x() - Speed());
                         return 5;
                 }
                 protected int MouseMove(int X, int Y){
@@ -56,17 +56,17 @@ namespace LAIR{
                 protected bool Bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
                         if(tl){
-                                prints("Collision detected, Top Left Corner");
+                                print_withname("Collision detected, Top Left Corner");
                                 if(bl){
-                                        prints(" and Bottom Left Corner\n");
+                                        print_withname(" and Bottom Left Corner\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         StepRight();
                                 }else if(tr){
-                                        prints(" and Top Right Corner\n");
+                                        print_withname(" and Top Right Corner\n");
                                         SetY((int)(evenout.y + evenout.h));
                                         StepDown();
                                 }else{
-                                        prints("\n");
+                                        print_withname("\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         SetY((int)(evenout.y + evenout.h));
                                         StepRight();
@@ -75,17 +75,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(tr){
-                                prints("Collision detected, Top Right Corner");
+                                print_withname("Collision detected, Top Right Corner");
                                 if(br){
-                                        prints(" and Bottom Right Corner\n");
+                                        print_withname(" and Bottom Right Corner\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         StepLeft();
                                 }else if(tl){
-                                        prints(" and Top Left Corner\n");
+                                        print_withname(" and Top Left Corner\n");
                                         SetY((int)(evenout.y + evenout.h));
                                         StepDown();
                                 }else{
-                                        prints("\n");
+                                        print_withname("\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         SetY((int)(evenout.y + evenout.h));
                                         StepLeft();
@@ -94,17 +94,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(bl){
-                                prints("Collision detected, Bottom Left Corner");
+                                print_withname("Collision detected, Bottom Left Corner");
                                 if(tl){
-                                        prints(" and Top Left Corner\n");
+                                        print_withname(" and Top Left Corner\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         StepRight();
                                 }else if(br){
-                                        prints(" and Bottom Right Corner\n");
+                                        print_withname(" and Bottom Right Corner\n");
                                         SetY((int)(evenout.y - evenout.h));
                                         StepUp();
                                 }else{
-                                        prints("\n");
+                                        print_withname("\n");
                                         SetX((int)(evenout.x + evenout.w));
                                         SetY((int)(evenout.y - evenout.h));
                                         StepRight();
@@ -113,17 +113,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(br){
-                                prints("Collision detected, Bottom Right Corner");
+                                print_withname("Collision detected, Bottom Right Corner");
                                 if(tr){
-                                        prints("and Top Right Corner\n");
+                                        print_withname("and Top Right Corner\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         StepLeft();
                                 }else if(bl){
-                                        prints("and Bottom Left Corner\n");
+                                        print_withname("and Bottom Left Corner\n");
                                         SetY((int)(evenout.y - evenout.h));
                                         StepUp();
                                 }else{
-                                        prints("\n");
+                                        print_withname("\n");
                                         SetX((int)(evenout.x - evenout.w));
                                         SetY((int)(evenout.y - evenout.h));
                                         StepLeft();
@@ -138,9 +138,9 @@ namespace LAIR{
 		public int PInput(){
                         int t = 1;
                         Event e;
-                        prints("     Player is taking a turn : ");
+                        print_withname("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
-                                prints(" Checking Event for Player Input\n");
+                                print_withname(" Checking Event for Player Input\n");
 				if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
                                         int x = 0, y = 0;
                                         Input.Cursor.get_state(ref x, ref y);

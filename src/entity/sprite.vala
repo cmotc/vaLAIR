@@ -13,7 +13,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                prints("Number of images in stack %s \n", body.length().to_string());
+                                print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
                 }
                 public Sprite.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer){
@@ -24,7 +24,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                prints("Number of images in stack %s \n", body.length().to_string());
+                                print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
                 }
                 public Sprite.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, string tag){
@@ -35,7 +35,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                prints("Number of images in stack %s \n", body.length().to_string());
+                                print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public Sprite.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, string tag){
@@ -46,7 +46,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                prints("Number of images in stack %s \n", body.length().to_string());
+                                print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public Sprite.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
@@ -57,7 +57,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                prints("Number of images in stack %s \n", body.length().to_string());
+                                print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public Sprite.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
@@ -68,12 +68,12 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                prints("Number of images in stack %s \n", body.length().to_string());
+                                print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public void RenderCopy(Video.Renderer* renderer, Video.Point player_pos){
                         foreach(var texture in body.copy()){
-                                renderer->copyex(texture, GetSource(), GetPositionOffset(player_pos), GetAngle(), null, Video.RendererFlip.VERTICAL);
+                                renderer->copyex(texture, GetSource(), GetPosition(player_pos), GetAngle(), null, Video.RendererFlip.VERTICAL);
                         }
 
 		}

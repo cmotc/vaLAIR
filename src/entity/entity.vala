@@ -52,24 +52,24 @@ namespace LAIR{
                         assert(t != null);
                         if(GetBlock()){
                                 if(t.GetBlock()){
-                                        Video.Point tlc = Video.Point(){ x = GetHitBox().x,
-                                                y=GetHitBox().y };
-                                        bool TLeftCorner = InRange(tlc, t.GetHitBox());
+                                        Video.Point tlc = Video.Point(){ x = get_hitbox().x,
+                                                y=get_hitbox().y };
+                                        bool TLeftCorner = InRange(tlc, t.get_hitbox());
 
-                                        Video.Point trc = Video.Point(){ x = (int)(GetHitBox().x + GetHitBox().w),
-                                                y = GetHitBox().y };
-                                        bool TRightCorner = InRange(trc, t.GetHitBox());
+                                        Video.Point trc = Video.Point(){ x = (int)(get_hitbox().x + get_hitbox().w),
+                                                y = get_hitbox().y };
+                                        bool TRightCorner = InRange(trc, t.get_hitbox());
 
-                                        Video.Point blc = Video.Point(){ x = GetHitBox().x,
-                                                y = (int)(GetHitBox().y + GetHitBox().h) };
-                                        bool BLeftCorner = InRange(blc, t.GetHitBox());
+                                        Video.Point blc = Video.Point(){ x = get_hitbox().x,
+                                                y = (int)(get_hitbox().y + get_hitbox().h) };
+                                        bool BLeftCorner = InRange(blc, t.get_hitbox());
 
-                                        Video.Point brc = Video.Point(){ x = (int)(GetHitBox().x + GetHitBox().w),
-                                                y = (int)(GetHitBox().y + GetHitBox().h) };
-                                        bool BRightCorner = InRange( brc, t.GetHitBox());
+                                        Video.Point brc = Video.Point(){ x = (int)(get_hitbox().x + get_hitbox().w),
+                                                y = (int)(get_hitbox().y + get_hitbox().h) };
+                                        bool BRightCorner = InRange( brc, t.get_hitbox());
 
                                         Bounce(TLeftCorner, TRightCorner,
-                                        BLeftCorner, BRightCorner, t.GetHitBox());
+                                        BLeftCorner, BRightCorner, t.get_hitbox());
                                         //DoActions(t);
                                         r = true;
                                 }

@@ -72,7 +72,7 @@ namespace LAIR{
                         }
                         if (t){
                                 tags.append(NewType);
-                                prints("   Added tag: %s \n", NewType);
+                                print_withname("   Added tag: %s \n", NewType);
                                 b = 0;
                         }
                         if ( NewType == "blocked" ){

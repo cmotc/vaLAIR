@@ -8,16 +8,16 @@ namespace LAIR{
 		public Fonts(string path, string size){
 			base.WithPath(path);
 			Size = size;
-			Load();
+			load();
 		}
                 public Fonts.WithAttList(List<string> path, string size){
 			base.WithAttList(path);
 			Size = size;
-			Load();
+			load();
 		}
-                private bool Load(){
+                private bool load(){
 			bool tmp = false;
-			if (CheckPath()){
+			if (check_path()){
 				int sz = 12;
 				if (Size == "giant"){
 					sz = 28;
@@ -30,42 +30,12 @@ namespace LAIR{
 				}else if (Size == "tiny"){
 					sz = 8;
 				}
-				font = new SDLTTF.Font(GetPath(), sz);
+				font = new SDLTTF.Font(get_path(), sz);
 				tmp = true;
 			}
 			return tmp;
 		}
-/*		private bool FontLoad(string path){
-			bool tmp = false;
-			SetPath(path);
-			if (CheckPath()){
-				int sz = 12;
-				if (Size == "giant"){
-					sz = 28;
-				}else if (Size == "large"){
-					sz = 20;
-				}else if (Size == "medium"){
-					sz = 12;
-				}else if (Size == "small"){
-					sz = 10;
-				}else if (Size == "tiny"){
-					sz = 8;
-				}else {
-					sz = 12;
-				}
-				font = new SDLTTF.Font(GetPath(), sz);
-				tmp = true;
-			}
-			return tmp;
-		}
-                public bool CheckFont(){
-			if (CheckPath()){
-				return true;
-			}else{
-				return false;
-			}
-		}*/
-		public SDLTTF.Font* GetFont(){
+		public SDLTTF.Font* get_font(){
                         SDLTTF.Font* tmp = font;
 			return tmp;
 		}

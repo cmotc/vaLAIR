@@ -22,35 +22,35 @@ namespace LAIR{
                         }
                         LocalLogLevel = lll;
                 }
-                public static void printc(string item, string item2 = ""){
+                public static void print_static(string item, string item2 = ""){
                         if(LogLevel > 0){
                                 stdout.printf("Void Main: %s", LogLevel.to_string());
                                 stdout.printf(item, item2, " ");
                         }
                 }
-                public static void setll(int newll){
+                public static void set_global_loglevel(int newll){
                         LogLevel = newll;
                 }
-                public void printnl(){
+                private void print_name(){
                         if(LogLevel > LocalLogLevel){
                                 stdout.printf(Name);
                         }
                 }
-                public void prints(string item="", string item2 = ""){
+                public void print_withname(string item="", string item2 = ""){
                         if(LogLevel > LocalLogLevel){
-                                printnl();
+                                print_name();
                                 stdout.printf(item, item2, " ");
                         }
                 }
-                public void printns(string item="", string item2 = ""){
+                public void print_noname(string item="", string item2 = ""){
                         if(LogLevel > LocalLogLevel){
                                 stdout.printf(item, item2, " ");
                         }
                 }
-                public void printncs(string item, string item2 = ""){
+                public void print_force(string item, string item2 = ""){
                         stdout.printf(item, item2, " ");
                 }
-                public void SetName(string name){
+                public void set_name(string name){
                         Name = name;
                 }
         }

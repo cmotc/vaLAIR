@@ -36,10 +36,7 @@ namespace LAIR{
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
-		public Video.Rect GetPosition(){
-			return position;
-		}
-                public Video.Rect GetPositionOffset(Video.Point offset_px){
+                public Video.Rect GetPosition(Video.Point offset_px){
                         Video.Rect r = Video.Rect(){
                                 x = position.x - offset_px.x,
                                 y = position.y - offset_px.y,
@@ -52,7 +49,7 @@ namespace LAIR{
                         return Video.Rect(){x=0,y=0,w=200,h=11};
 
                 }
-                public Video.Rect GetTextPositionOffset(Video.Point offset_px){
+                public Video.Rect GetTextPosition(Video.Point offset_px){
                         Video.Rect r = Video.Rect(){
                                 x = position.x - offset_px.x,
                                 y = position.y - offset_px.y,
@@ -78,7 +75,7 @@ namespace LAIR{
                         int hH = (int) (position.h / 2);
 			return hH;
 		}
-		public unowned int GetX(){
+		public unowned int get_x(){
                         //int t = 0;
                         //if(!position.is_empty()){
                         unowned int t = position.x;
@@ -92,7 +89,7 @@ namespace LAIR{
                         //}
 			return t;
 		}
-		public unowned int GetY(){
+		public unowned int get_y(){
                         //int t = 0;
                         //if(!position.is_empty()){
                         unowned int t = position.y;
@@ -105,33 +102,25 @@ namespace LAIR{
                         //}
 			return t;
 		}
-                public Video.Rect GetHitBox(){
+                public Video.Rect get_hitbox(){
                         Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
                         if(GetBlock()){
                                 if(IsPlayer()){
-                                        r = Video.Rect(){ x = GetX() + offsetHitBox.x,
-                                                y = GetY() + offsetHitBox.y,
+                                        r = Video.Rect(){ x = get_x() + offsetHitBox.x,
+                                                y = get_y() + offsetHitBox.y,
                                                 w = offsetHitBox.w,
                                                 h = offsetHitBox.h };
                                 }else{
-                                        r = Video.Rect(){ x = GetX() + 1,
-                                                y = GetY() + 1,
+                                        r = Video.Rect(){ x = get_x() + 1,
+                                                y = get_y() + 1,
                                                 w = (GetWidth() - 1),
                                                 h = (GetHeight() - 1) };
                                 }
                         }
                         return r;
                 }
-                protected Video.Rect GetTextPosition(){
-                        Video.Rect r = Video.Rect(){x=48,y=48,w=160,h=160};
-                        return r;
-                }
                 public Video.Point GetCenter(){
-                        Video.Point coords = Video.Point(){x=GetX()+GetHalfWidth(), y=GetY()+GetHalfHeight()};
-                        return coords;
-                }
-                public Video.Point GetCorner(){
-                        unowned Video.Point coords = Video.Point(){x=GetX(), y=GetY()};
+                        Video.Point coords = Video.Point(){x=get_x()+GetHalfWidth(), y=get_y()+GetHalfHeight()};
                         return coords;
                 }
                 private double RadiansToDegrees(double radians){
@@ -160,12 +149,5 @@ namespace LAIR{
 			position.y = y;
 			return position.y;
 		}
-                public bool CheckXY(Video.Point toCheck){
-                        bool r = false;
-                        if(toCheck == this.GetCorner()){
-                                r = true;
-                        }
-                        return r;
-                }
 	}
 }

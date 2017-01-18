@@ -7,36 +7,24 @@ namespace LAIR{
 		private Video.Surface surface;
 		public Image(string Path){
 			base.WithPath(Path);
-			Load();
+			load();
 		}
                 public Image.WithAttList(List<string> atts){
                         base.WithAttList(atts);
-                        Load();
+                        load();
                 }
-                public bool Load(){
+                public bool load(){
 			bool tmp = false;
-			if (CheckPath()){
-				prints("Loading the Image to a Surface %s \n", GetPath());
-				surface = SDLImage.load(GetPath());
+			if (check_path()){
+				print_withname("Loading the Image to a Surface %s \n", get_path());
+				surface = SDLImage.load(get_path());
 				tmp = true;
 			}else{
-				prints("Image not found at location %s \n", GetPath());
+				print_withname("Image not found at location %s \n", get_path());
 			}
 			return tmp;
 		}
-		/*public bool ImageLoad(string Path){
-			SetPath(Path);
-			bool tmp = false;
-			if (CheckPath()){
-				prints("Loading the Image to a Surface %s \n", GetPath());
-				surface = SDLImage.load(GetPath());
-				tmp = true;
-			}else{
-				prints("Image not found at location %s \n", GetPath());
-			}
-			return tmp;
-		}*/
-		public Video.Surface* GetImage(){
+		public Video.Surface* get_image(){
 			return surface;
 		}
 	}

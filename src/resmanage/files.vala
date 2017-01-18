@@ -5,7 +5,7 @@ namespace LAIR{
 		private List<string> Tags = null;//new List<string>();
 		public LairFile.WithPath(string path){
                         base.LLL(4, "file:");
-			Path = SetPath(path);
+			Path = set_path(path);
 		}
                 public LairFile.WithAttList(List<string> atts){
                         base.LLL(4, "file:");
@@ -15,7 +15,7 @@ namespace LAIR{
                         foreach (string attribute in atts){
                                 if (x == 0){
                                         path = atts.nth_data(x);
-                                        Path = SetPath(path);
+                                        Path = set_path(path);
                                 }else if(x == 1){
                                         Name = atts.nth_data(x);
                                 }else{
@@ -23,33 +23,44 @@ namespace LAIR{
                                 }
                                 x++;
                         }
-                        SetTags(tags);
+                        set_tags(tags);
                 }
-		protected List<string*> SetTags(List<string> tags){
+		protected List<string*> set_tags(List<string> tags){
                         if(Tags == null){Tags = new List<string>();}
 			foreach (string tag in tags){
-				if (HasTag(tag) == false){
+				if (has_tag(tag) == false){
 					Tags.append(tag);
 				}
 			}
 			return Tags.copy();
 		}
-		/*public List<string*> GetTags(){
+                protected string set_path(string path){
+                        string []tmp = path.split(" ", 2);
+			if (FileUtils.test(tmp[0], FileTest.EXISTS)) {
+				Path = tmp[0];
+				print_withname("Setting Path: %s\n", Path);
+			}else{
+				Path = null;
+				print_withname("Setting Path failed: %s doesn't exist\n", Path);
+			}
+			return path;
+		}
+		/*public List<string*> get_tags(){
 			return Tags.copy();
 		}*/
-                public bool HasName(string query){
+                public bool has_name(string query){
 			bool tmp = false;
                         bool ptd = false;
 			if ( query == Name ) {
 				tmp = true;
                                 if (!ptd){
-                                        prints("Name found in FileDB: %s", query);
+                                        print_withname("Name found in FileDB: %s", query);
                                         ptd = true;
                                 }
 			}
 			return tmp;
 		}
-		public bool HasTag(string query){
+		public bool has_tag(string query){
 			bool tmp = false;
 			foreach (string Tag in Tags.copy()){
 				if ( query == Tag ) {
@@ -59,7 +70,7 @@ namespace LAIR{
 			}
 			return tmp;
 		}
-                public bool HasTagList(List<string> queryList){
+                public bool has_tag_list(List<string> queryList){
                         bool rtmp = true;
                         int i = 0, j = 0;
                         //for(i = 0; i < queryList.length(); i++){
@@ -79,44 +90,33 @@ namespace LAIR{
                                 }
                         }
                         if(rtmp){
-                                prints("Found taglist: ");
+                                print_withname("Found taglist: ");
                                 foreach(string t in Tags){
-                                        prints("%s ", t);
+                                        print_withname("%s ", t);
                                 }
-                                prints("\n");
+                                print_withname("\n");
                         }
 			return rtmp;
 		}
-		public string GetPath(){
-                        prints("Getting Path: %s\n", Path);
+		public string get_path(){
+                        print_withname("Getting Path: %s\n", Path);
                         return Path;
 		}
-		protected string SetPath(string path){
-                        string []tmp = path.split(" ", 2);
-			if (FileUtils.test(tmp[0], FileTest.EXISTS)) {
-				Path = tmp[0];
-				prints("Setting Path: %s\n", Path);
-			}else{
-				Path = null;
-				prints("Setting Path failed: %s doesn't exist\n", Path);
-			}
-			return path;
-		}
-		public bool CheckPath(){
+		public bool check_path(){
 			if (Path != null){
-				prints("Validating Path: %s\n", Path);
+				print_withname("Validating Path: %s\n", Path);
 				return true;
 			}else{
-				prints("Validating Path failed: %s doesn't exist.\n", Path);
+				print_withname("Validating Path failed: %s doesn't exist.\n", Path);
 				return false;
 			}
 		}
-                public int LenLineDelimitedConfig(){
+                public int len_of_config(){
                         int Length = 0;
 			var file = File.new_for_path(Path);
                         int r = 0;
 			if (!file.query_exists ()) {
-				prints ("File '%s' doesn't exist.\n", file.get_path ());
+				print_withname("File '%s' doesn't exist.\n", file.get_path ());
 			}
                         if (Length == 0){
                                 try {
@@ -125,7 +125,7 @@ namespace LAIR{
                                         while ((line = dis.read_line (null)) != null) {
                                                 r++;
                                         }
-                                        prints("Configuration File Length %s\n", r.to_string());
+                                        print_withname("Configuration File Length %s\n", r.to_string());
                                 } catch (Error e) {
                                         error ("%s", e.message);
                                 }
@@ -134,12 +134,12 @@ namespace LAIR{
                         r = Length;
 			return r;
 		}
-                public List<string> GetConfigLine(int lineNum){
+                public List<string> get_config_line(int lineNum){
                         List<string> tmp = new List<string>();
                         var file = File.new_for_path(Path);
-                        prints("line %s\n", lineNum.to_string());
+                        print_withname("line %s\n", lineNum.to_string());
 			if (!file.query_exists ()) {
-				prints ("File '%s' doesn't exist.\n", file.get_path ());
+				print_withname("File '%s' doesn't exist.\n", file.get_path ());
 			}
                         try {
 				var dis = new DataInputStream (file.read());
@@ -153,9 +153,9 @@ namespace LAIR{
                                                                 tmp.append(token);
                                                         }
                                                         //tmp.append(line);
-                                                        prints("Loaded Resource: %s\n", tl[0]);
+                                                        print_withname("Loaded Resource: %s\n", tl[0]);
                                                 }else{
-                                                        prints("Failed to load Resource: %s\n", tl[0]);
+                                                        print_withname("Failed to load Resource: %s\n", tl[0]);
                                                 }
                                         }
                                         x++;
