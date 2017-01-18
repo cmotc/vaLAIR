@@ -84,7 +84,7 @@ namespace LAIR{
                 private void particle_count_bytag(){
                         List<TagCounter> tagcount = new List<TagCounter>();
                         foreach(Entity particle in Particles){
-                                foreach(string tag in particle.GetTags()){
+                                foreach(string tag in particle.get_tags()){
                                         bool has = false;
                                         foreach(TagCounter count in tagcount){
                                                 if(count.check_name(tag)){
@@ -105,7 +105,7 @@ namespace LAIR{
                 private void mobile_count_bytag(){
                         List<TagCounter> tagcount = new List<TagCounter>();
                         foreach(Entity mob in Mobs){
-                                foreach(string tag in mob.GetTags()){
+                                foreach(string tag in mob.get_tags()){
                                         bool has = false;
                                         foreach(TagCounter count in tagcount){
                                                 if(count.check_name(tag)){
@@ -207,7 +207,7 @@ namespace LAIR{
                         bool t = false;
                         foreach(var particle in Particles){
                                 if(has_player()){
-                                        t = Player.DetectCollision(particle) ? true : t ;
+                                        t = Player.detect_collisions(particle) ? true : t ;
                                 }
                                 //foreach(var mob in Mobs){
                                         //particle.DetectCollision(mob);
@@ -284,16 +284,16 @@ namespace LAIR{
 			if (visited){
                                 //print_withname("Drawing Room at: %s\n", HitBoxToString());
 				foreach(Entity particle in Particles){
-					particle.RenderOffset(renderer, player_pos);
+					particle.render(renderer, player_pos);
 				}
 			}
                         if (has_player()){
-				Player.RenderOffset(renderer, player_pos);
+				Player.render(renderer, player_pos);
 				if (visited = false){
 					visited = true;
 				}
 				foreach(Entity mob in Mobs){
-					mob.RenderOffset(renderer, player_pos);
+					mob.render(renderer, player_pos);
 				}
 			}
 		}
