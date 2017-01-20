@@ -40,67 +40,67 @@ namespace LAIR{
                                 }
 			}
                 }
-		private bool HasPlayer(){
+		private bool has_player(){
 			bool tmp = false;
 			foreach(Room room in rooms){
-				tmp = tmp ? tmp : room.HasPlayer();
+				tmp = tmp ? tmp : room.has_player();
 			}
 			return tmp;
 		}
-                private Entity GetPlayer(){
+                private Entity get_player(){
                         Entity temp = null;
                         foreach(Room room in rooms){
-                                if(room.HasPlayer()){
-                                        temp = room.GetPlayer();
+                                if(room.has_player()){
+                                        temp = room.get_player();
                                 }
                         }
                         return temp;
                 }
-                private Room GetPlayerRoom(){
+                private Room get_room_player(){
                         Room temp = null;
                         foreach(Room room in rooms){
-                                if(room.HasPlayer()){
+                                if(room.has_player()){
                                         temp = room;
                                 }
                         }
                         return temp;
                 }
-                private Video.Point GetPlayerRoomCorner(){
+                private Video.Point get_room_player_corner(){
                         Video.Point r = Video.Point(){
-                                x = ((GetPlayer().GetX() - (GetPlayerRoom().GetW() / 3)) > 0) ?
-                                        (int)(GetPlayer().GetX() - (GetPlayerRoom().GetW()/3)) :
+                                x = ((get_player().get_x() - (get_room_player().get_w() / 3)) > 0) ?
+                                        (int)(get_player().get_x() - (get_room_player().get_w()/3)) :
                                         0,
-                                y = ((GetPlayer().GetY() - (GetPlayerRoom().GetH() / 3)) > 0) ?
-                                        (int)(GetPlayer().GetY() - (GetPlayerRoom().GetH()/3)) :
+                                y = ((get_player().get_y() - (get_room_player().get_h() / 3)) > 0) ?
+                                        (int)(get_player().get_y() - (get_room_player().get_h()/3)) :
                                         0
                         };
                         return r;
                 }
-                public int TakeTurns(){
+                public int take_turns(){
                         int tmp = 1;
                         foreach(Room room in rooms){
-                                prints("   Entities on the floor are taking turns\n");
-                                tmp = room.TakeTurns();
+                                print_withname("   Entities on the floor are taking turns\n");
+                                tmp = room.take_turns();
                         }
                         return tmp;
                 }
-                public bool DetectCollisions(){
+                public bool detect_collisions(){
                         bool tmp = false;
                         foreach(Room room in rooms){
-                                tmp = room.DetectCollisions() ? true : tmp;
-                                if (!room.HasPlayer()) {
-                                        bool transit = room.DetectTransition(GetPlayer());
+                                tmp = room.detect_collisions() ? true : tmp;
+                                if (!room.has_player()) {
+                                        bool transit = room.detect_transitions(get_player());
                                         if (transit) {
-                                                room.EnterRoom(GetPlayerRoom().LeaveRoom(transit));
+                                                room.enter_room(get_room_player().leave_room(transit));
                                         }
                                 }
                         }
                         return tmp;
                 }
-                public void RenderCopy(Video.Renderer renderer){
-                        if (HasPlayer()){
+                public void render_copy(Video.Renderer renderer){
+                        if (has_player()){
                                 foreach(Room room in rooms){
-                                        room.RenderCopy(renderer, GetPlayerRoomCorner());
+                                        room.render_copy(renderer, get_room_player_corner());
                                 }
                         }
 		}

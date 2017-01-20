@@ -13,7 +13,7 @@ namespace LAIR{
                         Video.Color r = {0, 0, 0};
                         return r;
                 }
-                private void InsertLabel(List<string> Labels, Video.Renderer* renderer){
+                private void insert_label(List<string> Labels, Video.Renderer* renderer){
                         foreach(string label in Labels.copy()){
                                 if(label != null){
                                         Text.append(Video.Texture.create_from_surface(renderer, Font.render(label, GetColor())));
@@ -23,58 +23,58 @@ namespace LAIR{
                 public Text(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer){
                         base(corner, Surfaces, renderer);
                         Font = font;
-                        InsertLabel(Labels, renderer);
+                        insert_label(Labels, renderer);
                 }
                 public Text.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer){
                         base.Blocked(corner, Surfaces, renderer);
                         Font = font;
-                        InsertLabel(Labels, renderer);
+                        insert_label(Labels, renderer);
                 }
                 public Text.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, string tag){
                         base.Parameter(corner, Surfaces, renderer, tag);
                         Font = font;
-                        InsertLabel(Labels, renderer);
+                        insert_label(Labels, renderer);
                 }
                 public Text.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, string tag){
                         base.ParameterBlocked(corner, Surfaces, renderer, tag);
                         Font = font;
-                        InsertLabel(Labels, renderer);
+                        insert_label(Labels, renderer);
                 }
                 public Text.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.ParameterList(corner, Surfaces, renderer, tags);
                         Font = font;
-                        InsertLabel(Labels, renderer);
+                        insert_label(Labels, renderer);
                 }
                 public Text.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.ParameterListBlocked(corner, Surfaces, renderer, tags);
                         Font = font;
-                        InsertLabel(Labels, renderer);
+                        insert_label(Labels, renderer);
                 }
-                protected void ShowStats(){
+                protected void show_stats(){
                         showStats = !showStats;
                 }
-                protected void ShowSkills(){
+                protected void show_skills(){
                         showSkills = !showSkills;
                 }
-                public void RenderText(Video.Renderer* renderer, Video.Point player_pos){
+                public void render_text(Video.Renderer* renderer, Video.Point player_pos){
                         if(showStats){
-                                prints("Showing Stats\n");
+                                print_withname("Showing Stats\n");
                                 for(int i = 0; i < 5; i++){
                                         Video.Point tmp = Video.Point(){
                                                 x = player_pos.x - 34,
                                                 y = player_pos.y - 2 - (i*11)
                                         };
-                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPositionOffset(tmp), 0.0, null, Video.RendererFlip.NONE);
+                                        renderer->copyex(Text.nth_data(i), get_text_source(), get_text_position(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }
                         if(showSkills){
-                                prints("Showing Skills\n");
+                                print_withname("Showing Skills\n");
                                 for(int i = 5; i < 5 + Text.length(); i++){
                                         Video.Point tmp = Video.Point(){
                                                 x = player_pos.x - 34,
                                                 y = player_pos.y - 2 - (i*11)
                                         };
-                                        renderer->copyex(Text.nth_data(i), GetTextSource(), GetTextPositionOffset(tmp), 0.0, null, Video.RendererFlip.NONE);
+                                        renderer->copyex(Text.nth_data(i), get_text_source(), get_text_position(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }
 		}

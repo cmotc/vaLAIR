@@ -42,19 +42,28 @@ unix:
 		src/entity/move.vala \
 		src/entity/entity.vala
 
-android:
+win64:
+	export PATH=$PATH:/usr/lib/mxe/usr/bin
+	export PKG_CONFIG_PATH_x86_64_w64_mingw32_shared=/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/lib/pkgconfig/
+	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_x86_64_w64_mingw32_shared
 	valac -gv \
-		-o bin/LAIR \
-		--disable-warnings \
+		-o bin/LAIR.w64.exe \
+		--cc "/usr/lib/mxe/usr/bin/x86_64-w64-mingw32.shared-gcc" \
+		--pkg-config="/usr/lib/mxe/usr/bin/x86_64-w64-mingw32.shared-pkg-config" \
 		--pkg gio-2.0 \
 		--pkg lua \
 		--pkg sdl2 \
+		--pkg sdl2-windows \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
-		--pkg=tartrazine \
-		-X -llua5.1 \
+		-X -Og \
+		-X -g3 \
+		-X "-I /usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include/" \
+		-X "-B /usr/lib/mxe/usr/x86_64-w64-mingw32.shared/lib/" \
+		-X -ggdb \
+		-X -llua \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -64,6 +73,7 @@ android:
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/scribe.vala \
+		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -83,6 +93,110 @@ android:
 		src/entity/move.vala \
 		src/entity/entity.vala
 
+win32:
+	export PATH=$PATH:/usr/lib/mxe/usr/bin
+	export PKG_CONFIG_PATH_i686_w64_mingw32_shared=/usr/lib/mxe/usr/i686-w64-mingw32.shared/lib/pkgconfig/
+	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_i686_w64_mingw32_shared
+	valac -gv \
+		-o bin/LAIR-w32.exe \
+		--cc "/usr/lib/mxe/usr/bin/i686-w64-mingw32.shared-gcc" \
+		--pkg-config="/usr/lib/mxe/usr/bin/i686-w64-mingw32.shared-pkg-config" \
+		--pkg gio-2.0 \
+		--pkg lua \
+		--pkg sdl2 \
+		--pkg sdl2-windows \
+		--pkg sdl2-gfx \
+		--pkg sdl2-image \
+		--pkg sdl2-ttf \
+		--pkg sdl2-mixer \
+		--pkg=tartrazine \
+		-X -Og \
+		-X -g3 \
+		-X "-I /usr/lib/mxe/usr/i686-w64-mingw32.shared/include/" \
+		-X "-B /usr/lib/mxe/usr/i686-w64-mingw32.shared/lib/" \
+		-X -ggdb \
+		-X -llua \
+		-X -lSDL2 \
+		-X -lSDL2_gfx \
+		-X -lSDL2_image \
+		-X -lSDL2_ttf \
+		-X -lSDL2_mixer \
+		src/main.vala \
+		src/util/net.vala \
+		src/util/luaconf.vala \
+		src/util/scribe.vala \
+		src/util/tagcounter.vala \
+		src/resmanage/files.vala \
+		src/resmanage/images.vala \
+		src/resmanage/filedb.vala \
+		src/resmanage/fonts.vala \
+		src/resmanage/sounds.vala \
+		src/game/room.vala \
+		src/game/floor.vala \
+		src/game/tower.vala \
+		src/game/game.vala \
+		src/entity/type.vala \
+		src/entity/sprite.vala \
+		src/entity/anim.vala \
+		src/entity/text.vala \
+		src/entity/sound.vala \
+		src/entity/stats.vala \
+		src/entity/inventory.vala \
+		src/entity/move.vala \
+		src/entity/entity.vala
+
+windows:
+	make win64
+	make win32
+
+android:
+	valac -gv \
+		-o bin/LAIR \
+		--disable-warnings \
+		--pkg gio-2.0 \
+		--pkg lua \
+		--pkg sdl2 \
+		--pkg sdl2-android \
+		--pkg sdl2-gfx \
+		--pkg sdl2-image \
+		--pkg sdl2-ttf \
+		--pkg sdl2-mixer \
+		--pkg=tartrazine \
+		-X -llua5.1 \
+		-X -lSDL2 \
+		-X -lSDL2_gfx \
+		-X -lSDL2_image \
+		-X -lSDL2_ttf \
+		-X -lSDL2_mixer \
+		src/main.vala \
+		src/util/net.vala \
+		src/util/luaconf.vala \
+		src/util/scribe.vala \
+		src/util/tagcounter.vala \
+		src/resmanage/files.vala \
+		src/resmanage/images.vala \
+		src/resmanage/filedb.vala \
+		src/resmanage/fonts.vala \
+		src/resmanage/sounds.vala \
+		src/game/room.vala \
+		src/game/floor.vala \
+		src/game/tower.vala \
+		src/game/game.vala \
+		src/entity/type.vala \
+		src/entity/sprite.vala \
+		src/entity/anim.vala \
+		src/entity/text.vala \
+		src/entity/sound.vala \
+		src/entity/stats.vala \
+		src/entity/inventory.vala \
+		src/entity/move.vala \
+		src/entity/entity.vala
+
+all:
+	make unix
+	make windows
+	make android
+
 unlog:
 	rm -f *log \
 		*err \
@@ -94,6 +208,7 @@ debclean:
 
 clean:
 	rm -f bin/LAIR
+	rm -f bin/LAIR*.exe
 	make debclean
 	make unlog
 

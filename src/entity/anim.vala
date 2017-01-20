@@ -5,7 +5,7 @@ namespace LAIR{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
-                private Video.Point cursorPosition = Video.Point(){x=0,y=0};
+                private static Video.Point cursorPosition = Video.Point(){x=0,y=0};
                 public Anim(Video.Rect rect){
                         base();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
@@ -36,10 +36,10 @@ namespace LAIR{
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
-		public Video.Rect GetPosition(){
-			return position;
+                protected Video.Rect get_source(){
+                        return source;
 		}
-                public Video.Rect GetPositionOffset(Video.Point offset_px){
+                protected Video.Rect get_position(Video.Point offset_px){
                         Video.Rect r = Video.Rect(){
                                 x = position.x - offset_px.x,
                                 y = position.y - offset_px.y,
@@ -48,11 +48,11 @@ namespace LAIR{
                         };
 			return r;
 		}
-                public Video.Rect GetTextSource(){
+                protected Video.Rect get_text_source(){
                         return Video.Rect(){x=0,y=0,w=200,h=11};
 
                 }
-                public Video.Rect GetTextPositionOffset(Video.Point offset_px){
+                protected Video.Rect get_text_position(Video.Point offset_px){
                         Video.Rect r = Video.Rect(){
                                 x = position.x - offset_px.x,
                                 y = position.y - offset_px.y,
@@ -61,111 +61,75 @@ namespace LAIR{
                         };
 			return r;
 		}
-		public Video.Rect GetSource(){
-                        return source;
-		}
-		public int GetWidth(){
+
+		public int get_width(){
 			return (int) source.w;
 		}
-                public int GetHalfWidth(){
+                public int get_half_width(){
                         int hW = (int) (position.w / 2);
                         return hW;
                 }
-		public int GetHeight(){
+		public int get_height(){
 			return (int) source.h;
 		}
-                public int GetHalfHeight(){
+                public int get_half_height(){
                         int hH = (int) (position.h / 2);
 			return hH;
 		}
-		public unowned int GetX(){
-                        //int t = 0;
-                        //if(!position.is_empty()){
+		public unowned int get_x(){
                         unowned int t = position.x;
-                        //if(&position != null){
-                                //Video.Rect p = new Video.Rect(){x=0,y=0,w=32,h=32};
-                                //p = position;
-                                //Video.Rect* p = &position;
-                                //if(!position.is_equal(Video.Rect(){x=0,y=0,w=32,h=32})){
-                                //t = &position.x;
-                                //t = (int) p.x;
-                        //}
 			return t;
 		}
-		public unowned int GetY(){
-                        //int t = 0;
-                        //if(!position.is_empty()){
+		public unowned int get_y(){
                         unowned int t = position.y;
-                        //if(&position != null){
-                                //Video.Rect p = new Video.Rect(){x=0,y=0,w=32,h=32};
-                                //p = position;
-                                //Video.Rect* p = &position;
-                                //if(!position.is_equal(Video.Rect(){x=0,y=0,w=32,h=32})){
-                                //t = &position.y;
-                        //}
 			return t;
 		}
-                public Video.Rect GetHitBox(){
+                public Video.Rect get_hitbox(){
                         Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
-                        if(GetBlock()){
-                                if(IsPlayer()){
-                                        r = Video.Rect(){ x = GetX() + offsetHitBox.x,
-                                                y = GetY() + offsetHitBox.y,
+                        if(get_block()){
+                                if(is_player()){
+                                        r = Video.Rect(){ x = get_x() + offsetHitBox.x,
+                                                y = get_y() + offsetHitBox.y,
                                                 w = offsetHitBox.w,
                                                 h = offsetHitBox.h };
                                 }else{
-                                        r = Video.Rect(){ x = GetX() + 1,
-                                                y = GetY() + 1,
-                                                w = (GetWidth() - 1),
-                                                h = (GetHeight() - 1) };
+                                        r = Video.Rect(){ x = get_x() + 1,
+                                                y = get_y() + 1,
+                                                w = (get_width() - 1),
+                                                h = (get_height() - 1) };
                                 }
                         }
                         return r;
                 }
-                protected Video.Rect GetTextPosition(){
-                        Video.Rect r = Video.Rect(){x=48,y=48,w=160,h=160};
-                        return r;
-                }
-                public Video.Point GetCenter(){
-                        Video.Point coords = Video.Point(){x=GetX()+GetHalfWidth(), y=GetY()+GetHalfHeight()};
+                public Video.Point get_center(){
+                        Video.Point coords = Video.Point(){x=get_x()+get_half_width(), y=get_y()+get_half_height()};
                         return coords;
                 }
-                public Video.Point GetCorner(){
-                        unowned Video.Point coords = Video.Point(){x=GetX(), y=GetY()};
-                        return coords;
-                }
-                private double RadiansToDegrees(double radians){
+                private double radians_to_degrees(double radians){
                         double r = (180/Math.PI) * radians;
                         return r;
                 }
-                protected void SetCursorPosition(Video.Point cursor){
+                protected void set_cursor_position(Video.Point cursor){
                         cursorPosition = cursor;
                 }
-                public double GetAngle(){
+                public double get_angle(){
                         double degrees = 0.0;
                         if (cursorPosition.x == 0){
                                 if (cursorPosition.y == 0){
                                         degrees = 0.0;
                                 }
                         }else{
-                                degrees = RadiansToDegrees(Math.atan2(cursorPosition.x - GetCenter().x, cursorPosition.y - GetCenter().y) + 135);
+                                degrees = radians_to_degrees(Math.atan2(cursorPosition.x - get_center().x, cursorPosition.y - get_center().y) + 135);
                         }
                         return degrees * -1;
                 }
-		public int SetX(int x){
+		public int set_x(int x){
 			position.x = x;
 			return position.x;
 		}
-		public int SetY(int y){
+		public int set_y(int y){
 			position.y = y;
 			return position.y;
 		}
-                public bool CheckXY(Video.Point toCheck){
-                        bool r = false;
-                        if(toCheck == this.GetCorner()){
-                                r = true;
-                        }
-                        return r;
-                }
 	}
 }

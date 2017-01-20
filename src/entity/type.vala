@@ -8,29 +8,29 @@ namespace LAIR{
                         player = false;
                         b = 0;
                         tags = new List<string>();
-                        SetType("default");
+                        set_type("default");
                 }
                 public Type.Blocked(){
                         base.LLL(6, "default");
                         b = 0;
                         tags = new List<string>();
-                        SetType("blocked");
+                        set_type("blocked");
 		}
                 public Type.Player(string name){
                         base.LLL(1, name);
                         b = 0;
                         tags = new List<string>();
-                        SetType("blocked");
-                        SetType("player");
+                        set_type("blocked");
+                        set_type("player");
 		}
                 public Type.Parameter(string type){
                         base.LLL(6, "default");
                         b = 0;
                         tags = new List<string>();
-                        SetType(type);
-                        player = CheckType("player");
+                        set_type(type);
+                        player = check_type("player");
                         if (player) {
-                                SetType("blocked");
+                                set_type("blocked");
                         }
                 }
                 public Type.ParameterList(List<string> types){
@@ -38,32 +38,32 @@ namespace LAIR{
                         b = 0;
                         tags = new List<string>();
                         foreach(string type in types.copy()){
-                                SetType(type);
+                                set_type(type);
                         }
-                        player = CheckType("player");
+                        player = check_type("player");
                         if (player) {
-                                SetType("blocked");
+                                set_type("blocked");
                         }
                 }
                 public Type.ParameterBlocked(string type){
                         base.LLL(6, "default");
                         b = 0;
                         tags = new List<string>();
-                        SetType("blocked");
-                        SetType(type);
-                        player = CheckType("player");
+                        set_type("blocked");
+                        set_type(type);
+                        player = check_type("player");
                 }
                 public Type.ParameterListBlocked(List<string> types){
                         base.LLL(6, "default");
                         b = 0;
                         tags = new List<string>();
-                        SetType("blocked");
+                        set_type("blocked");
                         foreach(string type in types.copy()){
-                                SetType(type);
+                                set_type(type);
                         }
-                        player = CheckType("player");
+                        player = check_type("player");
                 }
-		public bool SetType(string NewType){
+		private bool set_type(string NewType){
                         bool t = true;
                         foreach(string i in tags.copy()){
                                 if ( i == NewType ){
@@ -72,7 +72,7 @@ namespace LAIR{
                         }
                         if (t){
                                 tags.append(NewType);
-                                prints("   Added tag: %s \n", NewType);
+                                print_withname("   Added tag: %s \n", NewType);
                                 b = 0;
                         }
                         if ( NewType == "blocked" ){
@@ -83,7 +83,7 @@ namespace LAIR{
                         }
                         return t;
 		}
-                public bool CheckType(string Type){
+                private bool check_type(string Type){
                         bool r = false;
                         foreach(string i in tags.copy()){
                                 if ( i == Type ){
@@ -92,10 +92,10 @@ namespace LAIR{
                         }
                         return r;
                 }
-		public bool GetBlock(){
+		protected bool get_block(){
                         bool r = false;
                         if ( b == 0 ){
-                                r = CheckType("blocked");
+                                r = check_type("blocked");
                                 if ( r == true){
                                         b = 1;
                                 }
@@ -105,14 +105,14 @@ namespace LAIR{
 
 			return r;
 		}
-		public bool IsPlayer(){
+		public bool is_player(){
 			return player;
 		}
-                public unowned List<string> GetTags(){
+                public unowned List<string> get_tags(){
                         unowned List<string> r = tags;
                         return r;
                 }
-                public string TagString(){
+                public string stringify_tags(){
                         string r = "";
                         foreach(string i in tags.copy()){
                                 r += i;

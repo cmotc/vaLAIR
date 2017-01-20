@@ -6,43 +6,24 @@ namespace LAIR{
                 private Music music;
 		public Sound(string path){
                         base.WithPath(path);
-                        Load();
+                        load();
 		}
                 public Sound.WithAttList(List<string> path){
                         base.WithAttList(path);
-                        Load();
+                        load();
 		}
-                public bool Load(){
+                public bool load(){
                         bool tmp = false;
-			if (CheckPath()){
-				prints("Loading the sound to a Music %s \n", GetPath());
-				music = new Music(GetPath());
+			if (check_path()){
+				print_withname("Loading the sound to a Music %s \n", get_path());
+				music = new Music(get_path());
 				tmp = true;
 			}else{
-				prints("Sound not found at location %s \n", GetPath());
+				print_withname("Sound not found at location %s \n", get_path());
 			}
 			return tmp;
                 }
-                /*public bool SoundLoad(string path){
-                        SetPath(path);
-			bool tmp = false;
-			if (CheckPath()){
-				prints("Loading the sound to a Music %s \n", GetPath());
-				music = new Music(GetPath());
-				tmp = true;
-			}else{
-				prints("Sound not found at location %s \n", GetPath());
-			}
-			return tmp;
-                }
-                public bool CheckSound(){
-			if (CheckPath()){
-				return true;
-			}else{
-				return false;
-			}
-		}*/
-		public Music* GetSound(){
+		public Music* get_sound(){
                         Music* tmp = music;
 			return tmp;
 		}

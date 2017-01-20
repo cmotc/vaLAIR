@@ -2,7 +2,7 @@ using SDL;
 using SDLMixer;
 using SDLTTF;
 namespace LAIR{
-	class Stats : Net{
+	class Stats : Voice{
 		private int Strength = 10;
 		private int Agility = 10;
 		private int Toughness = 10;
@@ -17,25 +17,25 @@ namespace LAIR{
 		private int magic = 1;
 		private int tech = 1;
                 public Stats(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
-                        base(corner, Surfaces, music, font, GenerateLabels(), renderer);
+                        base(corner, Surfaces, music, font, generate_labels(), renderer);
                 }
                 public Stats.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-                        base.Blocked(corner, Surfaces, music, font, GenerateLabels(), renderer);
+                        base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer);
                 }
                 public Stats.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.Parameter(corner, Surfaces, music, font, GenerateLabels(), renderer, tag);
+                        base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, tag);
                 }
                 public Stats.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(corner, Surfaces, music, font, GenerateLabels(), renderer, tag);
+                        base.ParameterBlocked(corner, Surfaces, music, font, generate_labels(), renderer, tag);
                 }
                 public Stats.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterList(corner, Surfaces, music, font, GenerateLabels(), renderer, tags);
+                        base.ParameterList(corner, Surfaces, music, font, generate_labels(), renderer, tags);
                 }
                 public Stats.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterListBlocked(corner, Surfaces, music, font, GenerateLabels(), renderer, tags);
+                        base.ParameterListBlocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
 
                 }
-                private static List<string> GenerateLabels(){
+                private static List<string> generate_labels(){
                         List<string> tmp = new List<string>();
                         tmp.append("Strength : ");
                         tmp.append("Agility  : ");
