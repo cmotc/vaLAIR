@@ -215,7 +215,7 @@ unlog:
 		bin/*log \
 		bin/*err
 debclean:
-	rm -f *.tgz *.deb
+	rm -f *.tgz ../*.deb
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
@@ -251,9 +251,19 @@ install:
 	#chown -R /var/cache/lair/map/
 
 deb-pkg:
+	make clean
 	make unix
-	checkinstall --deldoc=yes --deldesc=yes -Dy
+	echo "LAIR! Roguelike Game, version 0.9\n\nLAIR is a Procedurally Generated Mutliplayer Rogue-Like Game\nIt's awesome." > description-pak
+	checkinstall --deldoc=yes \
+		--deldesc=yes \
+		-Dy \
+		--pakdir=../ \
+		--maintainer='problemsolver@openmailbox.org' \
+		--pkglicense='LICENSE.md' \
+		--pkgversion='0.9' \
+		--pkgsource='https://github.com/cmotc/vaLAIR/'
+
 
 rpm-pkg:
 	make
-	checkinstall --deldoc=yes --delspec=yes -Ry
+	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
