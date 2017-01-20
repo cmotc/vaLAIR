@@ -36,10 +36,14 @@ namespace LAIR{
 		}
                 protected string set_path(string path){
                         string []tmp = path.split(" ", 2);
+                        string tmp2 = tmp[0].replace("/usr/share/", Environment.get_user_config_dir());
 			if (FileUtils.test(tmp[0], FileTest.EXISTS)) {
 				Path = tmp[0];
 				print_withname("Setting Path: %s\n", Path);
-			}else{
+			}else if(FileUtils.test(tmp2, FileTest.EXISTS)) {
+                                Path = tmp2;
+				print_withname("Setting Path: %s\n", Path);
+                        }else{
 				Path = null;
 				print_withname("Setting Path failed: %s doesn't exist\n", Path);
 			}
