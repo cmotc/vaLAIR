@@ -58,6 +58,7 @@ win64:
 		--pkg sdl2-image \
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
+		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
 		-X "-I /usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include/" \
@@ -148,10 +149,18 @@ win32:
 windows:
 	make win64
 	make win32
+	rm -rf ${HOME}/Projects/lair-msi/bin
+	cp -R bin/ ${HOME}/Projects/lair-msi/bin
+	rm ${HOME}/Projects/lair-msi/bin/lair
+	rm ${HOME}/Projects/lair-msi/bin/LAIR
+	cp -R share/lair ${HOME}/Projects/lair-msi/bin/lair
 
 android:
+	export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
 	valac -gv \
-		-o bin/LAIR \
+		-o bin/LAIR-droid \
+		--cc "/usr/bin/arm-linux-gnueabihf-gcc" \
+		--pkg-config="/usr/bin/arm-linux-gnueabihf-pkg-config" \
 		--disable-warnings \
 		--pkg gio-2.0 \
 		--pkg lua \
@@ -168,6 +177,8 @@ android:
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
+		-X "-I /usr/include/arm-linux-gnueabihf/" \
+		-X "-B /usr/lib/arm-linux-gnueabihf/pkgconfig" \
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
