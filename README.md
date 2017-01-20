@@ -48,6 +48,12 @@ files via the command-line flags for now:
 which are in the [art repository](https://github.com/cmotc/lairart), which you
 can install with make; sudo make install.
 
+###Windows:
+
+Very untested, like literally zero testing at all, but technically it has been
+successfully cross-compiled for Windows 32 and 64 bit using M Cross Environment.
+For now, test at your own risk.
+
 Configuration(You probably don't need to read this unless you want to mod)
 --------------------------------------------------------------------------
 

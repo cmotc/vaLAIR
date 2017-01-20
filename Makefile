@@ -47,7 +47,7 @@ win64:
 	export PKG_CONFIG_PATH_x86_64_w64_mingw32_shared=/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/lib/pkgconfig/
 	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_x86_64_w64_mingw32_shared
 	valac -gv \
-		-o bin/LAIR.w64.exe \
+		-o bin/LAIR-w64.exe \
 		--cc "/usr/lib/mxe/usr/bin/x86_64-w64-mingw32.shared-gcc" \
 		--pkg-config="/usr/lib/mxe/usr/bin/x86_64-w64-mingw32.shared-pkg-config" \
 		--pkg gio-2.0 \
@@ -239,8 +239,8 @@ install:
 	#chown -R /var/cache/lair/map/
 
 deb-pkg:
-	make
-	checkinstall --deldoc=yes -Dy
+	make unix
+	checkinstall --deldoc=yes --deldesc=yes -Dy
 
 rpm-pkg:
 	make
