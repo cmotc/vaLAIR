@@ -151,6 +151,7 @@ windows:
 	make win32
 	rm -rf ${HOME}/Projects/lair-msi/bin
 	cp -R bin/ ${HOME}/Projects/lair-msi/bin
+	cp README.md LUA.md COPYING.md ${HOME}/Projects/lair-msi/bin
 	rm ${HOME}/Projects/lair-msi/bin/lair
 	rm ${HOME}/Projects/lair-msi/bin/LAIR
 	cp -R share/lair ${HOME}/Projects/lair-msi/bin/lair
