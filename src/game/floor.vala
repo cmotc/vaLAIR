@@ -1,9 +1,10 @@
 using SDL;
 namespace LAIR{
-	class Floor : Scribe{
+	class Floor : LuaConf { //Scribe{
 		private List<Room> rooms = new List<Room>();
 		public Floor(int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.LLL(4, "floor:");
+                        base(scripts[0], 4, "floor:");
+                        //base.LLL(4, "floor:");
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
                         Video.Rect FloorDims = Video.Rect(){
@@ -17,9 +18,11 @@ namespace LAIR{
                                         rooms.append(new Room(XYOffset, FloorDims, scripts, DM, renderer));
                                 }
 			}
+                        lua_do_function("""archive_old_map()""");
 		}
 		public Floor.WithPlayer(int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.LLL(3, "floor:");
+                        base(scripts[0], 4, "floor:");
+                        //base.LLL(3, "floor:");
                         int c = 0;
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
@@ -39,6 +42,7 @@ namespace LAIR{
                                         c++;
                                 }
 			}
+                        lua_do_function("""archive_old_map()""");
                 }
 		private bool has_player(){
 			bool tmp = false;

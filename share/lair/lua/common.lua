@@ -100,9 +100,21 @@ function get_mob_savepath()
         local map = home .. "/.config/lair/mob_table.lua"
         return map
 end
+function get_map_archivepath()
+        local home = os.getenv("HOME")
+        local time = os.time()
+        local map = home .. "/.config/lair/map_table-" .. time .. ".lua"
+        return map
+end
+function get_mob_archivepath()
+        local home = os.getenv("HOME")
+        local time = os.time()
+        local map = home .. "/.config/lair/mob_table-" .. time .. ".lua"
+        return map
+end
 function file_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
+        local f=io.open(name,"r")
+        if f~=nil then io.close(f) return true else return false end
 end
 
 function reload_map()
@@ -122,9 +134,10 @@ function stringup_cell(variable)
         local command = table .. "[\"" .. key .. "\"] = \"" .. member .. "\"\n"
         return command
 end
-function delete_old_map()
+function archive_old_map()
         if file_exists(get_map_savepath()) then
-                os.remove(get_map_savepath())
+                os.rename(get_map_savepath(), get_map_archivepath())
+                os.rename(get_mob_savepath(), get_mob_archivepath())
         end
 end
 function setup_new_map()
