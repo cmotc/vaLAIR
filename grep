@@ -1,0 +1,91 @@
+
+checkinstall 1.6.2, Copyright 2009 Felipe Eduardo Sanchez Diaz Duran
+           This software is released under the GNU GPL.
+
+
+Usage: checkinstall [options] [command [command arguments]]
+Options:
+
+*Package type selection*
+
+-t,--type=<slackware|rpm|debian> Choose packaging system
+-S                               Build a Slackware package
+-R                               Build a RPM package
+-D                               Build a Debian package
+
+*Install options*
+
+--install=<yes|no>             Toggle created package installation
+--fstrans=<yes|no>             Enable/disable the filesystem translation code
+
+*Scripting options*
+
+-y, --default                  Accept default answers to all questions
+--pkgname=<name>               Set name
+--pkgversion=<version>         Set version
+-A, --arch, --pkgarch=<arch>   Set architecture
+--pkgrelease=<release>         Set release
+--pkglicense=<license>         Set license
+--pkggroup=<group>             Set software group
+--pkgsource=<source>           Set source location
+--pkgaltsource=<altsource>     Set alternate source location
+--pakdir=<directory>           The new package will be saved here
+--maintainer=<email addr>      The package maintainer (.deb)
+--provides=<list>              Features provided by this package
+--requires=<list>              Features required by this package
+--conflicts=<list>             Packages that this package cannot be installed with (.deb)
+--replaces=<list>              Packages that this package replaces (.deb)
+--rpmflags=<flags>             Pass this flags to the rpm installer
+--rpmi                         Use the -i flag for rpm when installing a .rpm
+--rpmu                         Use the -U flag for rpm when installing a .rpm
+--dpkgflags=<flags>            Pass this flags to the dpkg installer
+--spec=<path>                  .spec file location
+--nodoc                        Do not include documentation files
+
+*Info display options*
+
+-d<0|1|2>                      Set debug level
+-si                            Run an interactive install command
+--showinstall=<yes|no>         Toggle interactive install command
+-ss                            Run an interactive Slackware installation script
+--showslack=<yes|no>           Toggle interactive Slackware installation script
+
+*Package tuning options*
+
+--autodoinst=<yes|no>          Toggle the creation of a doinst.sh script
+--strip=<yes|no>               Strip any ELF binaries found inside the package
+--stripso=<yes|no>             Strip any ELF binary libraries (.so files)
+--addso=<yes|no>               Search for any shared libs and add
+                               them to /etc/ld.so.conf
+--reset-uids=<yes|no>          Reset perms for all files to o=g, dirs to 755 and
+                               the owner/group for all dirs to root.root
+--gzman=<yes|no>               Compress any man pages found inside the package
+--docdir=<path>                Where to put documentation files
+                               The package name+version gets automatically appended.
+                               To avoid that prefix the path with a colon (:).
+--umask=<mask>                 Set the umask value
+--exclude=<file|dir[,...]>     Exclude these files/directories from the package
+--include=<listfile>           Force the inclusion in the package of the
+                               files/dirs listed in "listfile"
+--inspect                      Inspect the package's file list
+--review-spec                  Review the spec file before creating a .rpm
+--review-control               Review the control file before creating a .deb
+--newslack                     Use the new (8.1+) Slackware description format
+                               ("--newslack" implies "-S")
+--with-tar=/path/to/tar        Manually set the path to the tar binary
+                               in this system
+
+*Cleanup options*
+
+--deldoc=<yes|no>              Delete doc-pak upon termination
+--deldesc=<yes|no>             Delete description-pak upon termination
+--delspec=<yes|no>             Delete spec file upon termination
+--bk                           Backup any overwritten files
+--backup=<yes|no>              Toggle backup
+
+*About CheckInstall*
+
+--help, -h                     Show this message
+--copyright                    Show Copyright information
+--version                      Show version information
+

@@ -129,7 +129,7 @@ namespace LAIR{
                 private void decide_block_tile(Video.Point coords, Video.Renderer* renderer){
                         lua_do_function("""map_cares_insert()""");
                         List<string> cares = get_lua_last_return();
-                        print_withname("\n");
+                        print_withname("\n %s \n", cares.nth_data(0));
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
                                         print_withname("Will it blend?\n");
@@ -146,7 +146,7 @@ namespace LAIR{
                 private void decide_mobile_tile(Video.Point coords, Video.Renderer* renderer){
                         lua_do_function("""mob_cares_insert()""");
                         List<string> cares = get_lua_last_return();
-                        print_withname("\n");
+                        print_withname("\n %s \n", cares.nth_data(0));
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
                                         print_withname("Will it blend?\n");
@@ -208,11 +208,15 @@ namespace LAIR{
                         foreach(var particle in Particles){
                                 if(has_player()){
                                         t = Player.detect_collisions(particle) ? true : t ;
+                                        foreach(var mob in Mobs){
+                                                t = mob.detect_collisions(Player) ? true : t;
+                                                t = Player.detect_collisions(mob) ? true : t;
+                                        }
+                                }else{
+                                        foreach(var mob in Mobs){
+                                                particle.detect_collisions(mob);
+                                        }
                                 }
-                                //foreach(var mob in Mobs){
-                                        //particle.DetectCollision(mob);
-                                        //t = Player.DetectCollision(mob) ? Player.DetectCollision(mob) : t;
-                                //}
                         }
                         return t;
                 }
@@ -334,7 +338,8 @@ namespace LAIR{
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
                                         //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
                                         //Mobs.append(new Entity(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.get_rand_font(), renderer));
-                                        Mobs.append(new Entity.ParameterList(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags));
+                                        imgTags.append("blocked");
+                                        Mobs.append(new Entity.ParameterList(coords, GameMaster.body_by_tone(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags));
                                         lua_do_function("record_mobile(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}

@@ -8,7 +8,7 @@ dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 
 function map_cares_insert()
         reload_map()
-        particle_index_byxy(0, 0)
+--        particle_index_byxy(0, 0)
         result = thickwall_cares_insert()
         result = cut_hallways(result)
         result = thinwall_cares_insert(result)
@@ -39,6 +39,12 @@ end
 --mobile at all.
 function mob_cares_insert()
         local decided_to = "false"
+        if is_blocked_particle_here() == "false" then
+                if is_blocked_mobile_here() == "false" then
+                        print("injecting mobile")
+                        decided_to = percent_chance(4)
+                end
+        end
         return decided_to
 end
 -- The return value of this function tells the map what image to use to select

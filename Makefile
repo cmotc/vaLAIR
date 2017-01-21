@@ -253,7 +253,13 @@ install:
 deb-pkg:
 	make clean
 	make unix
-	echo "LAIR! Roguelike Game, version 0.9\n\nLAIR is a Procedurally Generated Mutliplayer Rogue-Like Game\nIt's awesome." > description-pak
+	echo "LAIR! Roguelike Game, version 0.9" > description-pak
+	echo "" >> description-pak
+	echo "LAIR is a Procedurally Generated Mutliplayer Rogue-Like Game." >> description-pak
+	echo "It uses a library of content and a set of Lua scripts to" >> description-pak
+	echo "generate a random map according to a more-or-less detailed and" >> description-pak
+	echo "flexible environment to work in." >> description-pak
+	echo "" >> description-pak
 	checkinstall --deldoc=yes \
 		--deldesc=yes \
 		-Dy \

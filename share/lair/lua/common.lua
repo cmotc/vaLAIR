@@ -1,5 +1,15 @@
 math.randomseed(os.time())
 
+function reseed_random()
+        for i=math.random(50),1,-1
+        do
+                print("Ensuring Additional Randomness" .. i)
+                math.random()
+                if coin() == "true" then
+                        math.randomseed(os.time())
+                end
+        end
+end
 function get_tag_count(variable)
         if type(variable) == "table" then
                 return variable.c
@@ -142,6 +152,7 @@ function archive_old_map()
 end
 function setup_new_map()
         if file_exists(get_map_savepath()) == false then
+                reseed_random()
                 file = io.open(get_map_savepath(), "a")
                 file:write("cell = {}\n")
                 file:close()
@@ -149,6 +160,7 @@ function setup_new_map()
 end
 function setup_new_mob()
         if file_exists(get_mob_savepath()) == false then
+                reseed_random()
                 file = io.open(get_mob_savepath(), "a")
                 file:write("mobs = {}\n")
                 file:close()
@@ -175,45 +187,31 @@ end
 
 function particle_index_byxy(xx, yy)
         local cell_index = tostring(xx) .. "_" .. tostring(yy)
-        local r
         if type(cell) == "table" then
-                print("cell table present")
-                if cell[cell_index] ~= "nil" then
-                        print(cell_index)
-                        print(cell[cell_index])
-                        r = tostring(cell[cell_index])
+                if type(cell[cell_index]) ~= "nil" then
+                        return tostring(cell[cell_index])
                 else
-                        print("Cell member not present " .. cell_index)
-                        for key, value in pairs(cell) do
-                                io.write(key .. " " .. value .. " : ")
-                        end
-                        print("")
+                        return "false"
                 end
         else
                 print("cell table not present")
+                return "false"
         end
-        return r
 end
 
 function mobile_index_byxy(xx, yy)
         local mob_index = tostring(xx) .. "_" .. tostring(yy)
-        local r
         if type(mobs) == "table" then
                 print("mob table present")
-                if mobs[mob_index] ~= "nil" then
-                        print(mobs .. " " .. mob_index .. " " .. mobs[mob_index])
-                        r = tostring(mobs[mob_index])
+                if type(mobs[mob_index]) ~= "nil" then
+                        return tostring(mobs[mob_index])
                 else
-                        print("mob member not present " .. mob_index)
-                        for key, value in pairs(mobs) do
-                                io.write(key .. " " .. value .. " : ")
-                        end
-                        print("")
+                        return "false"
                 end
         else
                 print("mob table not present")
+                return "false"
         end
-        return r
 end
 
 function what_is_tile_w()
@@ -224,6 +222,14 @@ end
 function what_is_tile_h()
         local h = tonumber(generator_h.h) / tonumber(generator_coarse_h.h)
         return h
+end
+
+function is_blocked_particle_here()
+        return particle_index_byxy(what_pixel_is_gen_x(), what_pixel_is_gen_y())
+end
+
+function is_blocked_mobile_here()
+        return mobile_index_byxy(what_pixel_is_gen_x(), what_pixel_is_gen_y())
 end
 
 function particle_index_by_coarse_xy(xx, yy)
@@ -267,4 +273,20 @@ function print_general_props()
 	print("  Generator Mobile Count: " .. generator_mobile_count.c)
         print("  Generator Tile Width: " .. tostring(what_is_tile_w()))
         print("  Generator Tile Height: " .. tostring(what_is_tile_h()))
+end
+
+function coin()
+        if math.random() < 0.5 then
+                return "false"
+        else
+                return "true"
+        end
+end
+
+function percent_chance(thresh)
+        if math.random(100) > thresh then
+                return "false"
+        else
+                return "true"
+        end
 end

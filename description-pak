@@ -1,4 +1,7 @@
 LAIR! Roguelike Game, version 0.9
 
-LAIR is a Procedurally Generated Mutliplayer Rogue-Like Game
-It's awesome.
+LAIR is a Procedurally Generated Mutliplayer Rogue-Like Game.
+It uses a library of content and a set of Lua scripts to
+generate a random map according to a more-or-less detailed and
+flexible environment to work in.
+
