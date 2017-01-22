@@ -91,13 +91,13 @@ namespace LAIR{
                 public bool detect_collisions(){
                         bool tmp = false;
                         foreach(Room room in rooms){
-                                tmp = room.detect_collisions() ? true : tmp;
                                 if (!room.has_player()) {
                                         bool transit = room.detect_transitions(get_player());
                                         if (transit) {
                                                 room.enter_room(get_room_player().leave_room(transit));
                                         }
                                 }
+                                tmp = room.detect_collisions() ? true : tmp;
                         }
                         return tmp;
                 }
