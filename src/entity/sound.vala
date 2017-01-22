@@ -36,5 +36,9 @@ namespace LAIR{
                         base.Blocked(corner, Surfaces, font, Labels, renderer, tags);
                         set_sounds(music);
                 }
+                public Voice.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                        base.Blocked(corner, Surfaces, font, Labels, renderer, tags);
+                        set_sounds(music);
+                }
 	}
 }

@@ -11,13 +11,18 @@ namespace LAIR{
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
-                public Anim.ParameterList(Video.Rect rect, List<string> tags){
+                public Anim.Parameter(Video.Rect rect, List<string> tags){
                         base.ParameterList(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
-                public Anim.ParameterListBlocked(Video.Rect rect, List<string> tags){
+                public Anim.Blocked(Video.Rect rect, List<string> tags){
                         base.ParameterListBlocked(tags);
+                        position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
+                        source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
+                }
+                public Anim.Player(Video.Rect rect, List<string> tags){
+                        base.Player(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }

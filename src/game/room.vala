@@ -16,7 +16,6 @@ namespace LAIR{
                         set_name("room ("+stringify_hitbox()+"): ");
                         print_withname("generating room\n");
                         GameMaster = DM;
-                        //RegisterLuaFunctions();
                         lua_push_dimensions(get_hitbox());
                         generate_structure(2, renderer);
 		}
@@ -27,10 +26,9 @@ namespace LAIR{
                         set_name("room ("+stringify_hitbox()+"): ");
                         print_withname("generating room with player\n");
                         GameMaster = DM;
-                        //RegisterLuaFunctions();
                         lua_push_dimensions(get_hitbox());
                         generate_structure(2, renderer);
-                        enter_room(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer));
+                        generate_player(renderer);
 		}
                 private void set_dimensions(int x, int y, uint w, uint h){
                         Border.x = x;
@@ -60,6 +58,11 @@ namespace LAIR{
                 }*/
                 public uint get_w(){     return Border.w;}
                 public uint get_h(){     return Border.h;}
+                private void generate_player(Video.Renderer? renderer){
+                        if(!has_player()){
+                                enter_room(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer));
+                        }
+                }
                 private void GeneratorPushXYToLua(Video.Point current, Video.Point simplecurrent){
                         lua_push_coords(current, simplecurrent);
                         particle_count();

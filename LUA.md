@@ -57,16 +57,19 @@ a dungeon generation script must contain the following 8 functions.
   is going to bother to insert a Particle in this square whatsoever. If the
   value is false, then none of the other selection functions will be run for
   that Particle.
+
   * **map\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new particle should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random image with all the tags will be
   retrieved.
+
   * **map\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the sound selected for the new particle should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random sound with all the tags will be
   retrieved.
+
   * **map\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the font selected for the new particle should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
@@ -79,16 +82,19 @@ a dungeon generation script must contain the following 8 functions.
   is going to bother to insert a Mobile in this square whatsoever. If the value
   is false, then none of the other selection functions will be run for that
   Mobile.
+
   * **mob\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new mobile should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random image with all the tags will be
   retrieved.
+
   * **mob\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new mobile should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked
   against the game resources and a random image with all the tags will be
   retrieved.
+
   * **mob\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
   attributes the image selected for the new mobile should have. It returns an
   array of strings which corresponds to a set of tags. The tags will be checked

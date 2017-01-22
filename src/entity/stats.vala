@@ -38,7 +38,8 @@ namespace LAIR{
                         base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
                 }
                 public Stats.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-                        base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
+                        //base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
+                        base.Player(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
                 }
                 private static List<string> generate_labels(){
                         List<string> tmp = new List<string>();

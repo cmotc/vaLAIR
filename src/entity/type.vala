@@ -3,18 +3,14 @@ namespace LAIR{
 		private bool player = false;
                 private int b = 0;
                 private List<string> tags = new List<string>();
-                public Type(){
-                        base.LLL(6, "default");
-                        player = false;
-                        b = 0;
+                public Type(string lconf=""){
+                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
                         tags = new List<string>();
                         set_type("default");
                 }
-                public Type.ParameterList(List<string> types){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        foreach(string type in types.copy()){
+                public Type.ParameterList(List<string> types, string lconf = ""){
+                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
+                        foreach(string type in types){
                                 set_type(type);
                         }
                         player = check_type("player");
@@ -22,19 +18,27 @@ namespace LAIR{
                                 set_type("blocked");
                         }
                 }
-                public Type.ParameterListBlocked(List<string> types){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
+                public Type.ParameterListBlocked(List<string> types, string lconf = ""){
+                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
                         set_type("blocked");
-                        foreach(string type in types.copy()){
+                        foreach(string type in types){
+                                set_type(type);
+                        }
+                        player = check_type("player");
+                }
+                public Type.Player(List<string> types, string lconf = ""){
+                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
+                        set_type("blocked");
+                        set_type("player");
+                        player = true;
+                        foreach(string type in types){
                                 set_type(type);
                         }
                         player = check_type("player");
                 }
 		private bool set_type(string NewType){
                         bool t = true;
-                        foreach(string i in tags.copy()){
+                        foreach(string i in tags){
                                 if ( i == NewType ){
                                         t = false;
                                 }
@@ -92,6 +96,9 @@ namespace LAIR{
                 public List<string> one_tag_to_list(string ip){
                         List<string> r = new List<string>();
                         r.append(ip);
+                        foreach(string s in r){
+                                print_withname(s);
+                        }
                         return r;
 
                 }
