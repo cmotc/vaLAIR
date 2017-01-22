@@ -3,26 +3,20 @@ using SDLMixer;
 using SDLTTF;
 namespace LAIR{
 	class Entity : Move{
-                public Entity(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                public Entity(Video.Point corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, renderer);
                 }
-                public Entity.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-                        base.Blocked(corner, Surfaces, music, font, renderer);
+                public Entity.Floor(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                        base.Floor(corner, Surfaces, music, font, renderer);
                 }
-                public Entity.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.Parameter(corner, Surfaces, music, font, renderer, tag);
+                public Entity.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Wall(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Entity.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(corner, Surfaces, music, font, renderer, tag);
-                }
-                public Entity.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterList(corner, Surfaces, music, font, renderer, tags);
-                }
-                public Entity.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterListBlocked(corner, Surfaces, music, font, renderer, tags);
+                public Entity.Mobile(Video.Point corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Mobile(corner, Surfaces, music, font, renderer, tags);
                 }
                 public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
-                        base.Parameter(corner, Surfaces, music, font, renderer, "player");
+                        base.Player(corner, Surfaces, music, font, renderer);
                 }
                 /*private void DoActions(Entity t){
                 }*/

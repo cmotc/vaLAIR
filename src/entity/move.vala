@@ -6,20 +6,14 @@ namespace LAIR{
                 public Move(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, renderer);
                 }
-                public Move.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-                        base.Blocked(corner, Surfaces, music, font, renderer);
+                public Move.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Wall(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Move.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.Parameter(corner, Surfaces, music, font, renderer, tag);
+                public Move.Mobile(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Mobile(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Move.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(corner, Surfaces, music, font, renderer, tag);
-                }
-                public Move.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterList(corner, Surfaces, music, font, renderer, tags);
-                }
-                public Move.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterListBlocked(corner, Surfaces, music, font, renderer, tags);
+                public Move.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
+                        base.Player(corner, Surfaces, music, font, renderer);
                 }
                 protected int quit(){
                         return 0;

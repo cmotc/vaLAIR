@@ -16,39 +16,6 @@ namespace LAIR{
                                 print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
                 }
-                public Sprite.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer){
-                        base.Blocked(Video.Rect(){x=corner.x, y=corner.y, w=32, h=32});
-                        foreach (var surface in Surfaces){
-                                body.append(Video.Texture.create_from_surface(renderer, surface));
-                                if(body.length() > 0){
-                                        assert(body.nth_data(body.length()-1) != null);
-                                }
-                                body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
-                        }
-                }
-                public Sprite.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, string tag){
-                        base.Parameter(Video.Rect(){x=corner.x, y=corner.y, w=32, h=32}, tag);
-			foreach (var surface in Surfaces){
-                                body.append(Video.Texture.create_from_surface(renderer, surface));
-                                if(body.length() > 0){
-                                        assert(body.nth_data(body.length()-1) != null);
-                                }
-                                body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
-                        }
-		}
-                public Sprite.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(Video.Rect(){x=corner.x, y=corner.y, w=32, h=32}, tag);
-			foreach (var surface in Surfaces){
-                                body.append(Video.Texture.create_from_surface(renderer, surface));
-                                if(body.length() > 0){
-                                        assert(body.nth_data(body.length()-1) != null);
-                                }
-                                body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
-                        }
-		}
                 public Sprite.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
                         base.ParameterList(Video.Rect(){x=corner.x, y=corner.y, w=32, h=32}, tags);
 			foreach (var surface in Surfaces){
@@ -60,7 +27,7 @@ namespace LAIR{
                                 print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
-                public Sprite.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
+                public Sprite.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
                         base.ParameterListBlocked(Video.Rect(){x=corner.x, y=corner.y, w=32, h=32}, tags);
 			foreach (var surface in Surfaces){
                                 body.append(Video.Texture.create_from_surface(renderer, surface));

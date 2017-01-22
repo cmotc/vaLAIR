@@ -1,5 +1,5 @@
 namespace LAIR{
-	class Type : Scribe{
+	class Type : LuaConf {
 		private bool player = false;
                 private int b = 0;
                 private List<string> tags = new List<string>();
@@ -9,29 +9,6 @@ namespace LAIR{
                         b = 0;
                         tags = new List<string>();
                         set_type("default");
-                }
-                public Type.Blocked(){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        set_type("blocked");
-		}
-                public Type.Player(string name){
-                        base.LLL(1, name);
-                        b = 0;
-                        tags = new List<string>();
-                        set_type("blocked");
-                        set_type("player");
-		}
-                public Type.Parameter(string type){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        set_type(type);
-                        player = check_type("player");
-                        if (player) {
-                                set_type("blocked");
-                        }
                 }
                 public Type.ParameterList(List<string> types){
                         base.LLL(6, "default");
@@ -44,14 +21,6 @@ namespace LAIR{
                         if (player) {
                                 set_type("blocked");
                         }
-                }
-                public Type.ParameterBlocked(string type){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        set_type("blocked");
-                        set_type(type);
-                        player = check_type("player");
                 }
                 public Type.ParameterListBlocked(List<string> types){
                         base.LLL(6, "default");
@@ -119,6 +88,12 @@ namespace LAIR{
                                 r += " ";
                         }
                         return r;
+                }
+                public List<string> one_tag_to_list(string ip){
+                        List<string> r = new List<string>();
+                        r.append(ip);
+                        return r;
+
                 }
 	}
 }

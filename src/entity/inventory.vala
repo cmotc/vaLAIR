@@ -29,20 +29,17 @@ namespace LAIR{
                 public Inventory(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, renderer);
                 }
-                public Inventory.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-                        base.Blocked(corner, Surfaces, music, font, renderer);
+                public Inventory.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Blocked(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Inventory.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.Parameter(corner, Surfaces, music, font, renderer, tag);
+                public Inventory.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Wall(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Inventory.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(corner, Surfaces, music, font, renderer, tag);
+                public Inventory.Mobile(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Mobile(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Inventory.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterList(corner, Surfaces, music, font, renderer, tags);
-                }
-                public Inventory.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterListBlocked(corner, Surfaces, music, font, renderer, tags);
+                public Inventory.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
+                        base.Player(corner, Surfaces, music, font, renderer);
                 }
 	}
 }

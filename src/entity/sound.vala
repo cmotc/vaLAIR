@@ -28,24 +28,12 @@ namespace LAIR{
                         base(corner, Surfaces, font, Labels, renderer);
                         set_sounds(music);
                 }
-                public Voice.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer){
-                        base.Blocked(corner, Surfaces, font, Labels, renderer);
+                public Voice.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                        base.Parameter(corner, Surfaces, font, Labels, renderer, tags);
                         set_sounds(music);
                 }
-                public Voice.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, string tag){
-                        base.Parameter(corner, Surfaces, font, Labels, renderer, tag);
-                        set_sounds(music);
-                }
-                public Voice.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(corner, Surfaces, font, Labels, renderer, tag);
-                        set_sounds(music);
-                }
-                public Voice.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterList(corner, Surfaces, font, Labels, renderer, tags);
-                        set_sounds(music);
-                }
-                public Voice.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterListBlocked(corner, Surfaces, font, Labels, renderer, tags);
+                public Voice.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                        base.Blocked(corner, Surfaces, font, Labels, renderer, tags);
                         set_sounds(music);
                 }
 	}

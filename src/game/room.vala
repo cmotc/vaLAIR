@@ -124,7 +124,7 @@ namespace LAIR{
                         }
                 }
                 private void generate_floor_tile(Video.Point coords, Video.Renderer* renderer){
-                        Particles.append(new Entity(coords, GameMaster.image_by_name("floor"), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer));
+                        Particles.append(new Entity.Floor(coords, GameMaster.image_by_name("floor"), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer));
                 }
                 private void decide_block_tile(Video.Point coords, Video.Renderer* renderer){
                         lua_do_function("""map_cares_insert()""");
@@ -326,9 +326,7 @@ namespace LAIR{
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
-                                        //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
-                                        //Particles.append(new Entity.Blocked(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.NoSound(), GameMaster.get_rand_font(), renderer));
-                                        Particles.append(new Entity.ParameterListBlocked(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer, imgTags));
+                                        Particles.append(new Entity.Wall(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer, imgTags));
                                         lua_do_function("record_cell(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}
@@ -336,10 +334,7 @@ namespace LAIR{
                 private void inject_mobile(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
-                                        //List<string> tags = new List<string>(); tags.concat(imgTags.copy()); tags.concat(sndTags.copy()); tags.concat(fntTags.copy());
-                                        //Mobs.append(new Entity(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.BasicSounds(), GameMaster.get_rand_font(), renderer));
-                                        imgTags.append("blocked");
-                                        Mobs.append(new Entity.ParameterList(coords, GameMaster.body_by_tone(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags));
+                                        Mobs.append(new Entity.Mobile(coords, "", GameMaster.body_by_tone(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags));
                                         lua_do_function("record_mobile(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}

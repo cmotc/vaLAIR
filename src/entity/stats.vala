@@ -19,21 +19,26 @@ namespace LAIR{
                 public Stats(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, generate_labels(), renderer);
                 }
-                public Stats.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-                        base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer);
+                public Stats.Floor(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
+                        base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("floor"));
                 }
-                public Stats.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, tag);
+                public Stats.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
                 }
-                public Stats.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(corner, Surfaces, music, font, generate_labels(), renderer, tag);
+                public Stats.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
+                        Strength = 10;
+                        Agility = 10;
+                        Toughness = 10;
+                        Intelligence = 0;
+                        Special = 0;
+                        speed = 1;
                 }
-                public Stats.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterList(corner, Surfaces, music, font, generate_labels(), renderer, tags);
+                public Stats.Mobile(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
                 }
-                public Stats.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterListBlocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
-
+                public Stats.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
+                        base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
                 }
                 private static List<string> generate_labels(){
                         List<string> tmp = new List<string>();
