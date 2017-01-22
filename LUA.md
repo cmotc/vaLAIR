@@ -325,17 +325,23 @@ returns it, otherwise, returns zero.
 
 ####Tile-Specific Data Retrieval Functions
 
-  * **particle\_index\_byxy(x, y):** pushes the tags of any particle found at pixel
-  x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **particle\_index\_byxy(x, y):** Returns the tags of the particle who's
+  corner is at fine x, y as a long, space-delimited string.
 
-  * **particle\_coarse\_index\_byxy(x, y):** pushes the tags of any particle found at
-  tile x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **particle\_coarse\_index\_byxy(x, y):** Returns the tags of the particle
+  who's corner is at coarse x, y as a long, space-delimited string.
 
-  * **mobile\_index\_byxy(x, y):** pushes the tags of any particle found at pixel
-  x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **is\_blocked\_particle\_here()** Detects if there is or is not a particle
+  at the current location of the map generation cursor.
 
-  * **mobile\_coarse\_index\_byxy(x, y):** pushes the tags of any particle found at
-  tile x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **mobile\_index\_byxy(x, y):** Returns the tags of the mobile who's corner
+  is at fine x, y as a long, space-delimited string.
+
+  * **mobile\_coarse\_index\_byxy(x, y):** Returns the tags of the mobile who's
+  corner is at coarse x, y as a long, space-delimited string.
+
+  * **is\_blocked\_mobile\_here()** Detects if there is or is not a particle
+  at the current location of the map generation cursor.
 
 ##### \*Why Tables?
 

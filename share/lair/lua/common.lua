@@ -17,7 +17,6 @@ function get_tag_count(variable)
                 return 0
         end
 end
-
 function get_tag_table(variable)
         if type(variable) == "table" then
                 return variable
@@ -25,15 +24,12 @@ function get_tag_table(variable)
                 return 0
         end
 end
-
 function where_in_floor_get_x()
         return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
 end
-
 function where_in_floor_get_y()
         return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
 end
-
 function where_in_room_gen_x()
         return generator_coarse_x.x
 end
@@ -126,7 +122,6 @@ function file_exists(name)
         local f=io.open(name,"r")
         if f~=nil then io.close(f) return true else return false end
 end
-
 function reload_map()
         if file_exists(get_map_savepath()) then
                 dofile(get_map_savepath())
@@ -166,7 +161,6 @@ function setup_new_mob()
                 file:close()
         end
 end
-
 function record_cell(variable)
         --print(tostring(variable))
         setup_new_map()
@@ -175,7 +169,6 @@ function record_cell(variable)
         file:write(local_table)
         file:close()
 end
-
 function record_mobile(variable)
         --print(tostring(variable))
         setup_new_mob()
@@ -184,7 +177,6 @@ function record_mobile(variable)
         file:write(local_table)
         file:close()
 end
-
 function particle_index_byxy(xx, yy)
         local cell_index = tostring(xx) .. "_" .. tostring(yy)
         if type(cell) == "table" then
@@ -198,7 +190,6 @@ function particle_index_byxy(xx, yy)
                 return "false"
         end
 end
-
 function mobile_index_byxy(xx, yy)
         local mob_index = tostring(xx) .. "_" .. tostring(yy)
         if type(mobs) == "table" then
@@ -213,39 +204,32 @@ function mobile_index_byxy(xx, yy)
                 return "false"
         end
 end
-
 function what_is_tile_w()
         local w = tonumber(generator_w.w) / tonumber(generator_coarse_w.w)
         return w
 end
-
 function what_is_tile_h()
         local h = tonumber(generator_h.h) / tonumber(generator_coarse_h.h)
         return h
 end
-
 function is_blocked_particle_here()
         return particle_index_byxy(what_pixel_is_gen_x(), what_pixel_is_gen_y())
 end
-
 function is_blocked_mobile_here()
         return mobile_index_byxy(what_pixel_is_gen_x(), what_pixel_is_gen_y())
 end
-
 function particle_index_by_coarse_xy(xx, yy)
         xxx = xx * what_is_tile_w()
         yyy = yy * what_is_tile_h()
         local r = particle_index_byxy(xxx,yyy)
         return r
 end
-
 function mobile_index_by_coarse_xy(xx, yy)
         xxx = xx * what_is_tile_w()
         yyy = yy * what_is_tile_h()
         local r = mobile_index_byxy(xxx,yyy)
         return r
 end
-
 function print_general_props()
         print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
         print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
@@ -274,7 +258,6 @@ function print_general_props()
         print("  Generator Tile Width: " .. tostring(what_is_tile_w()))
         print("  Generator Tile Height: " .. tostring(what_is_tile_h()))
 end
-
 function coin()
         if math.random() < 0.5 then
                 return "false"
@@ -282,7 +265,6 @@ function coin()
                 return "true"
         end
 end
-
 function percent_chance(thresh)
         if math.random(100) > thresh then
                 return "false"
