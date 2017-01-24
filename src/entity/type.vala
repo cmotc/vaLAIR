@@ -3,6 +3,7 @@ namespace LAIR{
 		private bool player = false;
                 private int b = 0;
                 private List<string> tags = new List<string>();
+                private GLib.Rand dice_bag = new GLib.Rand();
                 public Type(string lconf=""){
                         base(((lconf == "") ? "immobile" : lconf),6,"entity");
                         tags = new List<string>();
@@ -36,6 +37,9 @@ namespace LAIR{
                         }
                         print_withname("Generating a player\n");
                 }
+                protected int roll_dice(int min, int max){
+                        return dice_bag.int_range(-1,1);
+                }
 		private bool set_type(string NewType){
                         bool t = true;
                         foreach(string i in tags){
@@ -56,7 +60,7 @@ namespace LAIR{
                         }
                         return t;
 		}
-                private bool check_type(string hyp_type){
+                protected bool check_type(string hyp_type){
                         bool r = false;
                         if( hyp_type != "player"){
                                 foreach(string i in tags.copy()){

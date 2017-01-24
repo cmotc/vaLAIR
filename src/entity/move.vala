@@ -1,6 +1,7 @@
 using SDL;
 using SDLMixer;
 using SDLTTF;
+using Lua;
 namespace LAIR{
 	class Move : Inventory{
                 public Move(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
@@ -11,27 +12,38 @@ namespace LAIR{
                 }
                 public Move.Mobile(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Mobile(corner, Surfaces, music, font, renderer, tags);
+                        register_ai_controls();
                 }
                 public Move.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
                         base.Player(corner, Surfaces, music, font, renderer);
+                }
+                private void register_ai_controls(){
+                        lua_register("step_down", (CallbackFunc) step_down);
+                        lua_register("step_up", (CallbackFunc) step_down);
+                        lua_register("step_right", (CallbackFunc) step_down);
+                        lua_register("step_left", (CallbackFunc) step_down);
                 }
                 protected int quit(){
                         return 0;
                 }
                 protected int step_down(){
                         set_y(get_y() + Speed());
+                        toggle_wobble();
                         return 2;
                 }
                 protected int step_up(){
                         set_y(get_y() - Speed());
+                        toggle_wobble();
                         return 3;
                 }
                 protected int step_right(){
                         set_x(get_x() + Speed());
+                        toggle_wobble();
                         return 4;
                 }
                 protected int step_left(){
                         set_x(get_x() - Speed());
+                        toggle_wobble();
                         return 5;
                 }
                 protected int mouse_move(int X, int Y){

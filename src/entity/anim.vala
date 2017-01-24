@@ -5,6 +5,7 @@ namespace LAIR{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
+                private bool wobble = false;
                 private static Video.Point cursorPosition = Video.Point(){x=0,y=0};
                 public Anim(Video.Rect rect){
                         base();
@@ -29,13 +30,24 @@ namespace LAIR{
                 protected Video.Rect get_source(){
                         return source;
 		}
+                private int do_wobble(){
+                        int r = 0;
+                        if(wobble == true){
+                                r = roll_dice(0,5);
+                        }
+                        return r;
+                }
+                protected void toggle_wobble(){
+                        wobble = true;
+                }
                 protected Video.Rect get_position(Video.Point offset_px){
                         Video.Rect r = Video.Rect(){
-                                x = position.x - offset_px.x,
-                                y = position.y - offset_px.y,
+                                x = position.x - offset_px.x - do_wobble(),
+                                y = position.y - offset_px.y - do_wobble(),
                                 w = position.w,
                                 h = position.h
                         };
+                        wobble = false;
 			return r;
 		}
                 protected Video.Rect get_text_source(){

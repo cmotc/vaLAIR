@@ -279,3 +279,4 @@ commit:
 	make
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"
+	git push

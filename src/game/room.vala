@@ -17,7 +17,10 @@ namespace LAIR{
                         print_withname("generating room\n");
                         GameMaster = DM;
                         lua_push_dimensions(get_hitbox());
-                        generate_structure(2, renderer);
+                        //generate_structure(2, renderer);
+                        generate_floor(2, renderer);
+                        generate_particles(2, renderer);
+                        generate_mobiles(2, renderer);
 		}
                 public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
@@ -27,7 +30,10 @@ namespace LAIR{
                         print_withname("generating room with player\n");
                         GameMaster = DM;
                         lua_push_dimensions(get_hitbox());
-                        generate_structure(2, renderer);
+                        //generate_structure(2, renderer);
+                        generate_floor(2, renderer);
+                        generate_particles(2, renderer);
+                        generate_mobiles(2, renderer);
                         generate_player(renderer);
 		}
                 private void set_dimensions(int x, int y, uint w, uint h){
@@ -164,7 +170,7 @@ namespace LAIR{
                         }
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
-                private void generate_structure(int CR, Video.Renderer* renderer){
+                /*private void generate_structure(int CR, Video.Renderer* renderer){
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
@@ -173,6 +179,39 @@ namespace LAIR{
                                         GeneratorPushXYToLua(coords, simplecoords);
                                         generate_floor_tile(coords, renderer);
                                         decide_block_tile(coords, renderer);
+                                        decide_mobile_tile(coords, renderer);
+                                }
+                        }
+                }*/
+                private void generate_floor(int CR, Video.Renderer* renderer){
+                        int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
+                        for (int xx = 0; xx < WT; xx++){
+                                for (int yy = 0; yy < HT; yy++){
+                                        Video.Point simplecoords = Video.Point(){x=xx, y=yy};
+                                        Video.Point coords = Video.Point(){x=get_offset_x(xx), y=get_offset_y(yy)};
+                                        GeneratorPushXYToLua(coords, simplecoords);
+                                        generate_floor_tile(coords, renderer);
+                                }
+                        }
+                }
+                private void generate_particles(int CR, Video.Renderer* renderer){
+                        int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
+                        for (int xx = 0; xx < WT; xx++){
+                                for (int yy = 0; yy < HT; yy++){
+                                        Video.Point simplecoords = Video.Point(){x=xx, y=yy};
+                                        Video.Point coords = Video.Point(){x=get_offset_x(xx), y=get_offset_y(yy)};
+                                        GeneratorPushXYToLua(coords, simplecoords);
+                                        decide_block_tile(coords, renderer);
+                                }
+                        }
+                }
+                private void generate_mobiles(int CR, Video.Renderer* renderer){
+                        int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
+                        for (int xx = 0; xx < WT; xx++){
+                                for (int yy = 0; yy < HT; yy++){
+                                        Video.Point simplecoords = Video.Point(){x=xx, y=yy};
+                                        Video.Point coords = Video.Point(){x=get_offset_x(xx), y=get_offset_y(yy)};
+                                        GeneratorPushXYToLua(coords, simplecoords);
                                         decide_mobile_tile(coords, renderer);
                                 }
                         }
