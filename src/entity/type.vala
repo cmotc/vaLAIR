@@ -34,7 +34,7 @@ namespace LAIR{
                         foreach(string type in types){
                                 set_type(type);
                         }
-                        player = check_type("player");
+                        print_withname("Generating a player\n");
                 }
 		private bool set_type(string NewType){
                         bool t = true;
@@ -56,11 +56,24 @@ namespace LAIR{
                         }
                         return t;
 		}
-                private bool check_type(string Type){
+                private bool check_type(string hyp_type){
                         bool r = false;
-                        foreach(string i in tags.copy()){
-                                if ( i == Type ){
-                                        r = true;
+                        if( hyp_type != "player"){
+                                foreach(string i in tags.copy()){
+                                        if ( i == hyp_type ){
+                                                r = true;
+                                                break;
+                                        }
+                                }
+                        }else{
+                                if(player != true){
+                                        foreach(string i in tags.copy()){
+                                                if ( i == hyp_type ){
+                                                        r = true;
+                                                        player = true;
+                                                        break;
+                                                }
+                                        }
                                 }
                         }
                         return r;

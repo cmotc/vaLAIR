@@ -273,3 +273,9 @@ deb-pkg:
 rpm-pkg:
 	make
 	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
+
+commit:
+	make clean
+	make
+	git add .
+	git commit -am "${COMMIT_MESSAGE}"

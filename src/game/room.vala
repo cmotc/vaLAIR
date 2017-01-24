@@ -60,7 +60,7 @@ namespace LAIR{
                 public uint get_h(){     return Border.h;}
                 private void generate_player(Video.Renderer? renderer){
                         if(!has_player()){
-                                enter_room(new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer));
+                                Player = new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
                         }
                 }
                 private void GeneratorPushXYToLua(Video.Point current, Video.Point simplecurrent){
