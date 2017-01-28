@@ -33,12 +33,15 @@ namespace LAIR{
                 private int do_wobble(){
                         int r = 0;
                         if(wobble == true){
-                                r = roll_dice(0,5);
+                                r = roll_dice(-4,4);
                         }
                         return r;
                 }
-                protected void toggle_wobble(){
+                protected void toggle_wobble_on(){
                         wobble = true;
+                }
+                protected void toggle_wobble_off(){
+                        wobble = false;
                 }
                 protected Video.Rect get_position(Video.Point offset_px){
                         Video.Rect r = Video.Rect(){
@@ -47,7 +50,6 @@ namespace LAIR{
                                 w = position.w,
                                 h = position.h
                         };
-                        wobble = false;
 			return r;
 		}
                 protected Video.Rect get_text_source(){
@@ -68,22 +70,22 @@ namespace LAIR{
 			return (int) source.w;
 		}
                 public int get_half_width(){
-                        int hW = (int) (position.w / 2);
+                        int hW = (int) (get_width() / 2);
                         return hW;
                 }
 		public int get_height(){
 			return (int) source.h;
 		}
                 public int get_half_height(){
-                        int hH = (int) (position.h / 2);
+                        int hH = (int) (get_height() / 2);
 			return hH;
 		}
-		public unowned int get_x(){
-                        unowned int t = position.x;
+		public int get_x(){
+                        int t = position.x;
 			return t;
 		}
-		public unowned int get_y(){
-                        unowned int t = position.y;
+		public int get_y(){
+                        int t = position.y;
 			return t;
 		}
                 public Video.Rect get_hitbox(){
@@ -103,12 +105,20 @@ namespace LAIR{
                         }
                         return r;
                 }
+                private int get_center_x(){
+                        return get_x() + get_half_width();
+                }
+                private int get_center_y(){
+                        return get_y() + get_half_height();
+                }
                 public Video.Point get_center(){
-                        Video.Point coords = Video.Point(){x=get_x()+get_half_width(), y=get_y()+get_half_height()};
+                        Video.Point coords = Video.Point(){
+                                x=get_center_x(),
+                                y=get_center_y()};
                         return coords;
                 }
                 private double radians_to_degrees(double radians){
-                        double r = (180/Math.PI) * radians;
+                        double r = (180.0/Math.PI) * radians;
                         return r;
                 }
                 protected void set_cursor_position(Video.Point cursor){
@@ -121,9 +131,9 @@ namespace LAIR{
                                         degrees = 0.0;
                                 }
                         }else{
-                                degrees = radians_to_degrees(Math.atan2(cursorPosition.x - get_center().x, cursorPosition.y - get_center().y) + 135);
+                                degrees = radians_to_degrees(Math.atan2(cursorPosition.x - get_center().x, cursorPosition.y - get_center().y) + 135.0);
                         }
-                        return degrees * -1;
+                        return degrees * -1.0;
                 }
 		public int set_x(int x){
 			position.x = x;

@@ -59,7 +59,7 @@ namespace LAIR{
                                         renderer->copyex(texture, get_source(), get_position(player_pos), 0.0, null, Video.RendererFlip.VERTICAL);
                                 }
                         }
-
+                        toggle_wobble_off();
 		}
 	}
 }

@@ -19,45 +19,55 @@ namespace LAIR{
                 }
                 private void register_ai_controls(){
                         lua_register("step_down", (CallbackFunc) step_down);
-                        lua_register("step_up", (CallbackFunc) step_down);
-                        lua_register("step_right", (CallbackFunc) step_down);
-                        lua_register("step_left", (CallbackFunc) step_down);
+                        lua_register("step_up", (CallbackFunc) step_up);
+                        lua_register("step_right", (CallbackFunc) step_right);
+                        lua_register("step_left", (CallbackFunc) step_left);
+                        lua_register("swing_right", (CallbackFunc) swing_right);
+                        lua_register("swing_left", (CallbackFunc) swing_left);
                 }
                 protected int quit(){
                         return 0;
                 }
                 protected int step_down(){
                         set_y(get_y() + Speed());
-                        toggle_wobble();
+                        toggle_wobble_on();
                         return 2;
                 }
                 protected int step_up(){
                         set_y(get_y() - Speed());
-                        toggle_wobble();
+                        toggle_wobble_on();
                         return 3;
                 }
                 protected int step_right(){
                         set_x(get_x() + Speed());
-                        toggle_wobble();
+                        toggle_wobble_on();
                         return 4;
                 }
                 protected int step_left(){
                         set_x(get_x() - Speed());
-                        toggle_wobble();
+                        toggle_wobble_on();
                         return 5;
+                }
+                protected int swing_left(){
+                        //toggle_swing_on_left();
+                        return 6;
+                }
+                protected int swing_right(){
+                        //toggle_swing_on_right();
+                        return 7;
                 }
                 protected int mouse_move(int X, int Y){
                         Video.Point tmp = Video.Point(){x = X, y = Y};
                         set_cursor_position(tmp);
-                        return 6;
+                        return 8;
                 }
                 protected int show_my_stats(){
                         show_stats();
-                        return 7;
+                        return 9;
                 }
                 protected int show_my_skills(){
                         show_skills();
-                        return 8;
+                        return 10;
                 }
                 protected bool bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
@@ -157,10 +167,12 @@ namespace LAIR{
                                                                 t = mouse_move(x, y);
                                                                 break;
                                                         case EventType.MOUSEBUTTONDOWN:
-                                                                t = 7;
+                                                                t = swing_left();
+                                                                //t = swing_right();
                                                                 break;
                                                         case EventType.MOUSEBUTTONUP:
-                                                                t = 8;
+                                                                t = swing_left();
+                                                                //t = swing_right();
                                                                 break;
                                                 }
                                         }
