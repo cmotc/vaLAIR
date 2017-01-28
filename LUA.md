@@ -466,10 +466,12 @@ Will correspond to the move functions for players, mostly.
 AI Examples
 -----------
 
-TBD
+TBD.
 
 LAIR AI Library
 ---------------
+
+TBD.
 
 Current Limitations
 -------------------
