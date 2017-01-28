@@ -12,7 +12,7 @@ namespace LAIR{
                 public Entity.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Wall(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Entity.Mobile(Video.Point corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                public Entity.Mobile(Video.Point corner, string ai_script, string ai_func, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Mobile(corner, Surfaces, music, font, renderer, tags);
                 }
                 public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){

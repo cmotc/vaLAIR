@@ -454,7 +454,9 @@ So without further ado, LAIR AI functions.
 What are AI functions
 ---------------------
 
-Unlike Map functions, AI functions are not pre-defined.
+Unlike Map functions, AI functions are not pre-defined. The dungeon designer
+defines AI functions of his own in the ai.lua(or other lua file as directed) on
+his or her own and decides the function that each Mobile will use at the
 
 How AI Functions are decided per-Mobile
 ---------------------------------------

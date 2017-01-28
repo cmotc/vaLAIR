@@ -163,7 +163,9 @@ namespace LAIR{
                                         List<string> sndTags = get_lua_last_return();
                                         lua_do_function("""mob_fonts_decide()""");
                                         List<string> fntTags = get_lua_last_return();
-                                        inject_mobile(coords, aiScript, imgTags, sndTags, fntTags, renderer);
+                                        lua_do_function("""mob_ai_decide()""");
+                                        List<string> aiFunc = get_lua_last_return();
+                                        inject_mobile(coords, aiScript, aiFunc.nth_data(0), imgTags, sndTags, fntTags, renderer);
                                 }
                         }
                 }
@@ -362,10 +364,10 @@ namespace LAIR{
                                 }}
                         }}
                 }
-                private void inject_mobile(Video.Point coords, string aiScript, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
+                private void inject_mobile(Video.Point coords, string aiScript, string aiFunc, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer){
                         if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
-                                        Mobs.append(new Entity.Mobile(coords, aiScript, GameMaster.body_by_tone(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags));
+                                        Mobs.append(new Entity.Mobile(coords, aiScript, aiFunc, GameMaster.body_by_tone(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags));
                                         lua_do_function("record_mobile(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}
