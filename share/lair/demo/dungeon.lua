@@ -63,3 +63,8 @@ function mob_fonts_decide()
         local decided_mob_font = "font"
         return decided_mob_font
 end
+
+function mob_ai_decide()
+        local decided_mob_ai = "default"
+        return decided_mob_ai
+end
