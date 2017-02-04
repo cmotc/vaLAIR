@@ -1,5 +1,5 @@
 --
-dofile("/usr/share/lair/lua/common.lua")
+dofile("/usr/share/lair/lua/map/common.lua")
 dofile("/usr/share/lair/lua/map/basicwall_cares_insert.lua")
 dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 
@@ -65,6 +65,6 @@ function mob_fonts_decide()
 end
 
 function mob_ai_decide()
-        local decided_mob_ai = "default"
+        local decided_mob_ai = 'default()'
         return decided_mob_ai
 end

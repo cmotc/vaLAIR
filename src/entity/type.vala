@@ -5,12 +5,16 @@ namespace LAIR{
                 private List<string> tags = new List<string>();
                 private GLib.Rand dice_bag = new GLib.Rand();
                 public Type(string lconf=""){
-                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
+                        base(
+                                ((lconf == "") ? "immobile" : lconf ),
+                                6,"entity");
                         tags = new List<string>();
                         set_type("default");
                 }
                 public Type.ParameterList(List<string> types, string lconf = ""){
-                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
+                        base(
+                                ((lconf == "") ? "immobile" : lconf),
+                                6,"entity");
                         foreach(string type in types){
                                 set_type(type);
                         }
@@ -20,7 +24,17 @@ namespace LAIR{
                         }
                 }
                 public Type.ParameterListBlocked(List<string> types, string lconf = ""){
-                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
+                        base(
+                                ((lconf == "") ? "immobile" : lconf),
+                                6,"entity");
+                        set_type("blocked");
+                        foreach(string type in types){
+                                set_type(type);
+                        }
+                        player = check_type("player");
+                }
+                public Type.Mobile(List<string> types, string lconf){
+                        base.Mobile(lconf, 6,"entity");
                         set_type("blocked");
                         foreach(string type in types){
                                 set_type(type);
@@ -28,7 +42,9 @@ namespace LAIR{
                         player = check_type("player");
                 }
                 public Type.Player(List<string> types, string lconf = ""){
-                        base(((lconf == "") ? "immobile" : lconf),6,"entity");
+                        base(
+                                ((lconf == "") ? "immobile" : lconf),
+                                6,"entity");
                         set_type("blocked");
                         set_type("player");
                         player = true;

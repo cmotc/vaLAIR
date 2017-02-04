@@ -12,7 +12,7 @@ unix:
 		-X -Og \
 		-X -g3 \
 		-X -ggdb \
-		-X -llua5.1 \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -228,18 +228,22 @@ check:
 	luacheck -g share/lair/demo/dungeon.lua \
 		share/lair/demo/player.lua \
 		share/lair/demo/ai.lua \
-		share/lair/lua/common.lua \
+		share/lair/lua/map/common.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
-		share/lair/lua/map/cut_hallways.lua
+		share/lair/lua/map/cut_hallways.lua \
+		share/lair/lua/ai/common.lua
 
 install:
 	cp bin/LAIR /usr/bin/
 	cp bin/lair /usr/bin/
 	cp etc/lair/lairrc /etc/
 	mkdir -p /usr/share/lair/demo/ \
+		/usr/share/lair/lua/map/ \
+		/usr/share/lair/lua/ai/
+	cp share/lair/lua/map/common.lua \
 		/usr/share/lair/lua/map/
-	cp share/lair/lua/common.lua \
-		/usr/share/lair/lua/
+	cp share/lair/lua/ai/common.lua \
+		/usr/share/lair/lua/ai/
 	cp share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
 		/usr/share/lair/lua/map

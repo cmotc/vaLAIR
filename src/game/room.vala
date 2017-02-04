@@ -19,7 +19,7 @@ namespace LAIR{
                         lua_push_dimensions(get_hitbox());
                         generate_floor(renderer);
                         generate_particles(renderer);
-                        generate_mobiles(scripts[1], renderer);
+                        generate_mobiles(scripts[2], renderer);
 		}
                 public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
@@ -31,8 +31,8 @@ namespace LAIR{
                         lua_push_dimensions(get_hitbox());
                         generate_floor(renderer);
                         generate_particles(renderer);
-                        generate_mobiles(scripts[1], renderer);
-                        generate_player(renderer);
+                        generate_mobiles(scripts[2], renderer);
+                        generate_player(scripts[1], renderer);
 		}
                 private void set_dimensions(int x, int y, uint w, uint h){
                         Border.x = x;
@@ -62,7 +62,7 @@ namespace LAIR{
                 }*/
                 public uint get_w(){     return Border.w;}
                 public uint get_h(){     return Border.h;}
-                private void generate_player(Video.Renderer? renderer){
+                private void generate_player(string playerScript, Video.Renderer? renderer){
                         if(!has_player()){
                                 Player = new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
                         }
@@ -218,6 +218,9 @@ namespace LAIR{
 			}
 			return tmp;
 		}
+                public List<Entity> get_mobiles(){
+                        return Mobs.copy();
+                }
                 public int take_turns(){
                         int tmp = 1;
                         if (has_player()){
@@ -225,6 +228,9 @@ namespace LAIR{
                                 if (tmp > 1){
                                         print_withname("    Player took a turn : %s \n", tmp.to_string());
                                 }
+                                foreach(Entity mob in Mobs){
+					mob.run();
+				}
                         }else{
                                 foreach(Entity mob in Mobs){
 					mob.run();
@@ -232,19 +238,27 @@ namespace LAIR{
                         }
                         return tmp;
                 }
-                public bool detect_collisions(){
+                public bool player_detect_collisions(){
+                        bool t = false;
+                        if(has_player()){
+                                foreach(var particle in Particles){
+                                        t = Player.detect_collisions(particle) ? true : t ;
+                                }
+                                foreach(Entity mob in Mobs){
+                                        t = Player.detect_collisions(mob) ? true : t ;
+                                }
+                        }
+                        return t;
+                }
+                public bool mob_detect_collisions(Entity mob){
                         bool t = false;
                         foreach(var particle in Particles){
                                 if(has_player()){
                                         t = Player.detect_collisions(particle) ? true : t ;
-                                        foreach(var mob in Mobs){
-                                                t = mob.detect_collisions(Player) ? true : t;
-                                                t = Player.detect_collisions(mob) ? true : t;
-                                        }
+                                        t = Player.detect_collisions(mob) ? true : t;
+                                        particle.detect_collisions(mob);
                                 }else{
-                                        foreach(var mob in Mobs){
-                                                particle.detect_collisions(mob);
-                                        }
+                                        particle.detect_collisions(mob);
                                 }
                         }
                         return t;
@@ -278,8 +292,8 @@ namespace LAIR{
                         }
                         return t;
                 }
-                public bool detect_transitions(Entity t){
-                        bool r = false;
+                public int detect_transitions(Entity t){
+                        int r = 0;
                         if(t!=null){
                                 Video.Point tlc = Video.Point(){ x = t.get_hitbox().x,
                                         y=t.get_hitbox().y };
@@ -296,22 +310,22 @@ namespace LAIR{
 
                                 if (TLeftCorner){
                                         if (TRightCorner){
-                                                r = true;
+                                                r++;
                                         }
                                 }
                                 if (BLeftCorner){
                                         if (TLeftCorner){
-                                                r = true;
+                                                r++;
                                         }
                                 }
                                 if (BRightCorner){
                                         if (TRightCorner){
-                                                r = true;
+                                                r++;
                                         }
                                 }
                                 if (BLeftCorner){
                                         if (BRightCorner){
-                                                r = true;
+                                                r++;
                                         }
                                 }
                         }
@@ -345,12 +359,37 @@ namespace LAIR{
                         }
 			return visited;
 		}
-		public Entity leave_room(bool doleave){
+                public bool mob_enter_room(Entity mob){
+			if (mob != null){
+                                print_withname("    Mob Entering Room. \n");
+				Mobs.append(mob);
+			}
+			return visited;
+		}
+		public Entity leave_room(int doleave){
                         Entity tmp = null;
-                        if (doleave){
+                        if (doleave > 1){
+                                if (Player != null){
+                                        tmp = Player;
+                                }
+                        }else if (doleave == 1){
                                 if (Player != null){
                                         tmp = Player;
                                         Player = null;
+                                }
+                        }
+			return tmp;
+		}
+                public Entity mob_leave_room(int doleave, int mob_index){
+                        Entity tmp = null;
+                        if (doleave > 1){
+                                if ( mob_index < Mobs.length()){
+                                        tmp = Mobs.nth_data(mob_index);
+                                }
+                        }else if (doleave == 1){
+                                if (mob_index < Mobs.length()){
+                                        tmp = Mobs.nth_data(mob_index);
+                                        Mobs.remove(Mobs.nth_data(mob_index));
                                 }
                         }
 			return tmp;

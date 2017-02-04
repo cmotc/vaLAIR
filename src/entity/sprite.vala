@@ -38,6 +38,17 @@ namespace LAIR{
                                 print_withname("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
+                public Sprite.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
+                        base.Mobile(Video.Rect(){x=corner.x, y=corner.y, w=32, h=32}, aiScript, tags);
+			foreach (var surface in Surfaces){
+                                body.append(Video.Texture.create_from_surface(renderer, surface));
+                                if(body.length() > 0){
+                                        assert(body.nth_data(body.length()-1) != null);
+                                }
+                                body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
+                                print_withname("Number of images in stack %s \n", body.length().to_string());
+                        }
+		}
                 public Sprite.Player(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
                         base.Player(Video.Rect(){x=corner.x, y=corner.y, w=32, h=32}, tags);
 			foreach (var surface in Surfaces){

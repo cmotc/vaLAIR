@@ -35,6 +35,11 @@ namespace LAIR{
                         Font = font;
                         insert_label(Labels, renderer);
                 }
+                public Text.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                        base.Mobile(corner, aiScript, Surfaces, renderer, tags);
+                        Font = font;
+                        insert_label(Labels, renderer);
+                }
                 public Text.Player(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Player(corner, Surfaces, renderer, tags);
                         Font = font;

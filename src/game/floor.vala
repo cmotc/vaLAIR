@@ -91,14 +91,23 @@ namespace LAIR{
                 }
                 public bool detect_collisions(){
                         bool tmp = false;
+                        int t = 0;
                         foreach(Room room in rooms){
                                 if (!room.has_player()) {
-                                        bool transit = room.detect_transitions(get_player());
-                                        if (transit) {
+                                        int transit = room.detect_transitions(get_player());
+                                        if (transit > 0) {
                                                 room.enter_room(get_room_player().leave_room(transit));
                                         }
                                 }
-                                tmp = room.detect_collisions() ? true : tmp;
+                                foreach(Entity mob in room.get_mobiles()){
+                                        int transit = room.detect_transitions(mob);
+                                        if (transit > 0) {
+                                                room.mob_enter_room(get_room_player().mob_leave_room(transit, t));
+                                        }
+                                        room.mob_detect_collisions(mob);
+                                }
+                                t++;
+                                tmp = room.player_detect_collisions() ? true : tmp;
                         }
                         return tmp;
                 }

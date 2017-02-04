@@ -22,6 +22,11 @@ namespace LAIR{
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
+                public Anim.Mobile(Video.Rect rect, string aiScript, List<string> tags){
+                        base.Mobile(tags, aiScript);
+                        position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
+                        source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
+                }
                 public Anim.Player(Video.Rect rect, List<string> tags){
                         base.Player(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};

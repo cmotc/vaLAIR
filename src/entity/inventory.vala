@@ -35,8 +35,8 @@ namespace LAIR{
                 public Inventory.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Wall(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Inventory.Mobile(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-                        base.Mobile(corner, Surfaces, music, font, renderer, tags);
+                public Inventory.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                        base.Mobile(corner, aiScript, Surfaces, music, font, renderer, tags);
                 }
                 public Inventory.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
                         base.Player(corner, Surfaces, music, font, renderer);

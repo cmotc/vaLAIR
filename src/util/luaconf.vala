@@ -2,7 +2,7 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaConf : Scribe{
-                private LuaVM VM;
+                private LuaVM VM = new LuaVM();
                 private string ScriptPath;
                 public LuaConf(string path, int lll, string name){
                         base.LLL(lll, name);
@@ -10,6 +10,15 @@ namespace LAIR{
                         VM.open_libs();
                         ScriptPath = path;
                         print_withname("Loading a dungeon generator script: %s\n", ScriptPath);
+                        lua_do_file();//ScriptPath);
+                        //printc(GetLuaLastReturn().nth_data(0), "\n");
+                }
+                public LuaConf.Mobile(string path, int lll, string name){
+                        base.LLL(lll, name);
+                        VM = new LuaVM();
+                        VM.open_libs();
+                        ScriptPath = path;
+                        print_withname("Loading a mobile AI script: %s\n", ScriptPath);
                         lua_do_file();//ScriptPath);
                         //printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
@@ -75,9 +84,9 @@ namespace LAIR{
                 }
                 protected void lua_do_function(string function){
                         //LuaDoFile(ScriptPath);
-                        string tmp = "return ";
+                        string tmp = "return " + function;
                         //string tmp = function;
-                        tmp += function;
+                        //tmp += function;
                         VM.do_string(tmp);
                 }
                 protected void lua_push_uint_to_table(string tablename, string varname, uint varval){
