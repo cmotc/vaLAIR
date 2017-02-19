@@ -1,6 +1,7 @@
 namespace LAIR{
 	class Type : LuaConf {
 		private bool player = false;
+                private bool floor = false;
                 private bool wall = false;
                 private bool mobile = false;
                 private int b = 0;
@@ -58,7 +59,7 @@ namespace LAIR{
                 protected int roll_dice(int min, int max){
                         return dice_bag.int_range(-1,1);
                 }
-		private bool set_type(string NewType){
+		protected bool set_type(string NewType){
                         bool t = true;
                         foreach(string i in tags){
                                 if ( i == NewType ){
@@ -79,6 +80,9 @@ namespace LAIR{
                         if ( NewType == "wall" ){
                                 wall = true;
                         }
+                        if ( NewType == "floor" ){
+                                floor = true;
+                        }
                         if ( NewType == "player" ){
                                 player = true;
                         }
@@ -86,7 +90,7 @@ namespace LAIR{
 		}
                 protected bool check_type(string hyp_type){
                         bool r = false;
-                        if( hyp_type != "player"){
+                        if (hyp_type != "player"){
                                 foreach(string i in tags.copy()){
                                         if ( i == hyp_type ){
                                                 r = true;
@@ -94,7 +98,7 @@ namespace LAIR{
                                         }
                                 }
                         }else{
-                                if(player != true){
+                                if (player != true){
                                         foreach(string i in tags.copy()){
                                                 if ( i == hyp_type ){
                                                         r = true;
@@ -145,9 +149,9 @@ namespace LAIR{
                 }
                 public string get_category(){
                         string r = "uncategorized";
-                        if(mobile){
+                        if (mobile) {
                                 r = "mobile";
-                        }else if(wall){
+                        }else if (wall) {
                                 r = "particle";
                         }
                         return r;

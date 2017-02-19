@@ -84,6 +84,7 @@ namespace LAIR{
 			int PixelW = 800;
 			int PixelH = 600;
                         int Verbosity = 0;
+                        bool save = false;
 			foreach(string arg in args){
 				Arguments.append(arg);
 			}
@@ -91,6 +92,9 @@ namespace LAIR{
 				switch (Arguments.nth_data(index)){
                                         case "-i":
                                                 help = true;
+						break;
+                                        case "-l":
+                                                save = true;
 						break;
 					case "-p":
 						ImageFilePath = get_file_path(Arguments.nth_data(index+1));

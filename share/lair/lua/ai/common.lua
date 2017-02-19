@@ -1,3 +1,19 @@
+function tellme(offset, story)
+        for n,v in pairs(story) do
+                if n ~= "loaded" and n ~= "_G" then
+                print(offset .. n .. " " )
+                print (v)
+                if type(v) == "table" then
+                        tellme(offset .. "--> ",v)
+                end
+                end
+        end
+end
+
+function get_vision_length()
+        return vision_length.l
+end
+
 function stats_default()
         return "10 10 10 10 10"
 end

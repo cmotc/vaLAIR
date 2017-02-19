@@ -1,27 +1,18 @@
 LAIR's Lua-Based Configuration for Programmable Mob Behavior
 ============================================================
 
-While the basics of the Map Generator are provided and now basically expect few
-changes to the underlying functions, there are going to be alot of features of
-the AI that will probably rapidly change. This is because we have to do one or
-more of three things right now to make the AI work. We either have to
+How to get Information from the Mob's Point of View
+---------------------------------------------------
 
-  1. Make the AI generator select basic behavior based on the tags that the map
-  generation loop used to generate the mob's appearance. That's fucking racist.
-  2. Make the Map generator specify random default behavior based one one more
-  function it would need to support. I don't want to get back into the map
-  generator yet, but it's still imperfect and this feature will probably be
-  added shortly as it's the most appealing way to specify default behavior for
-  the mobs. \{While writing this, I chose this solution. Here to record the fact\}
-  3. Make it possible to modify the default AI behavior while the game is
-  running. Basically make it possible for an entity to export "tags" of it's
-  current behavioral state to influence the outcome of it's behavioral function.
-
-Also, it might be of note that self-modifying code is indeed possible by putting
-the code in a separate file and having lua do_file that code within a function.
-This is not yet recommended, but it's being seriously considered.
-
-So without further ado, LAIR AI functions.
+Every time an event occurs, the mob checks a nearby area for things it needs to
+be aware of, and it "notices" some details about them by putting them into a
+long list of strings and then making those strings accessible in the "vision"
+global lua table. Each mob has it's own vision table and the vision table
+changes periodically. The vision table contains all the information about the
+entity's surroundings that it can use to make decisions. The table can be
+accessed numerically. It's length is accessible at vision\_length.l or with the
+function get\_vision\_length(). Each member can then be searched for information
+about the mob's surroundings and the ai script can use it to make decisions.
 
 What are AI functions
 ---------------------

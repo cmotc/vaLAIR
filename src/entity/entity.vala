@@ -7,8 +7,13 @@ namespace LAIR{
                 public Entity(Video.Point corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, renderer);
                 }
-                public Entity.Floor(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                public Entity.Floor(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="floor"){
                         base.Floor(corner, Surfaces, music, font, renderer);
+                        set_name(new_name);
+                        if(get_name()=="floor"){
+                                set_name("floor");
+                        }
+                        set_type("floor");
                 }
                 public Entity.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="particle"){
                         base.Wall(corner, Surfaces, music, font, renderer, tags);
@@ -16,6 +21,7 @@ namespace LAIR{
                         if(get_name()=="particle"){
                                 set_name("particle");
                         }
+                        set_type("particle");
                 }
                 public Entity.Mobile(Video.Point corner, string ai_script, string ai_func, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="mobile"){
                         base.Mobile(corner, ai_script, ai_func, Surfaces, music, font, renderer, tags);
@@ -23,9 +29,15 @@ namespace LAIR{
                         if(get_name()=="mobile"){
                                 set_name("mobile");
                         }
+                        set_type("mobile");
                 }
-                public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="player"){
                         base.Player(corner, Surfaces, music, font, renderer);
+                        set_name(new_name);
+                        if(get_name()=="player"){
+                                set_name("player");
+                        }
+                        set_type("player");
                 }
                 /*private void DoActions(Entity t){
                 }*/
@@ -100,11 +112,14 @@ namespace LAIR{
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
                                         nearby_interests.append(test.stringify_entity_details());
                                         print_withname("is observing %s \n", test.stringify_entity_details());
-                                        lua_push_string_to_table(test.get_category(), test.get_name(), test.stringify_entity_details());
                                         r = true;
                                 }}}}
                         }
                         return r;
+                }
+                public void push_interests(){
+                        lua_push_strings_to_table("vision", nearby_interests.copy());
+                        lua_push_uint_to_table("vision_length", "l", nearby_interests.length());
                 }
                 public bool dedupe_and_shrink_nearby_entities(){
                         List<string> inj = new List<string>();
@@ -130,7 +145,7 @@ namespace LAIR{
                 }
                 //
                 public string stringify_entity_details(){
-                        string details = stringify_coordinates() + stringify_skills() + stringify_tags();
+                        string details = get_category() + stringify_coordinates() + stringify_skills() + stringify_tags();
                         return details;
                 }
                 public void render(Video.Renderer renderer, Video.Point player_pos){

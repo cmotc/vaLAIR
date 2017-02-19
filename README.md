@@ -34,6 +34,7 @@ files via the command-line flags for now:
 
         ----------------------------
              -i : display this info
+             -l : log to files instead of stdout
              -p : path to the image file listing
              -s : path to the sound file listing
              -f : path to the fonts file listing

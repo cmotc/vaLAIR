@@ -262,6 +262,7 @@ install:
 
 deb-pkg:
 	make clean
+	make check
 	make unix
 	echo "LAIR! Roguelike Game, version 0.9" > description-pak
 	echo "" >> description-pak
