@@ -221,7 +221,7 @@ unlog:
 		bin/*log \
 		bin/*err
 debclean:
-	rm -f *.tgz ../*.deb
+	rm -f *.tgz ../*.deb *.deb
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
@@ -269,16 +269,23 @@ deb-pkg:
 	echo "LAIR is a Procedurally Generated Mutliplayer Rogue-Like Game." >> description-pak
 	echo "It uses a library of content and a set of Lua scripts to" >> description-pak
 	echo "generate a random map according to a more-or-less detailed and" >> description-pak
-	echo "flexible environment to work in." >> description-pak
+	echo "flexible environment to play in." >> description-pak
 	echo "" >> description-pak
+	mkdir doc-pak
+	cp *.md doc-pak
 	checkinstall --deldoc=yes \
-		--deldesc=yes \
 		-Dy \
+		--install=no \
+		--review-control \
+		--pkgname="lair" \
 		--pakdir=../ \
+		--require="lua5.2,liblua5.2-0,libsdl2-2.0-0,libsdl2-gfx-1.0-0,libsdl2-image-2.0-0,libsdl2-mixer-2.0-0,libsdl2-ttf-2.0-0,libtoxav0,libtoxcore0,libtoxencryptsave0" \
 		--maintainer='problemsolver@openmailbox.org' \
 		--pkglicense='LICENSE.md' \
+		--pkgrelease="1" \
+		--pkggroup="games" \
 		--pkgversion='0.9' \
-		--pkgsource='https://github.com/cmotc/vaLAIR/'
+		--pkgsource='./'
 
 
 rpm-pkg:
