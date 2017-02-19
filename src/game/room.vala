@@ -412,7 +412,7 @@ namespace LAIR{
                 private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer, int index = 0){
                         if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
-                                        string new_name = "particle" + index.to_string();
+                                        string new_name = index.to_string();
                                         Particles.append(new Entity.Wall(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer, imgTags, new_name));
                                         lua_do_function("record_cell(\"" + imgTags.nth_data(0) + "\")");
                                 }}
@@ -421,7 +421,7 @@ namespace LAIR{
                 private void inject_mobile(Video.Point coords, string aiScript, string aiFunc, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer, int index = 0){
                         if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
-                                        string new_name = "mobile" + index.to_string();
+                                        string new_name = index.to_string();
                                         Mobs.append(new Entity.Mobile(coords, aiScript, aiFunc, GameMaster.body_by_tone(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags, new_name ));
                                         lua_do_function("record_mobile(\"" + imgTags.nth_data(0) + "\")");
                                 }}

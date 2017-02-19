@@ -37,12 +37,12 @@ namespace LAIR{
                                 if ( point.x <  xx ){
                                         if( point.y > hitbox.y ){
                                                 if( point.y < yy ){
-                                                        stdout.printf("\n\n Does this Number AXC:%s", point.x.to_string());
+                                                        /*stdout.printf("\n\n Does this Number AXC:%s", point.x.to_string());
                                                         stdout.printf(" come after this Number AX1:%s, and that number", hitbox.x.to_string());
                                                         stdout.printf(" come before this Number AX2:%s\n", xx.to_string());
                                                         stdout.printf(" Does this Number AYC:%s", point.y.to_string());
                                                         stdout.printf(" come after this Number BY1:%s, and that number", hitbox.y.to_string());
-                                                        stdout.printf(" come before this Number BY2:%s\n\n", yy.to_string());
+                                                        stdout.printf(" come before this Number BY2:%s\n\n", yy.to_string());*/
                                                         t = true;
                                                 }
                                         }
@@ -100,7 +100,7 @@ namespace LAIR{
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
                                         nearby_interests.append(test.stringify_entity_details());
                                         print_withname("is observing %s \n", test.stringify_entity_details());
-                                        lua_push_string_to_table(test.get_name(), "detail", test.stringify_entity_details());
+                                        lua_push_string_to_table(test.get_category(), test.get_name(), test.stringify_entity_details());
                                         r = true;
                                 }}}}
                         }

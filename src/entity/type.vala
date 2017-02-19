@@ -1,6 +1,8 @@
 namespace LAIR{
 	class Type : LuaConf {
 		private bool player = false;
+                private bool wall = false;
+                private bool mobile = false;
                 private int b = 0;
                 private List<string> tags = new List<string>();
                 private GLib.Rand dice_bag = new GLib.Rand();
@@ -71,6 +73,12 @@ namespace LAIR{
                         if ( NewType == "blocked" ){
                                 b = 1;
                         }
+                        if ( NewType == "mobile" ){
+                                mobile = true;
+                        }
+                        if ( NewType == "wall" ){
+                                wall = true;
+                        }
                         if ( NewType == "player" ){
                                 player = true;
                         }
@@ -134,6 +142,15 @@ namespace LAIR{
                         }
                         return r;
 
+                }
+                public string get_category(){
+                        string r = "uncategorized";
+                        if(mobile){
+                                r = "mobile";
+                        }else if(wall){
+                                r = "particle";
+                        }
+                        return r;
                 }
 	}
 }
