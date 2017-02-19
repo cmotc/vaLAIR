@@ -1,6 +1,3 @@
-PREFIX = /
-MANPREFIX = $(PREFIX)/share/man
-
 unix:
 	valac -gv \
 		-o bin/LAIR \
@@ -243,49 +240,52 @@ check:
 		share/lair/lua/ai/common.lua
 
 install:
-	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
-	cp bin/LAIR $(DESTDIR)$(PREFIX)/usr/bin/
-	cp bin/lair $(DESTDIR)$(PREFIX)/usr/bin/
-	mkdir -p $(DESTDIR)$(PREFIX)/etc/
-	cp etc/lair/lairrc $(DESTDIR)$(PREFIX)/etc/
-	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/lair/demo/ \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/ \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
+	cp bin/LAIR /usr/bin/
+	cp bin/lair /usr/bin/
+	cp etc/lair/lairrc /etc/
+	mkdir -p /usr/share/lair/demo/ \
+		/usr/share/lair/lua/map/ \
+		/usr/share/lair/lua/ai/
 	cp share/lair/lua/map/common.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/
+		/usr/share/lair/lua/map/
 	cp share/lair/lua/ai/common.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
+		/usr/share/lair/lua/ai/
 	cp share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map
+		/usr/share/lair/lua/map
 	cp share/lair/demo/dungeon.lua \
 		share/lair/demo/player.lua \
 		share/lair/demo/ai.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/demo/
-	chmod -R a+r $(DESTDIR)$(PREFIX)/usr/share/lair
-	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/doc/lair
-	cp COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/usr/share/doc/lair
-
+		/usr/share/lair/demo/
+	chmod -R a+r /usr/share/lair
 	#chown -R /var/cache/lair/map/
 
 deb-pkg:
 	make clean
 	make check
 	make unix
-	debuild
-	#checkinstall --deldoc=yes \
-	#	-Dy \
-	#	--install=no \
-	#	--review-control \
-	#	--pkgname="lair" \
-	#	--pakdir=../ \
-	#	--require="lua5.2,liblua5.2-0,libsdl2-2.0-0,libsdl2-gfx-1.0-0,libsdl2-image-2.0-0,libsdl2-mixer-2.0-0,libsdl2-ttf-2.0-0,libtoxav0,libtoxcore0,libtoxencryptsave0" \
-	#	--maintainer='problemsolver@openmailbox.org' \
-	#	--pkglicense='LICENSE.md' \
-	#	--pkgrelease="1" \
-	#	--pkggroup="games" \
-	#	--pkgversion='0.9' \
-	#	--pkgsource='./'
+	echo "LAIR! Roguelike Game, version 0.9" > description-pak
+	echo "" >> description-pak
+	echo "LAIR is a Procedurally Generated Mutliplayer Rogue-Like Game." >> description-pak
+	echo "It uses a library of content and a set of Lua scripts to" >> description-pak
+	echo "generate a random map according to a more-or-less detailed and" >> description-pak
+	echo "flexible environment to play in." >> description-pak
+	echo "" >> description-pak
+	mkdir doc-pak
+	cp *.md doc-pak
+	checkinstall --deldoc=yes \
+		-Dy \
+		--install=no \
+		--review-control \
+		--pkgname="lair" \
+		--pakdir=../ \
+		--require="lua5.2,liblua5.2-0,libsdl2-2.0-0,libsdl2-gfx-1.0-0,libsdl2-image-2.0-0,libsdl2-mixer-2.0-0,libsdl2-ttf-2.0-0,libtoxav0,libtoxcore0,libtoxencryptsave0" \
+		--maintainer='problemsolver@openmailbox.org' \
+		--pkglicense='LICENSE.md' \
+		--pkgrelease="1" \
+		--pkggroup="games" \
+		--pkgversion='0.9' \
+		--pkgsource='./'
 
 
 rpm-pkg:
