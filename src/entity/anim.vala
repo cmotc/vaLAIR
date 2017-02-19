@@ -5,6 +5,7 @@ namespace LAIR{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
+                private Video.Rect rangeOfSight = Video.Rect(){ x=-240, y=-240, w=480, h=480};
                 private bool wobble = false;
                 private static Video.Point cursorPosition = Video.Point(){x=0,y=0};
                 public Anim(Video.Rect rect){
@@ -110,6 +111,13 @@ namespace LAIR{
                         }
                         return r;
                 }
+                public Video.Rect get_range_of_sight(int player_aim = 0){
+                        Video.Rect temp = Video.Rect(){ x = get_x() + rangeOfSight.x + (player_aim * 32),
+                                y = get_y() + rangeOfSight.y + (player_aim * 32),
+                                w = rangeOfSight.w,
+                                h = rangeOfSight.h };
+                        return temp;
+                }
                 private int get_center_x(){
                         return get_x() + get_half_width();
                 }
@@ -148,5 +156,9 @@ namespace LAIR{
 			position.y = y;
 			return position.y;
 		}
+                protected string stringify_coordinates(){
+                        string r = " x:" + get_x().to_string() + " " + "y:" + get_y().to_string() + " " + "w:" + get_width().to_string() + " " + "h:" + get_height().to_string() + " ";
+                        return r;
+                }
 	}
 }

@@ -53,5 +53,8 @@ namespace LAIR{
                 public void set_name(string name){
                         Name = name;
                 }
+                public string get_name(){
+                        return Name;
+                }
         }
 }

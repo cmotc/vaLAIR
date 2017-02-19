@@ -111,6 +111,13 @@ namespace LAIR{
                         }
                         return tmp;
                 }
+                public bool dedupe_memories(){
+                        bool r = false;
+                        foreach(Room room in rooms){
+                                r = room.mob_dedupe_memories();
+                        }
+                        return r;
+                }
                 public void render_copy(Video.Renderer renderer){
                         if (has_player()){
                                 foreach(Room room in rooms){

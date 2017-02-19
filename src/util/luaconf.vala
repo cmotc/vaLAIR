@@ -46,6 +46,24 @@ namespace LAIR{
                                 VM.raw_set(-3);
                         }
                 }
+                private void lua_push_named_string(string key, string val){
+                        if( key != null){
+                                //print_withname("pushing values to lua table");
+                                VM.push_string(key);
+                                VM.push_string(val);
+                                //print_withname("%s ", key);
+                                //print_withname("%s \n", val.to_string());
+                                VM.raw_set(-3);
+                        }else{
+                                key = "error";
+                                string errval = "Error pushing entry to global Lua table. Key was null. Value was: ";
+                                VM.push_string(key);
+                                VM.push_string(errval);
+                                //print_withname(key, errval);
+                                //print_withname(val.to_string());
+                                VM.raw_set(-3);
+                        }
+                }
                 private void lua_close_table(string tableName){
                         if(tableName != null){
                                 VM.set_global (tableName);
@@ -114,6 +132,15 @@ namespace LAIR{
                         lua_new_table();
                         lua_push_named_number("y", simplecurrent.y);
                         lua_close_table("generator_coarse_y");
+                }
+                protected void lua_push_string_to_table(string tablename, string varname, string varval){
+                        lua_new_table();
+                        string tmp = varval;
+                        print_withname("Creating new Lua table: %s. ", tablename);
+                        print_noname(" Containing field: %s. ", varname);
+                        print_noname(" of value: %s. \n", varval);
+                        lua_push_named_string(varname,tmp);
+                        lua_close_table(tablename);
                 }
                 protected void lua_push_dimensions(Video.Rect current){
                         lua_new_table();

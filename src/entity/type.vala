@@ -118,8 +118,8 @@ namespace LAIR{
                         unowned List<string> r = tags;
                         return r;
                 }
-                public string stringify_tags(){
-                        string r = "";
+                protected string stringify_tags(){
+                        string r = " tags:";
                         foreach(string i in tags.copy()){
                                 r += i;
                                 r += " ";

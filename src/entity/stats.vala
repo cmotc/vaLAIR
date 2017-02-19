@@ -41,6 +41,94 @@ namespace LAIR{
 		private int has_tech(){
                         return (tech > 0) ? 1 : 0;
                 }
+                private string stringify_speed(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_speed() != 0) ? "speed " : "";
+                        }else if(player_aim > 5){
+                                if(has_speed() != 0){
+                                        r += (Speed() < 3) ? (Speed() < 6) ? (Speed() < 8) ? "highspeed " : "mediumspeed " : "lowspeed " : " ";
+                                }
+                        }
+                        return r;
+                }
+		private string stringify_exert(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_exert() != 0) ? "exert " : "";
+                        }else if(player_aim > 5){
+                                if(has_exert() != 0){
+                                        r += (Exert() < 3) ? (Exert() < 6) ? (Exert() < 8) ? "highexert " : "mediumexert " : "lowexert " : " ";
+                                }
+                        }
+                        return r;
+                }
+		private string stringify_dodge(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_dodge() != 0) ? "dodge " : "";
+                        }else if(player_aim > 5){
+                                if(has_dodge() != 0){
+                                        r += (Dodge() < 3) ? (Dodge() < 6) ? (Dodge() < 8) ? "highdodge " : "mediumdodge " : "lowdodge " : " ";
+                                }
+                        }
+                        return r;
+                }
+		private string stringify_aim(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_aim() != 0) ? "aim " : "";
+                        }else if(player_aim > 5){
+                                if(has_aim() != 0){
+                                        r += (Aim() < 3) ? (Aim() < 6) ? (Aim() < 8) ? "hightech " : "mediumtech " : "lowtech " : " ";
+                                }
+                        }
+                        return r;
+                }
+		private string stringify_will(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_will() != 0) ? "will " : "";
+                        }else if(player_aim > 5){
+                                if(has_will() != 0){
+                                        r += (Will() < 3) ? (Will() < 6) ? (Will() < 8) ? "highwill " : "mediumwill " : "lowwill " : " ";
+                                }
+                        }
+                        return r;
+                }
+		private string stringify_resist(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_resist() != 0) ? "resist " : "";
+                        }else if(player_aim > 5){
+                                if(has_resist() != 0){
+                                        r += (Resist() < 3) ? (Resist() < 6) ? (Resist() < 8) ? "highresist " : "mediumresist " : "lowresist " : " ";
+                                }
+                        }
+                        return r;
+                }
+		private string stringify_magic(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_magic() != 0) ? "magic " : "";
+                        }else if(player_aim > 5){
+                                if(has_magic() != 0){
+                                        r += (Magic() < 3) ? (Magic() < 6) ? (Magic() < 8) ? "highmagic " : "mediummagic " : "lowmagic " : " ";
+                                }
+                        }
+                        return r;
+                }
+		private string stringify_tech(int player_aim = 0){
+                        string r = " ";
+                        if(player_aim <= 5){
+                                r += (has_tech() != 0) ? "tech " : " ";
+                        }else if(player_aim > 5){
+                                if(has_tech() != 0){
+                                        r += (Tech() < 3) ? (Tech() < 6) ? (Tech() < 8) ? "hightech " : "mediumtech " : "lowtech " : " ";
+                                }
+                        }
+                        return r;
+                }
                 public Stats(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, generate_labels(), renderer);
                 }
@@ -61,16 +149,8 @@ namespace LAIR{
                 }
                 public Stats.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Mobile(corner, aiScript, Surfaces, music, font, generate_labels(), renderer, tags);
-                        /*lua_do_function(get_stat_func());
-                        List<string> tmp = get_lua_last_return();
-                        Strength = tmp.nth_data(0).to_int();
-                        Agility = tmp.nth_data(1).to_int();
-                        Toughness = tmp.nth_data(2).to_int();
-                        Intelligence = tmp.nth_data(3).to_int();
-                        Special = tmp.nth_data(4).to_int();*/
                 }
                 public Stats.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-                        //base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
                         base.Player(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
                 }
                 private static List<string> generate_labels(){
@@ -128,5 +208,19 @@ namespace LAIR{
                         int tmp = ( ( (Intelligence / 5) + (Agility / 2) ) / 2 ) ;
 			return (tmp + tech) * has_tech();
 		}
+                public int Memory(){
+                        return Intelligence * 3;
+                }
+                protected string stringify_skills(int player_aim = 0){
+                        string skills = "skills:" + stringify_speed() +
+                                stringify_exert() +
+                                stringify_dodge() +
+                                stringify_aim() +
+                                stringify_will() +
+                                stringify_resist() +
+                                stringify_magic() +
+                                stringify_tech();
+                        return skills;
+                }
 	}
 }

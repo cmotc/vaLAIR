@@ -54,6 +54,8 @@ Very untested, like literally zero testing at all, but technically it has been
 successfully cross-compiled for Windows 32 and 64 bit using M Cross Environment.
 For now, test at your own risk.
 
+###OSX, iOS, and Android coming soon.
+
 Configuration(You probably don't need to read this unless you want to mod)
 --------------------------------------------------------------------------
 
@@ -113,6 +115,8 @@ to do:
 
   1. Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
+   1. Right now it's born-but-blind. The guys will accept signals that make them
+   walk and eventually run into walls.
   2. Write some example AI scripts
   3. Networked play support, with sub-tasks
    1. Game Server as Group Chat?

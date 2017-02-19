@@ -11,7 +11,8 @@ unix:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X -ggdb \
+		-g \
+		--thread \
 		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
@@ -45,7 +46,9 @@ unix:
 win64:
 	export PATH=$PATH:/usr/lib/mxe/usr/bin
 	export PKG_CONFIG_PATH_x86_64_w64_mingw32_shared=/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/lib/pkgconfig/
+	#export PKG_CONFIG_PATH_x86_64_w64_mingw32_static=/usr/lib/mxe/usr/x86_64-w64-mingw32.static/lib/pkgconfig/
 	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_x86_64_w64_mingw32_shared
+	#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_x86_64_w64_mingw32_static
 	valac -gv \
 		-o bin/LAIR-w64.exe \
 		--cc "/usr/lib/mxe/usr/bin/x86_64-w64-mingw32.shared-gcc" \
@@ -97,7 +100,9 @@ win64:
 win32:
 	export PATH=$PATH:/usr/lib/mxe/usr/bin
 	export PKG_CONFIG_PATH_i686_w64_mingw32_shared=/usr/lib/mxe/usr/i686-w64-mingw32.shared/lib/pkgconfig/
+	#export PKG_CONFIG_PATH_i686_w64_mingw32_static=/usr/lib/mxe/usr/i686-w64-mingw32.static/lib/pkgconfig/
 	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_i686_w64_mingw32_shared
+	#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_i686_w64_mingw32_static
 	valac -gv \
 		-o bin/LAIR-w32.exe \
 		--cc "/usr/lib/mxe/usr/bin/i686-w64-mingw32.shared-gcc" \
@@ -204,6 +209,7 @@ android:
 		src/entity/move.vala \
 		src/entity/entity.vala
 
+
 all:
 	make unix
 	make windows
@@ -284,3 +290,4 @@ commit:
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
+
