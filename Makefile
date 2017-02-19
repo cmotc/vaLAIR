@@ -1,3 +1,6 @@
+PREFIX = /
+MANPREFIX = $(PREFIX)/share/man
+
 unix:
 	valac -gv \
 		-o bin/LAIR \
@@ -240,24 +243,24 @@ check:
 		share/lair/lua/ai/common.lua
 
 install:
-	cp bin/LAIR /usr/bin/
-	cp bin/lair /usr/bin/
-	cp etc/lair/lairrc /etc/
-	mkdir -p /usr/share/lair/demo/ \
-		/usr/share/lair/lua/map/ \
-		/usr/share/lair/lua/ai/
+	cp bin/LAIR $(DESTDIR)$(PREFIX)/usr/bin/
+	cp bin/lair $(DESTDIR)$(PREFIX)/usr/bin/
+	cp etc/lair/lairrc $(DESTDIR)$(PREFIX)/etc/
+	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/lair/demo/ \
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/ \
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
 	cp share/lair/lua/map/common.lua \
-		/usr/share/lair/lua/map/
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/
 	cp share/lair/lua/ai/common.lua \
-		/usr/share/lair/lua/ai/
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
 	cp share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
-		/usr/share/lair/lua/map
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map
 	cp share/lair/demo/dungeon.lua \
 		share/lair/demo/player.lua \
 		share/lair/demo/ai.lua \
-		/usr/share/lair/demo/
-	chmod -R a+r /usr/share/lair
+		$(DESTDIR)$(PREFIX)/usr/share/lair/demo/
+	chmod -R a+r $(DESTDIR)$(PREFIX)/usr/share/lair
 	#chown -R /var/cache/lair/map/
 
 deb-pkg:
