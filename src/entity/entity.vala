@@ -110,9 +110,11 @@ namespace LAIR{
                                 bool BRightCorner = in_range( brc, get_range_of_sight());
 
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
-                                        nearby_interests.append(test.stringify_entity_details());
-                                        print_withname("is observing %s \n", test.stringify_entity_details());
-                                        r = true;
+                                        if(nearby_interests.length() < (Memory() * 2)){
+                                                nearby_interests.append(test.stringify_entity_details());
+                                                print_withname("is observing %s \n", test.stringify_entity_details());
+                                                r = true;
+                                        }
                                 }}}}
                         }
                         return r;

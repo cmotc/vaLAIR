@@ -13,10 +13,5 @@ function default()
         --end
         print("default ai cycle test")
         print("vision field length = " .. vision_length.l .. ": " .. get_vision_length())
-        --tellme("",_G)
-        print(vision)
-        for key, value in vision do
-                print("vision " .. key .. ": " .. value)
-        end
         return decide_behave
 end

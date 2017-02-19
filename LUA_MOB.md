@@ -1,8 +1,8 @@
 LAIR's Lua-Based Configuration for Programmable Mob Behavior
 ============================================================
 
-How to get Information from the Mob's Point of View
----------------------------------------------------
+How to get Environmental Information from the Mob's Point of View in Lua
+------------------------------------------------------------------------
 
 Every time an event occurs, the mob checks a nearby area for things it needs to
 be aware of, and it "notices" some details about them by putting them into a
@@ -13,6 +13,16 @@ entity's surroundings that it can use to make decisions. The table can be
 accessed numerically. It's length is accessible at vision\_length.l or with the
 function get\_vision\_length(). Each member can then be searched for information
 about the mob's surroundings and the ai script can use it to make decisions.
+
+How to get Information about a Mob from the Mob's Point of View in Lua
+----------------------------------------------------------------------
+
+A mob also needs to have information about itself to make decisions.
+
+How to Write functions to help your Mob's make Decisions
+--------------------------------------------------------
+
+TBC.
 
 What are AI functions
 ---------------------
