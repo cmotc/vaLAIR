@@ -1,5 +1,6 @@
 PREFIX = /
 MANPREFIX = $(PREFIX)/share/man
+VERSION = '9.1'
 
 unix:
 	valac -gv \
@@ -224,7 +225,7 @@ unlog:
 		bin/*log \
 		bin/*err
 debclean:
-	rm -f *.tgz ../*.deb *.deb
+	rm -f ../*.deb ../*.changes ../*.buildinfo ../*.build ../*.changes ../*.dsc
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
@@ -265,13 +266,15 @@ install:
 	chmod -R a+r $(DESTDIR)$(PREFIX)/usr/share/lair
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/doc/lair
 	cp COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/usr/share/doc/lair
-
 	#chown -R /var/cache/lair/map/
 
-deb-pkg:
-	make clean
+tarchive:
+	\rm ../lair_$(VERSION).orig.tar.gz
 	make check
 	make unix
+	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
+
+deb-pkg:
 	debuild
 	#checkinstall --deldoc=yes \
 	#	-Dy \
