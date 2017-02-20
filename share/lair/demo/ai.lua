@@ -13,5 +13,6 @@ function default()
         --end
         print("default ai cycle test")
         print("vision field length = " .. vision_length.l .. ": " .. get_vision_length())
+        print("turning " .. self_turn.p)
         return decide_behave
 end

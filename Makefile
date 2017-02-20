@@ -269,7 +269,6 @@ install:
 	#chown -R /var/cache/lair/map/
 
 tarchive:
-	\rm ../lair_$(VERSION).orig.tar.gz
 	make check
 	make unix
 	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
@@ -282,7 +281,7 @@ rpm-pkg:
 	make
 	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
 
-commit:
+release-commit:
 	make clean
 	make
 	git add .
