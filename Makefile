@@ -277,20 +277,6 @@ tarchive:
 deb-pkg:
 	make tarchive
 	debuild
-	#checkinstall --deldoc=yes \
-	#	-Dy \
-	#	--install=no \
-	#	--review-control \
-	#	--pkgname="lair" \
-	#	--pakdir=../ \
-	#	--require="lua5.2,liblua5.2-0,libsdl2-2.0-0,libsdl2-gfx-1.0-0,libsdl2-image-2.0-0,libsdl2-mixer-2.0-0,libsdl2-ttf-2.0-0,libtoxav0,libtoxcore0,libtoxencryptsave0" \
-	#	--maintainer='problemsolver@openmailbox.org' \
-	#	--pkglicense='LICENSE.md' \
-	#	--pkgrelease="1" \
-	#	--pkggroup="games" \
-	#	--pkgversion='0.9' \
-	#	--pkgsource='./'
-
 
 rpm-pkg:
 	make
