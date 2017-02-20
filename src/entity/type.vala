@@ -150,9 +150,9 @@ namespace LAIR{
                 public string get_category(){
                         string r = "uncategorized";
                         if (mobile) {
-                                r = "mobile";
+                                r = "mobile ";
                         }else if (wall) {
-                                r = "particle";
+                                r = "particle ";
                         }
                         return r;
                 }

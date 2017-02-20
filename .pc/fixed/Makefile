@@ -1,7 +1,6 @@
 PREFIX = /
 MANPREFIX = $(PREFIX)/share/man
 VERSION = '9.1'
-COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 
 unix:
 	valac -gv \
@@ -270,6 +269,7 @@ install:
 	#chown -R /var/cache/lair/map/
 
 tarchive:
+	\rm ../lair_$(VERSION).orig.tar.gz
 	make check
 	make unix
 	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
@@ -282,12 +282,9 @@ rpm-pkg:
 	make
 	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
 
-release-commit:
+commit:
 	make clean
 	make
-	git add .
-	git commit -am "${COMMIT_MESSAGE}"
-	git push
 	dpkg-source --commit ./ "${COMMIT_MESSAGE}"
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"

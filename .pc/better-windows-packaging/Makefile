@@ -1,7 +1,6 @@
 PREFIX = /
 MANPREFIX = $(PREFIX)/share/man
 VERSION = '9.1'
-COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 
 unix:
 	valac -gv \
@@ -270,6 +269,7 @@ install:
 	#chown -R /var/cache/lair/map/
 
 tarchive:
+	\rm ../lair_$(VERSION).orig.tar.gz
 	make check
 	make unix
 	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
@@ -277,18 +277,28 @@ tarchive:
 deb-pkg:
 	make tarchive
 	debuild
+	#checkinstall --deldoc=yes \
+	#	-Dy \
+	#	--install=no \
+	#	--review-control \
+	#	--pkgname="lair" \
+	#	--pakdir=../ \
+	#	--require="lua5.2,liblua5.2-0,libsdl2-2.0-0,libsdl2-gfx-1.0-0,libsdl2-image-2.0-0,libsdl2-mixer-2.0-0,libsdl2-ttf-2.0-0,libtoxav0,libtoxcore0,libtoxencryptsave0" \
+	#	--maintainer='problemsolver@openmailbox.org' \
+	#	--pkglicense='LICENSE.md' \
+	#	--pkgrelease="1" \
+	#	--pkggroup="games" \
+	#	--pkgversion='0.9' \
+	#	--pkgsource='./'
+
 
 rpm-pkg:
 	make
 	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
 
-release-commit:
+commit:
 	make clean
 	make
-	git add .
-	git commit -am "${COMMIT_MESSAGE}"
-	git push
-	dpkg-source --commit ./ "${COMMIT_MESSAGE}"
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
