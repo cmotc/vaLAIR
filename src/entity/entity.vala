@@ -123,7 +123,7 @@ namespace LAIR{
                 public void push_interests(){
                         lua_push_strings_to_table("vision", nearby_interests.copy());
                         lua_push_uint_to_table("vision_length", "l", nearby_interests.length());
-                        if( period < nearby_interests.length()){
+                        if( period < nearby_interests.length() ){
                                 period++;
                         }else{
                                 period = 0;

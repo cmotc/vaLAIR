@@ -8,6 +8,6 @@ Installed-Size: 411
 Depends: lair (= 9.1-1)
 Section: debug
 Priority: extra
-Homepage: https://cmotc.github.io/lair-web
+Homepage: https://cmotc.github.io/lair-web/
 Description: Debug symbols for lair
 Build-Ids: 633ff0485bbce76759f65109092ff01e351a07ca
