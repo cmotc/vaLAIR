@@ -57,6 +57,8 @@ function check_down_for_detail(query)
         return r
 end
 
+--there need to be more helpers
+
 function get_vision_length()
         return table_length(vision)
 end

@@ -1,6 +1,7 @@
 PREFIX = /
 MANPREFIX = $(PREFIX)/share/man
 VERSION = '9.1'
+COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 
 unix:
 	valac -gv \
