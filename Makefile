@@ -275,6 +275,7 @@ tarchive:
 	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
 
 deb-pkg:
+	make tarchive
 	debuild
 	#checkinstall --deldoc=yes \
 	#	-Dy \
