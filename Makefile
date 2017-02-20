@@ -288,4 +288,8 @@ commit:
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
+	dpkg-source --commit ./ "${COMMIT_MESSAGE}"
+	git add .
+	git commit -am "${COMMIT_MESSAGE}"
+	git push
 
