@@ -5,44 +5,54 @@ namespace LAIR{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
+                private Video.Rect rangeOfSight = Video.Rect(){ x=-240, y=-240, w=480, h=480};
+                private bool wobble = false;
                 private static Video.Point cursorPosition = Video.Point(){x=0,y=0};
                 public Anim(Video.Rect rect){
                         base();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
-                public Anim.Blocked(Video.Rect rect){
-                        base.Blocked();
-                        position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
-                        source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                }
-                public Anim.Parameter(Video.Rect rect, string tag){
-                        base.Parameter(tag);
-                        position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
-                        source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
-                }
-                public Anim.ParameterList(Video.Rect rect, List<string> tags){
+                public Anim.Parameter(Video.Rect rect, List<string> tags){
                         base.ParameterList(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
-                public Anim.ParameterBlocked(Video.Rect rect, string tag){
-                        base.ParameterBlocked(tag);
+                public Anim.Blocked(Video.Rect rect, List<string> tags){
+                        base.ParameterListBlocked(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
-                public Anim.ParameterListBlocked(Video.Rect rect, List<string> tags){
-                        base.ParameterListBlocked(tags);
+                public Anim.Mobile(Video.Rect rect, string aiScript, List<string> tags){
+                        base.Mobile(tags, aiScript);
+                        position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
+                        source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
+                }
+                public Anim.Player(Video.Rect rect, List<string> tags){
+                        base.Player(tags);
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
                         source = Video.Rect(){x=0,y=0,w=rect.w,h=rect.h};
                 }
                 protected Video.Rect get_source(){
                         return source;
 		}
+                private int do_wobble(){
+                        int r = 0;
+                        if(wobble == true){
+                                r = roll_dice(-4,4);
+                        }
+                        return r;
+                }
+                protected void toggle_wobble_on(){
+                        wobble = true;
+                }
+                protected void toggle_wobble_off(){
+                        wobble = false;
+                }
                 protected Video.Rect get_position(Video.Point offset_px){
                         Video.Rect r = Video.Rect(){
-                                x = position.x - offset_px.x,
-                                y = position.y - offset_px.y,
+                                x = position.x - offset_px.x - do_wobble(),
+                                y = position.y - offset_px.y - do_wobble(),
                                 w = position.w,
                                 h = position.h
                         };
@@ -66,22 +76,22 @@ namespace LAIR{
 			return (int) source.w;
 		}
                 public int get_half_width(){
-                        int hW = (int) (position.w / 2);
+                        int hW = (int) (get_width() / 2);
                         return hW;
                 }
 		public int get_height(){
 			return (int) source.h;
 		}
                 public int get_half_height(){
-                        int hH = (int) (position.h / 2);
+                        int hH = (int) (get_height() / 2);
 			return hH;
 		}
-		public unowned int get_x(){
-                        unowned int t = position.x;
+		public int get_x(){
+                        int t = position.x;
 			return t;
 		}
-		public unowned int get_y(){
-                        unowned int t = position.y;
+		public int get_y(){
+                        int t = position.y;
 			return t;
 		}
                 public Video.Rect get_hitbox(){
@@ -101,12 +111,27 @@ namespace LAIR{
                         }
                         return r;
                 }
+                public Video.Rect get_range_of_sight(int player_aim = 0){
+                        Video.Rect temp = Video.Rect(){ x = get_x() + rangeOfSight.x + (player_aim * 32),
+                                y = get_y() + rangeOfSight.y + (player_aim * 32),
+                                w = rangeOfSight.w,
+                                h = rangeOfSight.h };
+                        return temp;
+                }
+                private int get_center_x(){
+                        return get_x() + get_half_width();
+                }
+                private int get_center_y(){
+                        return get_y() + get_half_height();
+                }
                 public Video.Point get_center(){
-                        Video.Point coords = Video.Point(){x=get_x()+get_half_width(), y=get_y()+get_half_height()};
+                        Video.Point coords = Video.Point(){
+                                x=get_center_x(),
+                                y=get_center_y()};
                         return coords;
                 }
                 private double radians_to_degrees(double radians){
-                        double r = (180/Math.PI) * radians;
+                        double r = (180.0/Math.PI) * radians;
                         return r;
                 }
                 protected void set_cursor_position(Video.Point cursor){
@@ -119,9 +144,9 @@ namespace LAIR{
                                         degrees = 0.0;
                                 }
                         }else{
-                                degrees = radians_to_degrees(Math.atan2(cursorPosition.x - get_center().x, cursorPosition.y - get_center().y) + 135);
+                                degrees = radians_to_degrees(Math.atan2(cursorPosition.x - get_center().x, cursorPosition.y - get_center().y) + 135.0);
                         }
-                        return degrees * -1;
+                        return degrees * -1.0;
                 }
 		public int set_x(int x){
 			position.x = x;
@@ -131,5 +156,9 @@ namespace LAIR{
 			position.y = y;
 			return position.y;
 		}
+                protected string stringify_coordinates(){
+                        string r = " x:" + get_x().to_string() + " " + "y:" + get_y().to_string() + " " + "w:" + get_width().to_string() + " " + "h:" + get_height().to_string() + " ";
+                        return r;
+                }
 	}
 }

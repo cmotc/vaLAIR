@@ -1,5 +1,5 @@
 --
-dofile("/usr/share/lair/lua/common.lua")
+dofile("/usr/share/lair/lua/map/common.lua")
 dofile("/usr/share/lair/lua/map/basicwall_cares_insert.lua")
 dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 
@@ -8,7 +8,6 @@ dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 
 function map_cares_insert()
         reload_map()
-        particle_index_byxy(0, 0)
         result = thickwall_cares_insert()
         result = cut_hallways(result)
         result = thinwall_cares_insert(result)
@@ -39,6 +38,11 @@ end
 --mobile at all.
 function mob_cares_insert()
         local decided_to = "false"
+        if is_blocked_particle_here() == "false" then
+                if is_blocked_mobile_here() == "false" then
+                        decided_to = percent_chance(9)
+                end
+        end
         return decided_to
 end
 -- The return value of this function tells the map what image to use to select
@@ -58,4 +62,9 @@ end
 function mob_fonts_decide()
         local decided_mob_font = "font"
         return decided_mob_font
+end
+
+function mob_ai_decide()
+        local decided_mob_ai = 'default()'
+        return decided_mob_ai
 end

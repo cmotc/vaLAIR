@@ -43,6 +43,13 @@ namespace LAIR{
                         }
                         return tmp;
                 }
+                public bool dedupe_memories(){
+                        bool r = false;
+                        foreach(Floor floor in floors){
+                                r = floor.dedupe_memories();
+                        }
+                        return r;
+                }
 		public void render_copy(Video.Renderer renderer){
 			foreach(Floor floor in floors){
 				floor.render_copy(renderer);

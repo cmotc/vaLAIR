@@ -25,28 +25,23 @@ namespace LAIR{
                         Font = font;
                         insert_label(Labels, renderer);
                 }
-                public Text.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer){
-                        base.Blocked(corner, Surfaces, renderer);
-                        Font = font;
-                        insert_label(Labels, renderer);
-                }
-                public Text.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, string tag){
-                        base.Parameter(corner, Surfaces, renderer, tag);
-                        Font = font;
-                        insert_label(Labels, renderer);
-                }
-                public Text.ParameterBlocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, string tag){
-                        base.ParameterBlocked(corner, Surfaces, renderer, tag);
-                        Font = font;
-                        insert_label(Labels, renderer);
-                }
-                public Text.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Text.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.ParameterList(corner, Surfaces, renderer, tags);
                         Font = font;
                         insert_label(Labels, renderer);
                 }
-                public Text.ParameterListBlocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
-                        base.ParameterListBlocked(corner, Surfaces, renderer, tags);
+                public Text.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                        base.Blocked(corner, Surfaces, renderer, tags);
+                        Font = font;
+                        insert_label(Labels, renderer);
+                }
+                public Text.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                        base.Mobile(corner, aiScript, Surfaces, renderer, tags);
+                        Font = font;
+                        insert_label(Labels, renderer);
+                }
+                public Text.Player(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                        base.Player(corner, Surfaces, renderer, tags);
                         Font = font;
                         insert_label(Labels, renderer);
                 }

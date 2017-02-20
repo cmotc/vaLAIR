@@ -53,47 +53,60 @@ a dungeon generation script must contain the following 8 functions.
 
 ####User-Defined Lua Functions Selecting Particle Entities
 
-  * **map\_cares\_insert:()**  \[ *Returns: bool* \] This determines whether the map
-  is going to bother to insert a Particle in this square whatsoever. If the
+  * **map\_cares\_insert:()**  \[ *Returns: bool* \] This determines whether the
+  map is going to bother to insert a Particle in this square whatsoever. If the
   value is false, then none of the other selection functions will be run for
   that Particle.
-  * **map\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
-  attributes the image selected for the new particle should have. It returns an
-  array of strings which corresponds to a set of tags. The tags will be checked
-  against the game resources and a random image with all the tags will be
-  retrieved.
-  * **map\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
-  attributes the sound selected for the new particle should have. It returns an
-  array of strings which corresponds to a set of tags. The tags will be checked
-  against the game resources and a random sound with all the tags will be
-  retrieved.
-  * **map\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
-  attributes the font selected for the new particle should have. It returns an
-  array of strings which corresponds to a set of tags. The tags will be checked
-  against the game resources and a random font with all the tags will be
+
+  * **map\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines
+  whatattributes the image selected for the new particle should have. It returns
+  an array of strings which corresponds to a set of tags. The tags will be
+  checked against the game resources and a random image with all the tags will
+  be retrieved.
+
+  * **map\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines
+  what attributes the sound selected for the new particle should have. It
+  returns an array of strings which corresponds to a set of tags. The tags will
+  be checked against the game resources and a random sound with all the tags
+  will be retrieved.
+
+  * **map\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines
+  what attributes the font selected for the new particle should have. It returns
+  an array of strings which corresponds to a set of tags. The tags will be
+  checked against the game resources and a random font with all the tags will be
   retrieved.
 
 ####User-Defined Lua Functions Selecting Mobile Entities
 
-  * **mob\_cares\_insert:()**  \[ *Returns: bool* \] This determines whether the map
-  is going to bother to insert a Mobile in this square whatsoever. If the value
-  is false, then none of the other selection functions will be run for that
-  Mobile.
-  * **mob\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
-  attributes the image selected for the new mobile should have. It returns an
-  array of strings which corresponds to a set of tags. The tags will be checked
-  against the game resources and a random image with all the tags will be
+  * **mob\_cares\_insert:()**  \[ *Returns: bool* \] This determines whether the
+  map is going to bother to insert a Mobile in this square whatsoever. If the
+  value is false, then none of the other selection functions will be run for
+  that Mobile.
+
+  * **mob\_image\_decide:()**  \[ *Returns: Array of Strings* \] This determines
+  what   attributes the image selected for the new mobile should have. It
+  returns an array of strings which corresponds to a set of tags. The tags will
+  be checked against the game resources and a random image with all the tags
+  will be
   retrieved.
-  * **mob\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
-  attributes the image selected for the new mobile should have. It returns an
-  array of strings which corresponds to a set of tags. The tags will be checked
-  against the game resources and a random image with all the tags will be
+
+  * **mob\_sound\_decide:()**  \[ *Returns: Array of Strings* \] This determines
+  what attributes the image selected for the new mobile should have. It returns
+  an array of strings which corresponds to a set of tags. The tags will be
+  checked against the game resources and a random image with all the tags will
+  be retrieved.
+
+  * **mob\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines
+  what attributes the image selected for the new mobile should have. It returns
+  an array of strings which corresponds to a set of tags. The tags will be
+  checkedagainst the game resources and a random image with all the tags will be
   retrieved.
-  * **mob\_fonts\_decide:()**  \[ *Returns: Array of Strings* \] This determines what
-  attributes the image selected for the new mobile should have. It returns an
-  array of strings which corresponds to a set of tags. The tags will be checked
-  against the game resources and a random image with all the tags will be
-  retrieved.
+
+  * **mob\_ai\_decide:()**  \[ *Returns: String* \] This determines the function
+  that will be run during the game for the generated mob's AI Input Loop. This
+  determine's the mob's runtime behavior. The string it returns should
+  correspond to the identifier of a function in ai.lua(Or the specified Mob ai
+  file.)
 
 These functions must be defined in your dungeon generate script in order for it
 to work. If not, a common one will be used which I haven't written yet, but
@@ -109,29 +122,31 @@ or Mobile in a given place.
 
 ####General Information: Dungeon Generator Cursor Positon, Dimensions of Room and Floor, Coarse Count
 
-**where\_in\_floor\_get\_x():** returns the current coarse(tile) X position of the
-map generation cursor on the *whole floor*.
+**where\_in\_floor\_get\_x():** returns the current coarse(tile) X position of
+the map generation cursor on the *whole floor*.
 
         function where_in_floor_get_x()
                 return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
         end
 
-**where\_in\_floor\_get\_y():** returns the current coarse(tile) Y position of the
-map generation cursor on the *whole floor*.
+**where\_in\_floor\_get\_y():** returns the current coarse(tile) Y position of
+the map generation cursor on the *whole floor*.
 
         function where_in_floor_get_y()
                 return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
         end
 
-**where\_in\_room\_gen\_y():** returns the current coarse(tile) X position of the
-map generation cursor on the *room containing the cursor's current position*.
+**where\_in\_room\_gen\_y():** returns the current coarse(tile) X position of
+the map generation cursor on the *room containing the cursor's current*
+*position*.
 
         function where_in_room_gen_x()
                 return generator_coarse_x.x
         end
 
-**where\_in\_room\_gen\_y():** returns the current coarse(tile) Y position of the
-map generation cursor on the *room containing the cursor's current position*.
+**where\_in\_room\_gen\_y():** returns the current coarse(tile) Y position of
+the map generation cursor on the *room containing the cursor's current*
+*position*.
 
         function where_in_room_gen_y()
                 return generator_coarse_y.y
@@ -197,15 +212,15 @@ of the room far corner on the *room containing the cursor's current*
                 return room_coarse_yh.y
         end
 
-**where\_is\_floor\_farcorner\_x():** returns the current Coarse(tile) X position
-of the room far corner on the *whole floor*.
+**where\_is\_floor\_farcorner\_x():** returns the current Coarse(tile) X
+position of the room far corner on the *whole floor*.
 
         function where_is_floor_farcorner_x()
                 return floor_coarse_yh.h
         end
 
-**where\_is\_floor\_farcorner_y():** returns the current Coarse(tile) Y position
-of the room far corner on the *whole floor*.
+**where\_is\_floor\_farcorner\_y():** returns the current Coarse(tile) Y
+position of the room far corner on the *whole floor*.
 
         function where_is_floor_farcorner_y()
                 return floor_coarse_w.w
@@ -325,17 +340,23 @@ returns it, otherwise, returns zero.
 
 ####Tile-Specific Data Retrieval Functions
 
-  * **particle\_index\_byxy(x, y):** pushes the tags of any particle found at pixel
-  x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **particle\_index\_byxy(x, y):** Returns the tags of the particle who's
+  corner is at fine x, y as a long, space-delimited string.
 
-  * **particle\_coarse\_index\_byxy(x, y):** pushes the tags of any particle found at
-  tile x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **particle\_coarse\_index\_byxy(x, y):** Returns the tags of the particle
+  who's corner is at coarse x, y as a long, space-delimited string.
 
-  * **mobile\_index\_byxy(x, y):** pushes the tags of any particle found at pixel
-  x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **is\_blocked\_particle\_here()** Detects if there is or is not a particle
+  at the current location of the map generation cursor.
 
-  * **mobile\_coarse\_index\_byxy(x, y):** pushes the tags of any particle found at
-  tile x, y into the Lua VM to the table requested_data.tags as a single string.
+  * **mobile\_index\_byxy(x, y):** Returns the tags of the mobile who's corner
+  is at fine x, y as a long, space-delimited string.
+
+  * **mobile\_coarse\_index\_byxy(x, y):** Returns the tags of the mobile who's
+  corner is at coarse x, y as a long, space-delimited string.
+
+  * **is\_blocked\_mobile\_here()** Detects if there is or is not a particle
+  at the current location of the map generation cursor.
 
 ##### \*Why Tables?
 
@@ -411,13 +432,16 @@ Current Limitations
 Because the map generator currently works from left to right, then from top to
 bottom, and because by definition all the information that the map can recieve
 has to come from entities that the map has already initialized, there is bias
-inherent in how the maps are generated. This can be solved, but it might not get
-solved for a little while because I want a prototype and that issue is fairly
-isolated.
+inherent in how the maps are generated. This issue will be solved shortly by
+having 2 Map Generation loops for structural elements. This will make it easier
+to create things like hidden treasures and decorated walls and allow reductive
+map generation, which will aid in generating Mazes.
 
-I still haven't done the Lua configuration for AI controlled entities.
+I still haven't done the Lua configuration for AI controlled entities. That's
+changing slowly, it's not something I want to do too fast.
 
 Some of the tables are counter-intuitively or unclearly named. I'll get to it
 about the time I get to converting the Vala to standard formatting. The
-functions are the preferred way to access the variables.
+functions are the preferred way to access the variables. I think they're pretty
+much consistent now so that's OK at least.
 

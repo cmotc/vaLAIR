@@ -20,7 +20,7 @@ automatically. To build the .deb package(but not install), do
 
         make deb-pkg
 
-or to install it automaticall just run it as root.
+or to install it automatically just run it as root.
 
         sudo make deb-pkg
 
@@ -34,6 +34,7 @@ files via the command-line flags for now:
 
         ----------------------------
              -i : display this info
+             -l : log to files instead of stdout
              -p : path to the image file listing
              -s : path to the sound file listing
              -f : path to the fonts file listing
@@ -53,6 +54,8 @@ can install with make; sudo make install.
 Very untested, like literally zero testing at all, but technically it has been
 successfully cross-compiled for Windows 32 and 64 bit using M Cross Environment.
 For now, test at your own risk.
+
+###OSX, iOS, and Android coming soon.
 
 Configuration(You probably don't need to read this unless you want to mod)
 --------------------------------------------------------------------------
@@ -111,22 +114,22 @@ I've been making some unsatisfying version or other of this for so long that
 it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
-  * Maps are working and generator can be extended in pure Lua rather than in
-  Vala.
-  * Implement AI class, which is similar to the move class but instead of doing
+  1. Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
-  * Write some example AI scripts
-  * Networked play support, with sub-tasks
-    - Game Server as Group Chat?
-    - This will become clearer as I do it, I think...
-  * Low GUI Mode for running a game without a player, in order to behave like a
+   1. Right now it's born-but-blind. The guys will accept signals that make them
+   walk and eventually run into walls.
+  2. Write some example AI scripts
+  3. Networked play support, with sub-tasks
+   1. Game Server as Group Chat?
+   2. This will become clearer as I do it, I think...
+  4. Low GUI Mode for running a game without a player, in order to behave like a
     server.
-  * I'm sure that there's more but I'll have to come to that.
-  * Make More Art! digitalAndy is making this alot easier.
-  * Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
+  5. I'm sure that there's more but I'll have to come to that.
+  6. Make More Art! digitalAndy is making this alot easier.
+  7. Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
   Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
-    - Can work-around many shortcomings of digitalAndy with imageMagick. Maybe
-    it should become part of a toolchain for procedural pixel art.
-    - Port digitalAndy to Android with a simple pixel-painting interface capable
-    of outputting a configuration file for PC digitalAndy as well as a script.
-    Do it to learn Android app development in Go.
+   1. Can work-around many shortcomings of digitalAndy with imageMagick. Maybe
+   it should become part of a toolchain for procedural pixel art.
+   2. Port digitalAndy to Android with a simple pixel-painting interface capable
+   of outputting a configuration file for PC digitalAndy as well as a script.
+   Do it to learn Android app development in Go.

@@ -1,3 +1,7 @@
+PREFIX = /
+MANPREFIX = $(PREFIX)/share/man
+VERSION = '9.1'
+
 unix:
 	valac -gv \
 		-o bin/LAIR \
@@ -11,8 +15,9 @@ unix:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X -ggdb \
-		-X -llua5.1 \
+		-g \
+		--thread \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -45,7 +50,9 @@ unix:
 win64:
 	export PATH=$PATH:/usr/lib/mxe/usr/bin
 	export PKG_CONFIG_PATH_x86_64_w64_mingw32_shared=/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/lib/pkgconfig/
+	#export PKG_CONFIG_PATH_x86_64_w64_mingw32_static=/usr/lib/mxe/usr/x86_64-w64-mingw32.static/lib/pkgconfig/
 	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_x86_64_w64_mingw32_shared
+	#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_x86_64_w64_mingw32_static
 	valac -gv \
 		-o bin/LAIR-w64.exe \
 		--cc "/usr/lib/mxe/usr/bin/x86_64-w64-mingw32.shared-gcc" \
@@ -97,7 +104,9 @@ win64:
 win32:
 	export PATH=$PATH:/usr/lib/mxe/usr/bin
 	export PKG_CONFIG_PATH_i686_w64_mingw32_shared=/usr/lib/mxe/usr/i686-w64-mingw32.shared/lib/pkgconfig/
+	#export PKG_CONFIG_PATH_i686_w64_mingw32_static=/usr/lib/mxe/usr/i686-w64-mingw32.static/lib/pkgconfig/
 	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_i686_w64_mingw32_shared
+	#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_i686_w64_mingw32_static
 	valac -gv \
 		-o bin/LAIR-w32.exe \
 		--cc "/usr/lib/mxe/usr/bin/i686-w64-mingw32.shared-gcc" \
@@ -204,6 +213,7 @@ android:
 		src/entity/move.vala \
 		src/entity/entity.vala
 
+
 all:
 	make unix
 	make windows
@@ -215,7 +225,7 @@ unlog:
 		bin/*log \
 		bin/*err
 debclean:
-	rm -f *.tgz *.deb
+	rm -f ../*.deb ../*.changes ../*.buildinfo ../*.build ../*.changes ../*.dsc
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
@@ -228,32 +238,68 @@ check:
 	luacheck -g share/lair/demo/dungeon.lua \
 		share/lair/demo/player.lua \
 		share/lair/demo/ai.lua \
-		share/lair/lua/common.lua \
+		share/lair/lua/map/common.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
-		share/lair/lua/map/cut_hallways.lua
+		share/lair/lua/map/cut_hallways.lua \
+		share/lair/lua/ai/common.lua
 
 install:
-	cp bin/LAIR /usr/bin/
-	cp bin/lair /usr/bin/
-	cp etc/lair/lairrc /etc/
-	mkdir -p /usr/share/lair/demo/ \
-		/usr/share/lair/lua/map/
-	cp share/lair/lua/common.lua \
-		/usr/share/lair/lua/
+	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
+	cp bin/LAIR $(DESTDIR)$(PREFIX)/usr/bin/
+	cp bin/lair $(DESTDIR)$(PREFIX)/usr/bin/
+	mkdir -p $(DESTDIR)$(PREFIX)/etc/
+	cp etc/lair/lairrc $(DESTDIR)$(PREFIX)/etc/
+	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/lair/demo/ \
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/ \
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
+	cp share/lair/lua/map/common.lua \
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/
+	cp share/lair/lua/ai/common.lua \
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
 	cp share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
-		/usr/share/lair/lua/map
+		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map
 	cp share/lair/demo/dungeon.lua \
 		share/lair/demo/player.lua \
 		share/lair/demo/ai.lua \
-		/usr/share/lair/demo/
-	chmod -R a+r /usr/share/lair
+		$(DESTDIR)$(PREFIX)/usr/share/lair/demo/
+	chmod -R a+r $(DESTDIR)$(PREFIX)/usr/share/lair
+	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/doc/lair
+	cp COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/usr/share/doc/lair
 	#chown -R /var/cache/lair/map/
 
-deb-pkg:
+tarchive:
+	\rm ../lair_$(VERSION).orig.tar.gz
+	make check
 	make unix
-	checkinstall --deldoc=yes --deldesc=yes -Dy
+	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
+
+deb-pkg:
+	make tarchive
+	debuild
+	#checkinstall --deldoc=yes \
+	#	-Dy \
+	#	--install=no \
+	#	--review-control \
+	#	--pkgname="lair" \
+	#	--pakdir=../ \
+	#	--require="lua5.2,liblua5.2-0,libsdl2-2.0-0,libsdl2-gfx-1.0-0,libsdl2-image-2.0-0,libsdl2-mixer-2.0-0,libsdl2-ttf-2.0-0,libtoxav0,libtoxcore0,libtoxencryptsave0" \
+	#	--maintainer='problemsolver@openmailbox.org' \
+	#	--pkglicense='LICENSE.md' \
+	#	--pkgrelease="1" \
+	#	--pkggroup="games" \
+	#	--pkgversion='0.9' \
+	#	--pkgsource='./'
+
 
 rpm-pkg:
 	make
-	checkinstall --deldoc=yes --delspec=yes -Ry
+	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
+
+commit:
+	make clean
+	make
+	git add .
+	git commit -am "${COMMIT_MESSAGE}"
+	git push
+

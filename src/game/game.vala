@@ -8,7 +8,7 @@ namespace LAIR{
 	class Game : Scribe{
 		private Video.Window window;
 		private Video.Renderer WindowRenderer;
-
+                private int memloop = 0;
 		private Tower GameEnvironment;
 
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
@@ -33,6 +33,12 @@ namespace LAIR{
 			int r = GameEnvironment.take_turns();
                         GameEnvironment.detect_collisions();
 			GameEnvironment.render_copy(WindowRenderer);
+                        if(memloop > 80){
+                                memloop = 0;
+                                GameEnvironment.dedupe_memories();
+                        }else{
+                                memloop++;
+                        }
 			WindowRenderer.present();
 			return r;
 		}

@@ -2,7 +2,7 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaConf : Scribe{
-                private LuaVM VM;
+                private LuaVM VM = new LuaVM();
                 private string ScriptPath;
                 public LuaConf(string path, int lll, string name){
                         base.LLL(lll, name);
@@ -10,6 +10,15 @@ namespace LAIR{
                         VM.open_libs();
                         ScriptPath = path;
                         print_withname("Loading a dungeon generator script: %s\n", ScriptPath);
+                        lua_do_file();//ScriptPath);
+                        //printc(GetLuaLastReturn().nth_data(0), "\n");
+                }
+                public LuaConf.Mobile(string path, int lll, string name){
+                        base.LLL(lll, name);
+                        VM = new LuaVM();
+                        VM.open_libs();
+                        ScriptPath = path;
+                        print_withname("Loading a mobile AI script: %s\n", ScriptPath);
                         lua_do_file();//ScriptPath);
                         //printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
@@ -36,6 +45,24 @@ namespace LAIR{
                                 //print_withname(val.to_string());
                                 VM.raw_set(-3);
                         }
+                }
+                private void lua_push_named_strings(List<string> vals){
+                        int key = 0;
+                        foreach(string val in vals){
+                                if( key > -1){
+                                        VM.push_string(key.to_string());
+                                        VM.push_string(val);
+                                        VM.raw_set(-3);
+                                }else{
+                                        VM.push_string(key.to_string());
+                                        VM.push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
+                                        VM.raw_set(-3);
+                                }
+                                key++;
+                        }
+                        //int key2 = (int) ( (vals.length() * 2) + 1 ) * -1;
+                        //int key2 = -3;
+                        //VM.raw_set(key2);
                 }
                 private void lua_close_table(string tableName){
                         if(tableName != null){
@@ -75,9 +102,9 @@ namespace LAIR{
                 }
                 protected void lua_do_function(string function){
                         //LuaDoFile(ScriptPath);
-                        string tmp = "return ";
+                        string tmp = "return " + function;
                         //string tmp = function;
-                        tmp += function;
+                        //tmp += function;
                         VM.do_string(tmp);
                 }
                 protected void lua_push_uint_to_table(string tablename, string varname, uint varval){
@@ -105,6 +132,13 @@ namespace LAIR{
                         lua_new_table();
                         lua_push_named_number("y", simplecurrent.y);
                         lua_close_table("generator_coarse_y");
+                }
+                protected void lua_push_strings_to_table(string tablename, List<string> varvals){
+                        lua_new_table();
+                        //string tmp = varval;
+                        print_withname("Creating new Lua table: %s. ", tablename);
+                        lua_push_named_strings(varvals);
+                        lua_close_table(tablename);
                 }
                 protected void lua_push_dimensions(Video.Rect current){
                         lua_new_table();

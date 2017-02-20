@@ -1,71 +1,67 @@
 namespace LAIR{
-	class Type : Scribe{
+	class Type : LuaConf {
 		private bool player = false;
+                private bool floor = false;
+                private bool wall = false;
+                private bool mobile = false;
                 private int b = 0;
                 private List<string> tags = new List<string>();
-                public Type(){
-                        base.LLL(6, "default");
-                        player = false;
-                        b = 0;
+                private GLib.Rand dice_bag = new GLib.Rand();
+                public Type(string lconf=""){
+                        base(
+                                ((lconf == "") ? "immobile" : lconf ),
+                                6,"entity");
                         tags = new List<string>();
                         set_type("default");
                 }
-                public Type.Blocked(){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
+                public Type.ParameterList(List<string> types, string lconf = ""){
+                        base(
+                                ((lconf == "") ? "immobile" : lconf),
+                                6,"entity");
+                        foreach(string type in types){
+                                set_type(type);
+                        }
+                        player = check_type("player");
+                        if (player) {
+                                set_type("blocked");
+                        }
+                }
+                public Type.ParameterListBlocked(List<string> types, string lconf = ""){
+                        base(
+                                ((lconf == "") ? "immobile" : lconf),
+                                6,"entity");
                         set_type("blocked");
-		}
-                public Type.Player(string name){
-                        base.LLL(1, name);
-                        b = 0;
-                        tags = new List<string>();
+                        foreach(string type in types){
+                                set_type(type);
+                        }
+                        player = check_type("player");
+                }
+                public Type.Mobile(List<string> types, string lconf){
+                        base.Mobile(lconf, 6,"entity");
+                        set_type("blocked");
+                        foreach(string type in types){
+                                set_type(type);
+                        }
+                        player = check_type("player");
+                }
+                public Type.Player(List<string> types, string lconf = ""){
+                        base(
+                                ((lconf == "") ? "immobile" : lconf),
+                                6,"entity");
                         set_type("blocked");
                         set_type("player");
-		}
-                public Type.Parameter(string type){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        set_type(type);
-                        player = check_type("player");
-                        if (player) {
-                                set_type("blocked");
-                        }
-                }
-                public Type.ParameterList(List<string> types){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        foreach(string type in types.copy()){
+                        player = true;
+                        foreach(string type in types){
                                 set_type(type);
                         }
-                        player = check_type("player");
-                        if (player) {
-                                set_type("blocked");
-                        }
+                        print_withname("Generating a player\n");
                 }
-                public Type.ParameterBlocked(string type){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        set_type("blocked");
-                        set_type(type);
-                        player = check_type("player");
+                protected int roll_dice(int min, int max){
+                        return dice_bag.int_range(-1,1);
                 }
-                public Type.ParameterListBlocked(List<string> types){
-                        base.LLL(6, "default");
-                        b = 0;
-                        tags = new List<string>();
-                        set_type("blocked");
-                        foreach(string type in types.copy()){
-                                set_type(type);
-                        }
-                        player = check_type("player");
-                }
-		private bool set_type(string NewType){
+		protected bool set_type(string NewType){
                         bool t = true;
-                        foreach(string i in tags.copy()){
+                        foreach(string i in tags){
                                 if ( i == NewType ){
                                         t = false;
                                 }
@@ -78,16 +74,38 @@ namespace LAIR{
                         if ( NewType == "blocked" ){
                                 b = 1;
                         }
+                        if ( NewType == "mobile" ){
+                                mobile = true;
+                        }
+                        if ( NewType == "wall" ){
+                                wall = true;
+                        }
+                        if ( NewType == "floor" ){
+                                floor = true;
+                        }
                         if ( NewType == "player" ){
                                 player = true;
                         }
                         return t;
 		}
-                private bool check_type(string Type){
+                protected bool check_type(string hyp_type){
                         bool r = false;
-                        foreach(string i in tags.copy()){
-                                if ( i == Type ){
-                                        r = true;
+                        if (hyp_type != "player"){
+                                foreach(string i in tags.copy()){
+                                        if ( i == hyp_type ){
+                                                r = true;
+                                                break;
+                                        }
+                                }
+                        }else{
+                                if (player != true){
+                                        foreach(string i in tags.copy()){
+                                                if ( i == hyp_type ){
+                                                        r = true;
+                                                        player = true;
+                                                        break;
+                                                }
+                                        }
                                 }
                         }
                         return r;
@@ -112,11 +130,29 @@ namespace LAIR{
                         unowned List<string> r = tags;
                         return r;
                 }
-                public string stringify_tags(){
-                        string r = "";
+                protected string stringify_tags(){
+                        string r = " tags:";
                         foreach(string i in tags.copy()){
                                 r += i;
                                 r += " ";
+                        }
+                        return r;
+                }
+                public List<string> one_tag_to_list(string ip){
+                        List<string> r = new List<string>();
+                        r.append(ip);
+                        foreach(string s in r){
+                                print_withname(s);
+                        }
+                        return r;
+
+                }
+                public string get_category(){
+                        string r = "uncategorized";
+                        if (mobile) {
+                                r = "mobile";
+                        }else if (wall) {
+                                r = "particle";
                         }
                         return r;
                 }
