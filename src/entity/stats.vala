@@ -222,8 +222,5 @@ namespace LAIR{
                                 stringify_tech();
                         return skills;
                 }
-                protected int get_speed(){
-                        return Speed();
-                }
 	}
 }

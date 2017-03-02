@@ -100,8 +100,8 @@ namespace LAIR{
                                 int t = 0;
                                 foreach(Entity mob in room.get_mobiles()){
                                         foreach(Room room2 in rooms){
-                                                if(room2 != room){
-                                                        room.mob_enter_room(room2.mob_leave_room(room2.detect_transitions(mob), t));
+                                                if(&room2 != &room){
+                                                        room2.mob_enter_room(room.mob_leave_room(room2.detect_transitions(mob), t));
                                                 }
                                         }
                                         room.mob_detect_collisions(mob);

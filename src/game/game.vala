@@ -9,6 +9,7 @@ namespace LAIR{
 		private Video.Window window;
 		private Video.Renderer WindowRenderer;
 		private Tower GameEnvironment;
+                private bool dedupe = false;
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
                         base.LLL(3, "floor:");
                         string imageListPath = listPaths[0];
@@ -26,10 +27,15 @@ namespace LAIR{
                         GameEnvironment = new Tower(mapSize, scriptPaths, new FileDB(imageListPath, soundListPath, fontsListPath), WindowRenderer);
 		}
 		private int update_screen(){
-			int r = GameEnvironment.take_turns();
                         GameEnvironment.detect_collisions();
+                        int r = GameEnvironment.take_turns();
 			GameEnvironment.render_copy(WindowRenderer);
-                        GameEnvironment.dedupe_memories();
+                        if(dedupe){
+                                GameEnvironment.dedupe_memories();
+                                dedupe=false;
+                        }else{
+                                dedupe=true;
+                        }
 			WindowRenderer.present();
 			return r;
 		}

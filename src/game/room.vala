@@ -229,13 +229,17 @@ namespace LAIR{
                         int tmp = 1;
                         if (has_player()){
                                 tmp = Player.run();
-                                foreach(Entity mob in Mobs){
-					mob.run();
-				}
+                                if(Mobs.length() > 0){
+                                        foreach(Entity mob in Mobs){
+                                                mob.run();
+                                        }
+                                }
                         }else{
-                                foreach(Entity mob in Mobs){
-					mob.run();
-				}
+                                if(Mobs.length() > 0){
+                                        foreach(Entity mob in Mobs){
+                                                mob.run();
+                                        }
+                                }
                         }
                         return tmp;
                 }
@@ -352,9 +356,11 @@ namespace LAIR{
 				if (visited = false){
 					visited = true;
 				}
-				foreach(Entity mob in Mobs.copy()){
-					mob.render(renderer, player_pos);
-				}
+                                if(Mobs.length() > 0){
+                                        foreach(Entity mob in Mobs){
+                                                mob.render(renderer, player_pos);
+                                        }
+                                }
 			}
 		}
 		public bool enter_room(Entity player){
