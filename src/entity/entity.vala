@@ -31,6 +31,7 @@ namespace LAIR{
                                 set_name("mobile");
                         }
                         set_type("mobile");
+                        set_type("blocked");
                 }
                 public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="player"){
                         base.Player(corner, Surfaces, music, font, renderer);
@@ -40,8 +41,6 @@ namespace LAIR{
                         }
                         set_type("player");
                 }
-                /*private void DoActions(Entity t){
-                }*/
                 private bool in_range(Video.Point point, Video.Rect hitbox){
                         bool t = false;
                         int xx = (int) (hitbox.x + hitbox.w);
@@ -50,12 +49,6 @@ namespace LAIR{
                                 if ( point.x <  xx ){
                                         if( point.y > hitbox.y ){
                                                 if( point.y < yy ){
-                                                        /*stdout.printf("\n\n Does this Number AXC:%s", point.x.to_string());
-                                                        stdout.printf(" come after this Number AX1:%s, and that number", hitbox.x.to_string());
-                                                        stdout.printf(" come before this Number AX2:%s\n", xx.to_string());
-                                                        stdout.printf(" Does this Number AYC:%s", point.y.to_string());
-                                                        stdout.printf(" come after this Number BY1:%s, and that number", hitbox.y.to_string());
-                                                        stdout.printf(" come before this Number BY2:%s\n\n", yy.to_string());*/
                                                         t = true;
                                                 }
                                         }
@@ -86,7 +79,7 @@ namespace LAIR{
 
                                         r = bounce(TLeftCorner, TRightCorner,
                                         BLeftCorner, BRightCorner, t.get_hitbox());
-                                        //DoActions(t);
+                                        //do_actions(t);
                                 }
                         }
                         return r;
@@ -111,7 +104,7 @@ namespace LAIR{
                                 bool BRightCorner = in_range( brc, get_range_of_sight());
 
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
-                                        if(nearby_interests.length() < (Memory() * 2)){
+                                        if(nearby_interests.length() < Memory()){
                                                 nearby_interests.append(test.stringify_entity_details());
                                                 print_withname("is observing %s \n", test.stringify_entity_details());
                                                 r = true;
@@ -123,11 +116,13 @@ namespace LAIR{
                 public void push_interests(){
                         lua_push_strings_to_table("vision", nearby_interests.copy());
                         lua_push_uint_to_table("vision_length", "l", nearby_interests.length());
-                        if( period < nearby_interests.length()){
+                        if( period < nearby_interests.length() ){
                                 period++;
                         }else{
                                 period = 0;
                         }
+                        lua_push_string_to_table("self", stringify_entity_details());
+                        lua_push_uint_to_table("self_speed", "speed", Speed());
                         lua_push_uint_to_table("self_turn", "p", period);
                 }
                 public bool dedupe_and_shrink_nearby_entities(){

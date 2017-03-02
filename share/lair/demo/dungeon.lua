@@ -37,10 +37,11 @@ end
 --The return value of this function tells the map whether it should place a new
 --mobile at all.
 function mob_cares_insert()
+        reload_mobs()
         local decided_to = "false"
         if is_blocked_particle_here() == "false" then
                 if is_blocked_mobile_here() == "false" then
-                        decided_to = percent_chance(9)
+                        decided_to = percent_chance(20)
                 end
         end
         return decided_to

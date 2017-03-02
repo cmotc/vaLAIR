@@ -1,18 +1,18 @@
 dofile("/usr/share/lair/lua/ai/common.lua")
 
 function default()
-        local decide_behave = step_down()
-        if self_turn.p < 15 then
+        local decide_behave = stand_still()
+        doit = math.random(100)
+        if doit < 90 then
                 decide_behave = step_up()
-        elseif self_turn.p < 30 then
+        elseif doit < 92 then
                 decide_behave = step_left()
-        elseif self_turn.p < 45 then
+        elseif doit < 94 then
                 decide_behave = step_down()
-        elseif self_turn.p < 60 then
+        elseif doit < 96 then
                 decide_behave = step_right()
         end
-        print("default ai cycle test")
-        print("vision field length = " .. vision_length.l .. ": " .. get_vision_length())
-        print("turning " .. self_turn.p)
+        print_seen_details()
+        print_self_details()
         return decide_behave
 end

@@ -133,10 +133,23 @@ namespace LAIR{
                         lua_push_named_number("y", simplecurrent.y);
                         lua_close_table("generator_coarse_y");
                 }
+                protected void lua_push_string_to_table(string tablename, string val){
+                        lua_new_table();
+                        VM.push_string(tablename);
+                        VM.push_string(val);
+                        VM.raw_set(-3);
+                                //VM.push_string(tablename);
+                                //VM.push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
+                                //VM.raw_set(-3);}
+                        //key++;
+                        lua_close_table(tablename);
+                        //int key2 = (int) ( (vals.length() * 2) + 1 ) * -1;
+                        //int key2 = -3;
+                        //VM.raw_set(key2);
+                }
                 protected void lua_push_strings_to_table(string tablename, List<string> varvals){
                         lua_new_table();
                         //string tmp = varval;
-                        print_withname("Creating new Lua table: %s. ", tablename);
                         lua_push_named_strings(varvals);
                         lua_close_table(tablename);
                 }

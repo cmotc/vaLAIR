@@ -139,6 +139,13 @@ function stringup_cell(variable)
         local command = table .. "[\"" .. key .. "\"] = \"" .. member .. "\"\n"
         return command
 end
+function stringup_mob(variable)
+        local member = tostring(variable)
+        local table = "mobs"
+        local key = tostring(what_pixel_is_gen_x()) .. "_" .. tostring(what_pixel_is_gen_y())
+        local command = table .. "[\"" .. key .. "\"] = \"" .. member .. "\"\n"
+        return command
+end
 function archive_old_map()
         if file_exists(get_map_savepath()) then
                 os.rename(get_map_savepath(), get_map_archivepath())
@@ -172,7 +179,7 @@ end
 function record_mobile(variable)
         --print(tostring(variable))
         setup_new_mob()
-        local local_table = stringup_cell(variable)
+        local local_table = stringup_mob(variable)
         file = io.open(get_mob_savepath(), "a")
         file:write(local_table)
         file:close()
@@ -193,7 +200,6 @@ end
 function mobile_index_byxy(xx, yy)
         local mob_index = tostring(xx) .. "_" .. tostring(yy)
         if type(mobs) == "table" then
-                print("mob table present")
                 if type(mobs[mob_index]) ~= "nil" then
                         return tostring(mobs[mob_index])
                 else

@@ -229,24 +229,30 @@ namespace LAIR{
                         int tmp = 1;
                         if (has_player()){
                                 tmp = Player.run();
-                                foreach(Entity mob in Mobs){
-					mob.run();
-				}
+                                if(Mobs.length() > 0){
+                                        foreach(Entity mob in Mobs){
+                                                mob.run();
+                                        }
+                                }
                         }else{
-                                foreach(Entity mob in Mobs){
-					mob.run();
-				}
+                                if(Mobs.length() > 0){
+                                        foreach(Entity mob in Mobs){
+                                                mob.run();
+                                        }
+                                }
                         }
                         return tmp;
                 }
                 public bool player_detect_collisions(){
                         bool t = false;
                         if(has_player()){
-                                foreach(Entity particle in Particles){
+                                //foreach(Entity particle in Particles.copy()){
+                                foreach(Entity particle in Particles.copy()){
                                         t = Player.detect_collisions(particle) ? true : t ;
 
                                 }
-                                foreach(Entity mob in Mobs){
+                                //foreach(Entity mob in Mobs.copy()){
+                                foreach(Entity mob in Mobs.copy()){
                                         t = Player.detect_collisions(mob) ? true : t ;
                                 }
                         }
@@ -261,11 +267,11 @@ namespace LAIR{
                                 if(has_player()){
                                         t = Player.detect_collisions(particle) ? true : t ;
                                         t = Player.detect_collisions(mob) ? true : t;
-                                        particle.detect_collisions(mob);
+                                        mob.detect_collisions(particle);
                                         mob.detect_nearby_entities(particle);
                                         mob.push_interests();
                                 }else{
-                                        particle.detect_collisions(mob);
+                                        mob.detect_collisions(particle);
                                         mob.detect_nearby_entities(particle);
                                         mob.push_interests();
                                 }
@@ -323,26 +329,17 @@ namespace LAIR{
                                 Video.Point brc = Video.Point(){ x = (int)(t.get_hitbox().x + t.get_hitbox().w),
                                         y = (int)(t.get_hitbox().y + t.get_hitbox().h) };
                                 bool BRightCorner = point_in_room( brc, get_hitbox());
-
                                 if (TLeftCorner){
-                                        if (TRightCorner){
-                                                r++;
-                                        }
+                                        r++;
                                 }
                                 if (BLeftCorner){
-                                        if (TLeftCorner){
-                                                r++;
-                                        }
+                                        r++;
                                 }
                                 if (BRightCorner){
-                                        if (TRightCorner){
-                                                r++;
-                                        }
+                                        r++;
                                 }
-                                if (BLeftCorner){
-                                        if (BRightCorner){
-                                                r++;
-                                        }
+                                if (TRightCorner){
+                                        r++;
                                 }
                         }
                         return r;
@@ -359,9 +356,11 @@ namespace LAIR{
 				if (visited = false){
 					visited = true;
 				}
-				foreach(Entity mob in Mobs){
-					mob.render(renderer, player_pos);
-				}
+                                if(Mobs.length() > 0){
+                                        foreach(Entity mob in Mobs){
+                                                mob.render(renderer, player_pos);
+                                        }
+                                }
 			}
 		}
 		public bool enter_room(Entity player){
@@ -384,28 +383,30 @@ namespace LAIR{
 		}
 		public Entity leave_room(int doleave){
                         Entity tmp = null;
-                        if (doleave > 1){
-                                if (Player != null){
-                                        tmp = Player;
-                                }
-                        }else if (doleave == 1){
+                        if (doleave == 4){
                                 if (Player != null){
                                         tmp = Player;
                                         Player = null;
+                                }
+                        }else if (doleave > 0){
+                                if (Player != null){
+                                        tmp = Player;
                                 }
                         }
 			return tmp;
 		}
                 public Entity mob_leave_room(int doleave, int mob_index){
                         Entity tmp = null;
-                        if (doleave > 1){
+                        if (doleave == 4){
                                 if ( mob_index < Mobs.length()){
-                                        tmp = Mobs.nth_data(mob_index);
-                                }
-                        }else if (doleave == 1){
-                                if (mob_index < Mobs.length()){
-                                        tmp = Mobs.nth_data(mob_index);
+                                        Entity do_leave = Mobs.nth_data(mob_index);
                                         Mobs.remove(Mobs.nth_data(mob_index));
+                                        return do_leave;
+                                }
+                        }else if (doleave > 0){
+                                if (mob_index < Mobs.length()){
+                                        Entity dont_leave = Mobs.nth_data(mob_index);
+                                        return dont_leave;
                                 }
                         }
 			return tmp;
