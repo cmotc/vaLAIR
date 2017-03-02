@@ -22,6 +22,10 @@ namespace LAIR{
                 protected int quit(){
                         return 0;
                 }
+                protected int stand_still(){
+                        toggle_wobble_on();
+                        return 1;
+                }
                 protected int step_down(LuaVM vm = this.get_lua_vm()){
                         set_y(get_y() + Speed());
                         toggle_wobble_on();
@@ -195,6 +199,10 @@ namespace LAIR{
                                 case "step_left()":
                                         print_withname("AI is stepping left\n");
                                         t = step_left();
+                                        break;
+                                case "stand_still()":
+                                        print_withname("AI is standing still\n");
+                                        t = stand_still();
                                         break;
                         }
                 }

@@ -209,7 +209,7 @@ namespace LAIR{
 			return (tmp + tech) * has_tech();
 		}
                 public int Memory(){
-                        return Intelligence * 3;
+                        return Intelligence * 5;
                 }
                 protected string stringify_skills(int player_aim = 0){
                         string skills = "skills:" + stringify_speed() +
@@ -221,6 +221,9 @@ namespace LAIR{
                                 stringify_magic() +
                                 stringify_tech();
                         return skills;
+                }
+                protected int get_speed(){
+                        return Speed();
                 }
 	}
 }
