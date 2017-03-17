@@ -1,4 +1,4 @@
-788ed1f139b7fc912a937e2c98c8eb99  usr/bin/LAIR
+5d113d40c0815dc98364768b6da1c15b  usr/bin/LAIR
 cd723d7e8334d422a61ff4ab56386bff  usr/bin/lair
 33bcd5844ff9af5d47928d0a32d5b1b2  usr/share/doc/lair/COPYING.md.gz
 ea1921855e6750e4d0a4c3452e337415  usr/share/doc/lair/LUA.md.gz
@@ -7,7 +7,7 @@ ed92ea6af63a74b304312cf273b0d20f  usr/share/doc/lair/LUA_MOB.md
 fa3ab6c08d9e49e4221f5bf84fab1f82  usr/share/doc/lair/README.md.gz
 312bc32faee34cae52323a148db21c93  usr/share/doc/lair/changelog.Debian.gz
 5df36bb12a1f55548fe69006ff38e3b8  usr/share/doc/lair/copyright
-ef09b1f2f8740e5e35f16c0e948f8ec5  usr/share/lair/demo/ai.lua
+cb06318337a6784c193666fbae175f65  usr/share/lair/demo/ai.lua
 33a0b981693656c75548802c22b4b785  usr/share/lair/demo/dungeon.lua
 d41d8cd98f00b204e9800998ecf8427e  usr/share/lair/demo/player.lua
 6b7219c9a25ea9ccc618ec705ab28356  usr/share/lair/lua/ai/common.lua

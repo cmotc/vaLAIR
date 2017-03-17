@@ -3,13 +3,13 @@ dofile("/usr/share/lair/lua/ai/common.lua")
 function default()
         local decide_behave = stand_still()
         doit = math.random(100)
-        if doit < 90 then
+        if doit < 25 then
                 decide_behave = step_up()
-        elseif doit < 92 then
+        elseif doit < 50 then
                 decide_behave = step_left()
-        elseif doit < 94 then
+        elseif doit < 75 then
                 decide_behave = step_down()
-        elseif doit < 96 then
+        elseif doit < 100 then
                 decide_behave = step_right()
         end
         return decide_behave
