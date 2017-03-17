@@ -12,7 +12,5 @@ function default()
         elseif doit < 96 then
                 decide_behave = step_right()
         end
-        print_seen_details()
-        print_self_details()
         return decide_behave
 end

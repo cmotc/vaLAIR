@@ -5,7 +5,7 @@ namespace LAIR{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
-                private Video.Rect rangeOfSight = Video.Rect(){ x=-240, y=-240, w=480, h=480};
+                private Video.Rect rangeOfSight = Video.Rect(){ x=-160, y=-160, w=320, h=320};
                 private bool wobble = false;
                 private static Video.Point cursorPosition = Video.Point(){x=0,y=0};
                 public Anim(Video.Rect rect){
@@ -112,8 +112,14 @@ namespace LAIR{
                         return r;
                 }
                 public Video.Rect get_range_of_sight(int player_aim = 0){
-                        Video.Rect temp = Video.Rect(){ x = get_x() + rangeOfSight.x + (player_aim * 32),
-                                y = get_y() + rangeOfSight.y + (player_aim * 32),
+                        int new_x = ((get_x() + rangeOfSight.x + (player_aim * 32))>0) ?
+                                (get_x() + rangeOfSight.x + (player_aim * 32)) :
+                                -160 + (get_x() + rangeOfSight.x + (player_aim * 32));
+                        int new_y = ((get_y() + rangeOfSight.y + (player_aim * 32))>0) ?
+                                (get_y() + rangeOfSight.y + (player_aim * 32)) :
+                                -160 + (get_y() + rangeOfSight.y + (player_aim * 32));
+                        Video.Rect temp = Video.Rect(){ x = new_x,
+                                y = new_y,
                                 w = rangeOfSight.w,
                                 h = rangeOfSight.h };
                         return temp;
