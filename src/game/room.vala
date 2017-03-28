@@ -269,11 +269,9 @@ namespace LAIR{
                                         t = Player.detect_collisions(mob) ? true : t;
                                         mob.detect_collisions(particle);
                                         mob.detect_nearby_entities(particle);
-                                        mob.push_interests();
                                 }else{
                                         mob.detect_collisions(particle);
                                         mob.detect_nearby_entities(particle);
-                                        mob.push_interests();
                                 }
                         }
                         return t;

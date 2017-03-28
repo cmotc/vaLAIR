@@ -212,14 +212,15 @@ namespace LAIR{
                         return Intelligence * 5;
                 }
                 protected string stringify_skills(int player_aim = 0){
-                        string skills = "skills:" + stringify_speed() +
-                                stringify_exert() +
-                                stringify_dodge() +
-                                stringify_aim() +
-                                stringify_will() +
-                                stringify_resist() +
-                                stringify_magic() +
-                                stringify_tech();
+                        string skills = " skills: ";
+                                skills += stringify_speed();
+                                skills += stringify_exert();
+                                skills += stringify_dodge();
+                                skills += stringify_aim();
+                                skills += stringify_will();
+                                skills += stringify_resist();
+                                skills += stringify_magic();
+                                skills += stringify_tech();
                         return skills;
                 }
 	}

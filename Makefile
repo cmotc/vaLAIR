@@ -225,6 +225,7 @@ unlog:
 		*err \
 		bin/*log \
 		bin/*err
+
 debclean:
 	rm -f ../*.deb ../*.changes ../*.buildinfo ../*.build ../*.changes ../*.dsc
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
@@ -243,6 +244,18 @@ check:
 		share/lair/lua/map/basicwall_cares_insert.lua \
 		share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/ai/common.lua
+
+debug:
+	make
+	gdb ./bin/LAIR
+
+alt-debug:
+	make
+	lldb ./bin/LAIR
+
+memcheck:
+	make
+	valgrind --track-origins=yes ./bin/LAIR -v 9 1>log 2>err
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/

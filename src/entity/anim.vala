@@ -163,7 +163,16 @@ namespace LAIR{
 			return position.y;
 		}
                 protected string stringify_coordinates(){
-                        string r = " x:" + get_x().to_string() + " " + "y:" + get_y().to_string() + " " + "w:" + get_width().to_string() + " " + "h:" + get_height().to_string() + " ";
+                        string r = "";
+                        r += " x:";
+                        r += get_x().to_string();
+                        r += " y:";
+                        r += get_y().to_string();
+                        r += " w:";
+                        r += get_width().to_string();
+                        r += " h:";
+                        r += get_height().to_string();
+                        r += " ";
                         return r;
                 }
 	}
