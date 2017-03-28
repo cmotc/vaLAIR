@@ -128,7 +128,7 @@ namespace LAIR{
                                 }
                                 lua_push_string_to_table("self", stringify_entity_details());
                                 lua_push_uint_to_table("self_speed", "speed", Speed());
-                                lua_push_uint_to_table("self_turn", "p", period);
+                                //lua_push_uint_to_table("self_turn", "p", period);
                         }
                 }
                 public bool dedupe_and_shrink_nearby_entities(){
