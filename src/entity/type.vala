@@ -136,6 +136,7 @@ namespace LAIR{
                                 r += i;
                                 r += " ";
                         }
+                        print_withname(r);
                         return r;
                 }
                 public List<string> one_tag_to_list(string ip){

@@ -228,12 +228,12 @@ namespace LAIR{
                 public int take_turns(){
                         int tmp = 1;
                         if (has_player()){
-                                tmp = Player.run();
                                 if(Mobs.length() > 0){
-                                        foreach(Entity mob in Mobs){
+                                        foreach(Entity mob in Mobs.copy()){
                                                 mob.run();
                                         }
                                 }
+                                tmp = Player.run();
                         }else{
                                 if(Mobs.length() > 0){
                                         foreach(Entity mob in Mobs){

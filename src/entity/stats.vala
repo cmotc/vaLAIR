@@ -44,7 +44,7 @@ namespace LAIR{
                 private string stringify_speed(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_speed() != 0) ? "speed " : "";
+                                r += (has_speed() != 0) ? "speed " : " ";
                         }else if(player_aim > 5){
                                 if(has_speed() != 0){
                                         r += (Speed() < 3) ? (Speed() < 6) ? (Speed() < 8) ? "strong-speed " : "medium-speed " : "weak-speed " : " ";
@@ -55,7 +55,7 @@ namespace LAIR{
 		private string stringify_exert(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_exert() != 0) ? "exert " : "";
+                                r += (has_exert() != 0) ? "exert " : " ";
                         }else if(player_aim > 5){
                                 if(has_exert() != 0){
                                         r += (Exert() < 3) ? (Exert() < 6) ? (Exert() < 8) ? "strong-exert " : "medium-exert " : "weak-exert " : " ";
@@ -66,7 +66,7 @@ namespace LAIR{
 		private string stringify_dodge(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_dodge() != 0) ? "dodge " : "";
+                                r += (has_dodge() != 0) ? "dodge " : " ";
                         }else if(player_aim > 5){
                                 if(has_dodge() != 0){
                                         r += (Dodge() < 3) ? (Dodge() < 6) ? (Dodge() < 8) ? "strong-dodge " : "medium-dodge " : "weak-dodge " : " ";
@@ -77,7 +77,7 @@ namespace LAIR{
 		private string stringify_aim(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_aim() != 0) ? "aim " : "";
+                                r += (has_aim() != 0) ? "aim " : " ";
                         }else if(player_aim > 5){
                                 if(has_aim() != 0){
                                         r += (Aim() < 3) ? (Aim() < 6) ? (Aim() < 8) ? "strong-aim " : "medium-aim " : "weak-aim " : " ";
@@ -88,7 +88,7 @@ namespace LAIR{
 		private string stringify_will(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_will() != 0) ? "will " : "";
+                                r += (has_will() != 0) ? "will " : " ";
                         }else if(player_aim > 5){
                                 if(has_will() != 0){
                                         r += (Will() < 3) ? (Will() < 6) ? (Will() < 8) ? "strong-will " : "medium-will " : "weak-will " : " ";
@@ -99,7 +99,7 @@ namespace LAIR{
 		private string stringify_resist(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_resist() != 0) ? "resist " : "";
+                                r += (has_resist() != 0) ? "resist " : " ";
                         }else if(player_aim > 5){
                                 if(has_resist() != 0){
                                         r += (Resist() < 3) ? (Resist() < 6) ? (Resist() < 8) ? "strong-resist " : "medium-resist " : "weak-resist " : " ";
@@ -110,7 +110,7 @@ namespace LAIR{
 		private string stringify_magic(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_magic() != 0) ? "magic " : "";
+                                r += (has_magic() != 0) ? "magic " : " ";
                         }else if(player_aim > 5){
                                 if(has_magic() != 0){
                                         r += (Magic() < 3) ? (Magic() < 6) ? (Magic() < 8) ? "strong-magic " : "medium-magic " : "weak-magic " : " ";
@@ -121,7 +121,7 @@ namespace LAIR{
 		private string stringify_tech(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_tech() != 0) ? "tech " : "";
+                                r += (has_tech() != 0) ? "tech " : " ";
                         }else if(player_aim > 5){
                                 if(has_tech() != 0){
                                         r += (Tech() < 3) ? (Tech() < 6) ? (Tech() < 8) ? "strong-tech " : "medium-tech " : "weak-tech " : " ";

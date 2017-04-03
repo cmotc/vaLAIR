@@ -346,17 +346,12 @@ debug:
 	make
 	gdb ./bin/LAIR
 
-alt-debug:
+debug-clang:
 	make unix-clang
 	lldb ./bin/LAIR
 
 memcheck:
-	make
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9 1>log 2>err
-
-memcheck-clang:
-	make unix-clang
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9 1>log 2>err
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9 1>log 2>err; make trimmedlogs
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
@@ -407,3 +402,22 @@ release-commit:
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
 
+trimmedlogs:
+	grep -v assertion err > trimmederr
+	grep . trimmederr > err
+	rm trimmederr
+	tail -n 1000 log > log
+
+sample:
+	make memcheck
+	mv err err.1
+	make memcheck
+	mv err err.2
+	make memcheck
+	mv err err.3
+	make memcheck-clang
+	mv err err.clang.1
+	make memcheck-clang
+	mv err err.clang.2
+	make memcheck-clang
+	mv err err.clang.3

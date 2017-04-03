@@ -1,5 +1,8 @@
 using SDL;
 using SDLImage;
+int x_max = 320;
+int y_max = 320;
+
 namespace LAIR{
 	class Anim : Type{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
@@ -156,10 +159,20 @@ namespace LAIR{
                 }
 		public int set_x(int x){
 			position.x = x;
+                        if(position.x < 0){
+                                position.x = 0;
+                        }else if(position.x > x_max){
+                                position.x = x_max;
+                        }
 			return position.x;
 		}
 		public int set_y(int y){
 			position.y = y;
+                        if(position.y < 0){
+                                position.y = 0;
+                        }else if(position.y > y_max){
+                                position.y = y_max;
+                        }
 			return position.y;
 		}
                 protected string stringify_coordinates(){

@@ -8,6 +8,8 @@ namespace LAIR{
                         //base.LLL(4, "floor:");
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
+                        x_max = width;
+                        y_max = height;
                         Video.Rect FloorDims = Video.Rect(){
                                 x = 0,
                                 y = 0,
