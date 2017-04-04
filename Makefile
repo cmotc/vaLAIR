@@ -409,6 +409,7 @@ trimmedlogs:
 	tail -n 1000 log > log
 
 sample:
+	make unlog
 	make memcheck 1> log 2> err;	\
 	make trimmedlogs;		\
 	mv err err.1;			\
@@ -418,3 +419,12 @@ sample:
 	make memcheck 1> log 2> err;	\
 	make trimmedlogs;		\
 	mv err err.3
+
+diff12:
+	diff err.1 err.2
+
+diff23:
+	diff err.2 err.3
+
+diff13:
+	diff err.1 err.3

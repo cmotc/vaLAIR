@@ -72,6 +72,22 @@ namespace LAIR{
                         }
                         return RETURN.get_path();
                 }
+                public static void goodbye(){
+                                print_static("***********************************************************************************\n\n\n");
+                                print_static("<I      <I I>         <I I>      I>\n");
+                                print_static(" |       | |           | |       |\n");
+                                print_static("<^^>____<^^^>_________<^^^>____<^^>\n");
+                                print_static(" || L        A    IIIII RRRRR   ||\n");
+                                print_static(" || L       A A     I   R    R  ||\n");
+                                print_static(" || L      AAAAA    I   RRRRR   ||\n");
+                                print_static(" || LLLLL A     A IIIII R    R  ||\n");
+                                print_static("<vv>___________________________<vv>\n\n");
+                                print_static("\n\n");
+                                print_static("----------------------------\n");
+                                print_static("   Goodbye!                 \n");
+                                print_static("----------------------------\n");
+                                print_static("\n***********************************************************************************\n");
+                }
 		public static void main(string args[]){
                         ImageFilePath = get_file_path("lair/images.list");
                         SoundFilePath = get_file_path("lair/sounds.list");
@@ -118,13 +134,13 @@ namespace LAIR{
                                                 AiConfig = get_file_path(Arguments.nth_data(index+1));
 						break;
                                         case "-v":
-                                                Verbosity = Arguments.nth_data(index+1).to_int();
+                                                Verbosity = int.parse(Arguments.nth_data(index+1));
 						break;
 					case "-w":
-						PixelW = Arguments.nth_data(index+1).to_int();
+						PixelW = int.parse(Arguments.nth_data(index+1));
 						break;
 					case "-h":
-						PixelH = Arguments.nth_data(index+1).to_int();
+						PixelH = int.parse(Arguments.nth_data(index+1));
 						break;
 					default:
 						break;
@@ -140,6 +156,7 @@ namespace LAIR{
                         string[2] listPaths = { ImageFilePath, SoundFilePath, FontsFilePath };
                         string[2] scriptPaths = { MapGenLua, PlayerConfig, AiConfig};
 			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);
+                        app.goodbye();
 		}
 	}
 }
