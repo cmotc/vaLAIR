@@ -1080,3 +1080,9 @@
 ** (process:18347): CRITICAL **: lair_type_one_tag_to_list: assertion 'self != NULL' failed
 
 ** (process:18347): CRITICAL **: lair_type_one_tag_to_list: assertion 'self != NULL' failed
+
+(process:18347): GLib-CRITICAL **: g_rand_int_range: assertion 'end > begin' failed
+
+(process:18347): GLib-CRITICAL **: g_rand_int_range: assertion 'end > begin' failed
+
+(process:18347): GLib-CRITICAL **: g_rand_int_range: assertion 'end > begin' failed

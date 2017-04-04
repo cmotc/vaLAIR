@@ -12,8 +12,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                sh 'make memcheck 1>log'
+                sh 'make memcheck 1>log 2>err'
                 sh 'make trimmedlogs'
+                sh 'cat err'
                 archiveArtifacts artifacts: 'log', fingerprint: true
                 archiveArtifacts artifacts: 'err', fingerprint: true
             }
