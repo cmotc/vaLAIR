@@ -76,7 +76,11 @@ namespace LAIR{
 		}
 
 		public int get_width(){
-			return (int) source.w;
+                        int r = 0;
+                        if(source.w > 0){
+                               r = (int) source.w;
+                        }
+			return r;
 		}
                 public string stringify_width(){
                         int t = get_width();
@@ -91,7 +95,11 @@ namespace LAIR{
                         return hW;
                 }
 		public int get_height(){
-			return (int) source.h;
+                        int r = 0;
+                        if(source.h > 0){
+                               r = (int) source.h;
+                        }
+			return r;
                 }
                 public string stringify_height(){
                         int t = get_height();
