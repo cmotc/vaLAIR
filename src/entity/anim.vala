@@ -78,13 +78,29 @@ namespace LAIR{
 		public int get_width(){
 			return (int) source.w;
 		}
+                public string stringify_width(){
+                        int t = get_width();
+                        string r = " w:";
+                        if(t>0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
                 public int get_half_width(){
                         int hW = (int) (get_width() / 2);
                         return hW;
                 }
 		public int get_height(){
 			return (int) source.h;
-		}
+                }
+                public string stringify_height(){
+                        int t = get_height();
+                        string r = " h:";
+                        if(t>0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
                 public int get_half_height(){
                         int hH = (int) (get_height() / 2);
 			return hH;
@@ -93,10 +109,26 @@ namespace LAIR{
                         int t = position.x;
 			return t;
 		}
+                public string stringify_x(){
+                        int t = get_x();
+                        string r = " x:";
+                        if(t>0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
 		public int get_y(){
                         int t = position.y;
 			return t;
 		}
+                public string stringify_y(){
+                        int t = get_y();
+                        string r = " y:";
+                        if(t>0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
                 public Video.Rect get_hitbox(){
                         Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
                         if(get_block()){
@@ -176,16 +208,24 @@ namespace LAIR{
 			return position.y;
 		}
                 protected string stringify_coordinates(){
-                        string r = "";
-                        r += " x:";
+                        //string r = "";
+                        string r = stringify_x()
+                                + stringify_y()
+                                + stringify_width()
+                                + stringify_height();
+                        /*r += " x:";
+                        // (get_x() > ) ? : ;
                         r += get_x().to_string();
                         r += " y:";
+                        //
                         r += get_y().to_string();
                         r += " w:";
+                        //
                         r += get_width().to_string();
                         r += " h:";
+                        //
                         r += get_height().to_string();
-                        r += " ";
+                        r += " ";*/
                         return r;
                 }
 	}

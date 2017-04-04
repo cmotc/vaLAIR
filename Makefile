@@ -409,12 +409,12 @@ trimmedlogs:
 	tail -n 1000 log > log
 
 sample:
-	make memcheck
+	make memcheck 1> log 2> err
 	make trimmedlogs
 	mv err err.1
-	make memcheck
+	make memcheck 1> log 2> err
 	make trimmedlogs
 	mv err err.2
-	make memcheck
+	make memcheck 1> log 2> err
 	make trimmedlogs
 	mv err err.3
