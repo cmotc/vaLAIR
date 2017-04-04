@@ -91,10 +91,12 @@ namespace LAIR{
                 protected bool check_type(string hyp_type){
                         bool r = false;
                         if (hyp_type != "player"){
-                                foreach(string i in tags.copy()){
-                                        if ( i == hyp_type ){
-                                                r = true;
-                                                break;
+                                if(tags != null){
+                                        foreach(string i in tags.copy()){
+                                                if ( i == hyp_type ){
+                                                        r = true;
+                                                        break;
+                                                }
                                         }
                                 }
                         }else{
