@@ -1,11 +1,14 @@
 using SDL;
 using SDLImage;
+int x_max = 320;
+int y_max = 320;
+
 namespace LAIR{
 	class Anim : Type{
                 private Video.Rect position = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect source = Video.Rect(){x=0,y=0,w=32,h=32};
                 private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
-                private Video.Rect rangeOfSight = Video.Rect(){ x=-240, y=-240, w=480, h=480};
+                private Video.Rect rangeOfSight = Video.Rect(){ x=-160, y=-160, w=320, h=320};
                 private bool wobble = false;
                 private static Video.Point cursorPosition = Video.Point(){x=0,y=0};
                 public Anim(Video.Rect rect){
@@ -75,13 +78,29 @@ namespace LAIR{
 		public int get_width(){
 			return (int) source.w;
 		}
+                public string stringify_width(){
+                        int t = get_width();
+                        string r = " w:";
+                        if(t > 0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
                 public int get_half_width(){
                         int hW = (int) (get_width() / 2);
                         return hW;
                 }
 		public int get_height(){
 			return (int) source.h;
-		}
+                }
+                public string stringify_height(){
+                        int t = get_height();
+                        string r = " h:";
+                        if(t > 0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
                 public int get_half_height(){
                         int hH = (int) (get_height() / 2);
 			return hH;
@@ -90,10 +109,26 @@ namespace LAIR{
                         int t = position.x;
 			return t;
 		}
+                public string stringify_x(){
+                        int t = get_x();
+                        string r = " x:";
+                        if(t > 0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
 		public int get_y(){
                         int t = position.y;
 			return t;
 		}
+                public string stringify_y(){
+                        int t = get_y();
+                        string r = " y:";
+                        if(t > 0){
+                                r += t.to_string();
+                        }
+                        return r;
+                }
                 public Video.Rect get_hitbox(){
                         Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
                         if(get_block()){
@@ -112,8 +147,14 @@ namespace LAIR{
                         return r;
                 }
                 public Video.Rect get_range_of_sight(int player_aim = 0){
-                        Video.Rect temp = Video.Rect(){ x = get_x() + rangeOfSight.x + (player_aim * 32),
-                                y = get_y() + rangeOfSight.y + (player_aim * 32),
+                        int new_x = ((get_x() + rangeOfSight.x + (player_aim * 32))>0) ?
+                                (get_x() + rangeOfSight.x + (player_aim * 32)) :
+                                -160 + (get_x() + rangeOfSight.x + (player_aim * 32));
+                        int new_y = ((get_y() + rangeOfSight.y + (player_aim * 32))>0) ?
+                                (get_y() + rangeOfSight.y + (player_aim * 32)) :
+                                -160 + (get_y() + rangeOfSight.y + (player_aim * 32));
+                        Video.Rect temp = Video.Rect(){ x = new_x,
+                                y = new_y,
                                 w = rangeOfSight.w,
                                 h = rangeOfSight.h };
                         return temp;
@@ -150,14 +191,41 @@ namespace LAIR{
                 }
 		public int set_x(int x){
 			position.x = x;
+                        if(position.x < 0){
+                                position.x = 0;
+                        }else if(position.x > x_max){
+                                position.x = x_max;
+                        }
 			return position.x;
 		}
 		public int set_y(int y){
 			position.y = y;
+                        if(position.y < 0){
+                                position.y = 0;
+                        }else if(position.y > y_max){
+                                position.y = y_max;
+                        }
 			return position.y;
 		}
                 protected string stringify_coordinates(){
-                        string r = " x:" + get_x().to_string() + " " + "y:" + get_y().to_string() + " " + "w:" + get_width().to_string() + " " + "h:" + get_height().to_string() + " ";
+                        //string r = "";
+                        string r = stringify_x()
+                                + stringify_y()
+                                + stringify_width()
+                                + stringify_height();
+                        /*r += " x:";
+                        // (get_x() > ) ? : ;
+                        r += get_x().to_string();
+                        r += " y:";
+                        //
+                        r += get_y().to_string();
+                        r += " w:";
+                        //
+                        r += get_width().to_string();
+                        r += " h:";
+                        //
+                        r += get_height().to_string();
+                        r += " ";*/
                         return r;
                 }
 	}

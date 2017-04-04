@@ -2,6 +2,8 @@ PREFIX = /
 MANPREFIX = $(PREFIX)/share/man
 VERSION = '9.1'
 COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
+EMCC_FAST_COMPILER = 0
+EMCC_LLVM_TARGET = le32-unknown-nacl
 
 unix:
 	valac -gv \
@@ -16,8 +18,51 @@ unix:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-g \
-		--thread \
+		-X -llua5.2 \
+		-X -lSDL2 \
+		-X -lSDL2_gfx \
+		-X -lSDL2_image \
+		-X -lSDL2_ttf \
+		-X -lSDL2_mixer \
+		src/main.vala \
+		src/util/net.vala \
+		src/util/luaconf.vala \
+		src/util/scribe.vala \
+		src/util/tagcounter.vala \
+		src/resmanage/files.vala \
+		src/resmanage/images.vala \
+		src/resmanage/filedb.vala \
+		src/resmanage/fonts.vala \
+		src/resmanage/sounds.vala \
+		src/game/room.vala \
+		src/game/floor.vala \
+		src/game/tower.vala \
+		src/game/game.vala \
+		src/entity/type.vala \
+		src/entity/sprite.vala \
+		src/entity/anim.vala \
+		src/entity/text.vala \
+		src/entity/sound.vala \
+		src/entity/stats.vala \
+		src/entity/inventory.vala \
+		src/entity/move.vala \
+		src/entity/entity.vala
+				#--thread \
+
+unix-clang:
+	valac -gv \
+		-o bin/LAIR \
+		--cc clang \
+		--pkg gio-2.0 \
+		--pkg lua \
+		--pkg sdl2 \
+		--pkg sdl2-gfx \
+		--pkg sdl2-image \
+		--pkg sdl2-ttf \
+		--pkg sdl2-mixer \
+		--pkg=tartrazine \
+		-X -O0 \
+		-X -g3 \
 		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
@@ -214,17 +259,70 @@ android:
 		src/entity/move.vala \
 		src/entity/entity.vala
 
+bitcode:
+	valac -gv \
+		-o bin/LAIR.11 \
+		--cc clang \
+		-X "-emit-llvm -S" \
+		--pkg gio-2.0 \
+		--pkg lua \
+		--pkg sdl2 \
+		--pkg sdl2-gfx \
+		--pkg sdl2-image \
+		--pkg sdl2-ttf \
+		--pkg sdl2-mixer \
+		--pkg=tartrazine \
+		-X -llua5.2 \
+		-X -lSDL2 \
+		-X -lSDL2_gfx \
+		-X -lSDL2_image \
+		-X -lSDL2_ttf \
+		-X -lSDL2_mixer \
+		src/main.vala \
+		src/util/net.vala \
+		src/util/luaconf.vala \
+		src/util/scribe.vala \
+		src/util/tagcounter.vala \
+		src/resmanage/files.vala \
+		src/resmanage/images.vala \
+		src/resmanage/filedb.vala \
+		src/resmanage/fonts.vala \
+		src/resmanage/sounds.vala \
+		src/game/room.vala \
+		src/game/floor.vala \
+		src/game/tower.vala \
+		src/game/game.vala \
+		src/entity/type.vala \
+		src/entity/sprite.vala \
+		src/entity/anim.vala \
+		src/entity/text.vala \
+		src/entity/sound.vala \
+		src/entity/stats.vala \
+		src/entity/inventory.vala \
+		src/entity/move.vala \
+		src/entity/entity.vala
+
+js:
+	rm ./bin/LAIR.js
+	emscripten.py --suppressUsageWarning ./bin/LAIR.11 -o ./bin/LAIR.js
+
+webjs:
+	make bitcode
+	make js
 
 all:
 	make unix
 	make windows
+	make webjs
 	make android
+
 
 unlog:
 	rm -f *log \
-		*err \
+		*err* \
 		bin/*log \
 		bin/*err
+
 debclean:
 	rm -f ../*.deb ../*.changes ../*.buildinfo ../*.build ../*.changes ../*.dsc
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
@@ -243,6 +341,17 @@ check:
 		share/lair/lua/map/basicwall_cares_insert.lua \
 		share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/ai/common.lua
+
+debug:
+	make
+	gdb ./bin/LAIR
+
+debug-clang:
+	make unix-clang
+	lldb ./bin/LAIR
+
+memcheck:
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
@@ -293,3 +402,19 @@ release-commit:
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
 
+trimmedlogs:
+	grep -v assertion err > trimmederr
+	grep . trimmederr > err
+	rm trimmederr
+	tail -n 1000 log > log
+
+sample:
+	make memcheck 1> log 2> err;	\
+	make trimmedlogs;		\
+	mv err err.1;			\
+	make memcheck 1> log 2> err;	\
+	make trimmedlogs;		\
+	mv err err.2;			\
+	make memcheck 1> log 2> err;	\
+	make trimmedlogs;		\
+	mv err err.3

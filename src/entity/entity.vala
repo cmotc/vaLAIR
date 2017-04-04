@@ -111,19 +111,25 @@ namespace LAIR{
                                         }
                                 }}}}
                         }
+                        if(r){
+                                push_interests();
+                        }
                         return r;
                 }
                 public void push_interests(){
-                        lua_push_strings_to_table("vision", nearby_interests.copy());
-                        lua_push_uint_to_table("vision_length", "l", nearby_interests.length());
-                        if( period < nearby_interests.length() ){
-                                period++;
-                        }else{
-                                period = 0;
+                        //if(validate_memory_somehow){
+                        if(nearby_interests != null){
+                                lua_push_strings_to_table("vision", nearby_interests.copy());
+                                lua_push_uint_to_table("vision_length", "l", nearby_interests.length());
+                                if( period < nearby_interests.length() ){
+                                        period++;
+                                }else{
+                                        period = 0;
+                                }
+                                lua_push_string_to_table("self", stringify_entity_details());
+                                lua_push_uint_to_table("self_speed", "speed", Speed());
+                                //lua_push_uint_to_table("self_turn", "p", period);
                         }
-                        lua_push_string_to_table("self", stringify_entity_details());
-                        lua_push_uint_to_table("self_speed", "speed", Speed());
-                        lua_push_uint_to_table("self_turn", "p", period);
                 }
                 public bool dedupe_and_shrink_nearby_entities(){
                         List<string> inj = new List<string>();

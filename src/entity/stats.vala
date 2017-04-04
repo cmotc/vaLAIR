@@ -44,10 +44,10 @@ namespace LAIR{
                 private string stringify_speed(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_speed() != 0) ? "speed " : "";
+                                r += (has_speed() != 0) ? "speed " : " ";
                         }else if(player_aim > 5){
                                 if(has_speed() != 0){
-                                        r += (Speed() < 3) ? (Speed() < 6) ? (Speed() < 8) ? "highspeed " : "mediumspeed " : "lowspeed " : " ";
+                                        r += (Speed() < 3) ? (Speed() < 6) ? (Speed() < 8) ? "strong-speed " : "medium-speed " : "weak-speed " : " ";
                                 }
                         }
                         return r;
@@ -55,10 +55,10 @@ namespace LAIR{
 		private string stringify_exert(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_exert() != 0) ? "exert " : "";
+                                r += (has_exert() != 0) ? "exert " : " ";
                         }else if(player_aim > 5){
                                 if(has_exert() != 0){
-                                        r += (Exert() < 3) ? (Exert() < 6) ? (Exert() < 8) ? "highexert " : "mediumexert " : "lowexert " : " ";
+                                        r += (Exert() < 3) ? (Exert() < 6) ? (Exert() < 8) ? "strong-exert " : "medium-exert " : "weak-exert " : " ";
                                 }
                         }
                         return r;
@@ -66,10 +66,10 @@ namespace LAIR{
 		private string stringify_dodge(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_dodge() != 0) ? "dodge " : "";
+                                r += (has_dodge() != 0) ? "dodge " : " ";
                         }else if(player_aim > 5){
                                 if(has_dodge() != 0){
-                                        r += (Dodge() < 3) ? (Dodge() < 6) ? (Dodge() < 8) ? "highdodge " : "mediumdodge " : "lowdodge " : " ";
+                                        r += (Dodge() < 3) ? (Dodge() < 6) ? (Dodge() < 8) ? "strong-dodge " : "medium-dodge " : "weak-dodge " : " ";
                                 }
                         }
                         return r;
@@ -77,10 +77,10 @@ namespace LAIR{
 		private string stringify_aim(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_aim() != 0) ? "aim " : "";
+                                r += (has_aim() != 0) ? "aim " : " ";
                         }else if(player_aim > 5){
                                 if(has_aim() != 0){
-                                        r += (Aim() < 3) ? (Aim() < 6) ? (Aim() < 8) ? "hightech " : "mediumtech " : "lowtech " : " ";
+                                        r += (Aim() < 3) ? (Aim() < 6) ? (Aim() < 8) ? "strong-aim " : "medium-aim " : "weak-aim " : " ";
                                 }
                         }
                         return r;
@@ -88,10 +88,10 @@ namespace LAIR{
 		private string stringify_will(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_will() != 0) ? "will " : "";
+                                r += (has_will() != 0) ? "will " : " ";
                         }else if(player_aim > 5){
                                 if(has_will() != 0){
-                                        r += (Will() < 3) ? (Will() < 6) ? (Will() < 8) ? "highwill " : "mediumwill " : "lowwill " : " ";
+                                        r += (Will() < 3) ? (Will() < 6) ? (Will() < 8) ? "strong-will " : "medium-will " : "weak-will " : " ";
                                 }
                         }
                         return r;
@@ -99,10 +99,10 @@ namespace LAIR{
 		private string stringify_resist(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_resist() != 0) ? "resist " : "";
+                                r += (has_resist() != 0) ? "resist " : " ";
                         }else if(player_aim > 5){
                                 if(has_resist() != 0){
-                                        r += (Resist() < 3) ? (Resist() < 6) ? (Resist() < 8) ? "highresist " : "mediumresist " : "lowresist " : " ";
+                                        r += (Resist() < 3) ? (Resist() < 6) ? (Resist() < 8) ? "strong-resist " : "medium-resist " : "weak-resist " : " ";
                                 }
                         }
                         return r;
@@ -110,10 +110,10 @@ namespace LAIR{
 		private string stringify_magic(int player_aim = 0){
                         string r = " ";
                         if(player_aim <= 5){
-                                r += (has_magic() != 0) ? "magic " : "";
+                                r += (has_magic() != 0) ? "magic " : " ";
                         }else if(player_aim > 5){
                                 if(has_magic() != 0){
-                                        r += (Magic() < 3) ? (Magic() < 6) ? (Magic() < 8) ? "highmagic " : "mediummagic " : "lowmagic " : " ";
+                                        r += (Magic() < 3) ? (Magic() < 6) ? (Magic() < 8) ? "strong-magic " : "medium-magic " : "weak-magic " : " ";
                                 }
                         }
                         return r;
@@ -124,7 +124,7 @@ namespace LAIR{
                                 r += (has_tech() != 0) ? "tech " : " ";
                         }else if(player_aim > 5){
                                 if(has_tech() != 0){
-                                        r += (Tech() < 3) ? (Tech() < 6) ? (Tech() < 8) ? "hightech " : "mediumtech " : "lowtech " : " ";
+                                        r += (Tech() < 3) ? (Tech() < 6) ? (Tech() < 8) ? "strong-tech " : "medium-tech " : "weak-tech " : " ";
                                 }
                         }
                         return r;
@@ -212,14 +212,15 @@ namespace LAIR{
                         return Intelligence * 5;
                 }
                 protected string stringify_skills(int player_aim = 0){
-                        string skills = "skills:" + stringify_speed() +
-                                stringify_exert() +
-                                stringify_dodge() +
-                                stringify_aim() +
-                                stringify_will() +
-                                stringify_resist() +
-                                stringify_magic() +
-                                stringify_tech();
+                        string skills = " skills: ";
+                                skills += stringify_speed();
+                                skills += stringify_exert();
+                                skills += stringify_dodge();
+                                skills += stringify_aim();
+                                skills += stringify_will();
+                                skills += stringify_resist();
+                                skills += stringify_magic();
+                                skills += stringify_tech();
                         return skills;
                 }
 	}

@@ -228,12 +228,12 @@ namespace LAIR{
                 public int take_turns(){
                         int tmp = 1;
                         if (has_player()){
-                                tmp = Player.run();
                                 if(Mobs.length() > 0){
-                                        foreach(Entity mob in Mobs){
+                                        foreach(Entity mob in Mobs.copy()){
                                                 mob.run();
                                         }
                                 }
+                                tmp = Player.run();
                         }else{
                                 if(Mobs.length() > 0){
                                         foreach(Entity mob in Mobs){
@@ -269,11 +269,9 @@ namespace LAIR{
                                         t = Player.detect_collisions(mob) ? true : t;
                                         mob.detect_collisions(particle);
                                         mob.detect_nearby_entities(particle);
-                                        mob.push_interests();
                                 }else{
                                         mob.detect_collisions(particle);
                                         mob.detect_nearby_entities(particle);
-                                        mob.push_interests();
                                 }
                         }
                         return t;
