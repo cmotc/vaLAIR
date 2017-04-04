@@ -319,7 +319,7 @@ all:
 
 unlog:
 	rm -f *log \
-		*err \
+		*err* \
 		bin/*log \
 		bin/*err
 
@@ -409,12 +409,12 @@ trimmedlogs:
 	tail -n 1000 log > log
 
 sample:
-	make memcheck 1> log 2> err
-	make trimmedlogs
-	mv err err.1
-	make memcheck 1> log 2> err
-	make trimmedlogs
-	mv err err.2
-	make memcheck 1> log 2> err
-	make trimmedlogs
+	make memcheck 1> log 2> err;	\
+	make trimmedlogs;		\
+	mv err err.1;			\
+	make memcheck 1> log 2> err;	\
+	make trimmedlogs;		\
+	mv err err.2;			\
+	make memcheck 1> log 2> err;	\
+	make trimmedlogs;		\
 	mv err err.3

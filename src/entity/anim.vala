@@ -81,7 +81,7 @@ namespace LAIR{
                 public string stringify_width(){
                         int t = get_width();
                         string r = " w:";
-                        if(t>0){
+                        if(t > 0){
                                 r += t.to_string();
                         }
                         return r;
@@ -96,7 +96,7 @@ namespace LAIR{
                 public string stringify_height(){
                         int t = get_height();
                         string r = " h:";
-                        if(t>0){
+                        if(t > 0){
                                 r += t.to_string();
                         }
                         return r;
@@ -112,7 +112,7 @@ namespace LAIR{
                 public string stringify_x(){
                         int t = get_x();
                         string r = " x:";
-                        if(t>0){
+                        if(t > 0){
                                 r += t.to_string();
                         }
                         return r;
@@ -124,7 +124,7 @@ namespace LAIR{
                 public string stringify_y(){
                         int t = get_y();
                         string r = " y:";
-                        if(t>0){
+                        if(t > 0){
                                 r += t.to_string();
                         }
                         return r;
