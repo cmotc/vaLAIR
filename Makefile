@@ -351,7 +351,7 @@ debug-clang:
 	lldb ./bin/LAIR
 
 memcheck:
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9 1>log 2>err; make trimmedlogs
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9 ; make trimmedlogs
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
