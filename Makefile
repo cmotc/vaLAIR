@@ -216,7 +216,7 @@ android:
 	valac -gv \
 		-o bin/LAIR-droid \
 		--cc "/usr/bin/arm-linux-gnueabihf-gcc" \
-		--pkg-config="/usr/bin/arm-linux-gnueabihf-pkg-config" \
+		--pkg-config="/usr/bin/pkg-config" \
 		--disable-warnings \
 		--pkg gio-2.0 \
 		--pkg lua \
@@ -233,8 +233,8 @@ android:
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
-		-X "-I /usr/include/arm-linux-gnueabihf/" \
-		-X "-B /usr/lib/arm-linux-gnueabihf/pkgconfig" \
+		-X "-I /usr/include/" \
+		-X "-B /usr/lib/pkgconfig" \
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
