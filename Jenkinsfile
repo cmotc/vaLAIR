@@ -5,14 +5,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh("make")
+                sh('make')
                 archiveArtifacts artifacts: 'bin', fingerprint: true
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                sh("make memcheck")
+                sh('make memcheck')
                 archiveArtifacts artifacts: 'log', fingerprint: true
                 archiveArtifacts artifacts: 'err', fingerprint: true
             }
@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh("make deb-pkg")
+                sh('make deb-pkg')
             }
         }
     }
