@@ -204,19 +204,19 @@ win32:
 windows:
 	make win64
 	make win32
-	rm -rf ${HOME}/Projects/lair-msi/bin
-	cp -R bin/ ${HOME}/Projects/lair-msi/bin
-	cp README.md LUA.md COPYING.md ${HOME}/Projects/lair-msi/bin
-	rm ${HOME}/Projects/lair-msi/bin/lair
-	rm ${HOME}/Projects/lair-msi/bin/LAIR
-	cp -R share/lair ${HOME}/Projects/lair-msi/bin/lair
+	rm -rf ${HOME}/Projects/lair-manifest/lair-msi/bin
+	cp -R bin/ ${HOME}/Projects/lair-manifest/lair-msi/bin
+	cp README.md LUA.md COPYING.md ${HOME}/Projects/lair-manifest/lair-msi/bin
+	rm ${HOME}/Projects/lair-manifest/lair-msi/bin/lair
+	rm ${HOME}/Projects/lair-manifest/lair-msi/bin/LAIR
+	cp -R share/lair ${HOME}/Projects/lair-manifest/lair-msi/bin/lair
 
 android:
 	export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
 	valac -gv \
 		-o bin/LAIR-droid \
 		--cc "/usr/bin/arm-linux-gnueabihf-gcc" \
-		--pkg-config="/usr/bin/pkg-config" \
+		--pkg-config="/usr/bin/arm-linux-gnueabihf-pkg-config" \
 		--disable-warnings \
 		--pkg gio-2.0 \
 		--pkg lua \
@@ -233,8 +233,8 @@ android:
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
-		-X "-I /usr/include/" \
-		-X "-B /usr/lib/pkgconfig" \
+		-X "-I /usr/include/arm-linux-gnueabihf/" \
+		-X "-B /usr/lib/arm-linux-gnueabihf/pkgconfig" \
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
@@ -409,7 +409,6 @@ trimmedlogs:
 	tail -n 1000 log > log
 
 sample:
-	make unlog
 	make memcheck 1> log 2> err;	\
 	make trimmedlogs;		\
 	mv err err.1;			\
@@ -419,12 +418,3 @@ sample:
 	make memcheck 1> log 2> err;	\
 	make trimmedlogs;		\
 	mv err err.3
-
-diff12:
-	diff err.1 err.2
-
-diff23:
-	diff err.2 err.3
-
-diff13:
-	diff err.1 err.3
