@@ -351,7 +351,7 @@ debug-clang:
 	lldb ./bin/LAIR
 
 memcheck:
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
