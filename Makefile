@@ -396,13 +396,12 @@ rpm-pkg:
 	make
 	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
 
+release:
+	dch -v $(VERSION) "${COMMIT_MESSAGE}"
+
 release-commit:
 	make clean
 	make
-	git add .
-	git commit -am "${COMMIT_MESSAGE}"
-	git push
-	dpkg-source --commit ./ "${COMMIT_MESSAGE}"
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
