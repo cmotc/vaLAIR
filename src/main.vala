@@ -6,7 +6,7 @@ using SDLMixer;
 
 namespace LAIR{
 	class Lair : Scribe {
-		private Game GameMap;
+		private static Game GameMap;
                 private static bool help = false;
                 private static string ImageFilePath = get_file_path("lair/images.list");
 		private static string SoundFilePath = get_file_path("lair/sounds.list");
@@ -72,7 +72,7 @@ namespace LAIR{
                         }
                         return RETURN.get_path();
                 }
-                public static void goodbye(){
+                public static int goodbye(){
                                 print_static("***********************************************************************************\n\n\n");
                                 print_static("<I      <I I>         <I I>      I>\n");
                                 print_static(" |       | |           | |       |\n");
@@ -87,8 +87,9 @@ namespace LAIR{
                                 print_static("   Goodbye!                 \n");
                                 print_static("----------------------------\n");
                                 print_static("\n***********************************************************************************\n");
+                                return 0;
                 }
-		public static void main(string args[]){
+		public static int main(string args[]){
                         ImageFilePath = get_file_path("lair/images.list");
                         SoundFilePath = get_file_path("lair/sounds.list");
                         FontsFilePath = get_file_path("lair/fonts.list");
@@ -101,7 +102,7 @@ namespace LAIR{
 			int PixelH = 600;
                         int Verbosity = 0;
                         bool save = false;
-			foreach(string arg in args){
+			foreach(var arg in args){
 				Arguments.append(arg);
 			}
 			for (int index = 0; index < Arguments.length(); index++){
@@ -156,7 +157,7 @@ namespace LAIR{
                         string[2] listPaths = { ImageFilePath, SoundFilePath, FontsFilePath };
                         string[2] scriptPaths = { MapGenLua, PlayerConfig, AiConfig};
 			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);
-                        app.goodbye();
+                        return app.goodbye();
 		}
 	}
 }
