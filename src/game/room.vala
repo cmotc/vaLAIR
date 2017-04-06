@@ -229,8 +229,10 @@ namespace LAIR{
                         int tmp = 1;
                         if (has_player()){
                                 if(Mobs.length() > 0){
-                                        foreach(Entity mob in Mobs.copy()){
-                                                mob.run();
+                                        foreach(var mob in Mobs.copy()){
+                                                //if( mob != null){
+                                                        mob.run();
+                                                //}
                                         }
                                 }
                                 tmp = Player.run();

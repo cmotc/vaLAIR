@@ -33,7 +33,7 @@ namespace LAIR{
                                 VM.push_number(val);
                                 //print_withname("%s ", key);
                                 //print_withname("%s \n", val.to_string());
-                                VM.raw_set(-3);
+                                VM.raw_set(-2);
                         }else{
                                 key = "error";
                                 string errval = "Error pushing entry to global Lua table. Key was null. Value was: ";
@@ -41,7 +41,7 @@ namespace LAIR{
                                 VM.push_string(errval);
                                 //print_withname(key, errval);
                                 //print_withname(val.to_string());
-                                VM.raw_set(-3);
+                                VM.raw_set(-2);
                         }
                 }
                 private void lua_push_named_strings(List<string> vals){
@@ -50,16 +50,16 @@ namespace LAIR{
                                 if( key > -1){
                                         VM.push_string(key.to_string());
                                         VM.push_string(val);
-                                        VM.raw_set(-3);
+                                        VM.raw_set(-2);
                                 }else{
                                         VM.push_string(key.to_string());
                                         VM.push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
-                                        VM.raw_set(-3);
+                                        VM.raw_set(-2);
                                 }
                                 key++;
                         }
                         //int key2 = (int) ( (vals.length() * 2) + 1 ) * -1;
-                        //int key2 = -3;
+                        //int key2 = -2;
                         //VM.raw_set(key2);
                 }
                 private void lua_close_table(string tableName){
@@ -130,7 +130,7 @@ namespace LAIR{
                         lua_new_table();
                         VM.push_string(tablename);
                         VM.push_string(val);
-                        VM.raw_set(-3);
+                        VM.raw_set(-2);
                         lua_close_table(tablename);
                 }
                 protected void lua_push_strings_to_table(string tablename, List<string> varvals){
