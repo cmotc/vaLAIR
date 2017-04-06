@@ -1,6 +1,6 @@
+include ../config.mk
 PREFIX = /
 MANPREFIX = $(PREFIX)/share/man
-VERSION = '9.1'
 COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 EMCC_FAST_COMPILER = 0
 EMCC_LLVM_TARGET = le32-unknown-nacl
@@ -207,8 +207,8 @@ windows:
 	rm -rf ${HOME}/Projects/lair-manifest/lair-msi/bin
 	cp -R bin/ ${HOME}/Projects/lair-manifest/lair-msi/bin
 	cp README.md LUA.md COPYING.md ${HOME}/Projects/lair-manifest/lair-msi/bin
-	rm ${HOME}/Projects/lair-manifest/lair-msi/bin/lair
-	rm ${HOME}/Projects/lair-manifest/lair-msi/bin/LAIR
+	rm ${HOME}/Projects/lair-manifest/lair-msi/bin/lair; \
+	rm ${HOME}/Projects/lair-manifest/lair-msi/bin/LAIR; \
 	cp -R share/lair ${HOME}/Projects/lair-manifest/lair-msi/bin/lair
 
 android:
@@ -381,6 +381,7 @@ install:
 tarchive:
 	make check
 	make unix
+	echo $(VERSION); sleep 3
 	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
 
 deb-pkg:
