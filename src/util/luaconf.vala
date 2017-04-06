@@ -11,7 +11,6 @@ namespace LAIR{
                         ScriptPath = path;
                         print_withname("Loading a dungeon generator script: %s\n", ScriptPath);
                         lua_do_file();//ScriptPath);
-                        //printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
                 public LuaConf.Mobile(string path, int lll, string name){
                         base.LLL(lll, name);
@@ -20,7 +19,6 @@ namespace LAIR{
                         ScriptPath = path;
                         print_withname("Loading a mobile AI script: %s\n", ScriptPath);
                         lua_do_file();//ScriptPath);
-                        //printc(GetLuaLastReturn().nth_data(0), "\n");
                 }
                 private void lua_do_file(){ //(string file){
                         VM.do_file(ScriptPath);
