@@ -388,6 +388,10 @@ deb-pkg:
 	make tarchive
 	debuild
 
+deb-upkg:
+	make tarchive
+	debuild -us -uc
+
 rpm-pkg:
 	make
 	checkinstall --deldoc=yes --delspec=yes -Ry --pakdir=../
