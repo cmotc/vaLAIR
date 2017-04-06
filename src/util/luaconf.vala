@@ -95,14 +95,9 @@ namespace LAIR{
                         }
                         return tr;
                 }
-                protected void lua_register(string name, CallbackFunc f){
-                        VM.register(name, f);
-                }
+                /*protected void lua_register(string name, CallbackFunc f){                        VM.register(name, f);                }*/
                 protected void lua_do_function(string function){
-                        //LuaDoFile(ScriptPath);
                         string tmp = "return " + function;
-                        //string tmp = function;
-                        //tmp += function;
                         VM.do_string(tmp);
                 }
                 protected void lua_push_uint_to_table(string tablename, string varname, uint varval){
@@ -136,14 +131,7 @@ namespace LAIR{
                         VM.push_string(tablename);
                         VM.push_string(val);
                         VM.raw_set(-3);
-                                //VM.push_string(tablename);
-                                //VM.push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
-                                //VM.raw_set(-3);}
-                        //key++;
                         lua_close_table(tablename);
-                        //int key2 = (int) ( (vals.length() * 2) + 1 ) * -1;
-                        //int key2 = -3;
-                        //VM.raw_set(key2);
                 }
                 protected void lua_push_strings_to_table(string tablename, List<string> varvals){
                         lua_new_table();
