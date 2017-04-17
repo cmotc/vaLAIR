@@ -9,31 +9,31 @@ if [ -f "$HOME/.lairrc" ]; then
         printf "loading user settings"
         . $HOME/.lairrc
 fi
-if [ -z "$IMAGEPATH" ]; then
+if [ ! -z "$IMAGEPATH" ]; then
         TMP="$TMP -p $IMAGESPATH"
 fi
-if [ -z "$SOUNDPATH" ]; then
+if [ ! -z "$SOUNDPATH" ]; then
         TMP="$TMP -s $SOUNDSPATH"
 fi
-if [ -z "$FONTSPATH" ]; then
+if [ ! -z "$FONTSPATH" ]; then
         TMP="$TMP -f $FONTSPATH"
 fi
-if [ -z "$MAPSIZE" ]; then
+if [ ! -z "$MAPSIZE" ]; then
         TMP="$TMP -m $MAPSIZE"
 fi
-if [ -z "$DUNGEPATH" ]; then
+if [ ! -z "$DUNGEPATH" ]; then
         TMP="$TMP -c $DUNGEPATH"
 fi
-if [ -z "$PLAYEPATH" ]; then
+if [ ! -z "$PLAYEPATH" ]; then
         TMP="$TMP -e $PLAYEPATH"
 fi
-if [ -z "$MOBILPATH" ]; then
+if [ ! -z "$MOBILPATH" ]; then
         TMP="$TMP -a $MOBILPATH"
 fi
-if [ -z "$WRESOLUTION" ]; then
+if [ ! -z "$WRESOLUTION" ]; then
         TMP="$TMP -w $WRESOLUTION"
 fi
-if [ -z "$HRESOLUTION" ]; then
+if [ ! -z "$HRESOLUTION" ]; then
         TMP="$TMP -h $HRESOLUTION"
 fi
 
