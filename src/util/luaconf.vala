@@ -33,15 +33,16 @@ namespace LAIR{
                                 VM.push_number(val);
                                 //print_withname("%s ", key);
                                 //print_withname("%s \n", val.to_string());
-                                VM.raw_set(-2);
+                                VM.raw_set(-3);
                         }else{
                                 key = "error";
-                                string errval = "Error pushing entry to global Lua table. Key was null. Value was: ";
-                                VM.push_string(key);
-                                VM.push_string(errval);
+                                string errval = "Error pushing entry to global Lua table. Key was null. Value was: " + val.to_string();
+                                print_withname(errval);
+                                //VM.push_string(key);
+                                //VM.push_string(errval);
                                 //print_withname(key, errval);
                                 //print_withname(val.to_string());
-                                VM.raw_set(-2);
+                                //VM.raw_set(-3);
                         }
                 }
                 private void lua_push_named_strings(List<string> vals){
@@ -50,14 +51,19 @@ namespace LAIR{
                                 if( key > -1){
                                         VM.push_string(key.to_string());
                                         VM.push_string(val);
-                                        VM.raw_set(-2);
+                                        VM.raw_set(-3);
                                 }else{
                                         VM.push_string(key.to_string());
-                                        VM.push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
-                                        VM.raw_set(-2);
+                                        //VM.push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
+                                        string errval = "Error pushing entry to global Lua table. Key was null.";
+                                        print_withname(errval);
+                                        //VM.raw_set(-2);
                                 }
                                 key++;
                         }
+                        /*if( key > 0 ){
+                                VM.raw_set(-3);
+                        }*/
                         //int key2 = (int) ( (vals.length() * 2) + 1 ) * -1;
                         //int key2 = -2;
                         //VM.raw_set(key2);
@@ -71,18 +77,20 @@ namespace LAIR{
                 }
                 protected List<string> get_lua_last_return(){
                         string tmp = "";
-                        if(VM.is_number(-1)){
-                                double number = VM.to_number(-1);
-                                tmp += number.to_string();
-                                VM.pop(1);
-                        }else if(VM.is_string(-1)){
-                                string word = VM.to_string(-1);
-                                tmp += word;
-                                VM.pop(1);
-                        }else if(VM.is_boolean(-1)){
-                                bool word = VM.to_boolean(-1);
-                                tmp += word.to_string();
-                                VM.pop(1);
+                        if(VM.get_top() > 0){
+                                if(VM.is_number(-1)){
+                                        double number = VM.to_number(-1);
+                                        tmp += number.to_string();
+                                        VM.pop(1);
+                                }else if(VM.is_string(-1)){
+                                        string word = VM.to_string(-1);
+                                        tmp += word;
+                                        VM.pop(1);
+                                }else if(VM.is_boolean(-1)){
+                                        bool word = VM.to_boolean(-1);
+                                        tmp += word.to_string();
+                                        VM.pop(1);
+                                }
                         }
                         //print_withname(" %s \n", tmp);
                         string[] tl = tmp.split(" ", 0);
@@ -130,7 +138,7 @@ namespace LAIR{
                         lua_new_table();
                         VM.push_string(tablename);
                         VM.push_string(val);
-                        VM.raw_set(-2);
+                        VM.raw_set(-3);
                         lua_close_table(tablename);
                 }
                 protected void lua_push_strings_to_table(string tablename, List<string> varvals){

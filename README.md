@@ -20,9 +20,9 @@ automatically. To build the .deb package(but not install), do
 
         make deb-pkg
 
-or to install it automatically just run it as root.
+and then do
 
-        sudo make deb-pkg
+        sudo dpkg -i ../lair*.deb
 
 ###Other Linux:
 
