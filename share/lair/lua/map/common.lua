@@ -1,7 +1,7 @@
 math.randomseed(os.time())
 
 function reseed_random()
-        for i=math.random(50),1,-1
+        for i=math.random(10),1,-1
         do
                 print("Ensuring Additional Randomness" .. i)
                 math.random()

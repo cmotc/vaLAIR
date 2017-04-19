@@ -11,6 +11,7 @@ namespace LAIR{
                         base(
                                 ((lconf == "") ? "immobile" : lconf ),
                                 6,"entity");
+                        player = false;
                         tags = new List<string>();
                         set_type("default");
                 }
@@ -18,6 +19,7 @@ namespace LAIR{
                         base(
                                 ((lconf == "") ? "immobile" : lconf),
                                 6,"entity");
+                        player = false;
                         foreach(string type in types){
                                 set_type(type);
                         }
@@ -31,6 +33,7 @@ namespace LAIR{
                                 ((lconf == "") ? "immobile" : lconf),
                                 6,"entity");
                         set_type("blocked");
+                        player = false;
                         foreach(string type in types){
                                 set_type(type);
                         }
@@ -39,6 +42,7 @@ namespace LAIR{
                 public Type.Mobile(List<string> types, string lconf){
                         base.Mobile(lconf, 6,"entity");
                         set_type("blocked");
+                        player = false;
                         foreach(string type in types){
                                 set_type(type);
                         }
@@ -122,7 +126,6 @@ namespace LAIR{
                         }else if ( b == 1 ){
                                 r = true;
                         }
-
 			return r;
 		}
 		public bool is_player(){
