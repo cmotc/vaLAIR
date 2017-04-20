@@ -351,7 +351,7 @@ debug-clang:
 	lldb ./bin/LAIR
 
 memcheck:
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m tiny
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
