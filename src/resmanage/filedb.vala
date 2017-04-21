@@ -16,7 +16,7 @@ namespace LAIR{
                 private List<string> SoundParts = new List<string>();
                 private GLib.Rand Sorcerer = new GLib.Rand();
 		public FileDB(string imgList, string sndList, string ttfList){
-                        base.LLL(4, "filedb:");
+                        base.new_local_attributes(4, "filedb:");
 			var imgfile = new LairFile.WithPath(imgList);
 			print_withname("Pre-Loading the game data files.\n");
 			if (imgfile.check_path()){

@@ -1,0 +1,438 @@
+==20461== Memcheck, a memory error detector
+==20461== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==20461== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==20461== Command: ./bin/LAIR -v 1 -m tiny
+==20461== 
+==20461== Conditional jump or move depends on uninitialised value(s)
+==20461==    at 0x4C32EA6: rawmemchr (vg_replace_strmem.c:1402)
+==20461==    by 0x7582391: _IO_str_init_static_internal (strops.c:41)
+==20461==    by 0x7575B66: vsscanf (iovsscanf.c:40)
+==20461==    by 0x75702D6: sscanf (sscanf.c:32)
+==20461==    by 0x13419E4A: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==20461==    by 0x1341A182: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==20461==    by 0x1341DBF8: drmGetDevice (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==20461==    by 0x11F642D6: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==20461==    by 0x11F63694: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==20461==    by 0x11F37988: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==20461==    by 0x11F33B9A: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==20461==    by 0x11F33FD1: glXQueryExtensionsString (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==20461==  Uninitialised value was created by a stack allocation
+==20461==    at 0x13419D9D: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==20461== 
+==20461== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==20461==    at 0x75ECD5D: ??? (syscall-template.S:84)
+==20461==    by 0xD38841C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==20461==    by 0xD38881C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==20461==    by 0xD38889C: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==20461==    by 0x938AA7D: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==20461==    by 0x938AF71: _XReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==20461==    by 0x9375E2E: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==20461==    by 0x5A2946A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==    by 0x5A2A364: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==    by 0x5A1A2EF: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==    by 0x5A1A07E: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==    by 0x5980456: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==  Address 0x111f1ec3 is 35 bytes inside a block of size 16,384 alloc'd
+==20461==    at 0x4C2DBC5: calloc (vg_replace_malloc.c:711)
+==20461==    by 0x937AEC5: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==20461==    by 0x5A2853F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==    by 0x5A1A02B: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==    by 0x5980456: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==20461==    by 0x10AD4D: lair_lair_construct (main.vala:20)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Uninitialised value was created by a stack allocation
+==20461==    at 0x9386210: XStoreColors (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==20461== 
+==20618== Warning: invalid file descriptor 1024 in syscall close()
+==20618== 
+==20618== HEAP SUMMARY:
+==20618==     in use at exit: 2,511,281 bytes in 8,497 blocks
+==20618==   total heap usage: 23,548 allocs, 15,051 frees, 27,595,162 bytes allocated
+==20618== 
+==20618== LEAK SUMMARY:
+==20618==    definitely lost: 192 bytes in 7 blocks
+==20618==    indirectly lost: 176 bytes in 4 blocks
+==20618==      possibly lost: 1,640,625 bytes in 6,207 blocks
+==20618==    still reachable: 870,064 bytes in 2,276 blocks
+==20618==                       of which reachable via heuristic:
+==20618==                         length64           : 696 bytes in 15 blocks
+==20618==                         newarray           : 1,648 bytes in 23 blocks
+==20618==         suppressed: 0 bytes in 0 blocks
+==20618== Rerun with --leak-check=full to see details of leaked memory
+==20618== 
+==20618== For counts of detected and suppressed errors, rerun with: -v
+==20618== ERROR SUMMARY: 11 errors from 2 contexts (suppressed: 0 from 0)
+==20461== Invalid read of size 8
+==20461==    at 0x115BAE: lair_type_is_player (type.vala:132)
+==20461==    by 0x11BFC8: lair_move_run (move.vala:276)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5eab8 is 392 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 4
+==20461==    at 0x115BB2: lair_type_is_player (type.vala:132)
+==20461==    by 0x11BFC8: lair_move_run (move.vala:276)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5ea40 is 272 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 8
+==20461==    at 0x11B986: lair_move_get_ai_func (move.vala:152)
+==20461==    by 0x11BB31: lair_move_ai_input (move.vala:160)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5eaf0 is 448 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 8
+==20461==    at 0x11B98A: lair_move_get_ai_func (move.vala:152)
+==20461==    by 0x11BB31: lair_move_ai_input (move.vala:160)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5e950 is 32 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 8
+==20461==    at 0x11B99D: lair_move_get_ai_func (move.vala:155)
+==20461==    by 0x11BB31: lair_move_ai_input (move.vala:160)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5eaf0 is 448 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 8
+==20461==    at 0x11B9A1: lair_move_get_ai_func (move.vala:155)
+==20461==    by 0x11BB31: lair_move_ai_input (move.vala:160)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5e950 is 32 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 8
+==20461==    at 0x10C394: lair_lua_conf_get_lua_last_return (luaconf.vala:80)
+==20461==    by 0x11BB4F: lair_move_ai_input (move.vala:161)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5eab0 is 384 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 8
+==20461==    at 0x10C398: lair_lua_conf_get_lua_last_return (luaconf.vala:80)
+==20461==    by 0x11BB4F: lair_move_ai_input (move.vala:161)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==    by 0x10BB52: main (main.vala:92)
+==20461==  Address 0x15c5ea70 is 320 bytes inside a block of size 472 free'd
+==20461==    at 0x4C2CDDB: free (vg_replace_malloc.c:530)
+==20461==    by 0x5201671: g_type_free_instance (gtype.c:1937)
+==20461==    by 0x113A96: _g_object_unref0_ (floor.vala:4)
+==20461==    by 0x5467AAC: g_list_foreach (glist.c:1005)
+==20461==    by 0x113CA1: _g_list_free__g_object_unref0_ (floor.vala:4)
+==20461==    by 0x114449: lair_floor_detect_collisions (floor.vala:103)
+==20461==    by 0x114B89: lair_tower_detect_collisions (tower.vala:42)
+==20461==    by 0x114DFB: lair_game_update_screen (game.vala:30)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Block was alloc'd at
+==20461==    at 0x4C2BBAF: malloc (vg_replace_malloc.c:299)
+==20461==    by 0x5470E08: g_malloc (gmem.c:94)
+==20461==    by 0x5489342: g_slice_alloc (gslice.c:1025)
+==20461==    by 0x548996D: g_slice_alloc0 (gslice.c:1051)
+==20461==    by 0x52013A8: g_type_create_instance (gtype.c:1839)
+==20461==    by 0x51E31FA: g_object_new_internal (gobject.c:1783)
+==20461==    by 0x51E4C0C: g_object_newv (gobject.c:1930)
+==20461==    by 0x51E53C3: g_object_new (gobject.c:1623)
+==20461==    by 0x10CFCC: lair_scribe_construct_LLL (scribe.vala:10)
+==20461==    by 0x10C277: lair_lua_conf_construct_Mobile (luaconf.vala:16)
+==20461==    by 0x115A9D: lair_type_construct_Mobile (type.vala:43)
+==20461==    by 0x116F93: lair_anim_construct_Mobile (anim.vala:30)
+==20461== 
+==20461== Invalid read of size 8
+==20461==    at 0x573C360: lua_gettop (lapi.c:160)
+==20461==    by 0x10C39F: lair_lua_conf_get_lua_last_return (luaconf.vala:80)
+==20461==    by 0x11BB4F: lair_move_ai_input (move.vala:161)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  Address 0x10 is not stack'd, malloc'd or (recently) free'd
+==20461== 
+==20461== 
+==20461== Process terminating with default action of signal 11 (SIGSEGV)
+==20461==  Access not within mapped region at address 0x10
+==20461==    at 0x573C360: lua_gettop (lapi.c:160)
+==20461==    by 0x10C39F: lair_lua_conf_get_lua_last_return (luaconf.vala:80)
+==20461==    by 0x11BB4F: lair_move_ai_input (move.vala:161)
+==20461==    by 0x11BFD4: lair_move_run (move.vala:279)
+==20461==    by 0x112BD1: lair_room_take_turns (room.vala:234)
+==20461==    by 0x1142E5: lair_floor_take_turns (floor.vala:90)
+==20461==    by 0x114B00: lair_tower_take_turns (tower.vala:35)
+==20461==    by 0x114E08: lair_game_update_screen (game.vala:31)
+==20461==    by 0x115121: lair_game_run (game.vala:47)
+==20461==    by 0x10ADA5: lair_lair_construct (main.vala:28)
+==20461==    by 0x10B439: lair_lair_new (main.vala:17)
+==20461==    by 0x10BAD8: lair_lair_main (main.vala:159)
+==20461==  If you believe this happened as a result of a stack
+==20461==  overflow in your program's main thread (unlikely but
+==20461==  possible), you can try to increase the size of the
+==20461==  main thread stack using the --main-stacksize= flag.
+==20461==  The main thread stack size used in this run was 8388608.
+==20461== 
+==20461== HEAP SUMMARY:
+==20461==     in use at exit: 42,338,568 bytes in 150,877 blocks
+==20461==   total heap usage: 9,356,329 allocs, 9,205,452 frees, 290,893,844 bytes allocated
+==20461== 
+==20461== LEAK SUMMARY:
+==20461==    definitely lost: 13,168 bytes in 113 blocks
+==20461==    indirectly lost: 442 bytes in 68 blocks
+==20461==      possibly lost: 33,208,957 bytes in 64,257 blocks
+==20461==    still reachable: 8,998,521 bytes in 85,961 blocks
+==20461==                       of which reachable via heuristic:
+==20461==                         length64           : 880 bytes in 19 blocks
+==20461==                         newarray           : 1,680 bytes in 25 blocks
+==20461==         suppressed: 0 bytes in 0 blocks
+==20461== Rerun with --leak-check=full to see details of leaked memory
+==20461== 
+==20461== For counts of detected and suppressed errors, rerun with: -v
+==20461== ERROR SUMMARY: 22 errors from 11 contexts (suppressed: 0 from 0)
+make[1]: *** [memcheck] Segmentation fault

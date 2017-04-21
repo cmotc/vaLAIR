@@ -11,7 +11,7 @@ namespace LAIR{
 		private Tower GameEnvironment;
                 private bool dedupe = false;
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
-                        base.LLL(3, "floor:");
+                        base.new_local_attributes(3, "floor:");
                         string imageListPath = listPaths[0];
                         string soundListPath = listPaths[1];
                         string fontsListPath = listPaths[2];

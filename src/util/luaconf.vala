@@ -5,7 +5,7 @@ namespace LAIR{
                 private LuaVM VM = new LuaVM();
                 private string ScriptPath;
                 public LuaConf(string path, int lll, string name){
-                        base.LLL(lll, name);
+                        base.new_local_attributes(lll, name);
                         VM = new LuaVM();
                         VM.open_libs();
                         ScriptPath = path;
@@ -13,7 +13,7 @@ namespace LAIR{
                         lua_do_file();//ScriptPath);
                 }
                 public LuaConf.Mobile(string path, int lll, string name){
-                        base.LLL(lll, name);
+                        base.new_local_attributes(lll, name);
                         VM = new LuaVM();
                         VM.open_libs();
                         ScriptPath = path;

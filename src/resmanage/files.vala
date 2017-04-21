@@ -4,11 +4,11 @@ namespace LAIR{
 		private string Name = null;
 		private List<string> Tags = null;//new List<string>();
 		public LairFile.WithPath(string path){
-                        base.LLL(4, "file:");
+                        base.new_local_attributes(4, "file:");
 			Path = set_path(path);
 		}
                 public LairFile.WithAttList(List<string> atts){
-                        base.LLL(4, "file:");
+                        base.new_local_attributes(4, "file:");
                         string path = null;
                         List<string> tags = new List<string>();
                         int x = 0;

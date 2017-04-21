@@ -2,10 +2,10 @@
 namespace LAIR{
 	class Net : Scribe{
                 public Net(){
-                        base.LLL(2,"player: ");
+                        base.new_local_attributes(2,"player: ");
                 }
                 public Net.Service(){
-                        base.LLL(2,"dungeon: ");
+                        base.new_local_attributes(2,"dungeon: ");
                 }
 	}
 }

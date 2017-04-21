@@ -1,26 +1,20 @@
 namespace LAIR{
 	class Scribe : Object{
-                private static int LogLevel;// = 1;
-                private string Name = "global log: ";
-                private int LocalLogLevel = 6;
-                public Scribe.LL(int ll){
-                        LogLevel = 1;
-                        LocalLogLevel = 2;
-                }
-                public Scribe.LLL(int lll, string name, int ll=-1){
-                        LocalLogLevel = lll;
-                        Name = name;
-                        Name += " ";
-                        int llcache = LogLevel;
+                private static int LogLevel = 1;
+                private int InstanceLogLevel = LogLevel;
+                private string Name = "";
+                private int LocalLogLevel = 2;
+                public Scribe.new_local_attributes(int lll=2, string name="global log:", int ll=-1){
                         if(ll != -1){
-                                LogLevel = llcache;
+                                LogLevel=ll;
                         }
-                }
-                public Scribe.LLLLL(int ll, int lll){
-                        if ( ll != -1){
-                                LogLevel = ll;
-                        }
+                        InstanceLogLevel = LogLevel;
                         LocalLogLevel = lll;
+                        for(int s = 0; s < lll; s++){
+                                Name += " ";
+                        }
+                        Name = name;
+
                 }
                 public static void print_static(string item, string item2 = ""){
                         if(LogLevel > 0){
