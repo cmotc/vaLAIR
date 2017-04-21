@@ -40,7 +40,7 @@ namespace LAIR{
                         player = check_type("player");
                 }
                 public Type.Mobile(List<string> types, string lconf){
-                        base.Mobile(lconf, 6,"entity");
+                        base(lconf, 6,"entity");
                         set_type("blocked");
                         player = false;
                         foreach(string type in types){

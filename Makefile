@@ -27,6 +27,7 @@ unix:
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
@@ -72,6 +73,7 @@ unix-clang:
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
@@ -126,6 +128,7 @@ win64:
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
@@ -180,6 +183,7 @@ win32:
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
@@ -238,6 +242,7 @@ android:
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
@@ -281,6 +286,7 @@ bitcode:
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
 		src/resmanage/files.vala \
