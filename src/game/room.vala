@@ -10,7 +10,7 @@ namespace LAIR{
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
                 public Room(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 2, "room:");
+                        base.with_ai(scripts[0], 2, "room:");
                         set_dimensions(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
                         set_name("room ("+stringify_hitbox()+"): ");
@@ -22,7 +22,7 @@ namespace LAIR{
                         generate_mobiles(scripts[2], renderer);
 		}
                 public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 2, "room:");
+                        base.with_ai(scripts[0], 2, "room:");
                         set_dimensions(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
                         set_name("room ("+stringify_hitbox()+"): ");
@@ -416,7 +416,13 @@ namespace LAIR{
                         if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
                                         string new_name = index.to_string();
-                                        Particles.append(new Entity.Wall(coords, GameMaster.image_by_name(imgTags.nth_data(0)), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer, imgTags, new_name));
+                                        Particles.append(new Entity.Wall(coords,
+                                                GameMaster.image_by_name(imgTags.nth_data(0)),
+                                                GameMaster.no_sound(),
+                                                GameMaster.get_rand_font(),
+                                                renderer,
+                                                imgTags,
+                                                new_name));
                                         lua_do_function("record_cell(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}
@@ -425,7 +431,14 @@ namespace LAIR{
                         if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
                                 if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
                                         string new_name = index.to_string();
-                                        Mobs.append(new Entity.Mobile(coords, aiScript, aiFunc, GameMaster.body_by_tone(imgTags.nth_data(0)), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer, imgTags, new_name ));
+                                        Mobs.append(new Entity.Mobile(coords,
+                                                aiScript,
+                                                aiFunc,
+                                                GameMaster.body_by_tone(imgTags.nth_data(0)),
+                                                GameMaster.basic_sounds(),
+                                                GameMaster.get_rand_font(),
+                                                renderer,
+                                                imgTags, new_name ));
                                         lua_do_function("record_mobile(\"" + imgTags.nth_data(0) + "\")");
                                 }}
                         }}

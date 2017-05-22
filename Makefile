@@ -30,6 +30,7 @@ unix:
 		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
+		src/util/tag.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -39,6 +40,7 @@ unix:
 		src/game/floor.vala \
 		src/game/tower.vala \
 		src/game/game.vala \
+		src/entity/dice.vala \
 		src/entity/type.vala \
 		src/entity/sprite.vala \
 		src/entity/anim.vala \
@@ -76,6 +78,7 @@ unix-clang:
 		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
+		src/util/tag.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -85,6 +88,7 @@ unix-clang:
 		src/game/floor.vala \
 		src/game/tower.vala \
 		src/game/game.vala \
+		src/entity/dice.vala \
 		src/entity/type.vala \
 		src/entity/sprite.vala \
 		src/entity/anim.vala \
@@ -131,6 +135,7 @@ win64:
 		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
+		src/util/tag.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -140,6 +145,7 @@ win64:
 		src/game/floor.vala \
 		src/game/tower.vala \
 		src/game/game.vala \
+		src/entity/dice.vala \
 		src/entity/type.vala \
 		src/entity/sprite.vala \
 		src/entity/anim.vala \
@@ -186,6 +192,7 @@ win32:
 		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
+		src/util/tag.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -195,6 +202,7 @@ win32:
 		src/game/floor.vala \
 		src/game/tower.vala \
 		src/game/game.vala \
+		src/entity/dice.vala \
 		src/entity/type.vala \
 		src/entity/sprite.vala \
 		src/entity/anim.vala \
@@ -245,6 +253,7 @@ android:
 		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
+		src/util/tag.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -254,6 +263,7 @@ android:
 		src/game/floor.vala \
 		src/game/tower.vala \
 		src/game/game.vala \
+		src/entity/dice.vala \
 		src/entity/type.vala \
 		src/entity/sprite.vala \
 		src/entity/anim.vala \
@@ -289,6 +299,7 @@ bitcode:
 		src/util/luaglobal.vala \
 		src/util/scribe.vala \
 		src/util/tagcounter.vala \
+		src/util/tag.vala \
 		src/resmanage/files.vala \
 		src/resmanage/images.vala \
 		src/resmanage/filedb.vala \
@@ -306,6 +317,7 @@ bitcode:
 		src/entity/stats.vala \
 		src/entity/inventory.vala \
 		src/entity/move.vala \
+		src/entity/dice.vala \
 		src/entity/entity.vala
 
 js:
