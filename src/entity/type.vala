@@ -1,35 +1,19 @@
 namespace LAIR{
-	class Type : LuaConf {
+	class Type : Dice {
 		private bool player = false;
                 private bool floor = false;
                 private bool wall = false;
                 private bool mobile = false;
                 private List<Tag> tags = new List<Tag>();
                 public Type(string lconf = "immobile"){
-                        if ( lconf != "immobile"){
-                                base.with_ai(
-                                        ((lconf == "") ? "immobile" : lconf ),
-                                        6,"entity");
-                        }
-                        player = false;
-                        tags = new List<string>();
-                        set_type("default");
-                        int b = 0;
                 }
                 public Type.ParameterList(List<string> types, string lconf = "immobile"){
-                        if ( lconf != "immobile"){
-                                base.with_ai(
-                                        ((lconf == "") ? "immobile" : lconf ),
-                                        6,"entity");
-                        }
-                        foreach(string type in types){
-                                set_type(type);
-                        }
-                        player = check_type("player");
-                        if (player) {
-                                set_type("blocked");
-                        }
-                        int b = 0;
+                }
+                public Type.ParameterListBlocked(List<string> types, string lconf = "immobile"){
+                }
+                public Type.Player(List<string> types, string lconf = "immobile"){
+                }
+                public Type.Mobile(List<string> types, string lconf = "immobile"){
                 }
                 private void check_types(){
                         foreach(Tag tag in tags){
@@ -42,32 +26,57 @@ namespace LAIR{
                 private bool check_new_type(string new_type){
                         bool r = false;
                         foreach(Tag tag in tags){
-                                r = tag.has_tag(new_type)
+                                r = tag.has_tag(new_type);
                         }
                         return r;
                 }
                 protected void insert_type(string new_type){
                         if(check_new_type(new_type)){
-                                tags.append(new_type);
+                                tags.append(new Tag(new_type));
                                 print_withname("   Added tag: %s \n", new_type);
                                 check_types();
                         }
                 }
-		protected bool get_block(){
-                        if(){
+                protected void set_type(string new_type){
+                        insert_type(new_type);
+                }
+                protected bool has_type(string hyp_type){
+                        bool r = false;
+                        foreach(Tag tag in tags){
+                                if(tag.has_tag(hyp_type)){
+                                        r = true;
+                                }
                         }
+                        return r;
+                }
+                protected bool check_type(string hyp_type){
+                        return has_type(hyp_type);
+                }
+		protected bool get_block(){
+                        bool r = true;
+                        if( floor ){
+                                r = false;
+                        }
+                        return r;
 		}
 		public bool is_player(){
 			return player;
 		}
-                public unowned List<string> get_tags(){
-                        unowned List<string> r = tags;
+                public unowned List<Tag> get_tags(){
+                        unowned List<Tag> r = tags;
+                        return r;
+                }
+                public List<string> get_tags_strings(){
+                        List<string> r = new List<string>();
+                        foreach(Tag tag in tags){
+                                r.append(tag.get_tag_name());
+                        }
                         return r;
                 }
                 protected string stringify_tags(){
                         string r = " tags:";
-                        foreach(string i in tags.copy()){
-                                r += i;
+                        foreach(Tag i in tags.copy()){
+                                r += i.get_tag_name();
                                 r += " ";
                         }
                         print_withname(r);

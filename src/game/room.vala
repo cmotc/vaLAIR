@@ -91,7 +91,7 @@ namespace LAIR{
                 private void particle_count_bytag(){
                         List<TagCounter> tagcount = new List<TagCounter>();
                         foreach(Entity particle in Particles){
-                                foreach(string tag in particle.get_tags()){
+                                foreach(string tag in particle.get_tags_strings()){
                                         bool has = false;
                                         foreach(TagCounter count in tagcount){
                                                 if(count.check_name(tag)){
@@ -112,7 +112,7 @@ namespace LAIR{
                 private void mobile_count_bytag(){
                         List<TagCounter> tagcount = new List<TagCounter>();
                         foreach(Entity mob in Mobs){
-                                foreach(string tag in mob.get_tags()){
+                                foreach(string tag in mob.get_tags_strings()){
                                         bool has = false;
                                         foreach(TagCounter count in tagcount){
                                                 if(count.check_name(tag)){

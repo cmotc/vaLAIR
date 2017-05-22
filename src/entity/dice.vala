@@ -1,8 +1,8 @@
 namespace LAIR{
-	class Dice{
+	class Dice : LuaConf{
                 private GLib.Rand dice_bag = new GLib.Rand();
                 protected int roll_dice(int min, int max){
-                        return dice_bag.int_range(-1,1);
+                        return dice_bag.int_range(min, max);
                 }
                 protected int roll_hundred(){
                         return roll_dice(0, 100);
