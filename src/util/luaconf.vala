@@ -2,14 +2,10 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaConf : LuaGlobal{
-                //private LuaVM *VM = global_vm_pointer();
-                //private LuaVM VM = global_vm_copy();
-                private string ScriptPath;
-                public LuaConf.with_ai(string path, int lll, string name){
-                        base(lll, name);
-                        //VM = global_vm_pointer();
-                        //VM = global_vm_copy();
-                        ScriptPath = path;
+                private string ScriptPath = "";
+                public LuaConf(string lua_ai_path, int lua_log_level, string name){
+                        base(lua_ai_path, lua_log_level, name);
+                        ScriptPath = lua_ai_path;
                         print_withname("Loading a dungeon generator script: %s\n", ScriptPath);
                         lua_do_file();//ScriptPath);
                 }

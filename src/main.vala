@@ -8,6 +8,7 @@ namespace LAIR{
 	class Lair : Scribe {
 		private static Game GameMap;
                 private static bool help = false;
+
                 private static string ImageFilePath = get_file_path("lair/images.list");
 		private static string SoundFilePath = get_file_path("lair/sounds.list");
 		private static string FontsFilePath = get_file_path("lair/fonts.list");

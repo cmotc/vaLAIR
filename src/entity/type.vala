@@ -5,15 +5,38 @@ namespace LAIR{
                 private bool wall = false;
                 private bool mobile = false;
                 private List<Tag> tags = new List<Tag>();
-                public Type(string lconf = "immobile"){
+                public Type(string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
                 }
-                public Type.ParameterList(List<string> types, string lconf = "immobile"){
+                public Type.ParameterList(List<string> types, string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
+                        foreach(string type in types){
+                                tags.append(new Tag(type));
+                        }
                 }
-                public Type.ParameterListBlocked(List<string> types, string lconf = "immobile"){
+                public Type.ParameterListBlocked(List<string> types, string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
+                        foreach(string type in types){
+                                tags.append(new Tag(type));
+                        }
                 }
-                public Type.Player(List<string> types, string lconf = "immobile"){
+                public Type.Player(List<string> types, string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
+                        player = true;
+                        foreach(string type in types){
+                                tags.append(new Tag(type));
+                        }
                 }
-                public Type.Mobile(List<string> types, string lconf = "immobile"){
+                public Type.Mobile(List<string> types, string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
+                        foreach(string type in types){
+                                tags.append(new Tag(type));
+                        }
                 }
                 private void check_types(){
                         foreach(Tag tag in tags){
@@ -29,6 +52,11 @@ namespace LAIR{
                                 r = tag.has_tag(new_type);
                         }
                         return r;
+                }
+                private void instant_type(List<string> new_type){
+                        foreach(string s in new_type){
+                                tags.append(new Tag(s));
+                        }
                 }
                 protected void insert_type(string new_type){
                         if(check_new_type(new_type)){
@@ -82,15 +110,6 @@ namespace LAIR{
                         print_withname(r);
                         return r;
                 }
-                public List<string> one_tag_to_list(string ip){
-                        List<string> r = new List<string>();
-                        r.append(ip);
-                        foreach(string s in r){
-                                print_withname(s);
-                        }
-                        return r;
-
-                }
                 public string get_category(){
                         string r = "uncategorized";
                         if (mobile) {
@@ -101,4 +120,12 @@ namespace LAIR{
                         return r;
                 }
 	}
+        List<string> one_tag_to_list(string ip = ""){
+                List<string> r = new List<string>();
+                if( ip != "" ){
+                        r.append(ip);
+                }
+                return r;
+
+        }
 }

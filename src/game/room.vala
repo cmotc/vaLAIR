@@ -10,7 +10,7 @@ namespace LAIR{
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
                 public Room(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.with_ai(scripts[0], 2, "room:");
+                        base(scripts[0], 2, "room:");
                         set_dimensions(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
                         set_name("room ("+stringify_hitbox()+"): ");
@@ -22,7 +22,7 @@ namespace LAIR{
                         generate_mobiles(scripts[2], renderer);
 		}
                 public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.with_ai(scripts[0], 2, "room:");
+                        base(scripts[0], 2, "room:");
                         set_dimensions(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
                         set_name("room ("+stringify_hitbox()+"): ");
