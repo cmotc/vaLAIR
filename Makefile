@@ -5,17 +5,19 @@ COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 EMCC_FAST_COMPILER = 0
 EMCC_LLVM_TARGET = le32-unknown-nacl
 
+#--pkg gee-0.8 \ Might switch to libgee but probably not.
+#-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
+
 unix:
 	valac -gv \
 		-o bin/LAIR \
 		-X -fstack-protector-all \
-		-X -Wstack-protector \
 		-X --param \
 		-X ssp-buffer-size=4 \
 		-X -D_FORTIFY_SOURCE=2 \
-		-X -Wall -X -Wextra -X -Wformat-security \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
+		--vapidir="/usr/share/vala/vapi/" \
 		--pkg gio-2.0 \
 		--pkg lua \
 		--pkg sdl2 \
@@ -64,14 +66,12 @@ unix-clang:
 	valac -gv \
 		-o bin/LAIR \
 		-X -fstack-protector-all \
-		-X -Wstack-protector \
+		-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 		-X --param \
 		-X ssp-buffer-size=4 \
 		-X -D_FORTIFY_SOURCE=2 \
-		-X -Wall -X -Wextra -X -Wformat-security \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
-		--enable-mem-profiler \
 		--cc clang \
 		--pkg gio-2.0 \
 		--pkg lua \
@@ -338,7 +338,7 @@ bitcode:
 		src/entity/entity.vala
 
 javascript:
-	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig/"
+	cd ~ && source ./emsdk_env.sh || echo fail
 	valac -gv \
 		-o bin/LAIR.html \
 		--cc emcc \

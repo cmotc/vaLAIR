@@ -1,43 +1,37 @@
 namespace LAIR{
 	class Scribe : Object{
-                private static int LogLevel = 1;
-                private int InstanceLogLevel = LogLevel;
+                private static int log_level = 1;
+                private int instance_log_level = log_level;
                 private string Name = "";
-                private int LocalLogLevel = 2;
-                public Scribe.new_local_attributes(int lll=2, string name="global log:", int ll=-1){
-                        if(ll != -1){
-                                LogLevel=ll;
-                        }
-                        InstanceLogLevel = LogLevel;
-                        LocalLogLevel = lll;
-                        for(int s = 0; s < lll; s++){
-                                Name += " ";
-                        }
+                private int class_log_level = 2;
+                public Scribe.new_local_attributes(int local_log_level=2, string name="global log:", int base_log_level=-1){
+                        instance_log_level=base_log_level;
+                        class_log_level = local_log_level;
                         Name = name;
 
                 }
                 public static void print_static(string item, string item2 = ""){
-                        if(LogLevel > 0){
-                                stdout.printf("Void Main: %s", LogLevel.to_string());
+                        if(log_level > 0){
+                                stdout.printf("Void Main: %s", log_level.to_string());
                                 stdout.printf(item, item2, " ");
                         }
                 }
-                public static void set_global_loglevel(int newll){
-                        LogLevel = newll;
+                public static void set_global_log_level(int newll){
+                        log_level = newll;
                 }
                 private void print_name(){
-                        if(LogLevel > LocalLogLevel){
+                        if(log_level > class_log_level){
                                 stdout.printf(Name);
                         }
                 }
                 public void print_withname(string item="", string item2 = ""){
-                        if(LogLevel > LocalLogLevel){
+                        if(log_level > class_log_level){
                                 print_name();
                                 stdout.printf(item, item2, " ");
                         }
                 }
                 public void print_noname(string item="", string item2 = ""){
-                        if(LogLevel > LocalLogLevel){
+                        if(log_level > class_log_level){
                                 stdout.printf(item, item2, " ");
                         }
                 }

@@ -11,12 +11,16 @@ namespace LAIR{
                 }
                 private void lua_do_file(){ //(string file){
                         if(does_it_ai()){
-                                global_vm_pointer()->do_file(ScriptPath);
+                                if(ScriptPath != "immobile"){
+                                        global_vm_pointer()->do_file(ScriptPath);
+                                }
                         }
                 }
                 private void lua_new_table(){
                         if(does_it_ai()){
-                                global_vm_pointer()->new_table();
+                                if(ScriptPath != "immobile"){
+                                        global_vm_pointer()->new_table();
+                                }
                         }
                 }
                 private void lua_push_named_number(string key, int val = -2147483647){
@@ -29,9 +33,9 @@ namespace LAIR{
                                         key = "error";
                                         string errval = "Error pushing entry to global Lua table. Key was null. Value was: " + val.to_string();
                                         print_withname(errval);
-                                        //global_vm_pointer()->push_string(key);
-                                        //global_vm_pointer()->push_string(errval);
-                                        //global_vm_pointer()->raw_set(-3);
+                                        global_vm_pointer()->push_string(key);
+                                        global_vm_pointer()->push_string(errval);
+                                        global_vm_pointer()->raw_set(-3);
                                 }
                         }
                 }

@@ -8,7 +8,6 @@ namespace LAIR{
 	class Lair : Scribe {
 		private static Game GameMap;
                 private static bool help = false;
-
                 private static string ImageFilePath = get_file_path("lair/images.list");
 		private static string SoundFilePath = get_file_path("lair/sounds.list");
 		private static string FontsFilePath = get_file_path("lair/fonts.list");
@@ -148,7 +147,7 @@ namespace LAIR{
 						break;
 				}
 			}
-                        set_global_loglevel(Verbosity);
+                        set_global_log_level(Verbosity);
 			print_static("Image file path from options: %s \n", ImageFilePath);
 			print_static("Sound file path from options: %s \n", SoundFilePath);
 			print_static("Font file path from options: %s \n", FontsFilePath);
