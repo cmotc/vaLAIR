@@ -1,10 +1,10 @@
-3d44823c1bd7310d0350c33fb233e62c  usr/bin/LAIR
+bf883c0a932d50698e676973f673d043  usr/bin/LAIR
 584bd00c135c3526dd4c425085b15575  usr/bin/lair
 33bcd5844ff9af5d47928d0a32d5b1b2  usr/share/doc/lair/COPYING.md.gz
 ea1921855e6750e4d0a4c3452e337415  usr/share/doc/lair/LUA.md.gz
 ed92ea6af63a74b304312cf273b0d20f  usr/share/doc/lair/LUA_MOB.md
 1c3fb05cffbcd665f4307af78ce9830b  usr/share/doc/lair/README.Debian
-7e15a7e34eca3e8dc6ae0a6794ece53c  usr/share/doc/lair/README.md.gz
+0f1370811ecb67409f2e6595d57ce5f6  usr/share/doc/lair/README.md.gz
 117b4d5a3438e444cb511a705f974062  usr/share/doc/lair/changelog.Debian.gz
 5df36bb12a1f55548fe69006ff38e3b8  usr/share/doc/lair/copyright
 cb06318337a6784c193666fbae175f65  usr/share/lair/demo/ai.lua

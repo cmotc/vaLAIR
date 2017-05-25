@@ -28,7 +28,7 @@ unix:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X -llua5.1 \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -83,7 +83,7 @@ unix-clang:
 		--pkg=tartrazine \
 		-X -O0 \
 		-X -g3 \
-		-X -llua5.1 \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -137,7 +137,7 @@ unix-static:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X -llua5.1 \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -310,7 +310,7 @@ android:
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -llua5.1 \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -358,7 +358,7 @@ bitcode:
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -llua5.1 \
+		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
