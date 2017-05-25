@@ -9,6 +9,7 @@ EMCC_LLVM_TARGET = le32-unknown-nacl
 #-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 
 unix:
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/" ; \
 	valac -gv \
 		-o bin/LAIR \
 		-X -fstack-protector-all \
@@ -28,6 +29,7 @@ unix:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
+		-X "-I/usr/include/lua5.2" \
 		-X -llua5.2 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
@@ -74,7 +76,8 @@ unix-clang:
 		-X -Wl,-z,relro,-z,now \
 		--cc clang \
 		--pkg gio-2.0 \
-		--pkg lua \
+		-X "-I/usr/include/lua5.2" \
+		-X -llua5.2 \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
@@ -83,7 +86,7 @@ unix-clang:
 		--pkg=tartrazine \
 		-X -O0 \
 		-X -g3 \
-		-X -llua5.2 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -128,7 +131,8 @@ unix-static:
 		--cc musl-gcc \
 		--vapidir="/usr/share/vala/vapi/" \
 		--pkg gio-2.0 \
-		--pkg lua \
+		-X "-I/usr/include/lua5.2" \
+		-X -llua5.2 \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
@@ -137,7 +141,7 @@ unix-static:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X -llua5.2 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -310,7 +314,7 @@ android:
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -llua5.2 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -358,7 +362,7 @@ bitcode:
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -llua5.2 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \

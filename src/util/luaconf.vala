@@ -12,30 +12,30 @@ namespace LAIR{
                 private void lua_do_file(){ //(string file){
                         if(does_it_ai()){
                                 if(ScriptPath != "immobile"){
-                                        global_vm_pointer().do_file(ScriptPath);
+                                        global_vm_pointer()->do_file(ScriptPath);
                                 }
                         }
                 }
                 private void lua_new_table(){
                         if(does_it_ai()){
                                 if(ScriptPath != "immobile"){
-                                        global_vm_pointer().new_table();
+                                        global_vm_pointer()->new_table();
                                 }
                         }
                 }
                 private void lua_push_named_number(string key, int val = -2147483647){
                         if(does_it_ai()){
                                 if( key != null){
-                                        global_vm_pointer().push_string(key);
-                                        global_vm_pointer().push_number(val);
-                                        global_vm_pointer().raw_set(-3);
+                                        global_vm_pointer()->push_string(key);
+                                        global_vm_pointer()->push_number(val);
+                                        global_vm_pointer()->raw_set(-3);
                                 }else{
                                         key = "error";
                                         string errval = "Error pushing entry to global Lua table. Key was null. Value was: " + val.to_string();
                                         print_withname(errval);
-                                        global_vm_pointer().push_string(key);
-                                        global_vm_pointer().push_string(errval);
-                                        global_vm_pointer().raw_set(-3);
+                                        global_vm_pointer()->push_string(key);
+                                        global_vm_pointer()->push_string(errval);
+                                        global_vm_pointer()->raw_set(-3);
                                 }
                         }
                 }
@@ -44,30 +44,30 @@ namespace LAIR{
                                 int key = 0;
                                 foreach(string val in vals){
                                         if( key > -1){
-                                                global_vm_pointer().push_string(key.to_string());
-                                                global_vm_pointer().push_string(val);
-                                                global_vm_pointer().raw_set(-3);
+                                                global_vm_pointer()->push_string(key.to_string());
+                                                global_vm_pointer()->push_string(val);
+                                                global_vm_pointer()->raw_set(-3);
                                         }else{
-                                                global_vm_pointer().push_string(key.to_string());
-                                                //global_vm_pointer().push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
+                                                global_vm_pointer()->push_string(key.to_string());
+                                                //global_vm_pointer()->push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
                                                 string errval = "Error pushing entry to global Lua table. Key was null.";
                                                 print_withname(errval);
-                                                //global_vm_pointer().raw_set(-2);
+                                                //global_vm_pointer()->raw_set(-2);
                                         }
                                         key++;
                                 }
                         }
                         /*if( key > 0 ){
-                                global_vm_pointer().raw_set(-3);
+                                global_vm_pointer()->raw_set(-3);
                         }*/
                         //int key2 = (int) ( (vals.length() * 2) + 1 ) * -1;
                         //int key2 = -2;
-                        //global_vm_pointer().raw_set(key2);
+                        //global_vm_pointer()->raw_set(key2);
                 }
                 private void lua_close_table(string tableName){
                         if(does_it_ai()){
                                 if(tableName != null){
-                                        global_vm_pointer().set_global (tableName);
+                                        global_vm_pointer()->set_global (tableName);
                                 }else{
                                         print_withname("something is wrong, table name cannot be null\n");
                                 }
@@ -77,19 +77,19 @@ namespace LAIR{
                         string tmp = "";
                         List<string> tr = new List<string>();
                         if(does_it_ai()){
-                                if(global_vm_pointer().get_top() > 0){
-                                        if(global_vm_pointer().is_number(-1)){
-                                                double number = global_vm_pointer().to_number(-1);
+                                if(global_vm_pointer()->get_top() > 0){
+                                        if(global_vm_pointer()->is_number(-1)){
+                                                double number = global_vm_pointer()->to_number(-1);
                                                 tmp += number.to_string();
-                                                global_vm_pointer().pop(1);
-                                        }else if(global_vm_pointer().is_string(-1)){
-                                                string word = global_vm_pointer().to_string(-1);
+                                                global_vm_pointer()->pop(1);
+                                        }else if(global_vm_pointer()->is_string(-1)){
+                                                string word = global_vm_pointer()->to_string(-1);
                                                 tmp += word;
-                                                global_vm_pointer().pop(1);
-                                        }else if(global_vm_pointer().is_boolean(-1)){
-                                                bool word = global_vm_pointer().to_boolean(-1);
+                                                global_vm_pointer()->pop(1);
+                                        }else if(global_vm_pointer()->is_boolean(-1)){
+                                                bool word = global_vm_pointer()->to_boolean(-1);
                                                 tmp += word.to_string();
-                                                global_vm_pointer().pop(1);
+                                                global_vm_pointer()->pop(1);
                                         }
                                 }
                                 //print_withname(" %s \n", tmp);
@@ -103,11 +103,11 @@ namespace LAIR{
                         }
                         return tr;
                 }
-                /*protected void lua_register(string name, CallbackFunc f){                        global_vm_pointer().register(name, f);                }*/
+                /*protected void lua_register(string name, CallbackFunc f){                        global_vm_pointer()->register(name, f);                }*/
                 protected void lua_do_function(string function){
                         if(does_it_ai()){
                                 string tmp = "return " + function;
-                                global_vm_pointer().do_string(tmp);
+                                global_vm_pointer()->do_string(tmp);
                         }
                 }
                 protected void lua_push_uint_to_table(string tablename, string varname, uint varval){
@@ -143,9 +143,9 @@ namespace LAIR{
                 protected void lua_push_string_to_table(string tablename, string val){
                         if(does_it_ai()){
                                 lua_new_table();
-                                global_vm_pointer().push_string(tablename);
-                                global_vm_pointer().push_string(val);
-                                global_vm_pointer().raw_set(-3);
+                                global_vm_pointer()->push_string(tablename);
+                                global_vm_pointer()->push_string(val);
+                                global_vm_pointer()->raw_set(-3);
                                 lua_close_table(tablename);
                         }
                 }
