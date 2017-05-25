@@ -28,7 +28,7 @@ unix:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X -llua5.2 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -83,7 +83,61 @@ unix-clang:
 		--pkg=tartrazine \
 		-X -O0 \
 		-X -g3 \
-		-X -llua5.2 \
+		-X -llua5.1 \
+		-X -lSDL2 \
+		-X -lSDL2_gfx \
+		-X -lSDL2_image \
+		-X -lSDL2_ttf \
+		-X -lSDL2_mixer \
+		src/main.vala \
+		src/util/net.vala \
+		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
+		src/util/scribe.vala \
+		src/util/tagcounter.vala \
+		src/util/tag.vala \
+		src/resmanage/files.vala \
+		src/resmanage/images.vala \
+		src/resmanage/filedb.vala \
+		src/resmanage/fonts.vala \
+		src/resmanage/sounds.vala \
+		src/game/room.vala \
+		src/game/floor.vala \
+		src/game/tower.vala \
+		src/game/game.vala \
+		src/entity/dice.vala \
+		src/entity/type.vala \
+		src/entity/sprite.vala \
+		src/entity/anim.vala \
+		src/entity/text.vala \
+		src/entity/sound.vala \
+		src/entity/stats.vala \
+		src/entity/inventory.vala \
+		src/entity/move.vala \
+		src/entity/entity.vala
+
+unix-static:
+	valac -gv \
+		-o bin/LAIR-static \
+		-X -fstack-protector-all \
+		-X --param \
+		-X ssp-buffer-size=4 \
+		-X -D_FORTIFY_SOURCE=2 \
+		-X -ftrapv \
+		-X -Wl,-z,relro,-z,now \
+		--cc musl-gcc \
+		--vapidir="/usr/share/vala/vapi/" \
+		--pkg gio-2.0 \
+		--pkg lua \
+		--pkg sdl2 \
+		--pkg sdl2-gfx \
+		--pkg sdl2-image \
+		--pkg sdl2-ttf \
+		--pkg sdl2-mixer \
+		--pkg=tartrazine \
+		-X -Og \
+		-X -g3 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -304,7 +358,7 @@ bitcode:
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -llua5.2 \
+		-X -llua5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -412,13 +466,29 @@ clean:
 	make unlog
 
 check:
-	luacheck -g share/lair/demo/dungeon.lua \
-		share/lair/demo/player.lua \
-		share/lair/demo/ai.lua \
-		share/lair/lua/map/common.lua \
-		share/lair/lua/map/basicwall_cares_insert.lua \
-		share/lair/lua/map/cut_hallways.lua \
-		share/lair/lua/ai/common.lua
+	luacheck -g ./share/lair/demo/ai.lua \
+		./share/lair/demo/player.lua \
+		./share/lair/demo/dungeon.lua \
+		./share/lair/lua/map/cut_hallways.lua \
+		./share/lair/lua/map/basicwall_cares_insert.lua \
+		./share/lair/lua/map/common.lua \
+		./share/lair/lua/ai/common.lua
+
+sysluacheck:
+	diff ./share/lair/demo/ai.lua /usr/share/lair/demo/ai.lua
+	diff ./share/lair/demo/player.lua /usr/share/lair/demo/player.lua
+	diff ./share/lair/demo/dungeon.lua /usr/share/lair/demo/dungeon.lua
+	diff ./share/lair/lua/map/cut_hallways.lua /usr/share/lair/lua/map/cut_hallways.lua
+	diff ./share/lair/lua/map/basicwall_cares_insert.lua /usr/share/lair/lua/map/basicwall_cares_insert.lua
+	diff ./share/lair/lua/map/common.lua /usr/share/lair/lua/map/common.lua
+	diff ./share/lair/lua/ai/common.lua /usr/share/lair/lua/ai/common.lua
+	luacheck -g /usr/share/lair/demo/ai.lua \
+		/usr/share/lair/demo/player.lua \
+		/usr/share/lair/demo/dungeon.lua \
+		/usr/share/lair/lua/map/cut_hallways.lua \
+		/usr/share/lair/lua/map/basicwall_cares_insert.lua \
+		/usr/share/lair/lua/map/common.lua \
+		/usr/share/lair/lua/ai/common.lua
 
 debug:
 	make
@@ -429,7 +499,7 @@ debug-clang:
 	lldb ./bin/LAIR
 
 memcheck:
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m tiny
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9 -m tiny
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
