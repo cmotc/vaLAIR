@@ -4,10 +4,10 @@ Version: 0.9-1
 Auto-Built-Package: debug-symbols
 Architecture: amd64
 Maintainer: lair repo key <problemsolver@openmailbox.org>
-Installed-Size: 466
+Installed-Size: 465
 Depends: lair (= 0.9-1)
 Section: debug
 Priority: extra
 Homepage: https://cmotc.github.io/lair-web/
 Description: Debug symbols for lair
-Build-Ids: 7934fe49ce35f560e51c7cf770ce710efb929407
+Build-Ids: 9a8a737b173cf4bbc49f2136cb8fb2e85a6e1966

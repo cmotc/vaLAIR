@@ -1,4 +1,4 @@
-7a1e689e5214d954cbf50a1a30be52f9  usr/bin/LAIR
+25895290212c62d267d8e30c0d6f1a67  usr/bin/LAIR
 3af12f8cfe0d90fc7e622d119dcdf472  usr/bin/lair
 33bcd5844ff9af5d47928d0a32d5b1b2  usr/share/doc/lair/COPYING.md.gz
 ea1921855e6750e4d0a4c3452e337415  usr/share/doc/lair/LUA.md.gz
@@ -8,7 +8,7 @@ ed92ea6af63a74b304312cf273b0d20f  usr/share/doc/lair/LUA_MOB.md
 117b4d5a3438e444cb511a705f974062  usr/share/doc/lair/changelog.Debian.gz
 5df36bb12a1f55548fe69006ff38e3b8  usr/share/doc/lair/copyright
 cb06318337a6784c193666fbae175f65  usr/share/lair/demo/ai.lua
-33a0b981693656c75548802c22b4b785  usr/share/lair/demo/dungeon.lua
+53356f93b6a857baa62ee0eeb5eb5af9  usr/share/lair/demo/dungeon.lua
 d41d8cd98f00b204e9800998ecf8427e  usr/share/lair/demo/player.lua
 6b7219c9a25ea9ccc618ec705ab28356  usr/share/lair/lua/ai/common.lua
 6615dc100e4a43903dd9b0b4d5b2e889  usr/share/lair/lua/map/basicwall_cares_insert.lua

@@ -1,0 +1,128 @@
+==30144== Memcheck, a memory error detector
+==30144== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==30144== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==30144== Command: ./bin/LAIR -m tiny
+==30144== 
+==30144== Conditional jump or move depends on uninitialised value(s)
+==30144==    at 0x4C32EA6: rawmemchr (vg_replace_strmem.c:1402)
+==30144==    by 0x7391391: _IO_str_init_static_internal (strops.c:41)
+==30144==    by 0x7384B66: vsscanf (iovsscanf.c:40)
+==30144==    by 0x737F2D6: sscanf (sscanf.c:32)
+==30144==    by 0x13228E4A: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==30144==    by 0x13229182: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==30144==    by 0x1322CBF8: drmGetDevice (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==30144==    by 0x11D732D6: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==30144==    by 0x11D72694: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==30144==    by 0x11D46988: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==30144==    by 0x11D42B9A: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==30144==    by 0x11D42FD1: glXQueryExtensionsString (in /usr/lib/x86_64-linux-gnu/libGL.so.1.2.0)
+==30144==  Uninitialised value was created by a stack allocation
+==30144==    at 0x13228D9D: ??? (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==30144== 
+==30144== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==30144==    at 0x73FBCFD: ??? (syscall-template.S:84)
+==30144==    by 0xD3AE41C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==30144==    by 0xD3AE81C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==30144==    by 0xD3AE89C: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==30144==    by 0x93B0A7D: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==30144==    by 0x93B0F71: _XReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==30144==    by 0x939BE2E: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==30144==    by 0x5A6B46A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==    by 0x5A6C364: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==    by 0x5A5C2EF: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==    by 0x5A5C07E: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==    by 0x59C2456: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==  Address 0x10fffed3 is 35 bytes inside a block of size 16,384 alloc'd
+==30144==    at 0x4C2DBC5: calloc (vg_replace_malloc.c:711)
+==30144==    by 0x93A0EC5: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==30144==    by 0x5A6A53F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==    by 0x5A5C02B: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==    by 0x59C2456: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.4.1)
+==30144==    by 0x10B109: lair_lair_construct (main.vala:20)
+==30144==    by 0x10BA03: lair_lair_new (main.vala:17)
+==30144==    by 0x10C150: lair_lair_main (main.vala:159)
+==30144==    by 0x10C1EF: main (main.vala:92)
+==30144==  Uninitialised value was created by a stack allocation
+==30144==    at 0x93AC210: XStoreColors (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==30144== 
+==30211== Warning: invalid file descriptor 1024 in syscall close()
+==30211== 
+==30211== HEAP SUMMARY:
+==30211==     in use at exit: 2,511,218 bytes in 8,492 blocks
+==30211==   total heap usage: 23,561 allocs, 15,069 frees, 27,591,051 bytes allocated
+==30211== 
+==30211== LEAK SUMMARY:
+==30211==    definitely lost: 192 bytes in 7 blocks
+==30211==    indirectly lost: 176 bytes in 4 blocks
+==30211==      possibly lost: 1,640,625 bytes in 6,207 blocks
+==30211==    still reachable: 869,985 bytes in 2,271 blocks
+==30211==                       of which reachable via heuristic:
+==30211==                         length64           : 696 bytes in 15 blocks
+==30211==                         newarray           : 1,648 bytes in 23 blocks
+==30211==         suppressed: 0 bytes in 0 blocks
+==30211== Rerun with --leak-check=full to see details of leaked memory
+==30211== 
+==30211== For counts of detected and suppressed errors, rerun with: -v
+==30211== ERROR SUMMARY: 13 errors from 2 contexts (suppressed: 0 from 0)
+==30144== Conditional jump or move depends on uninitialised value(s)
+==30144==    at 0x574D55A: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x57646AE: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x573E9DD: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x57839DF: lua_pcall (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x10CEDD: lair_lua_conf_lua_do_function (luaconf.vala:110)
+==30144==    by 0x11686C: lair_room_inject_particle (room.vala:426)
+==30144==    by 0x116AC8: lair_room_decide_block_tile (room.vala:149)
+==30144==    by 0x116C38: lair_room_generate_particles (room.vala:192)
+==30144==    by 0x117C59: lair_room_construct_WithPlayer (room.vala:33)
+==30144==    by 0x117D86: lair_room_new_WithPlayer (room.vala:24)
+==30144==    by 0x119ACE: lair_floor_construct_WithPlayer (floor.vala:41)
+==30144==    by 0x119CB2: lair_floor_new_WithPlayer (floor.vala:26)
+==30144==  Uninitialised value was created by a stack allocation
+==30144==    at 0x5764690: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144== 
+==30144== Conditional jump or move depends on uninitialised value(s)
+==30144==    at 0x574D55A: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x5788E4B: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x5789118: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x573E446: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x5783F31: lua_loadx (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x578431B: luaL_loadbufferx (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x10CEB5: lair_lua_conf_lua_do_function (luaconf.vala:110)
+==30144==    by 0x11691E: lair_room_decide_block_tile (room.vala:137)
+==30144==    by 0x116C38: lair_room_generate_particles (room.vala:192)
+==30144==    by 0x117C59: lair_room_construct_WithPlayer (room.vala:33)
+==30144==    by 0x117D86: lair_room_new_WithPlayer (room.vala:24)
+==30144==    by 0x119ACE: lair_floor_construct_WithPlayer (floor.vala:41)
+==30144== 
+==30144== Conditional jump or move depends on uninitialised value(s)
+==30144==    at 0x574D55A: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x57646AE: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x576EA6D: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x573D1D4: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x57839DF: lua_pcall (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x10CEDD: lair_lua_conf_lua_do_function (luaconf.vala:110)
+==30144==    by 0x11691E: lair_room_decide_block_tile (room.vala:137)
+==30144==    by 0x116C38: lair_room_generate_particles (room.vala:192)
+==30144==    by 0x117C59: lair_room_construct_WithPlayer (room.vala:33)
+==30144==    by 0x117D86: lair_room_new_WithPlayer (room.vala:24)
+==30144==    by 0x119ACE: lair_floor_construct_WithPlayer (floor.vala:41)
+==30144==    by 0x119CB2: lair_floor_new_WithPlayer (floor.vala:26)
+==30144==  Uninitialised value was created by a stack allocation
+==30144==    at 0x5764690: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144== 
+==30144== Conditional jump or move depends on uninitialised value(s)
+==30144==    at 0x574D55A: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x57646AE: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x576EAB3: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x573D1D4: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x57839DF: lua_pcall (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144==    by 0x10CEDD: lair_lua_conf_lua_do_function (luaconf.vala:110)
+==30144==    by 0x11691E: lair_room_decide_block_tile (room.vala:137)
+==30144==    by 0x116C38: lair_room_generate_particles (room.vala:192)
+==30144==    by 0x117C59: lair_room_construct_WithPlayer (room.vala:33)
+==30144==    by 0x117D86: lair_room_new_WithPlayer (room.vala:24)
+==30144==    by 0x119ACE: lair_floor_construct_WithPlayer (floor.vala:41)
+==30144==    by 0x119CB2: lair_floor_new_WithPlayer (floor.vala:26)
+==30144==  Uninitialised value was created by a stack allocation
+==30144==    at 0x5764690: ??? (in /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2.0.4)
+==30144== 
