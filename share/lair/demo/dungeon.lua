@@ -5,7 +5,6 @@ dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 
 --The return value of this function tells the map whether it should place a new
 --particle at all.
-
 function map_cares_insert()
         reload_map()
         result = thickwall_cares_insert()

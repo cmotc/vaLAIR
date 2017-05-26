@@ -7,7 +7,7 @@ namespace LAIR{
                         base(lua_ai_path, lua_log_level, name);
                         ScriptPath = lua_ai_path;
                         print_withname("Loading a dungeon generator script: %s\n", ScriptPath);
-                        lua_do_file();//ScriptPath);
+                        lua_do_file();
                 }
                 private void lua_do_file(){ //(string file){
                         if(does_it_ai()){

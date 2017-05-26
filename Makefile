@@ -7,18 +7,25 @@ EMCC_LLVM_TARGET = le32-unknown-nacl
 
 #--pkg gee-0.8 \ Might switch to libgee but probably not.
 #-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
-
+#"/usr/lib/x86_64-linux-gnu"
+#--enable-experimental
 unix:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/" ; \
+	export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-musl" ; \
 	valac -gv \
 		-o bin/LAIR \
+		--pkg-config /usr/bin/pkgconf \
 		-X -fstack-protector-all \
 		-X --param \
 		-X ssp-buffer-size=4 \
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
+		-g \
+		--enable-checking \
+		--enable-experimental \
 		--vapidir="/usr/share/vala/vapi/" \
+		--includedir /usr/lib/x86_64-linux-musl \
+		--target-glib 2.0 \
 		--pkg gio-2.0 \
 		--pkg lua \
 		--pkg sdl2 \
@@ -29,8 +36,8 @@ unix:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X "-I/usr/include/lua5.2" \
-		-X -llua5.2 \
+		--includedir /usr/include/luajit-2.0 \
+		-X -lluajit-5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -65,8 +72,10 @@ unix:
 				#--thread \
 
 unix-clang:
+	export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-musl" ; \
 	valac -gv \
 		-o bin/LAIR \
+		--pkg-config /usr/bin/pkgconf \
 		-X -fstack-protector-all \
 		-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 		-X --param \
@@ -75,9 +84,12 @@ unix-clang:
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
 		--cc clang \
+		--enable-checking \
+		--enable-experimental \
+		--vapidir="/usr/share/vala/vapi/" \
 		--pkg gio-2.0 \
-		-X "-I/usr/include/lua5.2" \
-		-X -llua5.2 \
+		-X "-I/usr/include/luajit-2.0" \
+		-X -lluajit-2.0 \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
@@ -120,19 +132,22 @@ unix-clang:
 		src/entity/entity.vala
 
 unix-static:
+	export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-musl" ; \
 	valac -gv \
 		-o bin/LAIR-static \
+		--pkg-config /usr/bin/pkgconf \
 		-X -fstack-protector-all \
 		-X --param \
 		-X ssp-buffer-size=4 \
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
+		-X -static \
 		--cc musl-gcc \
 		--vapidir="/usr/share/vala/vapi/" \
 		--pkg gio-2.0 \
-		-X "-I/usr/include/lua5.2" \
-		-X -llua5.2 \
+		-X "-I/usr/include/luajit-2.0" \
+		-X -lluajit-2.0 \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
@@ -303,7 +318,7 @@ android:
 	valac -gv \
 		-o bin/LAIR-droid \
 		--cc "/usr/bin/arm-linux-gnueabihf-gcc" \
-		--pkg-config="/usr/bin/arm-linux-gnueabihf-pkg-config" \
+		--pkg-config /usr/bin/pkgconf \
 		--disable-warnings \
 		--pkg gio-2.0 \
 		--pkg lua \
@@ -321,7 +336,6 @@ android:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		-X "-I /usr/include/arm-linux-gnueabihf/" \
-		-X "-B /usr/lib/arm-linux-gnueabihf/pkgconfig" \
 		src/main.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
@@ -496,11 +510,13 @@ sysluacheck:
 
 debug:
 	make
-	gdb ./bin/LAIR
+	ulimit -c unlimited
+	gdb ./bin/LAIR core
 
 debug-clang:
 	make unix-clang
-	lldb ./bin/LAIR
+	ulimit -c unlimited
+	lldb ./bin/LAIR core
 
 memcheck:
 	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 9 -m tiny
@@ -568,9 +584,9 @@ sample:
 	make memcheck 1> log 2> err;	\
 	make trimmedlogs;		\
 	mv err err.1;			\
-	make memcheck 1> log 2> err;	\
-	make trimmedlogs;		\
-	mv err err.2;			\
-	make memcheck 1> log 2> err;	\
-	make trimmedlogs;		\
-	mv err err.3
+	#make memcheck 1> log 2> err;	\
+	#make trimmedlogs;		\
+	#mv err err.2;			\
+	#make memcheck 1> log 2> err;	\
+	#make trimmedlogs;		\
+	#mv err err.3

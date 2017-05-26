@@ -155,7 +155,7 @@ namespace LAIR{
                         print_static("Player file path from options: %s \n", PlayerConfig);
                         print_static("AI file path from options: %s \n", AiConfig);
                         string[2] listPaths = { ImageFilePath, SoundFilePath, FontsFilePath };
-                        string[2] scriptPaths = { MapGenLua, PlayerConfig, AiConfig};
+                        string[2] scriptPaths = { MapGenLua, PlayerConfig, AiConfig };
 			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);
                         return app.goodbye();
 		}
