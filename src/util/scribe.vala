@@ -1,6 +1,9 @@
+using Log;
+
 namespace LAIR{
 	class Scribe : Object{
                 private static int log_level = 1;
+                GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;
                 private int instance_log_level = log_level;
                 private string Name = "global log:";
                 private int class_log_level = 2;
@@ -16,33 +19,8 @@ namespace LAIR{
                         Name = name;
 
                 }
-                public static void print_static(string item, string item2 = ""){
-                        if(log_level > 0){
-                                stdout.printf("Void Main: %s", log_level.to_string());
-                                stdout.printf(item, item2, " ");
-                        }
-                }
                 public static void set_global_log_level(int newll){
                         log_level = newll;
-                }
-                private void print_name(){
-                        if(log_level > class_log_level){
-                                stdout.printf(Name);
-                        }
-                }
-                public void print_withname(string item="", string item2 = ""){
-                        if(log_level > class_log_level){
-                                print_name();
-                                stdout.printf(item, item2, " ");
-                        }
-                }
-                public void print_noname(string item="", string item2 = ""){
-                        if(log_level > class_log_level){
-                                stdout.printf(item, item2, " ");
-                        }
-                }
-                public void print_force(string item, string item2 = ""){
-                        stdout.printf(item, item2, " ");
                 }
                 public void set_name(string name){
                         Name = name;

@@ -27,33 +27,33 @@ namespace LAIR{
                                 GameMap = new Game(lspt, scrpt, mapSize, screenW, screenH);
                                 GameMap.run();
                         }else{
-                                print_force("***********************************************************************************\n\n\n");
-                                print_force("<I      <I I>         <I I>      I>\n");
-                                print_force(" |       | |           | |       |\n");
-                                print_force("<^^>____<^^^>_________<^^^>____<^^>\n");
-                                print_force(" || L        A    IIIII RRRRR   ||\n");
-                                print_force(" || L       A A     I   R    R  ||\n");
-                                print_force(" || L      AAAAA    I   RRRRR   ||\n");
-                                print_force(" || LLLLL A     A IIIII R    R  ||\n");
-                                print_force("<vv>___________________________<vv>\n\n");
-                                print_force("This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally\n");
-                                print_force("generated 2D survival RPG. It can be played in a wide variety of ways, as\n");
-                                print_force("everything from a coffee-break roguelike to a political strategy game. The\n");
-                                print_force("following options can be used to configure it at runtime. For more information,\n");
-                                print_force("please see the manual as soon as I finish writing it.\n\n");
-                                print_force("----------------------------\n");
-                                print_force("     -i : display this info\n");
-                                print_force("     -p : path to the image file listing\n");
-                                print_force("     -s : path to the sound file listing\n");
-                                print_force("     -f : path to the fonts file listing\n");
-                                print_force("     -m : map size(tiny, small, medium, large, giant\n");
-                                print_force("     -c : path to map generation script\n");
-                                print_force("     -e : path to character generation script\n");
-                                print_force("     -a : path to ai library script\n");
-                                print_force("     -w : log output verbosity\n");
-                                print_force("     -w : screen width\n");
-                                print_force("     -h : screen height\n");
-                                print_force("\n***********************************************************************************\n");
+                                message("***********************************************************************************\n\n\n");
+                                message("<I      <I I>         <I I>      I>\n");
+                                message(" |       | |           | |       |\n");
+                                message("<^^>____<^^^>_________<^^^>____<^^>\n");
+                                message(" || L        A    IIIII RRRRR   ||\n");
+                                message(" || L       A A     I   R    R  ||\n");
+                                message(" || L      AAAAA    I   RRRRR   ||\n");
+                                message(" || LLLLL A     A IIIII R    R  ||\n");
+                                message("<vv>___________________________<vv>\n\n");
+                                message("This is a game called LAIR, a free, self-hosted, worldbuilding, procedurally\n");
+                                message("generated 2D survival RPG. It can be played in a wide variety of ways, as\n");
+                                message("everything from a coffee-break roguelike to a political strategy game. The\n");
+                                message("following options can be used to configure it at runtime. For more information,\n");
+                                message("please see the manual as soon as I finish writing it.\n\n");
+                                message("----------------------------\n");
+                                message("     -i : display this info\n");
+                                message("     -p : path to the image file listing\n");
+                                message("     -s : path to the sound file listing\n");
+                                message("     -f : path to the fonts file listing\n");
+                                message("     -m : map size(tiny, small, medium, large, giant\n");
+                                message("     -c : path to map generation script\n");
+                                message("     -e : path to character generation script\n");
+                                message("     -a : path to ai library script\n");
+                                message("     -w : log output verbosity\n");
+                                message("     -w : screen width\n");
+                                message("     -h : screen height\n");
+                                message("\n***********************************************************************************\n");
                         }
 		}
 		~Lair() {
@@ -73,20 +73,20 @@ namespace LAIR{
                         return RETURN.get_path();
                 }
                 public static int goodbye(){
-                                print_static("***********************************************************************************\n\n\n");
-                                print_static("<I      <I I>         <I I>      I>\n");
-                                print_static(" |       | |           | |       |\n");
-                                print_static("<^^>____<^^^>_________<^^^>____<^^>\n");
-                                print_static(" || L        A    IIIII RRRRR   ||\n");
-                                print_static(" || L       A A     I   R    R  ||\n");
-                                print_static(" || L      AAAAA    I   RRRRR   ||\n");
-                                print_static(" || LLLLL A     A IIIII R    R  ||\n");
-                                print_static("<vv>___________________________<vv>\n\n");
-                                print_static("\n\n");
-                                print_static("----------------------------\n");
-                                print_static("   Goodbye!                 \n");
-                                print_static("----------------------------\n");
-                                print_static("\n***********************************************************************************\n");
+                                message("***********************************************************************************\n\n\n");
+                                message("<I      <I I>         <I I>      I>\n");
+                                message(" |       | |           | |       |\n");
+                                message("<^^>____<^^^>_________<^^^>____<^^>\n");
+                                message(" || L        A    IIIII RRRRR   ||\n");
+                                message(" || L       A A     I   R    R  ||\n");
+                                message(" || L      AAAAA    I   RRRRR   ||\n");
+                                message(" || LLLLL A     A IIIII R    R  ||\n");
+                                message("<vv>___________________________<vv>\n\n");
+                                message("\n\n");
+                                message("----------------------------\n");
+                                message("   Goodbye!                 \n");
+                                message("----------------------------\n");
+                                message("\n***********************************************************************************\n");
                                 return 0;
                 }
 		public static int main(string args[]){
@@ -148,12 +148,12 @@ namespace LAIR{
 				}
 			}
                         set_global_log_level(Verbosity);
-			print_static("Image file path from options: %s \n", ImageFilePath);
-			print_static("Sound file path from options: %s \n", SoundFilePath);
-			print_static("Font file path from options: %s \n", FontsFilePath);
-                        print_static("Dungeon file path from options: %s \n", MapGenLua);
-                        print_static("Player file path from options: %s \n", PlayerConfig);
-                        print_static("AI file path from options: %s \n", AiConfig);
+			message("Image file path from options: %s \n", ImageFilePath);
+			message("Sound file path from options: %s \n", SoundFilePath);
+			message("Font file path from options: %s \n", FontsFilePath);
+                        message("Dungeon file path from options: %s \n", MapGenLua);
+                        message("Player file path from options: %s \n", PlayerConfig);
+                        message("AI file path from options: %s \n", AiConfig);
                         string[2] listPaths = { ImageFilePath, SoundFilePath, FontsFilePath };
                         string[2] scriptPaths = { MapGenLua, PlayerConfig, AiConfig };
 			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);

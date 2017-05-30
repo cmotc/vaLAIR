@@ -61,7 +61,7 @@ namespace LAIR{
                 protected void insert_type(string new_type){
                         if(check_new_type(new_type)){
                                 tags.append(new Tag(new_type));
-                                print_withname("   Added tag: %s \n", new_type);
+                                message("   Added tag: %s \n", new_type);
                                 check_types();
                         }
                 }
@@ -107,7 +107,7 @@ namespace LAIR{
                                 r += i.get_tag_name();
                                 r += " ";
                         }
-                        print_withname(r);
+                        message(r);
                         return r;
                 }
                 public string get_category(){

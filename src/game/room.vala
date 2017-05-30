@@ -5,8 +5,9 @@ namespace LAIR{
 	class Room : LuaConf{
 		private bool visited = false;
                 private Video.Rect Border = Video.Rect(){ x = 0, y = 0, w = 0, h = 0 };
-		private List<Entity> Particles = new List<Entity>();
-		private List<Entity> Mobs = new List<Entity>();
+                private FloorList Floor = null;
+                private ParticlesList Particles = null;
+                private MobilesList Mobiles = null;
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
                 public Room(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
@@ -14,8 +15,11 @@ namespace LAIR{
                         set_dimensions(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
                         set_name("room ("+stringify_hitbox()+"): ");
-                        print_withname("generating room\n");
+                        message("generating room\n");
                         GameMaster = DM;
+                        Floor = new FloorList(get_hitbox());
+                        Particles = new ParticlesList(get_hitbox());
+                        Mobiles = new MobilesList(get_hitbox());
                         lua_push_dimensions(get_hitbox());
                         generate_floor(renderer);
                         generate_particles(renderer);
@@ -26,8 +30,11 @@ namespace LAIR{
                         set_dimensions(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
                         set_name("room ("+stringify_hitbox()+"): ");
-                        print_withname("generating room with player\n");
+                        message("generating room with player\n");
                         GameMaster = DM;
+                        Floor = new FloorList(get_hitbox());
+                        Particles = new ParticlesList(get_hitbox());
+                        Mobiles = new MobilesList(get_hitbox());
                         lua_push_dimensions(get_hitbox());
                         generate_floor(renderer);
                         generate_particles(renderer);
@@ -41,10 +48,10 @@ namespace LAIR{
                         Border.h = h;
                 }
                 private void set_floor_dimensions(Video.Rect floordims){
-                        lua_push_uint_to_table("floor_w", "w", floordims.w );
-                        lua_push_uint_to_table("floor_h", "h", floordims.h );
-                        lua_push_uint_to_table("floor_coarse_w", "w", (floordims.w / 32) );
-                        lua_push_uint_to_table("floor_coarse_h", "h", (floordims.h / 32) );
+                        lua_push_uint_to_table("floor_w", "w", (int)floordims.w );
+                        lua_push_uint_to_table("floor_h", "h", (int)floordims.h );
+                        lua_push_uint_to_table("floor_coarse_w", "w", (int)(floordims.w / 32) );
+                        lua_push_uint_to_table("floor_coarse_h", "h", (int)(floordims.h / 32) );
                 }
                 private int get_x(){     return (int) Border.x;}
                 private int get_offset_x(int x){
@@ -56,10 +63,6 @@ namespace LAIR{
                         int r = (y * 32) + get_y();
                         return r;
                 }
-                /*public Video.Point GetCorner(){
-                        Video.Point r = Video.Point(){x=get_x(), y=get_y()};
-                        return r;
-                }*/
                 public uint get_w(){     return Border.w;}
                 public uint get_h(){     return Border.h;}
                 private void generate_player(string playerScript, Video.Renderer? renderer){
@@ -67,21 +70,23 @@ namespace LAIR{
                                 Player = new Entity.Player(Video.Point(){x = 128, y = 128}, GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
                         }
                 }
-                private void GeneratorPushXYToLua(Video.Point current, Video.Point simplecurrent){
-                        lua_push_coords(current, simplecurrent);
-                        particle_count();
-                        particle_count_bytag();
-                        mobile_count();
-                        mobile_count_bytag();
+                private void GeneratorPushXYToLua(List<Video.Point?> coords){
+                        if(coords.length() == 2){
+                                lua_push_coords(coords.nth_data(0), coords.nth_data(1));
+                                particle_count();
+                                particle_count_bytag();
+                                mobile_count();
+                                mobile_count_bytag();
+                        }
                 }
                 private int particle_count(){
-                        lua_push_uint_to_table("""generator_particle_count""", """c""", Particles.length());
+                        lua_push_uint_to_table("""generator_particle_count""", """c""", (int)Particles.length());
                         return (int) Particles.length();
                 }
                 //private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
                 private int mobile_count(){
-                        lua_push_uint_to_table("""generator_mobile_count""", """c""", Mobs.length());
-                        return (int) Mobs.length();
+                        lua_push_uint_to_table("""generator_mobile_count""", """c""", (int)Mobiles.length());
+                        return (int) Mobiles.length();
                 }
                 //Todo: Instead of doing it this way, pass a new entity to this
                 //function and have it do the appending, so we can skip the
@@ -89,95 +94,78 @@ namespace LAIR{
                 //Requires caching the tag count, but arguably should be doing
                 //that anyway. Not important right now. This way works.
                 private void particle_count_bytag(){
-                        List<TagCounter> tagcount = new List<TagCounter>();
-                        foreach(Entity particle in Particles){
-                                foreach(string tag in particle.get_tags_strings()){
-                                        bool has = false;
-                                        foreach(TagCounter count in tagcount){
-                                                if(count.check_name(tag)){
-                                                        count.increment_count();
-                                                        has = true;
-                                                        break;
-                                                }
-                                        }
-                                        if(!has){
-                                                tagcount.append(new TagCounter(tag));
-                                        }
-                                }
-                        }
-                        foreach(TagCounter count in tagcount){
-                                lua_push_uint_to_table(count.get_name(), "c", count.get_count());
+                        foreach(TagCounter count in Particles.count_bytag()){
+                                lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
                 }
                 private void mobile_count_bytag(){
-                        List<TagCounter> tagcount = new List<TagCounter>();
-                        foreach(Entity mob in Mobs){
-                                foreach(string tag in mob.get_tags_strings()){
-                                        bool has = false;
-                                        foreach(TagCounter count in tagcount){
-                                                if(count.check_name(tag)){
-                                                        count.increment_count();
-                                                        has = true;
-                                                        break;
-                                                }
-                                        }
-                                        if(!has){
-                                                tagcount.append(new TagCounter(tag));
-                                        }
-                                }
-                        }
-                        foreach(TagCounter count in tagcount){
-                                lua_push_uint_to_table(count.get_name(), "c", count.get_count());
+                        foreach(TagCounter count in Mobiles.count_bytag()){
+                                lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
                 }
-                private void generate_floor_tile(Video.Point coords, Video.Renderer* renderer){
-                        Particles.append(new Entity.Floor(coords, GameMaster.image_by_name("floor"), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer));
-                }
-                private void decide_block_tile(Video.Point coords, Video.Renderer* renderer, int index = 0){
+                private List<List<string>> decide_floor_tile(){
                         lua_do_function("""map_cares_insert()""");
                         List<string> cares = get_lua_last_return();
-                        print_withname("\n %s \n", cares.nth_data(0));
+                        List<List<string>> tmp = new List<List<string>>();
+                        message("\n %s \n", cares.nth_data(0));
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        print_withname("Will it blend?\n");
-                                        lua_do_function("""map_image_decide()""");
-                                        List<string> imgTags = get_lua_last_return();
+                                        message("Will it blend?\n");
+                                        lua_do_function("""mob_image_decide()""");
+                                        tmp.append(get_lua_last_return());
                                         lua_do_function("""map_sound_decide()""");
-                                        List<string> sndTags = get_lua_last_return();
+                                        tmp.append(get_lua_last_return());
                                         lua_do_function("""map_fonts_decide()""");
-                                        List<string> fntTags = get_lua_last_return();
-                                        inject_particle(coords, imgTags, sndTags, fntTags, renderer, index);
+                                        tmp.append(get_lua_last_return());
+
                                 }
                         }
+                        return tmp;
                 }
-                private void decide_mobile_tile(Video.Point coords, string aiScript, Video.Renderer* renderer, int index = 0){
+                private List<List<string>> decide_block_tile(){
+                        lua_do_function("""map_cares_insert()""");
+                        List<string> cares = get_lua_last_return();
+                        List<List<string>> tmp = new List<List<string>>();
+                        message("\n %s \n", cares.nth_data(0));
+                        if(cares != null){
+                                if(cares.nth_data(0) == "true"){
+                                        message("Will it blend?\n");
+                                        lua_do_function("""mob_image_decide()""");
+                                        tmp.append(get_lua_last_return());
+                                        lua_do_function("""map_sound_decide()""");
+                                        tmp.append(get_lua_last_return());
+                                        lua_do_function("""map_fonts_decide()""");
+                                        tmp.append(get_lua_last_return());
+
+                                }
+                        }
+                        return tmp;
+                }
+                private List<List<string>> decide_mobile_tile(string aiScript){
                         lua_do_function("""mob_cares_insert()""");
                         List<string> cares = get_lua_last_return();
-                        print_withname("\n %s \n", cares.nth_data(0));
+                        List<List<string>> tmp = new List<List<string>>();
+                        message("\n %s \n", cares.nth_data(0));
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        print_withname("Will it blend?\n");
+                                        message("Will it blend?\n");
                                         lua_do_function("""mob_image_decide()""");
-                                        List<string> imgTags = get_lua_last_return();
+                                        tmp.append(get_lua_last_return());
                                         lua_do_function("""mob_sound_decide()""");
-                                        List<string> sndTags = get_lua_last_return();
+                                        tmp.append(get_lua_last_return());
                                         lua_do_function("""mob_fonts_decide()""");
-                                        List<string> fntTags = get_lua_last_return();
-                                        lua_do_function("""mob_ai_decide()""");
-                                        List<string> aiFunc = get_lua_last_return();
-                                        inject_mobile(coords, aiScript, aiFunc.nth_data(0), imgTags, sndTags, fntTags, renderer, index);
+                                        tmp.append(get_lua_last_return());
                                 }
                         }
+                        return tmp;
                 }
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
                 private void generate_floor(Video.Renderer* renderer){
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        Video.Point simplecoords = Video.Point(){x=xx, y=yy};
-                                        Video.Point coords = Video.Point(){x=get_offset_x(xx), y=get_offset_y(yy)};
-                                        GeneratorPushXYToLua(coords, simplecoords);
-                                        generate_floor_tile(coords, renderer);
+                                        List<Video.Point?> t = Floor.generate_floor(GameMaster, xx, yy, get_offset_x(xx), get_offset_y(yy), renderer);
+                                        GeneratorPushXYToLua(t);
                                 }
                         }
                 }
@@ -186,10 +174,9 @@ namespace LAIR{
                         int c = 0;
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        Video.Point simplecoords = Video.Point(){x=xx, y=yy};
-                                        Video.Point coords = Video.Point(){x=get_offset_x(xx), y=get_offset_y(yy)};
-                                        GeneratorPushXYToLua(coords, simplecoords);
-                                        decide_block_tile(coords, renderer, c);
+                                        List<List<string>> x = decide_block_tile();
+                                        List<Video.Point?> t = Particles.generate_particle(GameMaster, xx, yy, get_offset_x(xx), get_offset_y(yy), x, renderer);
+                                        GeneratorPushXYToLua(t);
                                         c++;
                                 }
                         }
@@ -199,10 +186,9 @@ namespace LAIR{
                         int c = 0;
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        Video.Point simplecoords = Video.Point(){x=xx, y=yy};
-                                        Video.Point coords = Video.Point(){x=get_offset_x(xx), y=get_offset_y(yy)};
-                                        GeneratorPushXYToLua(coords, simplecoords);
-                                        decide_mobile_tile(coords, aiScript, renderer, c);
+                                        List<List<string>> x = decide_mobile_tile(aiScript);
+                                        List<Video.Point?> t = Mobiles.generate_mobile(GameMaster, xx, yy, get_offset_x(xx), get_offset_y(yy), x, renderer);
+                                        GeneratorPushXYToLua(t);
                                         c++;
                                 }
                         }
@@ -222,14 +208,14 @@ namespace LAIR{
 			}
 			return tmp;
 		}
-                public List<Entity> get_mobiles(){
-                        return Mobs.copy();
+                public unowned List<Entity> get_mobiles(){
+                        return Mobiles.get_mobiles();
                 }
                 public int take_turns(){
                         int tmp = 1;
                         if (has_player()){
-                                if(Mobs.length() > 0){
-                                        foreach(var mob in Mobs.copy()){
+                                if(Mobiles.length() > 0){
+                                        foreach(var mob in Mobiles.get_mobiles()){
                                                 //if( mob != null){
                                                         mob.run();
                                                 //}
@@ -237,8 +223,8 @@ namespace LAIR{
                                 }
                                 tmp = Player.run();
                         }else{
-                                if(Mobs.length() > 0){
-                                        foreach(Entity mob in Mobs){
+                                if(Mobiles.length() > 0){
+                                        foreach(Entity mob in Mobiles.get_mobiles()){
                                                 mob.run();
                                         }
                                 }
@@ -249,26 +235,25 @@ namespace LAIR{
                         bool t = false;
                         if(has_player()){
                                 //foreach(Entity particle in Particles.copy()){
-                                foreach(Entity particle in Particles.copy()){
-                                        t = Player.detect_collisions(particle) ? true : t ;
+                                foreach(Entity particle in Particles.get_particles()){
+                                        t = Player.detect_collisions(particle);
 
                                 }
-                                //foreach(Entity mob in Mobs.copy()){
-                                foreach(Entity mob in Mobs.copy()){
-                                        t = Player.detect_collisions(mob) ? true : t ;
+                                //foreach(Entity mob in Mobiles.copy()){
+                                foreach(Entity mob in Mobiles.get_mobiles()){
+                                        t = Player.detect_collisions(mob) ? true : t;
                                 }
                         }
                         return t;
                 }
                 public bool mob_detect_collisions(Entity mob){
                         bool t = false;
-                        foreach(Entity mob2 in Mobs){
+                        foreach(Entity mob2 in Mobiles.get_mobiles()){
                                 mob.detect_nearby_entities(mob2);
                         }
-                        foreach(var particle in Particles){
+                        foreach(var particle in Particles.get_particles()){
                                 if(has_player()){
-                                        t = Player.detect_collisions(particle) ? true : t ;
-                                        t = Player.detect_collisions(mob) ? true : t;
+                                        t = mob.detect_collisions(Player);
                                         mob.detect_collisions(particle);
                                         mob.detect_nearby_entities(particle);
                                 }else{
@@ -280,7 +265,7 @@ namespace LAIR{
                 }
                 public bool mob_dedupe_memories(){
                         bool r = false;
-                        foreach(var mob in Mobs){
+                        foreach(Entity mob in Mobiles.get_mobiles()){
                                 r = mob.dedupe_and_shrink_nearby_entities();
                         }
                         return r;
@@ -346,9 +331,12 @@ namespace LAIR{
                 }
                 public void render_copy(Video.Renderer renderer, Video.Point player_pos){
 			if (visited){
-                                //print_withname("Drawing Room at: %s\n", HitBoxToString());
-				foreach(Entity particle in Particles){
+                                //message("Drawing Room at: %s\n", HitBoxToString());
+				foreach(Entity particle in Particles.get_particles()){
 					particle.render(renderer, player_pos);
+				}
+                                foreach(Entity floor in Floor.get_floor()){
+					floor.render(renderer, player_pos);
 				}
 			}
                         if (has_player()){
@@ -356,8 +344,8 @@ namespace LAIR{
 				if (visited = false){
 					visited = true;
 				}
-                                if(Mobs.length() > 0){
-                                        foreach(Entity mob in Mobs){
+                                if(Mobiles.length() > 0){
+                                        foreach(Entity mob in Mobiles.get_mobiles()){
                                                 mob.render(renderer, player_pos);
                                         }
                                 }
@@ -365,7 +353,7 @@ namespace LAIR{
 		}
 		public bool enter_room(Entity player){
 			if (player != null){
-                                print_withname("    Player Entering Room. \n");
+                                message("    Player Entering Room. \n");
 				Player = player;
                                 visited = true;
 			}else{
@@ -376,8 +364,8 @@ namespace LAIR{
 		}
                 public bool mob_enter_room(Entity mob){
 			if (mob != null){
-                                print_withname("    Mob Entering Room. \n");
-				Mobs.append(mob);
+                                message("    Mob Entering Room. \n");
+				Mobiles.add_mobile(mob);
 			}
 			return visited;
 		}
@@ -398,50 +386,18 @@ namespace LAIR{
                 public Entity mob_leave_room(int doleave, int mob_index){
                         Entity tmp = null;
                         if (doleave == 4){
-                                if ( mob_index < Mobs.length()){
-                                        Entity do_leave = Mobs.nth_data(mob_index);
-                                        Mobs.remove(Mobs.nth_data(mob_index));
+                                if ( mob_index < Mobiles.length()){
+                                        Entity do_leave = Mobiles.get_mobile(mob_index);
+                                        Mobiles.delete_mobile(Mobiles.get_mobile(mob_index));
                                         return do_leave;
                                 }
                         }else if (doleave > 0){
-                                if (mob_index < Mobs.length()){
-                                        Entity dont_leave = Mobs.nth_data(mob_index);
+                                if (mob_index < Mobiles.length()){
+                                        Entity dont_leave = Mobiles.get_mobile(mob_index);
                                         return dont_leave;
                                 }
                         }
 			return tmp;
 		}
-                //lua interfaces for dungeon generation start here, already loose naming conventions deliberately changed...
-                private void inject_particle(Video.Point coords, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer, int index = 0){
-                        if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
-                                if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
-                                        string new_name = index.to_string();
-                                        Particles.append(new Entity.Wall(coords,
-                                                GameMaster.image_by_name(imgTags.nth_data(0)),
-                                                GameMaster.no_sound(),
-                                                GameMaster.get_rand_font(),
-                                                renderer,
-                                                imgTags,
-                                                new_name));
-                                        lua_do_function("record_cell(\"" + imgTags.nth_data(0) + "\")");
-                                }}
-                        }}
-                }
-                private void inject_mobile(Video.Point coords, string aiScript, string aiFunc, List<string> imgTags, List<string> sndTags, List<string> fntTags, Video.Renderer* renderer, int index = 0){
-                        if ( coords.x < get_x() + get_w() ){ if ( coords.x >= get_x() ){
-                                if ( coords.y < get_y() + get_h() ){ if ( coords.y >= get_y() ){
-                                        string new_name = index.to_string();
-                                        Mobs.append(new Entity.Mobile(coords,
-                                                aiScript,
-                                                aiFunc,
-                                                GameMaster.body_by_tone(imgTags.nth_data(0)),
-                                                GameMaster.basic_sounds(),
-                                                GameMaster.get_rand_font(),
-                                                renderer,
-                                                imgTags, new_name ));
-                                        lua_do_function("record_mobile(\"" + imgTags.nth_data(0) + "\")");
-                                }}
-                        }}
-                }
 	}
 }

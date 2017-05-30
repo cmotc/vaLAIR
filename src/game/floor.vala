@@ -49,14 +49,14 @@ namespace LAIR{
                 }
 		private bool has_player(){
 			bool tmp = false;
-			foreach(Room room in rooms){
+			foreach(Room room in rooms.copy()){
 				tmp = tmp ? tmp : room.has_player();
 			}
 			return tmp;
 		}
                 private Entity get_player(){
                         Entity temp = null;
-                        foreach(Room room in rooms){
+                        foreach(Room room in rooms.copy()){
                                 if(room.has_player()){
                                         temp = room.get_player();
                                 }
@@ -86,7 +86,7 @@ namespace LAIR{
                 public int take_turns(){
                         int tmp = 1;
                         foreach(Room room in rooms){
-                                print_withname("   Entities on the floor are taking turns\n");
+                                message("   Entities on the floor are taking turns\n");
                                 tmp = room.take_turns();
                         }
                         return tmp;

@@ -13,7 +13,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
+                                message("Number of images in stack %s \n", body.length().to_string());
                         }
                 }
                 public Sprite.ParameterList(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
@@ -24,7 +24,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
+                                message("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public Sprite.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
@@ -35,7 +35,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
+                                message("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public Sprite.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
@@ -46,7 +46,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
+                                message("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public Sprite.Player(Video.Point corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
@@ -57,7 +57,7 @@ namespace LAIR{
                                         assert(body.nth_data(body.length()-1) != null);
                                 }
                                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
-                                print_withname("Number of images in stack %s \n", body.length().to_string());
+                                message("Number of images in stack %s \n", body.length().to_string());
                         }
 		}
                 public void render_copy(Video.Renderer* renderer, Video.Point player_pos){

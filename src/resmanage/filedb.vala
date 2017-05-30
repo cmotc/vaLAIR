@@ -18,26 +18,26 @@ namespace LAIR{
 		public FileDB(string imgList, string sndList, string ttfList){
                         base.new_local_attributes(4, "filedb:");
 			var imgfile = new LairFile.WithPath(imgList);
-			print_withname("Pre-Loading the game data files.\n");
+			message("Pre-Loading the game data files.\n");
 			if (imgfile.check_path()){
-				print_withname("Pre-Loading the image files(data at %s).\n", imgfile.get_path());
+				message("Pre-Loading the image files(data at %s).\n", imgfile.get_path());
 				imgListPath = imgfile;
 			}else{
-				print_withname("File '%s' doesn't exist.\n", imgfile.get_path());
+				message("File '%s' doesn't exist.\n", imgfile.get_path());
 			}
 			var sndfile = new LairFile.WithPath(sndList);
 			if (sndfile.check_path()){
-				print_withname("Pre-Loading the sound files(data at %s).\n", sndfile.get_path());
+				message("Pre-Loading the sound files(data at %s).\n", sndfile.get_path());
 				sndListPath = sndfile;
 			}else{
-				print_withname("File '%s' doesn't exist.\n", sndfile.get_path());
+				message("File '%s' doesn't exist.\n", sndfile.get_path());
 			}
 			var ttffile = new LairFile.WithPath(ttfList);
 			if (ttffile.check_path()){
-				print_withname("Pre-Loading the font files(data at %s).\n", ttffile.get_path());
+				message("Pre-Loading the font files(data at %s).\n", ttffile.get_path());
 				ttfListPath = ttffile;
 			}else{
-				print_withname("File '%s' doesn't exist.\n", ttffile.get_path());
+				message("File '%s' doesn't exist.\n", ttffile.get_path());
 			}
 			load_files_with_tags();
                         init_body_vars();
@@ -62,13 +62,13 @@ namespace LAIR{
                 private bool load_files_with_tags(){
 			bool tmp = false;
 			if (imgListPath.check_path()){
-				print_withname("Loading the image files\n");
+				message("Loading the image files\n");
                                 for (int x = 0; x < imgListPath.len_of_config(); x++){
                                         List<string> image = imgListPath.get_config_line(x);
                                         foreach(string y in image){
-                                                print_withname("(%s)", y);
+                                                message("(%s)", y);
                                         }
-                                        print_withname(".\n");
+                                        message(".\n");
 					imgRes.append(new Image.WithAttList(image));
                                 }
 				tmp = true;
@@ -76,13 +76,13 @@ namespace LAIR{
 				tmp = false;
 			}
 			if (sndListPath.check_path()){
-				print_withname("Loading the sound files\n");
+				message("Loading the sound files\n");
                                 for (int x = 0; x < sndListPath.len_of_config(); x++){
                                         List<string> sound = sndListPath.get_config_line(x);
                                         foreach(string y in sound){
-                                                print_withname("(%s)", y);
+                                                message("(%s)", y);
                                         }
-                                        print_withname(".\n");
+                                        message(".\n");
 					sndRes.append(new Sound.WithAttList(sound));
                                 }
 				tmp = true;
@@ -90,13 +90,13 @@ namespace LAIR{
 				tmp = false;
 			}
 			if (ttfListPath.check_path()){
-				print_withname("Loading the font files\n");
+				message("Loading the font files\n");
                                 for (int x = 0; x < ttfListPath.len_of_config(); x++){
                                         List<string> font = ttfListPath.get_config_line(x);
                                         foreach(string y in font){
-                                                print_withname("(%s)", y);
+                                                message("(%s)", y);
                                         }
-                                        print_withname(".\n");
+                                        message(".\n");
 					ttfRes.append(new Fonts.WithAttList(font, "tiny"));
                                 }
 				tmp = true;
@@ -116,12 +116,12 @@ namespace LAIR{
                 }
                 private int get_random_sound_index(){
                         int tmp = int_range(0, get_sounds_length());
-                        print_withname("Random Sound from Index # %s \n", tmp.to_string());
+                        message("Random Sound from Index # %s \n", tmp.to_string());
                         return tmp;
                 }
                 private int get_random_font_index(){
                         int tmp = int_range(0, get_fonts_length());
-                        print_withname("Random Font from Index #: %s \n", tmp.to_string());
+                        message("Random Font from Index #: %s \n", tmp.to_string());
                         return tmp;
                 }
                 public Music* get_rand_sound(){
@@ -142,7 +142,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         int index = int_range(0, top);
-                        print_withname("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                        message("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(sndRes.nth_data(tmp.nth_data(index)).get_sound());
                         return r;
 		}
@@ -158,7 +158,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         int index = int_range(0, top);
-                        print_withname("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                        message("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(sndRes.nth_data(tmp.nth_data(index)).get_sound());
                         return r;
 		}
@@ -184,7 +184,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         int index = int_range(0, top);
-                        print_withname("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                        message("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).get_image());
                         return r;
 		}
@@ -200,7 +200,7 @@ namespace LAIR{
 			}
                         int top = (int) tmp.length();
                         int index = int_range(0, top);
-                        print_withname("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                        message("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
 			r.append(imgRes.nth_data(tmp.nth_data(index)).get_image());
                         return r;
 		}*/
@@ -213,7 +213,7 @@ namespace LAIR{
 			}
                         int top = (int) r.length();
                         int index = int_range(0, top);
-                        print_withname("Emitting random image from subindex #: %s \n:", index.to_string() );
+                        message("Emitting random image from subindex #: %s \n:", index.to_string() );
                         return r.nth_data(index);
 		}
                 /*public List<Video.Surface*> ImageListByName(string name, int num){
@@ -229,7 +229,7 @@ namespace LAIR{
                         int top = (int) tmp.length();
                         for (int i = 0; i < num; i++){
                                 int index = int_range(0, top);
-                                print_withname("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                                message("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).get_image());
                         }
 			return r;
@@ -247,7 +247,7 @@ namespace LAIR{
                         int top = (int) tmp.length();
                         for (int i = 0; i < num; i++){
                                 int index = int_range(0, top);
-                                print_withname("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
+                                message("Emitting random image from index #: %s \n", tmp.nth_data(index).to_string() );
                                 r.append(imgRes.nth_data(tmp.nth_data(index)).get_image());
                         }
 			return r;

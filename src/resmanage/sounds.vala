@@ -15,11 +15,11 @@ namespace LAIR{
                 public bool load(){
                         bool tmp = false;
 			if (check_path()){
-				print_withname("Loading the sound to a Music %s \n", get_path());
+				message("Loading the sound to a Music %s \n", get_path());
 				music = new Music(get_path());
 				tmp = true;
 			}else{
-				print_withname("Sound not found at location %s \n", get_path());
+				message("Sound not found at location %s \n", get_path());
 			}
 			return tmp;
                 }

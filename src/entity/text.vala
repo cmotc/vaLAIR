@@ -53,7 +53,7 @@ namespace LAIR{
                 }
                 public void render_text(Video.Renderer* renderer, Video.Point player_pos){
                         if(showStats){
-                                print_withname("Showing Stats\n");
+                                message("Showing Stats\n");
                                 for(int i = 0; i < 5; i++){
                                         Video.Point tmp = Video.Point(){
                                                 x = player_pos.x - 34,
@@ -63,7 +63,7 @@ namespace LAIR{
                                 }
                         }
                         if(showSkills){
-                                print_withname("Showing Skills\n");
+                                message("Showing Skills\n");
                                 for(int i = 5; i < 5 + Text.length(); i++){
                                         Video.Point tmp = Video.Point(){
                                                 x = player_pos.x - 34,

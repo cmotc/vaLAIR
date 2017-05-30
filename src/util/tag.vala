@@ -15,18 +15,15 @@ namespace LAIR{
                         }
                         return t;
                 }
-                public void set_lose_tag(){
-                        lose_tag = true;
-                }
                 public string get_tag_name(){
                         return tag_name;
                 }
         }
-        List<Tag> create_tag_list(List<string> todo_list){
+        /*List<Tag> create_tag_list(List<string> todo_list){
                 List<Tag> created_list = new List<Tag>();
                 foreach(string s in todo_list){
                         created_list.append(new Tag(s));
                 }
                 return created_list;
-        }
+        }*/
 }

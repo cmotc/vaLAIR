@@ -106,7 +106,7 @@ namespace LAIR{
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
                                         if(nearby_interests.length() < Memory()){
                                                 nearby_interests.append(test.stringify_entity_details());
-                                                print_withname("is observing %s \n", test.stringify_entity_details());
+                                                message("is observing %s \n", test.stringify_entity_details());
                                                 r = true;
                                         }
                                 }}}}
@@ -120,7 +120,7 @@ namespace LAIR{
                         //if(validate_memory_somehow){
                         if(nearby_interests != null){
                                 lua_push_strings_to_table("vision", nearby_interests.copy());
-                                lua_push_uint_to_table("vision_length", "l", nearby_interests.length());
+                                lua_push_uint_to_table("vision_length", "l", (int)nearby_interests.length());
                                 if( period < nearby_interests.length() ){
                                         period++;
                                 }else{
@@ -144,7 +144,7 @@ namespace LAIR{
                                                         break;
                                                 }
                                         }
-                                        if(inj.length() == Memory()){
+                                        if(inj.length() <= Memory()){
                                                 break;
                                         }
                                 }

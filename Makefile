@@ -55,6 +55,9 @@ unix:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -519,7 +522,7 @@ debug-clang:
 	lldb ./bin/LAIR core
 
 memcheck:
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -m tiny
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m tiny
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
@@ -575,15 +578,15 @@ release-commit:
 	git push
 
 trimmedlogs:
-	grep -v assertion err > trimmederr
-	grep . trimmederr > err
-	rm trimmederr
+	grep -v process err > err.1
+	grep  . err.1 > err.2
+	mv err.2 err
+	rm err.1
 	tail -n 1000 log > log
 
 sample:
 	make memcheck 1> log 2> err;	\
-	make trimmedlogs;		\
-	mv err err.1;			\
+	make trimmedlogs
 	#make memcheck 1> log 2> err;	\
 	#make trimmedlogs;		\
 	#mv err err.2;			\

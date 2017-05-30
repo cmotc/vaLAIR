@@ -10,7 +10,7 @@ namespace LAIR{
                         Count++;
                 }
                 public uint get_count(){
-                        print_noname(" %s .", Count.to_string());
+                        debug(" %s .", Count.to_string());
                         return Count;
                 }
                 public bool check_name(string tocheck){

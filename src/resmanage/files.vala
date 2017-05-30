@@ -40,13 +40,13 @@ namespace LAIR{
                         tmp2 = tmp2.replace("/", "\\");
 			if (FileUtils.test(tmp[0], FileTest.EXISTS)) {
 				Path = tmp[0];
-				print_withname("Setting Path: %s\n", Path);
+				message("Setting Path: %s\n", Path);
 			}else if(FileUtils.test(tmp2, FileTest.EXISTS)) {
                                 Path = tmp2;
-				print_withname("Setting Path: %s\n", Path);
+				message("Setting Path: %s\n", Path);
                         }else{
 				Path = null;
-				print_withname("Setting Path failed: %s doesn't exist\n", Path);
+				message("Setting Path failed: %s doesn't exist\n", Path);
 			}
 			return path;
 		}
@@ -59,7 +59,7 @@ namespace LAIR{
 			if ( query == Name ) {
 				tmp = true;
                                 if (!ptd){
-                                        print_withname("Name found in FileDB: %s", query);
+                                        message("Name found in FileDB: %s", query);
                                         ptd = true;
                                 }
 			}
@@ -95,24 +95,24 @@ namespace LAIR{
                                 }
                         }
                         if(rtmp){
-                                print_withname("Found taglist: ");
+                                message("Found taglist: ");
                                 foreach(string t in Tags){
-                                        print_withname("%s ", t);
+                                        message("%s ", t);
                                 }
-                                print_withname("\n");
+                                message("\n");
                         }
 			return rtmp;
 		}
 		public string get_path(){
-                        print_withname("Getting Path: %s\n", Path);
+                        message("Getting Path: %s\n", Path);
                         return Path;
 		}
 		public bool check_path(){
 			if (Path != null){
-				print_withname("Validating Path: %s\n", Path);
+				message("Validating Path: %s\n", Path);
 				return true;
 			}else{
-				print_withname("Validating Path failed: %s doesn't exist.\n", Path);
+				message("Validating Path failed: %s doesn't exist.\n", Path);
 				return false;
 			}
 		}
@@ -121,7 +121,7 @@ namespace LAIR{
 			var file = File.new_for_path(Path);
                         int r = 0;
 			if (!file.query_exists ()) {
-				print_withname("File '%s' doesn't exist.\n", file.get_path ());
+				message("File '%s' doesn't exist.\n", file.get_path ());
 			}
                         if (Length == 0){
                                 try {
@@ -130,7 +130,7 @@ namespace LAIR{
                                         while ((line = dis.read_line (null)) != null) {
                                                 r++;
                                         }
-                                        print_withname("Configuration File Length %s\n", r.to_string());
+                                        message("Configuration File Length %s\n", r.to_string());
                                 } catch (Error e) {
                                         error ("%s", e.message);
                                 }
@@ -142,9 +142,9 @@ namespace LAIR{
                 public List<string> get_config_line(int lineNum){
                         List<string> tmp = new List<string>();
                         var file = File.new_for_path(Path);
-                        print_withname("line %s\n", lineNum.to_string());
+                        message("line %s\n", lineNum.to_string());
 			if (!file.query_exists ()) {
-				print_withname("File '%s' doesn't exist.\n", file.get_path ());
+				message("File '%s' doesn't exist.\n", file.get_path ());
 			}
                         try {
 				var dis = new DataInputStream (file.read());
@@ -158,9 +158,9 @@ namespace LAIR{
                                                                 tmp.append(token);
                                                         }
                                                         //tmp.append(line);
-                                                        print_withname("Loaded Resource: %s\n", tl[0]);
+                                                        message("Loaded Resource: %s\n", tl[0]);
                                                 }else{
-                                                        print_withname("Failed to load Resource: %s\n", tl[0]);
+                                                        message("Failed to load Resource: %s\n", tl[0]);
                                                 }
                                         }
                                         x++;

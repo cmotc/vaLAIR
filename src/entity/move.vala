@@ -70,17 +70,17 @@ namespace LAIR{
                 protected bool bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
                         bool r = false;
                         if(tl){
-                                print_withname("Collision detected, Top Left Corner");
+                                message("Collision detected, Top Left Corner");
                                 if(bl){
-                                        print_withname(" and Bottom Left Corner\n");
+                                        message(" and Bottom Left Corner\n");
                                         set_x((int)(evenout.x + evenout.w));
                                         step_right();
                                 }else if(tr){
-                                        print_withname(" and Top Right Corner\n");
+                                        message(" and Top Right Corner\n");
                                         set_y((int)(evenout.y + evenout.h));
                                         step_down();
                                 }else{
-                                        print_withname("\n");
+                                        message("\n");
                                         set_x((int)(evenout.x + evenout.w));
                                         set_y((int)(evenout.y + evenout.h));
                                         step_right();
@@ -89,17 +89,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(tr){
-                                print_withname("Collision detected, Top Right Corner");
+                                message("Collision detected, Top Right Corner");
                                 if(br){
-                                        print_withname(" and Bottom Right Corner\n");
+                                        message(" and Bottom Right Corner\n");
                                         set_x((int)(evenout.x - evenout.w));
                                         step_left();
                                 }else if(tl){
-                                        print_withname(" and Top Left Corner\n");
+                                        message(" and Top Left Corner\n");
                                         set_y((int)(evenout.y + evenout.h));
                                         step_down();
                                 }else{
-                                        print_withname("\n");
+                                        message("\n");
                                         set_x((int)(evenout.x - evenout.w));
                                         set_y((int)(evenout.y + evenout.h));
                                         step_left();
@@ -108,17 +108,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(bl){
-                                print_withname("Collision detected, Bottom Left Corner");
+                                message("Collision detected, Bottom Left Corner");
                                 if(tl){
-                                        print_withname(" and Top Left Corner\n");
+                                        message(" and Top Left Corner\n");
                                         set_x((int)(evenout.x + evenout.w));
                                         step_right();
                                 }else if(br){
-                                        print_withname(" and Bottom Right Corner\n");
+                                        message(" and Bottom Right Corner\n");
                                         set_y((int)(evenout.y - evenout.h));
                                         step_up();
                                 }else{
-                                        print_withname("\n");
+                                        message("\n");
                                         set_x((int)(evenout.x + evenout.w));
                                         set_y((int)(evenout.y - evenout.h));
                                         step_right();
@@ -127,17 +127,17 @@ namespace LAIR{
                                 r = true;
                         }
                         if(br){
-                                print_withname("Collision detected, Bottom Right Corner");
+                                message("Collision detected, Bottom Right Corner");
                                 if(tr){
-                                        print_withname("and Top Right Corner\n");
+                                        message("and Top Right Corner\n");
                                         set_x((int)(evenout.x - evenout.w));
                                         step_left();
                                 }else if(bl){
-                                        print_withname("and Bottom Left Corner\n");
+                                        message("and Bottom Left Corner\n");
                                         set_y((int)(evenout.y - evenout.h));
                                         step_up();
                                 }else{
-                                        print_withname("\n");
+                                        message("\n");
                                         set_x((int)(evenout.x - evenout.w));
                                         set_y((int)(evenout.y - evenout.h));
                                         step_left();
@@ -165,43 +165,43 @@ namespace LAIR{
                         int t;
                         switch (ai_do) {
                                 case "rotate()":
-                                        print_withname("AI is turning\n");
+                                        message("AI is turning\n");
                                         t = 7;//mouse_move(x, y);
                                         break;
                                 case "aim()":
-                                        print_withname("AI is aiming\n");
+                                        message("AI is aiming\n");
                                         t = swing_left();
                                         break;
                                 case "fire()":
-                                        print_withname("AI is firing\n");
+                                        message("AI is firing\n");
                                         t = swing_left();
                                         break;
                                 case "action()":
-                                        print_withname("AI is attempting\n");
+                                        message("AI is attempting\n");
                                         t = swing_right();
                                         break;
                                 case "throw()":
-                                        print_withname("AI is throwing\n");
+                                        message("AI is throwing\n");
                                         t = swing_right();
                                         break;
                                 case "step_down()":
-                                        print_withname("AI is stepping down\n");
+                                        message("AI is stepping down\n");
                                         t = step_down();
                                         break;
                                 case "step_up()":
-                                        print_withname("AI is stepping up\n");
+                                        message("AI is stepping up\n");
                                         t = step_up();
                                         break;
                                 case "step_right()":
-                                        print_withname("AI is stepping right\n");
+                                        message("AI is stepping right\n");
                                         t = step_right();
                                         break;
                                 case "step_left()":
-                                        print_withname("AI is stepping left\n");
+                                        message("AI is stepping left\n");
                                         t = step_left();
                                         break;
                                 case "stand_still()":
-                                        print_withname("AI is standing still\n");
+                                        message("AI is standing still\n");
                                         t = stand_still();
                                         break;
                         }
@@ -209,9 +209,9 @@ namespace LAIR{
 		public int player_input(){
                         int t = 1;
                         Event e;
-                        print_withname("     Player is taking a turn : ");
+                        message("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
-                                print_withname(" Checking Event for Player Input\n");
+                                message(" Checking Event for Player Input\n");
 				if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
                                         int x = 0, y = 0;
                                         Input.Cursor.get_state(ref x, ref y);
