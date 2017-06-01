@@ -225,6 +225,7 @@ function mobile_index_by_coarse_xy(xx, yy)
         return r
 end
 function print_general_props()
+        print("PROPERTY DUMP")
         print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
         print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
         print("  Room Starts at Coarse X: " .. room_coarse_x.x)
