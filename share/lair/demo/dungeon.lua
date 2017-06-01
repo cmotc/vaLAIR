@@ -7,9 +7,21 @@ dofile("/usr/share/lair/lua/map/cut_hallways.lua")
 --particle at all.
 function map_cares_insert()
         reload_map()
-        result = thickwall_cares_insert()
-        result = cut_hallways(result)
-        result = thinwall_cares_insert(result)
+        --result = thickwall_cares_insert()
+        --result = cut_hallways(result)
+        --result = thinwall_cares_insert(result)
+        result = "false"
+        doit = math.random(100)
+        if doit < 25 then
+                result = "false"
+        elseif doit < 50 then
+                result = "false"
+        elseif doit < 75 then
+                result = "true"
+        elseif doit < 100 then
+                result = "false"
+        end
+        print_general_props()
         return result
 end
 -- The return value of this function tells the map what image to use to select

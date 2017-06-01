@@ -2,7 +2,7 @@ using SDL;
 namespace LAIR{
 	class Floor : LuaConf { //Scribe{
 		private List<Room> rooms = new List<Room>();
-                //private bool transit = false;ssss
+                //private bool transit = false;
 		public Floor(int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 4, "floor:");
                         int width = (((count + 1) * 5) * 32);
@@ -118,7 +118,7 @@ namespace LAIR{
                 }
                 public void render_copy(Video.Renderer renderer){
                         if (has_player()){
-                                foreach(Room room in rooms){
+                                foreach(unowned Room room in rooms){
                                         room.render_copy(renderer, get_room_player_corner());
                                 }
                         }

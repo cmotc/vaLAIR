@@ -1,15 +1,5 @@
 math.randomseed(os.time())
 
-function reseed_random()
-        for i=math.random(10),1,-1
-        do
-                print("Ensuring Additional Randomness" .. i)
-                math.random()
-                if coin() == "true" then
-                        math.randomseed(os.time())
-                end
-        end
-end
 function get_tag_count(variable)
         if type(variable) == "table" then
                 return variable.c
@@ -154,7 +144,6 @@ function archive_old_map()
 end
 function setup_new_map()
         if file_exists(get_map_savepath()) == false then
-                reseed_random()
                 file = io.open(get_map_savepath(), "a")
                 file:write("cell = {}\n")
                 file:close()
@@ -162,7 +151,6 @@ function setup_new_map()
 end
 function setup_new_mob()
         if file_exists(get_mob_savepath()) == false then
-                reseed_random()
                 file = io.open(get_mob_savepath(), "a")
                 file:write("mobs = {}\n")
                 file:close()

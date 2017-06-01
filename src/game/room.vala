@@ -215,7 +215,7 @@ namespace LAIR{
                         int tmp = 1;
                         if (has_player()){
                                 if(Mobiles.length() > 0){
-                                        foreach(var mob in Mobiles.get_mobiles()){
+                                        foreach(Entity mob in Mobiles.get_mobiles()){
                                                 mob.run();
                                         }
                                 }
