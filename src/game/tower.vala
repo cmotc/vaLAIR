@@ -18,9 +18,9 @@ namespace LAIR{
 			}else if (size == "oneroom"){
 				count = 1;
 			}
-                        message("Building %s-size Tower\n", size);
+                        message("Building %s-size Tower, %s floors", size, count.to_string());
 			for (int c = 0; c <= count-1; c++){
-                                message(" Creating new floor :%s\n", c.to_string());
+                                message(" Creating new floor :%s", c.to_string());
                                 if (c == 0){
                                         floors.append(new Floor.WithPlayer(count, 0, scripts, DM, renderer));
                                 }else{
@@ -30,7 +30,7 @@ namespace LAIR{
 		}
                 public int take_turns(){
                         int tmp = 1;
-                        message(" Entities in the tower are taking turns.\n");
+                        message(" Entities in the tower are taking turns.");
                         foreach(Floor floor in floors){
                                 tmp = floor.take_turns();
                         }

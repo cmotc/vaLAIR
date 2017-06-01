@@ -17,11 +17,12 @@ namespace LAIR{
                 }
                 public ParticlesList(Video.Rect room_dimensions){
                         Border = room_dimensions;
+                        message("Setting regular dimensions on Particles minx %s miny %s maxx %s maxy %s", minx().to_string(),miny().to_string(),maxx().to_string(),maxy().to_string());
                 }
-                private string generate_particle_tile(FileDB GameMaster, Video.Point coords, List<List<string>> generated_tags, Video.Renderer* renderer, int index = 0){
+                private string generate_particle_tile(FileDB GameMaster, AutoPoint coords, List<List<string>> generated_tags, Video.Renderer* renderer, int index = 0){
                         string tmp = "";
-                        if ( coords.x < maxx() ){ if ( coords.x >= minx() ){
-                                if ( coords.y < maxy() ){ if ( coords.y >= miny() ){
+                        if ( coords.x() < maxx() ){ if ( coords.x() >= minx() ){
+                                if ( coords.y() < maxy() ){ if ( coords.y() >= miny() ){
                                         string new_name = index.to_string();
                                         Particles.append(new Entity.Wall(coords,
                                                 GameMaster.image_by_name(generated_tags.nth_data(0).nth_data(0)),
@@ -35,10 +36,16 @@ namespace LAIR{
                         }}
                         return tmp;
                 }
-                public List<Video.Point?> generate_particle(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, List<List<string>> generated_tags, Video.Renderer renderer){
-                        List<Video.Point?> tmp = new List<Video.Point?>();
-                        tmp.append(Video.Point(){x=xx, y=yy});
-                        tmp.append(Video.Point(){x=xx+offset_x, y=yy+offset_y});
+                public List<AutoPoint> generate_particle(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, List<List<string>> generated_tags, Video.Renderer renderer){
+                        List<AutoPoint> tmp = new List<AutoPoint>();
+                        tmp.append(new AutoPoint(xx, yy));
+                        tmp.append(new AutoPoint(offset_x,offset_y));
+                        message("Placing particle at x %s y %s, os %s, oy %s",
+                                tmp.nth_data(0).x().to_string(),
+                                tmp.nth_data(0).y().to_string(),
+                                tmp.nth_data(1).x().to_string(),
+                                tmp.nth_data(1).y().to_string()
+                                );
                         generate_particle_tile(GameMaster, tmp.nth_data(1), generated_tags, renderer);
                         return tmp;
                 }

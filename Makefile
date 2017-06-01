@@ -58,6 +58,7 @@ unix:
 		src/game/lists/FloorList.vala \
 		src/game/lists/MobilesList.vala \
 		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -580,9 +581,9 @@ release-commit:
 trimmedlogs:
 	grep -v process err > err.1
 	grep  . err.1 > err.2
+	grep Message err > log
 	mv err.2 err
 	rm err.1
-	tail -n 1000 log > log
 
 sample:
 	make memcheck 1> log 2> err;	\

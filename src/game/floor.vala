@@ -5,12 +5,11 @@ namespace LAIR{
                 //private bool transit = false;ssss
 		public Floor(int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 4, "floor:");
-                        //base.LLL(4, "floor:");
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
                         x_max = width;
                         y_max = height;
-                        Video.Rect FloorDims = Video.Rect(){
+                        Video.Rect floor_dims = Video.Rect(){
                                 x = 0,
                                 y = 0,
                                 w = (width * count),
@@ -18,14 +17,14 @@ namespace LAIR{
 			for (int x = 0; x < count; x++){
                                 for (int y = 0; y < count; y++){
                                         Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};
-                                        rooms.append(new Room(XYOffset, FloorDims, scripts, DM, renderer));
+                                        message("Generating room at : x %s y %s w %s h%s", XYOffset.x.to_string(), XYOffset.y.to_string(), XYOffset.w.to_string(), XYOffset.h.to_string() );
+                                        rooms.append(new Room(XYOffset, floor_dims, scripts, DM, renderer));
                                 }
 			}
                         lua_do_function("""archive_old_map()""");
 		}
 		public Floor.WithPlayer(int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 4, "floor:");
-                        //base.LLL(3, "floor:");
                         int c = 0;
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
@@ -37,6 +36,7 @@ namespace LAIR{
 			for (int x = 0; x < count; x++){
                                 for (int y = 0; y < count; y++){
                                         Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};
+                                        message("Generating room at : x %s y %s w %s h%s", XYOffset.x.to_string(), XYOffset.y.to_string(), XYOffset.w.to_string(), XYOffset.h.to_string() );
                                         if (c == entry){
                                                 rooms.append(new Room.WithPlayer(XYOffset, FloorDims, scripts, DM, renderer));
                                         }else{
@@ -72,21 +72,17 @@ namespace LAIR{
                         }
                         return temp;
                 }
-                private Video.Point get_room_player_corner(){
-                        Video.Point r = Video.Point(){
-                                x = ((get_player().get_x() - (get_room_player().get_w() / 3)) > 0) ?
-                                        (int)(get_player().get_x() - (get_room_player().get_w()/3)) :
-                                        0,
-                                y = ((get_player().get_y() - (get_room_player().get_h() / 3)) > 0) ?
-                                        (int)(get_player().get_y() - (get_room_player().get_h()/3)) :
-                                        0
-                        };
+                private AutoPoint get_room_player_corner(){
+                        AutoPoint r = new AutoPoint(
+                                ((get_player().get_x() - (get_room_player().get_w() / 3) > 0) ? (int)((get_player().get_x() - (get_room_player().get_w()/3))) : 0)
+                                        ,
+                                ((get_player().get_y() - (get_room_player().get_h() / 3) > 0) ? (int)((get_player().get_y() - (get_room_player().get_h()/3))) : 0));
                         return r;
                 }
                 public int take_turns(){
                         int tmp = 1;
                         foreach(Room room in rooms){
-                                message("   Entities on the floor are taking turns\n");
+                                message("   Entities on the floor are taking turns");
                                 tmp = room.take_turns();
                         }
                         return tmp;

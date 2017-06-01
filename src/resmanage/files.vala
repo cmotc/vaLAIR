@@ -40,13 +40,13 @@ namespace LAIR{
                         tmp2 = tmp2.replace("/", "\\");
 			if (FileUtils.test(tmp[0], FileTest.EXISTS)) {
 				Path = tmp[0];
-				message("Setting Path: %s\n", Path);
+				message("Setting Path: %s", Path);
 			}else if(FileUtils.test(tmp2, FileTest.EXISTS)) {
                                 Path = tmp2;
-				message("Setting Path: %s\n", Path);
+				message("Setting Path: %s", Path);
                         }else{
 				Path = null;
-				message("Setting Path failed: %s doesn't exist\n", Path);
+				message("Setting Path failed: %s doesn't exist", Path);
 			}
 			return path;
 		}
@@ -59,7 +59,6 @@ namespace LAIR{
 			if ( query == Name ) {
 				tmp = true;
                                 if (!ptd){
-                                        message("Name found in FileDB: %s", query);
                                         ptd = true;
                                 }
 			}
@@ -99,20 +98,20 @@ namespace LAIR{
                                 foreach(string t in Tags){
                                         message("%s ", t);
                                 }
-                                message("\n");
+                                message("");
                         }
 			return rtmp;
 		}
 		public string get_path(){
-                        message("Getting Path: %s\n", Path);
+                        message("Getting Path: %s", Path);
                         return Path;
 		}
 		public bool check_path(){
 			if (Path != null){
-				message("Validating Path: %s\n", Path);
+				message("Validating Path: %s", Path);
 				return true;
 			}else{
-				message("Validating Path failed: %s doesn't exist.\n", Path);
+				message("Validating Path failed: %s doesn't exist.", Path);
 				return false;
 			}
 		}
@@ -121,7 +120,7 @@ namespace LAIR{
 			var file = File.new_for_path(Path);
                         int r = 0;
 			if (!file.query_exists ()) {
-				message("File '%s' doesn't exist.\n", file.get_path ());
+				message("File '%s' doesn't exist.", file.get_path ());
 			}
                         if (Length == 0){
                                 try {
@@ -130,7 +129,7 @@ namespace LAIR{
                                         while ((line = dis.read_line (null)) != null) {
                                                 r++;
                                         }
-                                        message("Configuration File Length %s\n", r.to_string());
+                                        message("Configuration File Length %s", r.to_string());
                                 } catch (Error e) {
                                         error ("%s", e.message);
                                 }
@@ -142,9 +141,9 @@ namespace LAIR{
                 public List<string> get_config_line(int lineNum){
                         List<string> tmp = new List<string>();
                         var file = File.new_for_path(Path);
-                        message("line %s\n", lineNum.to_string());
+                        message("line %s", lineNum.to_string());
 			if (!file.query_exists ()) {
-				message("File '%s' doesn't exist.\n", file.get_path ());
+				message("File '%s' doesn't exist.", file.get_path ());
 			}
                         try {
 				var dis = new DataInputStream (file.read());
@@ -158,9 +157,9 @@ namespace LAIR{
                                                                 tmp.append(token);
                                                         }
                                                         //tmp.append(line);
-                                                        message("Loaded Resource: %s\n", tl[0]);
+                                                        message("Loaded Resource: %s", tl[0]);
                                                 }else{
-                                                        message("Failed to load Resource: %s\n", tl[0]);
+                                                        message("Failed to load Resource: %s", tl[0]);
                                                 }
                                         }
                                         x++;

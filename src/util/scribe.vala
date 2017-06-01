@@ -1,32 +1,30 @@
 using Log;
 
 namespace LAIR{
-	class Scribe : Object{
-                private static int log_level = 1;
+	class Scribe : Object {
                 GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;
-                private int instance_log_level = log_level;
-                private string Name = "global log:";
-                private int class_log_level = 2;
-                public Scribe(int local_log_level=2, string name="global log:", int base_log_level=-1){
-                        instance_log_level = base_log_level;
-                        class_log_level = local_log_level;
-                        Name = name;
+                private static int instance_log_level = 2;
+                private string name = "global log:";
+                public Scribe(int local_log_level=2, string new_name="global log:"){
+                        instance_log_level = 2;
+                        instance_log_level = local_log_level;
+                        name = name;
 
                 }
-                public Scribe.new_local_attributes(int local_log_level=2, string name="global log:", int base_log_level=-1){
-                        instance_log_level = base_log_level;
-                        class_log_level = local_log_level;
-                        Name = name;
+                public Scribe.new_local_attributes(int local_log_level=2, string new_name="global log:"){
+                        instance_log_level = 2;
+                        instance_log_level = local_log_level;
+                        name = new_name;
 
                 }
-                public static void set_global_log_level(int newll){
-                        log_level = newll;
+                public static void set_log_level(int new_log_level){
+                        instance_log_level = new_log_level;
                 }
-                public void set_name(string name){
-                        Name = name;
+                public void set_name(string new_name){
+                        name = new_name;
                 }
                 public string get_name(){
-                        return Name;
+                        return name;
                 }
         }
 }

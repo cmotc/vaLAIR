@@ -10,7 +10,7 @@ namespace LAIR{
                 private Video.Rect offsetHitBox = Video.Rect(){ x=7, y=7, w=16, h=16 };
                 private Video.Rect rangeOfSight = Video.Rect(){ x=-160, y=-160, w=320, h=320};
                 private bool wobble = false;
-                private static Video.Point cursorPosition = Video.Point(){x=0,y=0};
+                private static AutoPoint cursorPosition = new AutoPoint(0,0);
                 public Anim(Video.Rect rect){
                         base();
                         position = Video.Rect(){x=rect.x,y=rect.y,w=rect.w,h=rect.h};
@@ -52,10 +52,10 @@ namespace LAIR{
                 protected void toggle_wobble_off(){
                         wobble = false;
                 }
-                protected Video.Rect get_position(Video.Point offset_px){
+                protected Video.Rect get_position(AutoPoint offset_px){
                         Video.Rect r = Video.Rect(){
-                                x = position.x - offset_px.x - do_wobble(),
-                                y = position.y - offset_px.y - do_wobble(),
+                                x = position.x - offset_px.x() - do_wobble(),
+                                y = position.y - offset_px.y() - do_wobble(),
                                 w = position.w,
                                 h = position.h
                         };
@@ -65,10 +65,10 @@ namespace LAIR{
                         return Video.Rect(){x=0,y=0,w=200,h=11};
 
                 }
-                protected Video.Rect get_text_position(Video.Point offset_px){
+                protected Video.Rect get_text_position(AutoPoint offset_px){
                         Video.Rect r = Video.Rect(){
-                                x = position.x - offset_px.x,
-                                y = position.y - offset_px.y,
+                                x = position.x - offset_px.x(),
+                                y = position.y - offset_px.y(),
                                 w = 200,
                                 h = 11
                         };
@@ -173,27 +173,27 @@ namespace LAIR{
                 private int get_center_y(){
                         return get_y() + get_half_height();
                 }
-                public Video.Point get_center(){
-                        Video.Point coords = Video.Point(){
-                                x=get_center_x(),
-                                y=get_center_y()};
+                public AutoPoint get_center(){
+                        AutoPoint coords = new AutoPoint(
+                                get_center_x(),
+                                get_center_y());
                         return coords;
                 }
                 private double radians_to_degrees(double radians){
                         double r = (180.0/Math.PI) * radians;
                         return r;
                 }
-                protected void set_cursor_position(Video.Point cursor){
-                        cursorPosition = cursor;
+                protected void set_cursor_position(int xx, int yy){
+                        cursorPosition.set_position(xx, yy);
                 }
                 public double get_angle(){
                         double degrees = 0.0;
-                        if (cursorPosition.x == 0){
-                                if (cursorPosition.y == 0){
+                        if (cursorPosition.x() == 0){
+                                if (cursorPosition.y() == 0){
                                         degrees = 0.0;
                                 }
                         }else{
-                                degrees = radians_to_degrees(Math.atan2(cursorPosition.x - get_center().x, cursorPosition.y - get_center().y) + 135.0);
+                                degrees = radians_to_degrees(Math.atan2(cursorPosition.x() - get_center().x(), cursorPosition.y() - get_center().y()) + 135.0);
                         }
                         return degrees * -1.0;
                 }

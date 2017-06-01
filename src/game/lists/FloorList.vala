@@ -17,18 +17,25 @@ namespace LAIR{
                 }
                 public FloorList(Video.Rect room_dimensions){
                         Border = room_dimensions;
+                        message("Setting regular dimensions on Floor minx %s miny %s maxx %s maxy %s", minx().to_string(),miny().to_string(),maxx().to_string(),maxy().to_string());
                 }
-                private void generate_floor_tile(FileDB GameMaster, Video.Point coords, Video.Renderer* renderer){
-                        if ( coords.x < maxx() ){ if ( coords.x >= minx() ){
-                                if ( coords.y < maxy() ){ if ( coords.y >= miny() ){
+                private void generate_floor_tile(FileDB GameMaster, AutoPoint coords, Video.Renderer* renderer){
+                        if ( coords.x() < maxx() ){ if ( coords.x() >= minx() ){
+                                if ( coords.y() < maxy() ){ if ( coords.y() >= miny() ){
                                         Particles.append(new Entity.Floor(coords, GameMaster.image_by_name("floor"), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer));
                                 }}
                         }}
                 }
-                public List<Video.Point?> generate_floor(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, Video.Renderer renderer){
-                        List<Video.Point?> tmp = new List<Video.Point?>();
-                        tmp.append(Video.Point(){x=xx, y=yy});
-                        tmp.append(Video.Point(){x=xx+offset_x, y=yy+offset_y});
+                public List<AutoPoint> generate_floor(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, Video.Renderer renderer){
+                        List<AutoPoint> tmp = new List<AutoPoint>();
+                        tmp.append(new AutoPoint(xx, yy));
+                        tmp.append(new AutoPoint(offset_x, offset_y));
+                        message("Placing floor at x %s y %s, os %s, oy %s",
+                                tmp.nth_data(0).x().to_string(),
+                                tmp.nth_data(0).y().to_string(),
+                                tmp.nth_data(1).x().to_string(),
+                                tmp.nth_data(1).y().to_string()
+                                );
                         generate_floor_tile(GameMaster, tmp.nth_data(1), renderer);
                         return tmp;
                 }

@@ -61,7 +61,7 @@ namespace LAIR{
                 protected void insert_type(string new_type){
                         if(check_new_type(new_type)){
                                 tags.append(new Tag(new_type));
-                                message("   Added tag: %s \n", new_type);
+                                message("   Added tag: %s", new_type);
                                 check_types();
                         }
                 }

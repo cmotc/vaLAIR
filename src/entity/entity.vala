@@ -5,10 +5,10 @@ namespace LAIR{
 	class Entity : Move{
                 List<string> nearby_interests = new List<string>();
                 private int period = -0;
-                public Entity(Video.Point corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                public Entity(AutoPoint corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, renderer);
                 }
-                public Entity.Floor(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="floor"){
+                public Entity.Floor(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="floor"){
                         base.Floor(corner, Surfaces, music, font, renderer);
                         set_name(new_name);
                         if(get_name()=="floor"){
@@ -16,15 +16,16 @@ namespace LAIR{
                         }
                         set_type("floor");
                 }
-                public Entity.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="particle"){
+                public Entity.Wall(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="particle"){
                         base.Wall(corner, Surfaces, music, font, renderer, tags);
                         set_name(new_name);
                         if(get_name()=="particle"){
                                 set_name("particle");
                         }
                         set_type("particle");
+                        set_type("blocked");
                 }
-                public Entity.Mobile(Video.Point corner, string ai_script, string ai_func, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="mobile"){
+                public Entity.Mobile(AutoPoint corner, string ai_script, string ai_func, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="mobile"){
                         base.Mobile(corner, ai_script, ai_func, Surfaces, music, font, renderer, tags);
                         set_name(new_name);
                         if(get_name()=="mobile"){
@@ -33,7 +34,7 @@ namespace LAIR{
                         set_type("mobile");
                         set_type("blocked");
                 }
-                public Entity.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="player"){
+                public Entity.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="player"){
                         base.Player(corner, Surfaces, music, font, renderer);
                         set_name(new_name);
                         if(get_name()=="player"){
@@ -41,14 +42,14 @@ namespace LAIR{
                         }
                         set_type("player");
                 }
-                private bool in_range(Video.Point point, Video.Rect hitbox){
+                private bool in_range(AutoPoint point, Video.Rect hitbox){
                         bool t = false;
                         int xx = (int) (hitbox.x + hitbox.w);
                         int yy = (int) (hitbox.y + hitbox.h);
-                        if ( point.x > hitbox.x ){
-                                if ( point.x <  xx ){
-                                        if( point.y > hitbox.y ){
-                                                if( point.y < yy ){
+                        if ( point.x() > hitbox.x ){
+                                if ( point.x() <  xx ){
+                                        if( point.y() > hitbox.y ){
+                                                if( point.y() < yy ){
                                                         t = true;
                                                 }
                                         }
@@ -61,20 +62,20 @@ namespace LAIR{
                         assert(t != null);
                         if(get_block()){
                                 if(t.get_block()){
-                                        Video.Point tlc = Video.Point(){ x = get_hitbox().x,
-                                                y = get_hitbox().y };
+                                        AutoPoint tlc = new AutoPoint(get_hitbox().x,
+                                                get_hitbox().y );
                                         bool TLeftCorner = in_range(tlc, t.get_hitbox());
 
-                                        Video.Point trc = Video.Point(){ x = (int)(get_hitbox().x + get_hitbox().w),
-                                                y = get_hitbox().y };
+                                        AutoPoint trc = new AutoPoint((int)(get_hitbox().x + get_hitbox().w),
+                                                get_hitbox().y );
                                         bool TRightCorner = in_range(trc, t.get_hitbox());
 
-                                        Video.Point blc = Video.Point(){ x = get_hitbox().x,
-                                                y = (int)(get_hitbox().y + get_hitbox().h) };
+                                        AutoPoint blc = new AutoPoint(get_hitbox().x,
+                                                (int)(get_hitbox().y + get_hitbox().h) );
                                         bool BLeftCorner = in_range(blc, t.get_hitbox());
 
-                                        Video.Point brc = Video.Point(){ x = (int)(get_hitbox().x + get_hitbox().w),
-                                                y = (int)(get_hitbox().y + get_hitbox().h) };
+                                        AutoPoint brc = new AutoPoint((int)(get_hitbox().x + get_hitbox().w),
+                                                (int)(get_hitbox().y + get_hitbox().h) );
                                         bool BRightCorner = in_range( brc, t.get_hitbox());
 
                                         r = bounce(TLeftCorner, TRightCorner,
@@ -87,26 +88,26 @@ namespace LAIR{
                 public bool detect_nearby_entities(Entity test){
                         bool r = false;
                         if(test.get_block()){
-                                Video.Point tlc = Video.Point(){ x = test.get_hitbox().x,
-                                        y = test.get_hitbox().y };
+                                AutoPoint tlc = new AutoPoint( test.get_hitbox().x,
+                                        test.get_hitbox().y );
                                 bool TLeftCorner = in_range(tlc, get_range_of_sight());
 
-                                Video.Point trc = Video.Point(){ x = (int)(test.get_hitbox().x + test.get_hitbox().w),
-                                        y = test.get_hitbox().y };
+                                AutoPoint trc = new AutoPoint( (int)(test.get_hitbox().x + test.get_hitbox().w),
+                                        test.get_hitbox().y );
                                 bool TRightCorner = in_range(trc, get_range_of_sight());
 
-                                Video.Point blc = Video.Point(){ x = test.get_hitbox().x,
-                                        y = (int)(test.get_hitbox().y + test.get_hitbox().h) };
+                                AutoPoint blc = new AutoPoint( test.get_hitbox().x,
+                                        (int)(test.get_hitbox().y + test.get_hitbox().h) );
                                 bool BLeftCorner = in_range(blc, get_range_of_sight());
 
-                                Video.Point brc = Video.Point(){ x = (int)(test.get_hitbox().x + test.get_hitbox().w),
-                                        y = (int)(test.get_hitbox().y + test.get_hitbox().h) };
+                                AutoPoint brc = new AutoPoint( (int)(test.get_hitbox().x + test.get_hitbox().w),
+                                        (int)(test.get_hitbox().y + test.get_hitbox().h) );
                                 bool BRightCorner = in_range( brc, get_range_of_sight());
 
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
                                         if(nearby_interests.length() < Memory()){
                                                 nearby_interests.append(test.stringify_entity_details());
-                                                message("is observing %s \n", test.stringify_entity_details());
+                                                message("is observing %s", test.stringify_entity_details());
                                                 r = true;
                                         }
                                 }}}}
@@ -158,7 +159,7 @@ namespace LAIR{
                         string details = get_category() + stringify_coordinates() + stringify_skills() + stringify_tags();
                         return details;
                 }
-                public void render(Video.Renderer renderer, Video.Point player_pos){
+                public void render(Video.Renderer renderer, AutoPoint player_pos){
                         render_copy(renderer, player_pos);
                         render_text(renderer, player_pos);
                 }

@@ -3,27 +3,30 @@ namespace LAIR{
 	class MobilesList : LuaConf{
                 private List<Entity> Mobiles = new List<Entity>();
                 private Video.Rect Border = Video.Rect(){ x = 0, y = 0, w = 0, h = 0 };
-                int minx(){
+                private int minx(){
                         return Border.x;
                 }
-                int miny(){
+                private int miny(){
                         return Border.y;
                 }
-                int maxx(){
+                private int maxx(){
                         return Border.x+(int)Border.w;
                 }
-                int maxy(){
+                private int maxy(){
                         return Border.y+(int)Border.h;
                 }
                 public MobilesList(Video.Rect room_dimensions){
                         Border = room_dimensions;
+                        message("Setting regular dimensions on Mobiles minx %s miny %s maxx %s maxy %s", minx().to_string(),miny().to_string(),maxx().to_string(),maxy().to_string());
                 }
-                private string generate_mobile_tile(FileDB GameMaster, Video.Point coords, List<List<string>> generated_tags, Video.Renderer* renderer, int index = 0){
+                private string generate_mobile_tile(FileDB GameMaster, AutoPoint coords, List<List<string>> generated_tags, Video.Renderer* renderer, string aiscript="/usr/share/lair/ai.lua", int index = 0){
                         string tmp = "";
-                        if ( coords.x < maxx() ){ if ( coords.x >= minx() ){
-                                if ( coords.y < maxy() ){ if ( coords.y >= miny() ){
+                        if ( coords.x() < maxx() ){ if ( coords.x() >= minx() ){
+                                if ( coords.y() < maxy() ){ if ( coords.y() >= miny() ){
                                         string new_name = index.to_string();
-                                        Mobiles.append(new Entity.Wall(coords,
+                                        Mobiles.append(new Entity.Mobile(coords,
+                                                aiscript,
+                                                "default()",
                                                 GameMaster.image_by_name(generated_tags.nth_data(0).nth_data(0)),
                                                 GameMaster.no_sound(),
                                                 GameMaster.get_rand_font(),
@@ -35,10 +38,21 @@ namespace LAIR{
                         }}
                         return tmp;
                 }
-                public List<Video.Point?> generate_mobile(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, List<List<string>> generated_tags, Video.Renderer renderer){
-                        List<Video.Point?> tmp = new List<Video.Point?>();
-                        tmp.append(Video.Point(){x=xx, y=yy});
-                        tmp.append(Video.Point(){x=xx+offset_x, y=yy+offset_y});
+                public List<AutoPoint> generate_mobile(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, List<List<string>> generated_tags, string aiscript="/usr/share/lair/ai.lua", Video.Renderer renderer){
+                        foreach(var tag_list in generated_tags.copy()){
+                                foreach(string tag in tag_list){
+                                        message("Tag in Tag List:%s",tag);
+                                }
+                        }
+                        List<AutoPoint> tmp = new List<AutoPoint>();
+                        tmp.append(new AutoPoint(xx, yy));
+                        tmp.append(new AutoPoint(offset_x, offset_y));
+                        message("Placing mobile at x %s y %s, os %s, oy %s",
+                                tmp.nth_data(0).x().to_string(),
+                                tmp.nth_data(0).y().to_string(),
+                                tmp.nth_data(1).x().to_string(),
+                                tmp.nth_data(1).y().to_string()
+                                );
                         generate_mobile_tile(GameMaster, tmp.nth_data(1), generated_tags, renderer);
                         return tmp;
                 }
