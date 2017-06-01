@@ -203,7 +203,7 @@ namespace LAIR{
                                 lua_close_table("room_coarse_xw");
 
                                 lua_new_table();
-                                lua_push_named_number("y", (int) ((current.y / 32) + (current.y / 32)));
+                                lua_push_named_number("y", (int) ((current.y / 32) + (current.h / 32)));
                                 lua_close_table("room_coarse_yh");
 
                                 lua_new_table();
