@@ -20,6 +20,7 @@ function map_cares_insert()
         elseif doit < 100 then
                 result = "false"
         end
+        print_general_props()
         return result
 end
 -- The return value of this function tells the map what image to use to select
