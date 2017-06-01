@@ -24,7 +24,7 @@ unix:
 		--enable-checking \
 		--enable-experimental \
 		--vapidir="/usr/share/vala/vapi/" \
-		--includedir /usr/lib/x86_64-linux-musl \
+		--includedir /usr/include/x86_64-linux-musl \
 		--target-glib 2.0 \
 		--pkg gio-2.0 \
 		--pkg lua \
@@ -523,6 +523,7 @@ debug-clang:
 	lldb ./bin/LAIR core
 
 memcheck:
+	ulimit -c unlimited; \
 	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m tiny
 
 install:

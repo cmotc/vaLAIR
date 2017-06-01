@@ -49,23 +49,23 @@ namespace LAIR{
                 }
 		private bool has_player(){
 			bool tmp = false;
-			foreach(Room room in rooms.copy()){
+			foreach(unowned Room room in rooms){
 				tmp = tmp ? tmp : room.has_player();
 			}
 			return tmp;
 		}
                 private Entity get_player(){
                         Entity temp = null;
-                        foreach(Room room in rooms.copy()){
+                        foreach(unowned Room room in rooms){
                                 if(room.has_player()){
                                         temp = room.get_player();
                                 }
                         }
                         return temp;
                 }
-                private Room get_room_player(){
-                        Room temp = null;
-                        foreach(Room room in rooms){
+                private unowned Room get_room_player(){
+                        unowned Room temp = null;
+                        foreach(unowned Room room in rooms){
                                 if(room.has_player()){
                                         temp = room;
                                 }
@@ -81,7 +81,7 @@ namespace LAIR{
                 }
                 public int take_turns(){
                         int tmp = 1;
-                        foreach(Room room in rooms){
+                        foreach(unowned Room room in rooms){
                                 message("   Entities on the floor are taking turns");
                                 tmp = room.take_turns();
                         }
@@ -89,16 +89,16 @@ namespace LAIR{
                 }
                 public bool detect_collisions(){
                         bool tmp = false;
-                        foreach(Room room in rooms){
+                        foreach(unowned Room room in rooms){
                                 if (!room.has_player()) {
                                         room.enter_room(get_room_player().leave_room(room.detect_transitions(get_player())));
                                 }else{
                                         tmp = room.player_detect_collisions() ? true : tmp;
                                 }
                                 int t = 0;
-                                foreach(Entity mob in room.get_mobiles()){
-                                        foreach(Room room2 in rooms){
-                                                if(&room2 != &room){
+                                foreach(unowned Entity mob in room.get_mobiles()){
+                                        foreach(unowned Room room2 in rooms){
+                                                if(room2.get_name() != room.get_name()){
                                                         room2.mob_enter_room(room.mob_leave_room(room2.detect_transitions(mob), t));
                                                 }
                                         }
@@ -111,7 +111,7 @@ namespace LAIR{
                 }
                 public bool dedupe_memories(){
                         bool r = false;
-                        foreach(Room room in rooms){
+                        foreach(unowned Room room in rooms){
                                 r = room.mob_dedupe_memories();
                         }
                         return r;

@@ -74,13 +74,14 @@ namespace LAIR{
                         }
                 }
                 private void GeneratorPushXYToLua(List<AutoPoint> coords){
-                        //if(coords.length() == 1){
+                        message("Coordinates pushed to lua table: %s", coords.length().to_string());
+                        if(coords.length() == 2){
                                 lua_push_coords(coords.nth_data(0), coords.nth_data(1));
                                 particle_count();
                                 particle_count_bytag();
                                 mobile_count();
                                 mobile_count_bytag();
-                        //}
+                        }
                 }
                 private int particle_count(){
                         lua_push_uint_to_table("""generator_particle_count""", """c""", (int)Particles.length());

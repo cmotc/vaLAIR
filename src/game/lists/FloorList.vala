@@ -35,7 +35,7 @@ namespace LAIR{
                                 tmp.nth_data(0).y().to_string(),
                                 tmp.nth_data(1).x().to_string(),
                                 tmp.nth_data(1).y().to_string()
-                                );
+                                );//*/
                         generate_floor_tile(GameMaster, tmp.nth_data(1), renderer);
                         return tmp;
                 }

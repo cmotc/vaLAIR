@@ -6,8 +6,10 @@ namespace LAIR{
                 public LuaConf(string lua_ai_path = "immobile", int lua_log_level=1, string name="Local lua VM: "){
                         base(lua_ai_path, lua_log_level, name);
                         ScriptPath = lua_ai_path;
-                        message("Loading a script: %s", ScriptPath);
-                        lua_do_file();
+                        if(does_it_ai()){
+                                message("Loading a script: %s", ScriptPath);
+                                lua_do_file();
+                        }
                 }
                 private void lua_do_file(){ //(string file){
                         if(does_it_ai()){
