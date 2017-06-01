@@ -211,7 +211,7 @@ namespace LAIR{
                                 lua_close_table("room_xw");
 
                                 lua_new_table();
-                                lua_push_named_number("y", (int) (current.y + current.y));
+                                lua_push_named_number("y", (int) (current.y + current.h));
                                 lua_close_table("room_yh");
                         }
                 }

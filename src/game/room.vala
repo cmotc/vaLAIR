@@ -73,7 +73,10 @@ namespace LAIR{
                                 Player = new Entity.Player(new AutoPoint(128,128), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
                         }
                 }
-                private void GeneratorPushXYToLua(List<AutoPoint> coords){
+                private List<AutoPoint> generator_push_xy_to_lua(int xx, int yy){
+                        List<AutoPoint> coords = new List<AutoPoint>();
+                        coords.append(new AutoPoint(xx, yy));
+                        coords.append(new AutoPoint(get_offset_x(xx), get_offset_y(yy)));
                         message("Coordinates pushed to lua table: %s", coords.length().to_string());
                         if(coords.length() == 2){
                                 lua_push_coords(coords.nth_data(0), coords.nth_data(1));
@@ -82,6 +85,7 @@ namespace LAIR{
                                 mobile_count();
                                 mobile_count_bytag();
                         }
+                        return coords;
                 }
                 private int particle_count(){
                         lua_push_uint_to_table("""generator_particle_count""", """c""", (int)Particles.length());
@@ -162,34 +166,49 @@ namespace LAIR{
                 //Only coarse generation of the dungeon structure is done in the native code, most of the logic will be handed to scripts eventually.
                 private void generate_floor(Video.Renderer* renderer){
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
-                        int c = 0;
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Floor Generation At x %s y %s, os %s oy %s", xx.to_string(), yy.to_string(), get_offset_x(xx).to_string(), get_offset_y(yy).to_string() );
-                                        GeneratorPushXYToLua(Floor.generate_floor(GameMaster, xx, yy, get_offset_x(xx), get_offset_y(yy), renderer));
-                                        c++;
+                                        message("Floor Generation At x %s y %s, os %s oy %s",
+                                                xx.to_string(),
+                                                yy.to_string(),
+                                                get_offset_x(xx).to_string(),
+                                                get_offset_y(yy).to_string() );
+                                        Floor.generate_floor(GameMaster,
+                                                generator_push_xy_to_lua(xx, yy),
+                                                renderer);
                                 }
                         }
                 }
                 private void generate_particles(Video.Renderer* renderer){
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
-                        int c = 0;
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Particle Generation At x %s y %s, os %s oy %s", xx.to_string(), yy.to_string(), get_offset_x(xx).to_string(), get_offset_y(yy).to_string() );
-                                        GeneratorPushXYToLua(Particles.generate_particle(GameMaster, xx, yy, get_offset_x(xx), get_offset_y(yy), decide_block_tile(), renderer));
-                                        c++;
+                                        message("Particle Generation At x %s y %s, os %s oy %s",
+                                                xx.to_string(),
+                                                yy.to_string(),
+                                                get_offset_x(xx).to_string(),
+                                                get_offset_y(yy).to_string() );
+                                        Particles.generate_particle(GameMaster,
+                                                generator_push_xy_to_lua(xx, yy),
+                                                decide_block_tile(),
+                                                renderer);
                                 }
                         }
                 }
                 private void generate_mobiles(string aiScript, Video.Renderer* renderer){
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
-                        int c = 0;
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Mobile Generation At x %s y %s, os %s oy %s", xx.to_string(), yy.to_string(), get_offset_x(xx).to_string(), get_offset_y(yy).to_string() );
-                                        GeneratorPushXYToLua(Mobiles.generate_mobile(GameMaster, xx, yy, get_offset_x(xx), get_offset_y(yy), decide_mobile_tile(aiScript), aiScript, renderer));
-                                        c++;
+                                        message("Mobile Generation At x %s y %s, os %s oy %s",
+                                                xx.to_string(),
+                                                yy.to_string(),
+                                                get_offset_x(xx).to_string(),
+                                                get_offset_y(yy).to_string() );
+                                        Mobiles.generate_mobile(GameMaster,
+                                                generator_push_xy_to_lua(xx, yy),
+                                                decide_mobile_tile(aiScript),
+                                                aiScript,
+                                                renderer);
                                 }
                         }
                 }

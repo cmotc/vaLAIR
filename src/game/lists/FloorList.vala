@@ -26,18 +26,14 @@ namespace LAIR{
                                 }}
                         }}
                 }
-                public List<AutoPoint> generate_floor(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, Video.Renderer renderer){
-                        List<AutoPoint> tmp = new List<AutoPoint>();
-                        tmp.append(new AutoPoint(xx, yy));
-                        tmp.append(new AutoPoint(offset_x, offset_y));
+                public void generate_floor(FileDB GameMaster, List<AutoPoint> point_list, Video.Renderer renderer){
                         message("Placing floor at x %s y %s, os %s, oy %s",
-                                tmp.nth_data(0).x().to_string(),
-                                tmp.nth_data(0).y().to_string(),
-                                tmp.nth_data(1).x().to_string(),
-                                tmp.nth_data(1).y().to_string()
+                                point_list.nth_data(0).x().to_string(),
+                                point_list.nth_data(0).y().to_string(),
+                                point_list.nth_data(1).x().to_string(),
+                                point_list.nth_data(1).y().to_string()
                                 );//*/
-                        generate_floor_tile(GameMaster, tmp.nth_data(1), renderer);
-                        return tmp;
+                        generate_floor_tile(GameMaster, point_list.nth_data(1), renderer);
                 }
                 public uint length(){return Particles.length();}
                 public unowned List<Entity> get_floor(){

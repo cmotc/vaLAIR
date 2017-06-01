@@ -38,7 +38,7 @@ namespace LAIR{
                         }}
                         return tmp;
                 }
-                public List<AutoPoint> generate_mobile(FileDB GameMaster, int xx, int yy, int offset_x, int offset_y, List<List<string>> generated_tags, string aiscript="/usr/share/lair/ai.lua", Video.Renderer renderer){
+                public void generate_mobile(FileDB GameMaster, List<AutoPoint> point_list, List<List<string>> generated_tags, string aiscript="/usr/share/lair/ai.lua", Video.Renderer renderer){
                         bool t = false;
                         foreach(var tag_list in generated_tags.copy()){
                                 foreach(string tag in tag_list){
@@ -46,19 +46,15 @@ namespace LAIR{
                                         t = true;
                                 }
                         }
-                        List<AutoPoint> tmp = new List<AutoPoint>();
                         if(t){
-                                tmp.append(new AutoPoint(xx, yy));
-                                tmp.append(new AutoPoint(offset_x, offset_y));
                                 message("Placing mobile at x %s y %s, os %s, oy %s",
-                                        tmp.nth_data(0).x().to_string(),
-                                        tmp.nth_data(0).y().to_string(),
-                                        tmp.nth_data(1).x().to_string(),
-                                        tmp.nth_data(1).y().to_string()
+                                        point_list.nth_data(0).x().to_string(),
+                                        point_list.nth_data(0).y().to_string(),
+                                        point_list.nth_data(1).x().to_string(),
+                                        point_list.nth_data(1).y().to_string()
                                         );//*/
-                                generate_mobile_tile(GameMaster, tmp.nth_data(1), generated_tags, renderer);
+                                generate_mobile_tile(GameMaster, point_list.nth_data(1), generated_tags, renderer);
                         }
-                        return tmp;
                 }
                 public uint length(){return Mobiles.length();}
                 public unowned List<Entity> get_mobiles(){
