@@ -211,7 +211,7 @@ namespace LAIR{
                         message("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
                                 message(" Checking Event for Player Input");
-				if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
+                                if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
                                         int x = 0, y = 0;
                                         Input.Cursor.get_state(ref x, ref y);
                                         bool inside = true;
@@ -222,52 +222,48 @@ namespace LAIR{
                                                                 break;
                                                         case EventType.MOUSEBUTTONDOWN:
                                                                 t = swing_left();
-                                                                //t = swing_right();
                                                                 break;
                                                         case EventType.MOUSEBUTTONUP:
                                                                 t = swing_left();
-                                                                //t = swing_right();
                                                                 break;
                                                 }
                                         }
-                                }else if (e.type == EventType.KEYDOWN) {
-                                        switch(e.key.keysym.sym){
-                                                case Input.Keycode.ESCAPE:
-                                                        t = quit();
-                                                        break;
-                                                case Input.Keycode.s:
-                                                        t = step_down();
-                                                        break;
-                                                case Input.Keycode.w:
-                                                        t = step_up();
-                                                        break;
-                                                case Input.Keycode.d:
-                                                        t = step_right();
-                                                        break;
-                                                case Input.Keycode.a:
-                                                        t = step_left();
-                                                        break;
-                                                case Input.Keycode.DOWN:
-                                                        t = step_down();
-                                                        break;
-                                                case Input.Keycode.UP:
-                                                        t = step_up();
-                                                        break;
-                                                case Input.Keycode.RIGHT:
-                                                        t = step_right();
-                                                        break;
-                                                case Input.Keycode.LEFT:
-                                                        t = step_left();
-                                                        break;
-                                                case Input.Keycode.TAB:
-                                                        t = show_my_stats();
-                                                        break;
-                                                case Input.Keycode.CAPSLOCK:
-                                                        t = show_my_skills();
-                                                        break;
-                                        }
                                 }
 			}
+                        unowned bool[] current_key_states = Input.Keyboard.get_state();
+                        if (current_key_states[Input.Scancode.ESCAPE] == true){
+                                        t = quit();
+                                }
+                        if (current_key_states[Input.Scancode.S] == true){
+                                        t = step_down();
+                                }
+                        if (current_key_states[Input.Scancode.W] == true){
+                                        t = step_up();
+                                }
+                        if (current_key_states[Input.Scancode.D] == true){
+                                        t = step_right();
+                                }
+                        if (current_key_states[Input.Scancode.A] == true){
+                                        t = step_left();
+                                }
+                        if (current_key_states[Input.Scancode.DOWN] == true){
+                                        t = step_down();
+                                }
+                        if (current_key_states[Input.Scancode.UP] == true){
+                                        t = step_up();
+                                }
+                        if (current_key_states[Input.Scancode.RIGHT] == true){
+                                        t = step_right();
+                                }
+                        if (current_key_states[Input.Scancode.LEFT] == true){
+                                        t = step_left();
+                                }
+                        if (current_key_states[Input.Scancode.TAB] == true){
+                                        t = show_my_stats();
+                                }
+                        if (current_key_states[Input.Scancode.CAPSLOCK] == true){
+                                        t = show_my_skills();
+                                }
                         return t;
 		}
 		public int run(){
