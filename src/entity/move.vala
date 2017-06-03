@@ -230,38 +230,38 @@ namespace LAIR{
                                         }
                                 }
 			}
-                        unowned bool[] current_key_states = Input.Keyboard.get_state();
-                        if (current_key_states[Input.Scancode.ESCAPE] == true){
+                        bool[] current_key_states = Input.Keyboard.get_state();
+                        if (current_key_states[Input.Scancode.ESCAPE]){
                                         t = quit();
                                 }
-                        if (current_key_states[Input.Scancode.S] == true){
+                        if (current_key_states[Input.Scancode.S]){
                                         t = step_down();
                                 }
-                        if (current_key_states[Input.Scancode.W] == true){
+                        if (current_key_states[Input.Scancode.W]){
                                         t = step_up();
                                 }
-                        if (current_key_states[Input.Scancode.D] == true){
+                        if (current_key_states[Input.Scancode.D]){
                                         t = step_right();
                                 }
-                        if (current_key_states[Input.Scancode.A] == true){
+                        if (current_key_states[Input.Scancode.A]){
                                         t = step_left();
                                 }
-                        if (current_key_states[Input.Scancode.DOWN] == true){
+                        if (current_key_states[Input.Scancode.DOWN]){
                                         t = step_down();
                                 }
-                        if (current_key_states[Input.Scancode.UP] == true){
+                        if (current_key_states[Input.Scancode.UP]){
                                         t = step_up();
                                 }
-                        if (current_key_states[Input.Scancode.RIGHT] == true){
+                        if (current_key_states[Input.Scancode.RIGHT]){
                                         t = step_right();
                                 }
-                        if (current_key_states[Input.Scancode.LEFT] == true){
+                        if (current_key_states[Input.Scancode.LEFT]){
                                         t = step_left();
                                 }
-                        if (current_key_states[Input.Scancode.TAB] == true){
+                        if (current_key_states[Input.Scancode.TAB]){
                                         t = show_my_stats();
                                 }
-                        if (current_key_states[Input.Scancode.CAPSLOCK] == true){
+                        if (current_key_states[Input.Scancode.CAPSLOCK]){
                                         t = show_my_skills();
                                 }
                         return t;

@@ -1,7 +1,7 @@
 using Log;
 
 namespace LAIR{
-	class Scribe : Object {
+	class Scribe {
                 private static GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;
                 private bool do_log_me = true;
                 private string name = "global log:";

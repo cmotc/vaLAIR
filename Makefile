@@ -10,7 +10,7 @@ EMCC_LLVM_TARGET = le32-unknown-nacl
 #"/usr/lib/x86_64-linux-gnu"
 #--enable-experimental
 unix:
-	export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-musl" ; \
+	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH/usr/lib/x86_64-linux-musl" ; \
 	valac -gv \
 		-o bin/LAIR \
 		--pkg-config /usr/bin/pkgconf \
@@ -76,7 +76,7 @@ unix:
 				#--thread \
 
 unix-clang:
-	export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-musl" ; \
+	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH/usr/lib/x86_64-linux-musl" ; \
 	valac -gv \
 		-o bin/LAIR \
 		--pkg-config /usr/bin/pkgconf \
@@ -513,18 +513,18 @@ sysluacheck:
 		/usr/share/lair/lua/ai/common.lua
 
 debug:
-	make
+	make 2>build.err 1>build.log
 	ulimit -c unlimited
 	gdb ./bin/LAIR core
 
 debug-clang:
-	make unix-clang
+	make unix-clang 2>build.err 1>build.log
 	ulimit -c unlimited
 	lldb ./bin/LAIR core
 
 memcheck:
 	ulimit -c unlimited; \
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m tiny
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m tiny 2>mem.err 1>mem.log
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
@@ -580,6 +580,7 @@ release-commit:
 	git push
 
 trimmedlogs:
+	mv mem.err err
 	grep -v process err > err.1
 	grep  . err.1 > err.2
 	grep Message err > log

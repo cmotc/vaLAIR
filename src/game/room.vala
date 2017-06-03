@@ -314,34 +314,43 @@ namespace LAIR{
                         }
                         return t;
                 }
-                public int detect_transitions(Entity t){
+                public int detect_transitions(Entity tmp){
                         int r = 0;
-                        if(t!=null){
-                                AutoPoint tlc = new AutoPoint(t.get_hitbox().x,
-                                        t.get_hitbox().y );
+                        message("detect_transitions 0");
+                        if(tmp!=null){
+                                message("detect_transitions 1");
+                                AutoPoint tlc = new AutoPoint(tmp.get_hitbox().x,
+                                        tmp.get_hitbox().y );
                                 bool TLeftCorner = point_in_room(tlc, get_hitbox());
-                                AutoPoint trc = new AutoPoint( (int)(t.get_hitbox().x + t.get_hitbox().w),
-                                        t.get_hitbox().y );
+                                AutoPoint trc = new AutoPoint( (int)(tmp.get_hitbox().x + tmp.get_hitbox().w),
+                                        tmp.get_hitbox().y );
                                 bool TRightCorner = point_in_room(trc, get_hitbox());
-                                AutoPoint blc = new AutoPoint( t.get_hitbox().x,
-                                        (int)(t.get_hitbox().y + t.get_hitbox().h) );
+                                AutoPoint blc = new AutoPoint( tmp.get_hitbox().x,
+                                        (int)(tmp.get_hitbox().y + tmp.get_hitbox().h) );
                                 bool BLeftCorner = point_in_room(blc, get_hitbox());
-                                AutoPoint brc = new AutoPoint( (int)(t.get_hitbox().x + t.get_hitbox().w),
-                                        (int)(t.get_hitbox().y + t.get_hitbox().h) );
+                                AutoPoint brc = new AutoPoint( (int)(tmp.get_hitbox().x + tmp.get_hitbox().w),
+                                        (int)(tmp.get_hitbox().y + tmp.get_hitbox().h) );
                                 bool BRightCorner = point_in_room( brc, get_hitbox());
+                                message("detect_transitions 3");
                                 if (TLeftCorner){
                                         r++;
+                                        message("Detected transiton, TLC %s", TLeftCorner.to_string());
                                 }
                                 if (BLeftCorner){
                                         r++;
+                                        message("Detected transiton, BLC %s", BLeftCorner.to_string());
                                 }
                                 if (BRightCorner){
                                         r++;
+                                        message("Detected transiton, BRC %s", BLeftCorner.to_string());
                                 }
                                 if (TRightCorner){
                                         r++;
+                                        message("Detected transiton, TRC %s", TRightCorner.to_string());
                                 }
+                                message("detect_transitions 4");
                         }
+                        message("detect_transitions 5");
                         return r;
                 }
                 public void render_copy(Video.Renderer renderer, AutoPoint player_pos){
@@ -366,51 +375,68 @@ namespace LAIR{
 			}
 		}
 		public bool enter_room(Entity player){
+                        message("enter_room 0");
 			if (player != null){
-                                message("    Player Entering Room.");
+                                message("    Player entering Rroom.");
 				Player = player;
                                 visited = true;
 			}else{
+                                message("    Player staying in room");
                                 Player = null;
                                 visited = false;
                         }
+                        message("enter_room 2");
 			return visited;
 		}
                 public bool mob_enter_room(Entity mob){
+                        message("mob_enter_room 0");
 			if (mob != null){
                                 message("    Mob Entering Room.");
 				Mobiles.add_mobile(mob);
 			}
+                        message("mob_enter_room 2");
 			return visited;
 		}
 		public Entity leave_room(int doleave){
                         Entity tmp = null;
+                        message("leave_room 0");
                         if (doleave == 4){
+                                message("leave_room 1 doleave %s", doleave.to_string());
                                 if (Player != null){
+                                        message("leave_room 1 player is present");
                                         tmp = Player;
                                         Player = null;
                                 }
                         }else if (doleave > 0){
+                                message("leave_room 2 doleave %s", doleave.to_string());
                                 if (Player != null){
+                                        message("leave_room 2 player is present");
                                         tmp = Player;
                                 }
                         }
+                        message("leave_room 3");
 			return tmp;
 		}
                 public Entity mob_leave_room(int doleave, int mob_index){
                         Entity tmp = null;
+                        message("mob_leave_room 0");
                         if (doleave == 4){
+                                message("mob_leave_room 1 doleave %s", doleave.to_string());
                                 if ( mob_index < Mobiles.length()){
+                                        message("mob_leave_room 0");
                                         Entity do_leave = Mobiles.get_mobile(mob_index);
                                         Mobiles.delete_mobile(Mobiles.get_mobile(mob_index));
                                         return do_leave;
                                 }
                         }else if (doleave > 0){
+                                message("mob_leave_room 2 doleave %s", doleave.to_string());
                                 if (mob_index < Mobiles.length()){
+                                        message("mob_leave_room 0");
                                         Entity dont_leave = Mobiles.get_mobile(mob_index);
                                         return dont_leave;
                                 }
                         }
+                        message("mob_leave_room 3");
 			return tmp;
 		}
 	}
