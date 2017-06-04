@@ -24,6 +24,7 @@ namespace LAIR{
                                         //log some more shit.
                                 }
                                 SDLTTF.init();
+                                //SDL.Hint.set_hint(Hint.GRAB_KEYBOARD, "1");
                                 GameMap = new Game(lspt, scrpt, mapSize, screenW, screenH);
                                 GameMap.run();
                         }else{

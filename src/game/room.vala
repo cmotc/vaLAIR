@@ -388,7 +388,7 @@ namespace LAIR{
                         message("enter_room 2");
 			return visited;
 		}
-                public bool mob_enter_room(Entity mob){
+                public bool mob_enter_room(Entity mob = null){
                         message("mob_enter_room 0");
 			if (mob != null){
                                 message("    Mob Entering Room.");

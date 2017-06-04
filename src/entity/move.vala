@@ -228,42 +228,60 @@ namespace LAIR{
                                                                 break;
                                                 }
                                         }
+                                }else{
+                                        //rbreak;
                                 }
 			}
-                        bool[] current_key_states = Input.Keyboard.get_state();
+                        unowned bool[] current_key_states = Input.Keyboard.get_state();
+                        int i = 0;
+                        foreach(bool test in current_key_states){
+                                        message("key state i %s: %s", i.to_string(),test.to_string());
+                                        i++;
+                                }
                         if (current_key_states[Input.Scancode.ESCAPE]){
-                                        t = quit();
-                                }
+                                message("Player is Quitting");
+                                t = quit();
+                        }
                         if (current_key_states[Input.Scancode.S]){
-                                        t = step_down();
-                                }
+                                message("Player is moving down");
+                                t = step_down();
+                        }
                         if (current_key_states[Input.Scancode.W]){
-                                        t = step_up();
-                                }
+                                message("Player is moving up");
+                                t = step_up();
+                        }
                         if (current_key_states[Input.Scancode.D]){
-                                        t = step_right();
-                                }
+                                message("Player is moving right");
+                                t = step_right();
+                        }
                         if (current_key_states[Input.Scancode.A]){
-                                        t = step_left();
-                                }
+                                message("Player is moving left");
+                                t = step_left();
+                        }
                         if (current_key_states[Input.Scancode.DOWN]){
-                                        t = step_down();
-                                }
+                                message("Player is moving down");
+                                t = step_down();
+                        }
                         if (current_key_states[Input.Scancode.UP]){
-                                        t = step_up();
-                                }
+                                message("Player is moving up");
+                                t = step_up();
+                        }
                         if (current_key_states[Input.Scancode.RIGHT]){
-                                        t = step_right();
-                                }
+                                message("Player is moving right");
+                                t = step_right();
+                        }
                         if (current_key_states[Input.Scancode.LEFT]){
-                                        t = step_left();
-                                }
+                                message("Player is moving left");
+                                t = step_left();
+                        }
                         if (current_key_states[Input.Scancode.TAB]){
-                                        t = show_my_stats();
-                                }
+                                message("Player is viewing stats");
+                                t = show_my_stats();
+                        }
                         if (current_key_states[Input.Scancode.CAPSLOCK]){
-                                        t = show_my_skills();
-                                }
+                                message("Player is viewing skills");
+                                t = show_my_skills();
+                        }
                         return t;
 		}
 		public int run(){

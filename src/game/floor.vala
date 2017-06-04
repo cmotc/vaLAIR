@@ -91,7 +91,7 @@ namespace LAIR{
                 public bool detect_collisions(){
                         bool tmp = false;
                         foreach(unowned Room room in rooms){
-                                message("0");
+                                message("detect_collisions 0");
                                 if (!room.has_player()) {
                                         message("1a1");
                                         Entity p = get_player();
@@ -104,12 +104,12 @@ namespace LAIR{
                                         tmp = room.player_detect_collisions() ? true : tmp;
                                         message("1b2");
                                 }
-                                message("2");
+                                message("detect_collisions 2");
                                 int t = 0;
                                 foreach(unowned Entity mob in room.get_mobiles()){
                                         foreach(unowned Room room2 in rooms){
                                                 if(room2 != room){
-                                                        message("3");
+                                                        message("detect_collisions 3");
                                                         int s = room2.detect_transitions(mob);
                                                         Entity rm = room.mob_leave_room(s, t);
                                                         room2.mob_enter_room(rm);

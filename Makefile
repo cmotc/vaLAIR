@@ -21,8 +21,10 @@ unix:
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
 		-g \
+		--disable-assert \
 		--enable-checking \
 		--enable-experimental \
+		--enable-gobject-tracing \
 		--vapidir="/usr/share/vala/vapi/" \
 		--includedir /usr/include/x86_64-linux-musl \
 		--target-glib 2.0 \
@@ -80,20 +82,23 @@ unix-clang:
 	valac -gv \
 		-o bin/LAIR \
 		--pkg-config /usr/bin/pkgconf \
+		--cc clang \
 		-X -fstack-protector-all \
-		-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 		-X --param \
 		-X ssp-buffer-size=4 \
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
-		--cc clang \
+		-g \
+		--disable-assert \
 		--enable-checking \
 		--enable-experimental \
+		--enable-gobject-tracing \
 		--vapidir="/usr/share/vala/vapi/" \
+		--includedir /usr/include/x86_64-linux-musl \
+		--target-glib 2.0 \
 		--pkg gio-2.0 \
-		-X "-I/usr/include/luajit-2.0" \
-		-X -lluajit-2.0 \
+		--pkg lua \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
@@ -102,7 +107,8 @@ unix-clang:
 		--pkg=tartrazine \
 		-X -O0 \
 		-X -g3 \
-		-X -llua5.1 \
+		--includedir /usr/include/luajit-2.0 \
+		-X -lluajit-5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -120,6 +126,10 @@ unix-clang:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -136,22 +146,27 @@ unix-clang:
 		src/entity/entity.vala
 
 unix-static:
-	export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-musl" ; \
+	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH/usr/lib/x86_64-linux-musl" ; \
 	valac -gv \
-		-o bin/LAIR-static \
+		-o bin/LAIR \
 		--pkg-config /usr/bin/pkgconf \
+		--cc musl-gcc \
 		-X -fstack-protector-all \
 		-X --param \
 		-X ssp-buffer-size=4 \
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
-		-X -static \
-		--cc musl-gcc \
+		-g \
+		--disable-assert \
+		--enable-checking \
+		--enable-experimental \
+		--enable-gobject-tracing \
 		--vapidir="/usr/share/vala/vapi/" \
+		--includedir /usr/include/x86_64-linux-musl \
+		--target-glib 2.0 \
 		--pkg gio-2.0 \
-		-X "-I/usr/include/luajit-2.0" \
-		-X -lluajit-2.0 \
+		--pkg lua \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
@@ -160,7 +175,8 @@ unix-static:
 		--pkg=tartrazine \
 		-X -Og \
 		-X -g3 \
-		-X -llua5.1 \
+		--includedir /usr/include/luajit-2.0 \
+		-X -lluajit-5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
@@ -178,6 +194,10 @@ unix-static:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -235,6 +255,10 @@ win64:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -292,6 +316,10 @@ win32:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -352,6 +380,10 @@ android:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
@@ -398,10 +430,15 @@ bitcode:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
 		src/game/game.vala \
+		src/entity/dice.vala \
 		src/entity/type.vala \
 		src/entity/sprite.vala \
 		src/entity/anim.vala \
@@ -410,7 +447,6 @@ bitcode:
 		src/entity/stats.vala \
 		src/entity/inventory.vala \
 		src/entity/move.vala \
-		src/entity/dice.vala \
 		src/entity/entity.vala
 
 javascript:
@@ -441,10 +477,15 @@ javascript:
 		src/resmanage/filedb.vala \
 		src/resmanage/fonts.vala \
 		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
 		src/game/room.vala \
 		src/game/floor.vala \
 		src/game/tower.vala \
 		src/game/game.vala \
+		src/entity/dice.vala \
 		src/entity/type.vala \
 		src/entity/sprite.vala \
 		src/entity/anim.vala \
@@ -453,7 +494,6 @@ javascript:
 		src/entity/stats.vala \
 		src/entity/inventory.vala \
 		src/entity/move.vala \
-		src/entity/dice.vala \
 		src/entity/entity.vala
 
 js:
