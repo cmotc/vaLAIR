@@ -11,6 +11,6 @@ cb06318337a6784c193666fbae175f65  usr/share/lair/demo/ai.lua
 6e32908fddf15d4b76575210fdb548c4  usr/share/lair/demo/dungeon.lua
 d41d8cd98f00b204e9800998ecf8427e  usr/share/lair/demo/player.lua
 6b7219c9a25ea9ccc618ec705ab28356  usr/share/lair/lua/ai/common.lua
-6cf61cad9f2be754fd8ce5d38044f318  usr/share/lair/lua/map/basicwall_cares_insert.lua
+8bbeef0a2cae130d216e825dcb110d05  usr/share/lair/lua/map/basicwall_cares_insert.lua
 0739210440886eceeac544cf9591607e  usr/share/lair/lua/map/common.lua
 6f67df7b61687f059cb31b5eebff6e89  usr/share/lair/lua/map/cut_hallways.lua
