@@ -1,0 +1,161 @@
+./src/game/room.vala:                private List<List<string>> decide_mobile_tile(string aiScript){
+./src/game/room.vala:                private void generate_mobiles(string aiScript, Video.Renderer* renderer){
+./src/game/room.vala:                                                decide_mobile_tile(aiScript),
+./src/game/room.vala:                                                aiScript,
+./src/game/lists/MobilesList.vala:                private string generate_mobile_tile(FileDB GameMaster, AutoPoint coords, List<List<string>> generated_tags, Video.Renderer* renderer, string aiscript="/usr/share/lair/ai.lua", int index = 0){
+./src/game/lists/MobilesList.vala:                                                aiscript,
+./src/game/lists/MobilesList.vala:                public void generate_mobile(FileDB GameMaster, List<AutoPoint> point_list, List<List<string>> generated_tags, string aiscript="/usr/share/lair/ai.lua", Video.Renderer renderer){
+./src/main.vala:	class Lair : Scribe {
+./src/main.vala:                private static string ImageFilePath = get_file_path("lair/images.list");
+./src/main.vala:		private static string SoundFilePath = get_file_path("lair/sounds.list");
+./src/main.vala:		private static string FontsFilePath = get_file_path("lair/fonts.list");
+./src/main.vala:                private static string MapGenLua = get_file_path("lair/demo/dungeon.lua");
+./src/main.vala:                private static string PlayerConfig = get_file_path("lair/demo/player.lua");
+./src/main.vala:                private static string AiConfig = get_file_path("lair/demo/ai.lua");
+./src/main.vala:		public Lair(string[] lspt, string[] scrpt, string mapSize, int screenW, int screenH, int verbosity){
+./src/main.vala:                                message("     -a : path to ai library script");
+./src/main.vala:		~Lair() {
+./src/main.vala:		public static int main(string args[]){
+./src/main.vala:                        ImageFilePath = get_file_path("lair/images.list");
+./src/main.vala:                        SoundFilePath = get_file_path("lair/sounds.list");
+./src/main.vala:                        FontsFilePath = get_file_path("lair/fonts.list");
+./src/main.vala:                        MapGenLua = get_file_path("lair/demo/dungeon.lua");
+./src/main.vala:                        PlayerConfig = get_file_path("lair/demo/player.lua");
+./src/main.vala:                        AiConfig = get_file_path("lair/demo/ai.lua");
+./src/main.vala:			var app = new Lair(listPaths, scriptPaths, MapSize, PixelW, PixelH, Verbosity);
+./src/entity/type.vala:                public Type(string lua_ai_conf = "immobile"){
+./src/entity/type.vala:                        base(lua_ai_conf,6,"entity");
+./src/entity/type.vala:                        tags.append(new Tag(lua_ai_conf));
+./src/entity/type.vala:                public Type.ParameterList(List<string> types, string lua_ai_conf = "immobile"){
+./src/entity/type.vala:                        base(lua_ai_conf,6,"entity");
+./src/entity/type.vala:                        tags.append(new Tag(lua_ai_conf));
+./src/entity/type.vala:                public Type.ParameterListBlocked(List<string> types, string lua_ai_conf = "immobile"){
+./src/entity/type.vala:                        base(lua_ai_conf,6,"entity");
+./src/entity/type.vala:                        tags.append(new Tag(lua_ai_conf));
+./src/entity/type.vala:                public Type.Player(List<string> types, string lua_ai_conf = "immobile"){
+./src/entity/type.vala:                        base(lua_ai_conf,6,"entity");
+./src/entity/type.vala:                        tags.append(new Tag(lua_ai_conf));
+./src/entity/type.vala:                public Type.Mobile(List<string> types, string lua_ai_conf = "/usr/share/lair/demo/ai.lua"){
+./src/entity/type.vala:                        base(lua_ai_conf,6,"entity");
+./src/entity/type.vala:                        tags.append(new Tag(lua_ai_conf));
+./src/entity/sprite.vala:                public Sprite.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
+./src/entity/sprite.vala:                        base.Mobile(Video.Rect(){x=corner.x(), y=corner.y(), w=32, h=32}, aiScript, tags);
+./src/entity/entity.vala:                public Entity(AutoPoint corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
+./src/entity/entity.vala:                public Entity.Mobile(AutoPoint corner, string ai_script, string ai_func, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="mobile"){
+./src/entity/entity.vala:                        base.Mobile(corner, ai_script, ai_func, Surfaces, music, font, renderer, tags);
+./src/entity/entity.vala:                                                nearby_interests.append(test.stringify_entity_details());
+./src/entity/entity.vala:                                                message("is observing %s", test.stringify_entity_details());
+./src/entity/entity.vala:                                lua_push_string_to_table("self", stringify_entity_details());
+./src/entity/entity.vala:                public string stringify_entity_details(){
+./src/entity/entity.vala:                        string details = get_category() + stringify_coordinates() + stringify_skills() + stringify_tags();
+./src/entity/entity.vala:                        return details;
+./src/entity/stats.vala:		private int aim = 0;
+./src/entity/stats.vala:		private int has_aim(){
+./src/entity/stats.vala:                        return (aim > 0) ? 1 : 0;
+./src/entity/stats.vala:                private string stringify_speed(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:		private string stringify_exert(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:		private string stringify_dodge(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:		private string stringify_aim(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                                r += (has_aim() != 0) ? "aim " : " ";
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:                                if(has_aim() != 0){
+./src/entity/stats.vala:                                        r += "has-aim";
+./src/entity/stats.vala:		private string stringify_will(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:		private string stringify_resist(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:		private string stringify_magic(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:		private string stringify_tech(int player_aim = 0){
+./src/entity/stats.vala:                        if(player_aim <= 5){
+./src/entity/stats.vala:                        }else if(player_aim > 5){
+./src/entity/stats.vala:                public Stats.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+./src/entity/stats.vala:                        base.Mobile(corner, aiScript, Surfaces, music, font, generate_labels(), renderer, tags);
+./src/entity/stats.vala:                        tmp.append(" _aim   : ");
+./src/entity/stats.vala:			return (tmp + aim) * has_aim();
+./src/entity/stats.vala:                protected string stringify_skills(int player_aim = 0){
+./src/entity/stats.vala:                                skills += stringify_aim();
+./src/entity/anim.vala:                public Anim.Mobile(Video.Rect rect, string aiScript, List<string> tags){
+./src/entity/anim.vala:                        base.Mobile(tags, aiScript);
+./src/entity/anim.vala:                public Video.Rect get_range_of_sight(int player_aim = 0){
+./src/entity/anim.vala:                        int new_x = ((get_x() + rangeOfSight.x + (player_aim * 32))>0) ?
+./src/entity/anim.vala:                                (get_x() + rangeOfSight.x + (player_aim * 32)) :
+./src/entity/anim.vala:                                -160 + (get_x() + rangeOfSight.x + (player_aim * 32));
+./src/entity/anim.vala:                        int new_y = ((get_y() + rangeOfSight.y + (player_aim * 32))>0) ?
+./src/entity/anim.vala:                                (get_y() + rangeOfSight.y + (player_aim * 32)) :
+./src/entity/anim.vala:                                -160 + (get_y() + rangeOfSight.y + (player_aim * 32));
+./src/entity/inventory.vala:                public Inventory.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+./src/entity/inventory.vala:                        base.Mobile(corner, aiScript, Surfaces, music, font, renderer, tags);
+./src/entity/move.vala:                private string ai_func = "";
+./src/entity/move.vala:                public Move.Mobile(AutoPoint corner, string aiScript, string aiFunc, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+./src/entity/move.vala:                        base.Mobile(corner, aiScript, Surfaces, music, font, renderer, tags);
+./src/entity/move.vala:                        ai_func = aiFunc;
+./src/entity/move.vala:                        set_stat_func("stats_" + get_ai_func());
+./src/entity/move.vala:                protected string get_ai_func(){
+./src/entity/move.vala:                        if(ai_func == ""){
+./src/entity/move.vala:                                r = ai_func;
+./src/entity/move.vala:		private void ai_input(){
+./src/entity/move.vala:                        lua_do_function(get_ai_func());
+./src/entity/move.vala:                        List<string> aiDo = get_lua_last_return();
+./src/entity/move.vala:                        ai_input_compare(aiDo.nth_data(0));
+./src/entity/move.vala:                private void ai_input_compare(string ai_do){
+./src/entity/move.vala:                        switch (ai_do) {
+./src/entity/move.vala:                                case "aim()":
+./src/entity/move.vala:                                        message("AI is aiming");
+./src/entity/move.vala:				ai_input();
+./src/entity/text.vala:                public Text.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+./src/entity/text.vala:                        base.Mobile(corner, aiScript, Surfaces, renderer, tags);
+./src/entity/dice.vala:                public Dice(string lua_ai_path = "/usr/share/lair/demo/ai.lua", int lua_log_level = 1, string name = "rolls_a"){
+./src/entity/dice.vala:                        base(lua_ai_path, lua_log_level, name);
+./src/entity/sound.vala:                public Voice.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+./src/entity/sound.vala:                        base.Mobile(corner, aiScript, Surfaces, font, Labels, renderer, tags);
+./src/util/luaconf.vala:                public LuaConf(string lua_ai_path = "immobile", int lua_log_level=1, string name="Local lua VM: "){
+./src/util/luaconf.vala:                        base(lua_ai_path, lua_log_level, name);
+./src/util/luaconf.vala:                        script_path = lua_ai_path;
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                                if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                                                message(" Containing field: %s.", varname);
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                                if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                                        if(does_it_ai(script_path)){
+./src/util/luaconf.vala:                        if(does_it_ai(script_path)){
+./src/util/luaglobal.vala:                private bool does_ai = false;
+./src/util/luaglobal.vala:                public LuaGlobal(string lua_ai_path,int lua_log_level = 1, string name = "Global Lua VM: "){
+./src/util/luaglobal.vala:                        if(lua_ai_path != "immobile"){
+./src/util/luaglobal.vala:                                does_ai = true;
+./src/util/luaglobal.vala:                        }else{does_ai = false;}
+./src/util/luaglobal.vala:                protected bool does_it_ai(string script_path){
+./src/util/luaglobal.vala:                                does_ai = false;
+./src/util/luaglobal.vala:                        return does_ai;
+./src/resmanage/sounds.vala:	class Sound : LairFile {
+./src/resmanage/filedb.vala:		private LairFile imgListPath = null;
+./src/resmanage/filedb.vala:		private LairFile sndListPath = null;
+./src/resmanage/filedb.vala:		private LairFile ttfListPath = null;
+./src/resmanage/filedb.vala:			var imgfile = new LairFile.WithPath(imgList);
+./src/resmanage/filedb.vala:			var sndfile = new LairFile.WithPath(sndList);
+./src/resmanage/filedb.vala:			var ttffile = new LairFile.WithPath(ttfList);
+./src/resmanage/files.vala:	class LairFile : Scribe {
+./src/resmanage/files.vala:		public LairFile.WithPath(string path){
+./src/resmanage/files.vala:                public LairFile.WithAttList(List<string> atts){
+./src/resmanage/files.vala:				message("Setting Path failed: %s doesn't exist", Path);
+./src/resmanage/files.vala:				message("Validating Path failed: %s doesn't exist.", Path);
+./src/resmanage/files.vala:                                                        message("Failed to load Resource: %s", tl[0]);
+./src/resmanage/images.vala:	class Image : LairFile {
+./src/resmanage/fonts.vala:	class Fonts : LairFile {

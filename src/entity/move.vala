@@ -214,30 +214,59 @@ namespace LAIR{
                                 if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
                                         int x = 0, y = 0;
                                         Input.Cursor.get_state(ref x, ref y);
-                                        bool inside = true;
-                                        if (inside){
-                                                switch (e.type) {
-                                                        case EventType.MOUSEMOTION:
-                                                                t = mouse_move(x, y);
-                                                                break;
-                                                        case EventType.MOUSEBUTTONDOWN:
-                                                                t = swing_left();
-                                                                break;
-                                                        case EventType.MOUSEBUTTONUP:
-                                                                t = swing_left();
-                                                                break;
-                                                }
+                                        switch (e.type) {
+                                                case EventType.MOUSEMOTION:
+                                                        message("Player is turning");
+                                                        t = mouse_move(x, y);
+                                                        break;
+                                                case EventType.MOUSEBUTTONDOWN:
+                                                        t = swing_left();
+                                                        break;
+                                                case EventType.MOUSEBUTTONUP:
+                                                        t = swing_left();
+                                                        break;
                                         }
-                                }else{
-                                        //rbreak;
+                                }else if(e.type == EventType.KEYDOWN){
+                                        switch(e.key.keysym.sym){
+                                                case Input.Keycode.ESCAPE:
+                                                        t = quit();
+                                                        break;
+                                                case Input.Keycode.s:
+                                                        t = step_down();
+                                                        break;
+                                                case Input.Keycode.w:
+                                                        t = step_up();
+                                                        break;
+                                                case Input.Keycode.d:
+                                                        t = step_right();
+                                                        break;
+                                                case Input.Keycode.a:
+                                                        t = step_left();
+                                                        break;
+                                                case Input.Keycode.DOWN:
+                                                        t = step_down();
+                                                        break;
+                                                case Input.Keycode.UP:
+                                                        t = step_up();
+                                                        break;
+                                                case Input.Keycode.RIGHT:
+                                                        t = step_right();
+                                                        break;
+                                                case Input.Keycode.LEFT:
+                                                        t = step_left();
+                                                        break;
+                                                case Input.Keycode.TAB:
+                                                        t = show_my_stats();
+                                                        break;
+                                                case Input.Keycode.CAPSLOCK:
+                                                        t = show_my_skills();
+                                                        break;
+                                                }
+                                }else if(e.type == EventType.KEYUP){
+                                        break;
                                 }
 			}
                         unowned bool[] current_key_states = Input.Keyboard.get_state();
-                        int i = 0;
-                        foreach(bool test in current_key_states){
-                                        message("key state i %s: %s", i.to_string(),test.to_string());
-                                        i++;
-                                }
                         if (current_key_states[Input.Scancode.ESCAPE]){
                                 message("Player is Quitting");
                                 t = quit();

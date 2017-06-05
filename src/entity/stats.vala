@@ -8,14 +8,14 @@ namespace LAIR{
 		private int Toughness = 10;
 		private int Intelligence = 10;
 		private int Special = 10;
-		private int speed = 1;
-		private int exert = 1;
-		private int dodge = 1;
-		private int aim = 1;
-		private int will = 1;
-		private int resist = 1;
-		private int magic = 1;
-		private int tech = 1;
+		private int speed = 0;
+		private int exert = 0;
+		private int dodge = 0;
+		private int aim = 0;
+		private int will = 0;
+		private int resist = 0;
+		private int magic = 0;
+		private int tech = 0;
                 private string stat_func = "";
                 private int has_speed(){
                         return (speed > 0) ? 1 : 0;
@@ -145,13 +145,14 @@ namespace LAIR{
                         Toughness = 10;
                         Intelligence = 0;
                         Special = 0;
-                        speed = 1;
+                        speed = 0;
                 }
                 public Stats.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Mobile(corner, aiScript, Surfaces, music, font, generate_labels(), renderer, tags);
                 }
                 public Stats.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
                         base.Player(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
+                        speed = 1;
                 }
                 private static List<string> generate_labels(){
                         List<string> tmp = new List<string>();

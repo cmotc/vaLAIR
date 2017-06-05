@@ -31,7 +31,7 @@ namespace LAIR{
                                 tags.append(new Tag(type));
                         }
                 }
-                public Type.Mobile(List<string> types, string lua_ai_conf = "immobile"){
+                public Type.Mobile(List<string> types, string lua_ai_conf = "/usr/share/lair/demo/ai.lua"){
                         base(lua_ai_conf,6,"entity");
                         tags.append(new Tag(lua_ai_conf));
                         foreach(string type in types){

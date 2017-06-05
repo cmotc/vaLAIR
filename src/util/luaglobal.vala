@@ -2,13 +2,13 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaGlobal : Scribe{
-                private LuaVM globalVM = null;//new_lua_vm();
+                private LuaVM global_vm = null;//new_lua_vm();
                 private bool does_ai = false;
-                public LuaGlobal(string lua_ai_path = "immobile",int lua_log_level = 1, string name = "Global Lua VM: "){
+                public LuaGlobal(string lua_ai_path,int lua_log_level = 1, string name = "Global Lua VM: "){
                         base.new_local_attributes(lua_log_level, name);
                         if(lua_ai_path != "immobile"){
                                 does_ai = true;
-                                globalVM = new_lua_vm();
+                                global_vm = new_lua_vm();
                         }else{does_ai = false;}
                 }
                 private static LuaVM new_lua_vm(){
@@ -17,9 +17,12 @@ namespace LAIR{
                         return tmp;
                 }
                 public unowned LuaVM global_vm_copy(){
-                        return globalVM;
+                        return global_vm;
                 }
-                protected bool does_it_ai(){
+                protected bool does_it_ai(string script_path){
+                        if(script_path == "immobile"){
+                                does_ai = false;
+                        }
                         return does_ai;
                 }
         }
