@@ -10,7 +10,7 @@ EMCC_LLVM_TARGET = le32-unknown-nacl
 #"/usr/lib/x86_64-linux-gnu"
 #--enable-experimental
 unix:
-	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH/usr/lib/x86_64-linux-musl" ; \
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:$PKG_CONFIG_PATH" ; \
 	valac -gv \
 		-o bin/LAIR \
 		--pkg-config /usr/bin/pkgconf \
@@ -46,6 +46,7 @@ unix:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -78,7 +79,7 @@ unix:
 				#--thread \
 
 unix-clang:
-	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH/usr/lib/x86_64-linux-musl" ; \
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:$PKG_CONFIG_PATH" ; \
 	valac -gv \
 		-o bin/LAIR \
 		--pkg-config /usr/bin/pkgconf \
@@ -115,6 +116,7 @@ unix-clang:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -183,6 +185,7 @@ unix-static:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -244,6 +247,7 @@ win64:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -305,6 +309,7 @@ win32:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -369,6 +374,7 @@ android:
 		-X -lSDL2_mixer \
 		-X "-I /usr/include/arm-linux-gnueabihf/" \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -419,6 +425,7 @@ bitcode:
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -450,7 +457,6 @@ bitcode:
 		src/entity/entity.vala
 
 javascript:
-	cd ~ && source ./emsdk_env.sh || echo fail
 	valac -gv \
 		-o bin/LAIR.html \
 		--cc emcc \
@@ -466,6 +472,7 @@ javascript:
 		-X "-s USE_SDL_IMAGE=2" \
 		-X "-s USE_SDL_NET=2" \
 		src/main.vala \
+		src/util/autotimer.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \

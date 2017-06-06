@@ -10,6 +10,8 @@ namespace LAIR{
 		private Video.Renderer WindowRenderer;
 		private Tower GameEnvironment;
                 private bool dedupe = false;
+                private const uint frame_ticks = 1000 / 60;
+                private AutoTimer cap_timer = new AutoTimer();
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
                         base.new_local_attributes(3, "floor:");
                         string imageListPath = listPaths[0];
@@ -45,9 +47,11 @@ namespace LAIR{
 			while(exit != 0){
                                 WindowRenderer.clear();
 				exit = update_screen();
+                                uint cap_ticks = cap_timer.get_ticks();
+                                if ( cap_ticks < frame_ticks ){
+                                        SDL.Timer.delay(frame_ticks - cap_ticks);
+                                }
                                 message(" -> input was:%s", exit.to_string());
-                                //SDL.Timer.delay(120);
-                                SDL.Timer.delay(120);
 			}
 			return exit;
 		}
