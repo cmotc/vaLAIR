@@ -4,7 +4,7 @@ using Lua;
 namespace LAIR{
 	class Room : LuaConf{
 		private bool visited = false;
-                private Video.Rect Border = Video.Rect(){ x = 0, y = 0, w = 0, h = 0 };
+                private AutoRect Border = new AutoRect(0,0,0,0);
                 private FloorList Floor = null;
                 private ParticlesList Particles = null;
                 private MobilesList Mobiles = null;
@@ -12,15 +12,15 @@ namespace LAIR{
                 private static FileDB GameMaster = null;
                 public Room(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
-                        set_dimensions(position.x, position.y, position.w, position.h);
+                        Border = new AutoRect(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
-                        set_name("room("+stringify_hitbox()+"): ");
+                        set_name("room("+stringify_hitrect()+"): ");
                         message("generating room%s", get_name());
                         GameMaster = DM;
-                        Floor = new FloorList(get_hitbox());
-                        Particles = new ParticlesList(get_hitbox());
-                        Mobiles = new MobilesList(get_hitbox());
-                        lua_push_dimensions(get_hitbox());
+                        Floor = new FloorList(get_hitrect());
+                        Particles = new ParticlesList(get_hitrect());
+                        Mobiles = new MobilesList(get_hitrect());
+                        lua_push_dimensions(get_hitrect());
                         generate_floor(renderer);
                         message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
                         generate_particles(renderer);
@@ -28,46 +28,39 @@ namespace LAIR{
 		}
                 public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
-                        set_dimensions(position.x, position.y, position.w, position.h);
+                        Border = new AutoRect(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
-                        set_name("room ("+stringify_hitbox()+"): ");
+                        set_name("room ("+stringify_hitrect()+"): ");
                         message("generating room with player");
                         GameMaster = DM;
-                        Floor = new FloorList(get_hitbox());
-                        Particles = new ParticlesList(get_hitbox());
-                        Mobiles = new MobilesList(get_hitbox());
-                        lua_push_dimensions(get_hitbox());
+                        Floor = new FloorList(get_hitrect());
+                        Particles = new ParticlesList(get_hitrect());
+                        Mobiles = new MobilesList(get_hitrect());
+                        lua_push_dimensions(get_hitrect());
                         generate_floor(renderer);
                         generate_particles(renderer);
                         message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
                         generate_mobiles(scripts[2], renderer);
                         generate_player(scripts[1], renderer);
 		}
-                private void set_dimensions(int xx, int yy, uint ww, uint hh){
-                        Border = Video.Rect(){ x = xx, y = yy, w = ww, h = hh };
-                        Border.x = xx;
-                        Border.y = yy;
-                        Border.w = ww;
-                        Border.h = hh;
-                }
                 private void set_floor_dimensions(Video.Rect floordims){
                         lua_push_uint_to_table("floor_w", "w", (int)floordims.w );
                         lua_push_uint_to_table("floor_h", "h", (int)floordims.h );
                         lua_push_uint_to_table("floor_coarse_w", "w", (int)(floordims.w / 32) );
                         lua_push_uint_to_table("floor_coarse_h", "h", (int)(floordims.h / 32) );
                 }
-                private int get_x(){     return (int) Border.x;}
+                private int get_x(){     return (int) Border.x();}
                 private int get_offset_x(int x){
                         int r = (x * 32) + get_x();
                         return r;
                 }
-                private int get_y(){     return (int) Border.y;}
+                private int get_y(){     return (int) Border.y();}
                 private int get_offset_y(int y) {
                         int r = (y * 32) + get_y();
                         return r;
                 }
-                public uint get_w(){     return Border.w;}
-                public uint get_h(){     return Border.h;}
+                public uint get_w(){     return Border.w();}
+                public uint get_h(){     return Border.h();}
                 private void generate_player(string playerScript, Video.Renderer? renderer){
                         if(!has_player()){
                                 Player = new Entity.Player(new AutoPoint(128,128), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
@@ -285,27 +278,27 @@ namespace LAIR{
                         }
                         return r;
                 }
-                private Video.Rect get_hitbox(){
+                private AutoRect get_hitrect(){
                         return Border;
                 }
-                private string stringify_hitbox(){
+                private string stringify_hitrect(){
                         string HBSUM = "x:";
-                        HBSUM += Border.x.to_string();
+                        HBSUM += Border.x().to_string();
                         HBSUM += "y:";
-                        HBSUM += Border.y.to_string();
+                        HBSUM += Border.y().to_string();
                         HBSUM += "w:";
-                        HBSUM += Border.w.to_string();
+                        HBSUM += Border.w().to_string();
                         HBSUM += "h:";
-                        HBSUM += Border.h.to_string();
+                        HBSUM += Border.h().to_string();
                         return HBSUM;
                 }
-                private bool point_in_room(AutoPoint point, Video.Rect hitbox){
+                private bool point_in_room(AutoPoint point, AutoRect hitbox){
                         bool t = false;
-                        int xx = (int) (hitbox.x + hitbox.w);
-                        int yy = (int) (hitbox.y + hitbox.h);
-                        if ( point.x() > hitbox.x ){
+                        int xx = (int) (hitbox.x() + hitbox.w());
+                        int yy = (int) (hitbox.y() + hitbox.h());
+                        if ( point.x() > hitbox.x() ){
                                 if ( point.x() <  xx ){
-                                        if( point.y() > hitbox.y ){
+                                        if( point.y() > hitbox.y() ){
                                                 if( point.y() < yy ){
                                                         t = true;
                                                 }
@@ -321,16 +314,16 @@ namespace LAIR{
                                 message("detect_transitions 1");
                                 AutoPoint tlc = new AutoPoint(tmp.get_hitbox().x,
                                         tmp.get_hitbox().y );
-                                bool TLeftCorner = point_in_room(tlc, get_hitbox());
+                                bool TLeftCorner = point_in_room(tlc, get_hitrect());
                                 AutoPoint trc = new AutoPoint( (int)(tmp.get_hitbox().x + tmp.get_hitbox().w),
                                         tmp.get_hitbox().y );
-                                bool TRightCorner = point_in_room(trc, get_hitbox());
+                                bool TRightCorner = point_in_room(trc, get_hitrect());
                                 AutoPoint blc = new AutoPoint( tmp.get_hitbox().x,
                                         (int)(tmp.get_hitbox().y + tmp.get_hitbox().h) );
-                                bool BLeftCorner = point_in_room(blc, get_hitbox());
+                                bool BLeftCorner = point_in_room(blc, get_hitrect());
                                 AutoPoint brc = new AutoPoint( (int)(tmp.get_hitbox().x + tmp.get_hitbox().w),
                                         (int)(tmp.get_hitbox().y + tmp.get_hitbox().h) );
-                                bool BRightCorner = point_in_room( brc, get_hitbox());
+                                bool BRightCorner = point_in_room( brc, get_hitrect());
                                 message("detect_transitions 3");
                                 if (TLeftCorner){
                                         r++;

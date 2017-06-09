@@ -2,21 +2,21 @@ using SDL;
 namespace LAIR{
 	class ParticlesList : LuaConf{
                 private List<Entity> Particles = new List<Entity>();
-                private Video.Rect Border = Video.Rect(){ x = 0, y = 0, w = 0, h = 0 };
+                private AutoRect Border = new AutoRect(0,0,0,0);
                 int minx(){
-                        return Border.x;
+                        return Border.x();
                 }
                 int miny(){
-                        return Border.y;
+                        return Border.y();
                 }
                 int maxx(){
-                        return Border.x+(int)Border.w;
+                        return Border.x()+(int)Border.w();
                 }
                 int maxy(){
-                        return Border.y+(int)Border.h;
+                        return Border.y()+(int)Border.h();
                 }
-                public ParticlesList(Video.Rect room_dimensions){
-                        Border = room_dimensions;
+                public ParticlesList(AutoRect room_dimensions){
+                        Border = new AutoRect(room_dimensions.x(),room_dimensions.y(),room_dimensions.w(),room_dimensions.h());
                         message("Setting regular dimensions on Particles minx %s miny %s maxx %s maxy %s", minx().to_string(),miny().to_string(),maxx().to_string(),maxy().to_string());
                 }
                 private string generate_particle_tile(FileDB GameMaster, AutoPoint coords, List<List<string>> generated_tags, Video.Renderer* renderer, int index = 0){

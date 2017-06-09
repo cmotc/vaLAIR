@@ -164,67 +164,67 @@ namespace LAIR{
                                 }
                         }
                 }
-                protected void lua_push_dimensions(Video.Rect current){
+                protected void lua_push_dimensions(AutoRect current){
                         if(does_it_ai(script_path)){
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("x", (int) current.x);
+                                lua_push_named_number("x", (int) current.x());
                                 lua_close_table("room_x");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("y", (int) current.y);
+                                lua_push_named_number("y", (int) current.y());
                                 lua_close_table("room_y");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("x", (int) current.x / 32);
+                                lua_push_named_number("x", (int) current.x() / 32);
                                 lua_close_table("room_coarse_x");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("y", (int) current.y / 32);
+                                lua_push_named_number("y", (int) current.y() / 32);
                                 lua_close_table("room_coarse_y");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("w", (int) current.w);
+                                lua_push_named_number("w", (int) current.w());
                                 lua_close_table("generator_w");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("h", (int) current.h);
+                                lua_push_named_number("h", (int) current.h());
                                 lua_close_table("generator_h");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("w", (int) current.w / 32);
+                                lua_push_named_number("w", (int) current.w() / 32);
                                 lua_close_table("generator_coarse_w");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("h", (int) current.h / 32);
+                                lua_push_named_number("h", (int) current.h() / 32);
                                 lua_close_table("generator_coarse_h");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("x", (int) ((current.x / 32) + (current.w / 32)));
+                                lua_push_named_number("x", (int) ((current.x() / 32) + (current.w() / 32)));
                                 lua_close_table("room_coarse_xw");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("y", (int) ((current.y / 32) + (current.h / 32)));
+                                lua_push_named_number("y", (int) ((current.y() / 32) + (current.h() / 32)));
                                 lua_close_table("room_coarse_yh");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("x", (int) (current.x + current.w));
+                                lua_push_named_number("x", (int) (current.x() + current.w()));
                                 lua_close_table("room_xw");
                                 /*
                                 *///
                                 lua_new_table();
-                                lua_push_named_number("y", (int) (current.y + current.h));
+                                lua_push_named_number("y", (int) (current.y() + current.h()));
                                 lua_close_table("room_yh");
                         }
                 }

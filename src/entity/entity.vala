@@ -65,19 +65,15 @@ namespace LAIR{
                                         AutoPoint tlc = new AutoPoint(get_hitbox().x,
                                                 get_hitbox().y );
                                         bool TLeftCorner = in_range(tlc, t.get_hitbox());
-
                                         AutoPoint trc = new AutoPoint((int)(get_hitbox().x + get_hitbox().w),
                                                 get_hitbox().y );
                                         bool TRightCorner = in_range(trc, t.get_hitbox());
-
                                         AutoPoint blc = new AutoPoint(get_hitbox().x,
                                                 (int)(get_hitbox().y + get_hitbox().h) );
                                         bool BLeftCorner = in_range(blc, t.get_hitbox());
-
                                         AutoPoint brc = new AutoPoint((int)(get_hitbox().x + get_hitbox().w),
                                                 (int)(get_hitbox().y + get_hitbox().h) );
                                         bool BRightCorner = in_range( brc, t.get_hitbox());
-
                                         r = bounce(TLeftCorner, TRightCorner,
                                         BLeftCorner, BRightCorner, t.get_hitbox());
                                         //do_actions(t);

@@ -72,18 +72,14 @@ namespace LAIR{
                                 message("Collision detected, Top Left Corner");
                                 if(bl){
                                         message(" and Bottom Left Corner");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        step_right();
+                                        set_x((int)(evenout.x + get_width()));
                                 }else if(tr){
                                         message(" and Top Right Corner");
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_down();
+                                        set_y((int)(evenout.y + get_height()));
                                 }else{
                                         message("");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_right();
-                                        step_down();
+                                        set_x((int)(evenout.x + get_width()));
+                                        set_y((int)(evenout.y + get_height()));
                                 }
                                 r = true;
                         }
@@ -91,18 +87,14 @@ namespace LAIR{
                                 message("Collision detected, Top Right Corner");
                                 if(br){
                                         message(" and Bottom Right Corner");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        step_left();
+                                        set_x((int)(evenout.x - get_width()));
                                 }else if(tl){
                                         message(" and Top Left Corner");
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_down();
+                                        set_y((int)(evenout.y + get_height()));
                                 }else{
                                         message("");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_left();
-                                        step_down();
+                                        set_x((int)(evenout.x - get_width()));
+                                        set_y((int)(evenout.y + get_height()));
                                 }
                                 r = true;
                         }
@@ -110,18 +102,14 @@ namespace LAIR{
                                 message("Collision detected, Bottom Left Corner");
                                 if(tl){
                                         message(" and Top Left Corner");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        step_right();
+                                        set_x((int)(evenout.x - get_width()));
                                 }else if(br){
                                         message(" and Bottom Right Corner");
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_up();
+                                        set_y((int)(evenout.y + get_height()));
                                 }else{
                                         message("");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_right();
-                                        step_up();
+                                        set_x((int)(evenout.x - get_width()));
+                                        set_y((int)(evenout.y + get_height()));
                                 }
                                 r = true;
                         }
@@ -129,18 +117,14 @@ namespace LAIR{
                                 message("Collision detected, Bottom Right Corner");
                                 if(tr){
                                         message("and Top Right Corner");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        step_left();
+                                        set_x((int)(evenout.x - get_width()));
                                 }else if(bl){
                                         message("and Bottom Left Corner");
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_up();
+                                        set_y((int)(evenout.y + get_height()));
                                 }else{
                                         message("");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_left();
-                                        step_up();
+                                        set_x((int)(evenout.x - get_width()));
+                                        set_y((int)(evenout.y + get_height()));
                                 }
                                 r = true;
                         }

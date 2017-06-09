@@ -47,6 +47,7 @@ unix:
 		-X -lSDL2_mixer \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -117,6 +118,7 @@ unix-clang:
 		-X -lSDL2_mixer \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -186,6 +188,7 @@ unix-static:
 		-X -lSDL2_mixer \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -248,6 +251,7 @@ win64:
 		-X -lSDL2_mixer \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -310,6 +314,7 @@ win32:
 		-X -lSDL2_mixer \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -375,6 +380,7 @@ android:
 		-X "-I /usr/include/arm-linux-gnueabihf/" \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -426,6 +432,7 @@ bitcode:
 		-X -lSDL2_mixer \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
@@ -473,6 +480,7 @@ javascript:
 		-X "-s USE_SDL_NET=2" \
 		src/main.vala \
 		src/util/autotimer.vala \
+		src/util/autorect.vala \
 		src/util/net.vala \
 		src/util/luaconf.vala \
 		src/util/luaglobal.vala \
