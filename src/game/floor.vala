@@ -9,11 +9,11 @@ namespace LAIR{
                         int height = (((count + 1) * 5) * 32);
                         x_max = width;
                         y_max = height;
-                        Video.Rect floor_dims = Video.Rect(){
-                                x = 0,
-                                y = 0,
-                                w = (width * count),
-                                h = (height * count)};
+                        AutoRect floor_dims = new AutoRect(
+                                0,
+                                0,
+                                (width * count),
+                                (height * count));
 			for (int x = 0; x < count; x++){
                                 for (int y = 0; y < count; y++){
                                         Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};
@@ -28,11 +28,11 @@ namespace LAIR{
                         int c = 0;
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
-                        Video.Rect FloorDims = Video.Rect(){
-                                x = 0,
-                                y = 0,
-                                w = (width * count) ,
-                                h = (height * count) };
+                        AutoRect floor_dims = new AutoRect(
+                                0,
+                                0,
+                                (width * count),
+                                (height * count));
 			for (int x = 0; x < count; x++){
                                 for (int y = 0; y < count; y++){
                                         Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};

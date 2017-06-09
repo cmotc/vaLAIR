@@ -10,7 +10,7 @@ namespace LAIR{
                 private MobilesList Mobiles = null;
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
-                public Room(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room(Video.Rect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
                         Border = new AutoRect(position.x, position.y, position.w, position.h);
                         set_floor_dimensions(floordims);
@@ -43,11 +43,11 @@ namespace LAIR{
                         generate_mobiles(scripts[2], renderer);
                         generate_player(scripts[1], renderer);
 		}
-                private void set_floor_dimensions(Video.Rect floordims){
-                        lua_push_uint_to_table("floor_w", "w", (int)floordims.w );
-                        lua_push_uint_to_table("floor_h", "h", (int)floordims.h );
-                        lua_push_uint_to_table("floor_coarse_w", "w", (int)(floordims.w / 32) );
-                        lua_push_uint_to_table("floor_coarse_h", "h", (int)(floordims.h / 32) );
+                private void set_floor_dimensions(AutoRect floordims){
+                        lua_push_uint_to_table("floor_w", "w", (int)floordims.w() );
+                        lua_push_uint_to_table("floor_h", "h", (int)floordims.h() );
+                        lua_push_uint_to_table("floor_coarse_w", "w", (int)(floordims.w() / 32) );
+                        lua_push_uint_to_table("floor_coarse_h", "h", (int)(floordims.h() / 32) );
                 }
                 private int get_x(){     return (int) Border.x();}
                 private int get_offset_x(int x){
