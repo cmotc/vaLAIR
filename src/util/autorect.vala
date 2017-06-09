@@ -64,21 +64,48 @@ namespace LAIR{
                         }
                         return t;
                 }
+                public AutoRect quadrant_one(){
+                        return new AutoRect(
+                                        x(), y(), halfw(), halfh()
+                                );
+                }
+                public AutoRect quadrant_two(){
+                        return new AutoRect(
+                                        x()+(int)halfw(), y(), halfw(), halfh()
+                                );
+                }
+                public AutoRect quadrant_three(){
+                        return new AutoRect(
+                                        x(), y()+(int)halfh(), halfw(), halfh()
+                                );
+                }
+                public AutoRect quadrant_four(){
+                        return new AutoRect(
+                                        x()+(int)halfw(), y()+(int)halfh(), halfw(), halfh()
+                                );
+                }
                 public List<AutoRect> quadrants(){
                         List<AutoRect> tmp = new List<AutoRect>();
-                        tmp.append(new AutoRect(
-                                        x(), y(), halfw(), halfh()
-                                ));
-                        tmp.append(new AutoRect(
-                                        x()+(int)halfw(), y(), halfw(), halfh()
-                                ));
-                        tmp.append(new AutoRect(
-                                        x(), y()+(int)halfh(), halfw(), halfh()
-                                ));
-                        tmp.append(new AutoRect(
-                                        x()+(int)halfw(), y()+(int)halfh(), halfw(), halfh()
-                                ));
+                        tmp.append(quadrant_one());
+                        tmp.append(quadrant_two());
+                        tmp.append(quadrant_three());
+                        tmp.append(quadrant_four());
                         return tmp;
+                }
+                public int in_which_quadrant(AutoPoint point){
+                        int t = 0;
+                        if(quadrant_one().in_range(point)){
+                                t = 1;
+                        }else if(quadrant_two().in_range(point)){
+                                t = 2;
+                        }else if(quadrant_three().in_range(point)){
+                                t = 3;
+                        }else if(quadrant_four().in_range(point)){
+                                t = 4;
+                        }else{
+                                t = 0;
+                        }
+                        return t;
                 }
                 public Video.Rect get_rect(){
                         return inner_rect;
