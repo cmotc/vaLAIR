@@ -1,152 +1,114 @@
 namespace LAIR{
-	class Type : LuaConf {
+	class Type : Dice {
 		private bool player = false;
                 private bool floor = false;
                 private bool wall = false;
                 private bool mobile = false;
-                private int b = 0;
-                private List<string> tags = new List<string>();
-                private GLib.Rand dice_bag = new GLib.Rand();
-                public Type(string lconf=""){
-                        base(
-                                ((lconf == "") ? "immobile" : lconf ),
-                                6,"entity");
-                        tags = new List<string>();
-                        set_type("default");
+                private List<Tag> tags = new List<Tag>();
+                public Type(string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
                 }
-                public Type.ParameterList(List<string> types, string lconf = ""){
-                        base(
-                                ((lconf == "") ? "immobile" : lconf),
-                                6,"entity");
+                public Type.ParameterList(List<string> types, string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
                         foreach(string type in types){
-                                set_type(type);
-                        }
-                        player = check_type("player");
-                        if (player) {
-                                set_type("blocked");
+                                tags.append(new Tag(type));
                         }
                 }
-                public Type.ParameterListBlocked(List<string> types, string lconf = ""){
-                        base(
-                                ((lconf == "") ? "immobile" : lconf),
-                                6,"entity");
-                        set_type("blocked");
+                public Type.ParameterListBlocked(List<string> types, string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
                         foreach(string type in types){
-                                set_type(type);
+                                tags.append(new Tag(type));
                         }
-                        player = check_type("player");
                 }
-                public Type.Mobile(List<string> types, string lconf){
-                        base.Mobile(lconf, 6,"entity");
-                        set_type("blocked");
-                        foreach(string type in types){
-                                set_type(type);
-                        }
-                        player = check_type("player");
-                }
-                public Type.Player(List<string> types, string lconf = ""){
-                        base(
-                                ((lconf == "") ? "immobile" : lconf),
-                                6,"entity");
-                        set_type("blocked");
-                        set_type("player");
+                public Type.Player(List<string> types, string lua_ai_conf = "immobile"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
                         player = true;
                         foreach(string type in types){
-                                set_type(type);
+                                tags.append(new Tag(type));
                         }
-                        print_withname("Generating a player\n");
                 }
-                protected int roll_dice(int min, int max){
-                        return dice_bag.int_range(-1,1);
+                public Type.Mobile(List<string> types, string lua_ai_conf = "/usr/share/lair/demo/ai.lua"){
+                        base(lua_ai_conf,6,"entity");
+                        tags.append(new Tag(lua_ai_conf));
+                        foreach(string type in types){
+                                tags.append(new Tag(type));
+                        }
                 }
-		protected bool set_type(string NewType){
-                        bool t = true;
-                        foreach(string i in tags){
-                                if ( i == NewType ){
-                                        t = false;
-                                }
+                private void check_types(){
+                        foreach(Tag tag in tags){
+                                player = tag.has_tag("player");
+                                floor = tag.has_tag("floor");
+                                wall = tag.has_tag("wall");
+                                mobile = tag.has_tag("mobile");
                         }
-                        if (t){
-                                tags.append(NewType);
-                                print_withname("   Added tag: %s \n", NewType);
-                                b = 0;
-                        }
-                        if ( NewType == "blocked" ){
-                                b = 1;
-                        }
-                        if ( NewType == "mobile" ){
-                                mobile = true;
-                        }
-                        if ( NewType == "wall" ){
-                                wall = true;
-                        }
-                        if ( NewType == "floor" ){
-                                floor = true;
-                        }
-                        if ( NewType == "player" ){
-                                player = true;
-                        }
-                        return t;
-		}
-                protected bool check_type(string hyp_type){
+                }
+                private bool check_new_type(string new_type){
                         bool r = false;
-                        if (hyp_type != "player"){
-                                foreach(string i in tags.copy()){
-                                        if ( i == hyp_type ){
-                                                r = true;
-                                                break;
-                                        }
-                                }
-                        }else{
-                                if (player != true){
-                                        foreach(string i in tags.copy()){
-                                                if ( i == hyp_type ){
-                                                        r = true;
-                                                        player = true;
-                                                        break;
-                                                }
-                                        }
+                        foreach(Tag tag in tags){
+                                r = tag.has_tag(new_type);
+                        }
+                        return r;
+                }
+                private void instant_type(List<string> new_type){
+                        foreach(string s in new_type){
+                                tags.append(new Tag(s));
+                        }
+                }
+                protected void insert_type(string new_type){
+                        if(check_new_type(new_type)){
+                                tags.append(new Tag(new_type));
+                                message("   Added tag: %s", new_type);
+                                check_types();
+                        }
+                }
+                protected void set_type(string new_type){
+                        insert_type(new_type);
+                }
+                protected bool has_type(string hyp_type){
+                        bool r = false;
+                        foreach(Tag tag in tags){
+                                if(tag.has_tag(hyp_type)){
+                                        r = true;
                                 }
                         }
                         return r;
                 }
+                protected bool check_type(string hyp_type){
+                        return has_type(hyp_type);
+                }
 		protected bool get_block(){
-                        bool r = false;
-                        if ( b == 0 ){
-                                r = check_type("blocked");
-                                if ( r == true){
-                                        b = 1;
-                                }
-                        }else if ( b == 1 ){
-                                r = true;
+                        bool r = true;
+                        if( floor ){
+                                r = false;
                         }
-
-			return r;
+                        return r;
 		}
 		public bool is_player(){
 			return player;
 		}
-                public unowned List<string> get_tags(){
-                        unowned List<string> r = tags;
+                public unowned List<Tag> get_tags(){
+                        unowned List<Tag> r = tags;
+                        return r;
+                }
+                public List<string> get_tags_strings(){
+                        List<string> r = new List<string>();
+                        foreach(Tag tag in tags){
+                                r.append(tag.get_tag_name());
+                        }
                         return r;
                 }
                 protected string stringify_tags(){
                         string r = " tags:";
-                        foreach(string i in tags.copy()){
-                                r += i;
+                        foreach(Tag i in tags.copy()){
+                                r += i.get_tag_name();
                                 r += " ";
                         }
-                        print_withname(r);
+                        message(r);
                         return r;
-                }
-                public List<string> one_tag_to_list(string ip){
-                        List<string> r = new List<string>();
-                        r.append(ip);
-                        foreach(string s in r){
-                                print_withname(s);
-                        }
-                        return r;
-
                 }
                 public string get_category(){
                         string r = "uncategorized";
@@ -158,4 +120,12 @@ namespace LAIR{
                         return r;
                 }
 	}
+        List<string> one_tag_to_list(string ip = ""){
+                List<string> r = new List<string>();
+                if( ip != "" ){
+                        r.append(ip);
+                }
+                return r;
+
+        }
 }

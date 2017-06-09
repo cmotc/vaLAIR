@@ -5,18 +5,18 @@ using Lua;
 namespace LAIR{
 	class Move : Inventory{
                 private string ai_func = "";
-                public Move(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
+                public Move(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
                         base(corner, Surfaces, music, font, renderer);
                 }
-                public Move.Wall(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                public Move.Wall(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Wall(corner, Surfaces, music, font, renderer, tags);
                 }
-                public Move.Mobile(Video.Point corner, string aiScript, string aiFunc, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
+                public Move.Mobile(AutoPoint corner, string aiScript, string aiFunc, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
                         base.Mobile(corner, aiScript, Surfaces, music, font, renderer, tags);
                         ai_func = aiFunc;
                         set_stat_func("stats_" + get_ai_func());
                 }
-                public Move.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
+                public Move.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
                         base.Player(corner, Surfaces, music, font, renderer);
                 }
                 protected int quit(){
@@ -54,9 +54,8 @@ namespace LAIR{
                         //toggle_swing_on_right();
                         return 7;
                 }
-                protected int mouse_move(int X, int Y){
-                        Video.Point tmp = Video.Point(){x = X, y = Y};
-                        set_cursor_position(tmp);
+                protected int mouse_move(int xx, int yy){
+                        set_cursor_position(xx, yy);
                         return 8;
                 }
                 protected int show_my_stats(){
@@ -67,81 +66,65 @@ namespace LAIR{
                         show_skills();
                         return 10;
                 }
-                protected bool bounce(bool tl, bool tr, bool bl, bool br, Video.Rect evenout){
+                protected bool bounce(bool tl, bool tr, bool bl, bool br, AutoRect evenout){
                         bool r = false;
                         if(tl){
-                                print_withname("Collision detected, Top Left Corner");
+                                message("Collision detected, Top Left Corner");
                                 if(bl){
-                                        print_withname(" and Bottom Left Corner\n");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        step_right();
+                                        message(" and Bottom Left Corner");
+                                        set_x((int)(evenout.x() + get_width()));
                                 }else if(tr){
-                                        print_withname(" and Top Right Corner\n");
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_down();
+                                        message(" and Top Right Corner");
+                                        set_y((int)(evenout.y() + get_height()));
                                 }else{
-                                        print_withname("\n");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_right();
-                                        step_down();
+                                        message("");
+                                        set_x((int)(evenout.x() + get_width()));
+                                        set_y((int)(evenout.y() + get_height()));
                                 }
                                 r = true;
                         }
                         if(tr){
-                                print_withname("Collision detected, Top Right Corner");
+                                message("Collision detected, Top Right Corner");
                                 if(br){
-                                        print_withname(" and Bottom Right Corner\n");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        step_left();
+                                        message(" and Bottom Right Corner");
+                                        set_x((int)(evenout.x() - get_width()));
                                 }else if(tl){
-                                        print_withname(" and Top Left Corner\n");
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_down();
+                                        message(" and Top Left Corner");
+                                        set_y((int)(evenout.y() + get_height()));
                                 }else{
-                                        print_withname("\n");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        set_y((int)(evenout.y + evenout.h));
-                                        step_left();
-                                        step_down();
+                                        message("");
+                                        set_x((int)(evenout.x() - get_width()));
+                                        set_y((int)(evenout.y() + get_height()));
                                 }
                                 r = true;
                         }
                         if(bl){
-                                print_withname("Collision detected, Bottom Left Corner");
+                                message("Collision detected, Bottom Left Corner");
                                 if(tl){
-                                        print_withname(" and Top Left Corner\n");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        step_right();
+                                        message(" and Top Left Corner");
+                                        set_x((int)(evenout.x() - get_width()));
                                 }else if(br){
-                                        print_withname(" and Bottom Right Corner\n");
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_up();
+                                        message(" and Bottom Right Corner");
+                                        set_y((int)(evenout.y() + get_height()));
                                 }else{
-                                        print_withname("\n");
-                                        set_x((int)(evenout.x + evenout.w));
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_right();
-                                        step_up();
+                                        message("");
+                                        set_x((int)(evenout.x() - get_width()));
+                                        set_y((int)(evenout.y() + get_height()));
                                 }
                                 r = true;
                         }
                         if(br){
-                                print_withname("Collision detected, Bottom Right Corner");
+                                message("Collision detected, Bottom Right Corner");
                                 if(tr){
-                                        print_withname("and Top Right Corner\n");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        step_left();
+                                        message("and Top Right Corner");
+                                        set_x((int)(evenout.x() - get_width()));
                                 }else if(bl){
-                                        print_withname("and Bottom Left Corner\n");
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_up();
+                                        message("and Bottom Left Corner");
+                                        set_y((int)(evenout.y() + get_height()));
                                 }else{
-                                        print_withname("\n");
-                                        set_x((int)(evenout.x - evenout.w));
-                                        set_y((int)(evenout.y - evenout.h));
-                                        step_left();
-                                        step_up();
+                                        message("");
+                                        set_x((int)(evenout.x() - get_width()));
+                                        set_y((int)(evenout.y() + get_height()));
                                 }
                                 r = true;
                         }
@@ -165,43 +148,43 @@ namespace LAIR{
                         int t;
                         switch (ai_do) {
                                 case "rotate()":
-                                        print_withname("AI is turning\n");
+                                        message("AI is turning");
                                         t = 7;//mouse_move(x, y);
                                         break;
                                 case "aim()":
-                                        print_withname("AI is aiming\n");
+                                        message("AI is aiming");
                                         t = swing_left();
                                         break;
                                 case "fire()":
-                                        print_withname("AI is firing\n");
+                                        message("AI is firing");
                                         t = swing_left();
                                         break;
                                 case "action()":
-                                        print_withname("AI is attempting\n");
+                                        message("AI is attempting");
                                         t = swing_right();
                                         break;
                                 case "throw()":
-                                        print_withname("AI is throwing\n");
+                                        message("AI is throwing");
                                         t = swing_right();
                                         break;
                                 case "step_down()":
-                                        print_withname("AI is stepping down\n");
+                                        message("AI is stepping down");
                                         t = step_down();
                                         break;
                                 case "step_up()":
-                                        print_withname("AI is stepping up\n");
+                                        message("AI is stepping up");
                                         t = step_up();
                                         break;
                                 case "step_right()":
-                                        print_withname("AI is stepping right\n");
+                                        message("AI is stepping right");
                                         t = step_right();
                                         break;
                                 case "step_left()":
-                                        print_withname("AI is stepping left\n");
+                                        message("AI is stepping left");
                                         t = step_left();
                                         break;
                                 case "stand_still()":
-                                        print_withname("AI is standing still\n");
+                                        message("AI is standing still");
                                         t = stand_still();
                                         break;
                         }
@@ -209,29 +192,25 @@ namespace LAIR{
 		public int player_input(){
                         int t = 1;
                         Event e;
-                        print_withname("     Player is taking a turn : ");
+                        message("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
-                                print_withname(" Checking Event for Player Input\n");
-				if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
+                                message(" Checking Event for Player Input");
+                                if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
                                         int x = 0, y = 0;
                                         Input.Cursor.get_state(ref x, ref y);
-                                        bool inside = true;
-                                        if (inside){
-                                                switch (e.type) {
-                                                        case EventType.MOUSEMOTION:
-                                                                t = mouse_move(x, y);
-                                                                break;
-                                                        case EventType.MOUSEBUTTONDOWN:
-                                                                t = swing_left();
-                                                                //t = swing_right();
-                                                                break;
-                                                        case EventType.MOUSEBUTTONUP:
-                                                                t = swing_left();
-                                                                //t = swing_right();
-                                                                break;
-                                                }
+                                        switch (e.type) {
+                                                case EventType.MOUSEMOTION:
+                                                        message("Player is turning");
+                                                        t = mouse_move(x, y);
+                                                        break;
+                                                case EventType.MOUSEBUTTONDOWN:
+                                                        t = swing_left();
+                                                        break;
+                                                case EventType.MOUSEBUTTONUP:
+                                                        t = swing_left();
+                                                        break;
                                         }
-                                }else if (e.type == EventType.KEYDOWN) {
+                                }else if(e.type == EventType.KEYDOWN){
                                         switch(e.key.keysym.sym){
                                                 case Input.Keycode.ESCAPE:
                                                         t = quit();
@@ -266,9 +245,56 @@ namespace LAIR{
                                                 case Input.Keycode.CAPSLOCK:
                                                         t = show_my_skills();
                                                         break;
-                                        }
+                                                }
+                                }else if(e.type == EventType.KEYUP){
+                                        break;
                                 }
 			}
+                        unowned bool[] current_key_states = Input.Keyboard.get_state();
+                        if (current_key_states[Input.Scancode.ESCAPE]){
+                                message("Player is Quitting");
+                                t = quit();
+                        }
+                        if (current_key_states[Input.Scancode.S]){
+                                message("Player is moving down");
+                                t = step_down();
+                        }
+                        if (current_key_states[Input.Scancode.W]){
+                                message("Player is moving up");
+                                t = step_up();
+                        }
+                        if (current_key_states[Input.Scancode.D]){
+                                message("Player is moving right");
+                                t = step_right();
+                        }
+                        if (current_key_states[Input.Scancode.A]){
+                                message("Player is moving left");
+                                t = step_left();
+                        }
+                        if (current_key_states[Input.Scancode.DOWN]){
+                                message("Player is moving down");
+                                t = step_down();
+                        }
+                        if (current_key_states[Input.Scancode.UP]){
+                                message("Player is moving up");
+                                t = step_up();
+                        }
+                        if (current_key_states[Input.Scancode.RIGHT]){
+                                message("Player is moving right");
+                                t = step_right();
+                        }
+                        if (current_key_states[Input.Scancode.LEFT]){
+                                message("Player is moving left");
+                                t = step_left();
+                        }
+                        if (current_key_states[Input.Scancode.TAB]){
+                                message("Player is viewing stats");
+                                t = show_my_stats();
+                        }
+                        if (current_key_states[Input.Scancode.CAPSLOCK]){
+                                message("Player is viewing skills");
+                                t = show_my_skills();
+                        }
                         return t;
 		}
 		public int run(){

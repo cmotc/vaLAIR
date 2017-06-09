@@ -20,27 +20,27 @@ namespace LAIR{
                                 }
                         }
                 }
-                public Text(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer){
+                public Text(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer){
                         base(corner, Surfaces, renderer);
                         Font = font;
                         insert_label(Labels, renderer);
                 }
-                public Text.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Text.Parameter(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.ParameterList(corner, Surfaces, renderer, tags);
                         Font = font;
                         insert_label(Labels, renderer);
                 }
-                public Text.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Text.Blocked(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Blocked(corner, Surfaces, renderer, tags);
                         Font = font;
                         insert_label(Labels, renderer);
                 }
-                public Text.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Text.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Mobile(corner, aiScript, Surfaces, renderer, tags);
                         Font = font;
                         insert_label(Labels, renderer);
                 }
-                public Text.Player(Video.Point corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Text.Player(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Player(corner, Surfaces, renderer, tags);
                         Font = font;
                         insert_label(Labels, renderer);
@@ -51,24 +51,24 @@ namespace LAIR{
                 protected void show_skills(){
                         showSkills = !showSkills;
                 }
-                public void render_text(Video.Renderer* renderer, Video.Point player_pos){
+                public void render_text(Video.Renderer* renderer, AutoPoint player_pos){
                         if(showStats){
-                                print_withname("Showing Stats\n");
+                                message("Showing Stats");
                                 for(int i = 0; i < 5; i++){
-                                        Video.Point tmp = Video.Point(){
-                                                x = player_pos.x - 34,
-                                                y = player_pos.y - 2 - (i*11)
-                                        };
+                                        AutoPoint tmp = new AutoPoint(
+                                                player_pos.x() - 34,
+                                                player_pos.y() - 2 - (i*11)
+                                        );
                                         renderer->copyex(Text.nth_data(i), get_text_source(), get_text_position(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }
                         if(showSkills){
-                                print_withname("Showing Skills\n");
+                                message("Showing Skills");
                                 for(int i = 5; i < 5 + Text.length(); i++){
-                                        Video.Point tmp = Video.Point(){
-                                                x = player_pos.x - 34,
-                                                y = player_pos.y - 2 - (i*11)
-                                        };
+                                        AutoPoint tmp = new AutoPoint(
+                                                player_pos.x() - 34,
+                                                player_pos.y() - 2 - (i*11)
+                                        );
                                         renderer->copyex(Text.nth_data(i), get_text_source(), get_text_position(tmp), 0.0, null, Video.RendererFlip.NONE);
                                 }
                         }

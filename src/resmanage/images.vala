@@ -16,11 +16,11 @@ namespace LAIR{
                 public bool load(){
 			bool tmp = false;
 			if (check_path()){
-				print_withname("Loading the Image to a Surface %s \n", get_path());
+				message("Loading the Image to a Surface %s", get_path());
 				surface = SDLImage.load(get_path());
 				tmp = true;
 			}else{
-				print_withname("Image not found at location %s \n", get_path());
+				message("Image not found at location %s", get_path());
 			}
 			return tmp;
 		}

@@ -20,9 +20,9 @@ automatically. To build the .deb package(but not install), do
 
         make deb-pkg
 
-or to install it automatically just run it as root.
+and then do
 
-        sudo make deb-pkg
+        sudo dpkg -i ../lair*.deb
 
 ###Other Linux:
 
@@ -124,14 +124,14 @@ to do:
   3. Networked play support, with sub-tasks
    1. Game Server as Group Chat?
    2. This will become clearer as I do it, I think...
-  4. Low GUI Mode for running a game without a player, in order to behave like a
-    server.
-  5. I'm sure that there's more but I'll have to come to that.
-  6. Make More Art! digitalAndy is making this alot easier.
-  7. Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
+  4. Make More Art! digitalAndy is making this alot easier.
+  5. Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
   Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
    1. Can work-around many shortcomings of digitalAndy with imageMagick. Maybe
    it should become part of a toolchain for procedural pixel art.
    2. Port digitalAndy to Android with a simple pixel-painting interface capable
    of outputting a configuration file for PC digitalAndy as well as a script.
    Do it to learn Android app development in Go.
+  6. Set a prefix for resource directories in-app.
+  7. Low GUI Mode for running a game without a player, in order to behave like a
+    server.

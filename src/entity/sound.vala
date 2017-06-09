@@ -24,23 +24,23 @@ namespace LAIR{
                         }
 
                 }
-                public Voice(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer ){
+                public Voice(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer ){
                         base(corner, Surfaces, font, Labels, renderer);
                         set_sounds(music);
                 }
-                public Voice.Parameter(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Voice.Parameter(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Parameter(corner, Surfaces, font, Labels, renderer, tags);
                         set_sounds(music);
                 }
-                public Voice.Blocked(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Voice.Blocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Blocked(corner, Surfaces, font, Labels, renderer, tags);
                         set_sounds(music);
                 }
-                public Voice.Mobile(Video.Point corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Voice.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Mobile(corner, aiScript, Surfaces, font, Labels, renderer, tags);
                         set_sounds(music);
                 }
-                public Voice.Player(Video.Point corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
+                public Voice.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
                         base.Player(corner, Surfaces, font, Labels, renderer, tags);
                         set_sounds(music);
                 }

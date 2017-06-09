@@ -1,13 +1,22 @@
 math.randomseed(os.time())
 
-function reseed_random()
-        for i=math.random(50),1,-1
-        do
-                print("Ensuring Additional Randomness" .. i)
-                math.random()
-                if coin() == "true" then
-                        math.randomseed(os.time())
-                end
+
+function greater_than(aa, bb)
+        if aa > bb then
+                print(" " .. aa .. " is greater than " .. bb )
+                return true
+        else
+                print(" " .. aa .. " is not greater than " .. bb .. " " )
+                return false
+        end
+end
+function lesser_than(aa, bb)
+        if aa < bb then
+                print(" " .. aa .. " is lesser than " .. bb .. " " )
+                return true
+        else
+                print(" " .. aa .. " is not lesser than " .. bb .. " " )
+                return false
         end
 end
 function get_tag_count(variable)
@@ -25,75 +34,99 @@ function get_tag_table(variable)
         end
 end
 function where_in_floor_get_x()
+        print(" " .. (tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)) )
         return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
 end
 function where_in_floor_get_y()
+        print(" " .. (tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)) )
         return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
 end
 function where_in_room_gen_x()
+        print(" " .. generator_coarse_x.x )
         return generator_coarse_x.x
 end
 function where_in_room_gen_y()
+        print(" " .. generator_coarse_y.y )
         return generator_coarse_y.y
 end
 function how_long_room_gen_w()
+        print(" " .. generator_coarse_w.w)
         return generator_coarse_w.w
 end
 function how_long_room_gen_h()
+        print(" " .. generator_coarse_h.h)
         return generator_coarse_h.h
 end
 function what_pixel_is_gen_x()
+        print(" " .. generator_x.x)
         return generator_x.x
 end
 function what_pixel_is_gen_y()
+        print(" " .. generator_y.y)
         return generator_y.y
 end
 function where_is_room_corner_x()
+        print(" " .. room_coarse_x.x)
         return room_coarse_x.x
 end
 function where_is_room_corner_y()
+        print(" " .. room_coarse_y.y)
         return room_coarse_y.y
 end
 function where_is_room_farcorner_x()
+        print(" " .. room_coarse_xw.x)
         return room_coarse_xw.x
 end
 function where_is_floor_farcorner_x()
+        print(" " .. floor_coarse_h.h)
         return floor_coarse_h.h
 end
 function where_is_floor_farcorner_y()
+        print(" " .. floor_coarse_w.w)
         return floor_coarse_w.w
 end
 function where_is_room_farcorner_y()
+        print(" " .. room_coarse_yh.y)
         return room_coarse_yh.y
 end
 function what_pixel_is_room_corner_x()
+        print(" " .. room_x.x)
         return room_x.x
 end
 function what_pixel_is_room_corner_y()
+        print(" " .. room_y.y)
         return room_y.y
 end
 function what_pixel_is_room_farcorner_x()
+        print(" " .. room_xw.x)
         return room_xw.x
 end
 function what_pixel_is_room_farcorner_y()
+        print(" " .. room_yh.y)
         return room_yh.y
 end
-function what_pixel_is_floor_farcorner_x()
+function what_pixel_is_floor_farcorner_y()
+        print(" " .. floor_h.h)
         return floor_h.h
 end
-function what_pixel_is_floor_farcorner_y()
+function what_pixel_is_floor_farcorner_x()
+        print(" " .. floor_w.w)
         return floor_w.w
 end
 function how_long_room_pixels_w()
+        print(" " .. generator_w.w)
         return generator_w.w
 end
 function how_long_room_pixels_h()
+        print(" " .. generator_h.h)
         return generator_h.h
 end
 function how_many_particles_so_far()
+        print(" " .. generator_particle_count.c)
         return generator_particle_count.c
 end
 function how_many_mobiles_so_far()
+        print(" " .. generator_mobile_count.c)
         return generator_mobile_count.c
 end
 function get_map_savepath()
@@ -154,7 +187,6 @@ function archive_old_map()
 end
 function setup_new_map()
         if file_exists(get_map_savepath()) == false then
-                reseed_random()
                 file = io.open(get_map_savepath(), "a")
                 file:write("cell = {}\n")
                 file:close()
@@ -162,7 +194,6 @@ function setup_new_map()
 end
 function setup_new_mob()
         if file_exists(get_mob_savepath()) == false then
-                reseed_random()
                 file = io.open(get_mob_savepath(), "a")
                 file:write("mobs = {}\n")
                 file:close()
@@ -237,6 +268,7 @@ function mobile_index_by_coarse_xy(xx, yy)
         return r
 end
 function print_general_props()
+        print("PROPERTY DUMP")
         print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
         print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
         print("  Room Starts at Coarse X: " .. room_coarse_x.x)
