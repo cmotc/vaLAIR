@@ -1,0 +1,13 @@
+Package: lair-dbgsym
+Source: lair
+Version: 0.9-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: lair repo key <problemsolver@openmailbox.org>
+Installed-Size: 453
+Depends: lair (= 0.9-1)
+Section: debug
+Priority: extra
+Homepage: https://cmotc.github.io/lair-web/
+Description: Debug symbols for lair
+Build-Ids: 95b036f179ca2e2611714e1fe86d1558e9033e1a
