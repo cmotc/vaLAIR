@@ -11,30 +11,30 @@ namespace LAIR{
                 private AutoRect rangeOfSight = new AutoRect(160,160,320,320);
                 private bool wobble = false;
                 private static AutoPoint cursorPosition = new AutoPoint(0,0);
-                public Anim(Video.Rect rect){
+                public Anim(AutoRect rect){
                         base();
-                        position = new AutoRect.FromRect(rect);
-                        source = new AutoRect(0,0,rect.w,rect.h);
+                        position = new AutoRect.FromRect(rect.get_rect());
+                        source = new AutoRect(0,0,rect.w(),rect.h());
                 }
-                public Anim.Parameter(Video.Rect rect, List<string> tags){
+                public Anim.Parameter(AutoRect rect, List<string> tags){
                         base.ParameterList(tags);
-                        position = new AutoRect.FromRect(rect);
-                        source = new AutoRect(0,0,rect.w,rect.h);
+                        position = new AutoRect.FromRect(rect.get_rect());
+                        source = new AutoRect(0,0,rect.w(),rect.h());
                 }
-                public Anim.Blocked(Video.Rect rect, List<string> tags){
+                public Anim.Blocked(AutoRect rect, List<string> tags){
                         base.ParameterListBlocked(tags);
-                        position = new AutoRect.FromRect(rect);
-                        source = new AutoRect(0,0,rect.w,rect.h);
+                        position = new AutoRect.FromRect(rect.get_rect());
+                        source = new AutoRect(0,0,rect.w(),rect.h());
                 }
-                public Anim.Mobile(Video.Rect rect, string aiScript, List<string> tags){
+                public Anim.Mobile(AutoRect rect, string aiScript, List<string> tags){
                         base.Mobile(tags, aiScript);
-                        position = new AutoRect.FromRect(rect);
-                        source = new AutoRect(0,0,rect.w,rect.h);
+                        position = new AutoRect.FromRect(rect.get_rect());
+                        source = new AutoRect(0,0,rect.w(),rect.h());
                 }
-                public Anim.Player(Video.Rect rect, List<string> tags){
+                public Anim.Player(AutoRect rect, List<string> tags){
                         base.Player(tags);
-                        position = new AutoRect.FromRect(rect);
-                        source = new AutoRect(0,0,rect.w,rect.h);
+                        position = new AutoRect.FromRect(rect.get_rect());
+                        source = new AutoRect(0,0,rect.w(),rect.h());
                 }
                 protected Video.Rect get_source(){
                         return source.get_rect();

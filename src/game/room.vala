@@ -10,9 +10,9 @@ namespace LAIR{
                 private MobilesList Mobiles = null;
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
-                public Room(Video.Rect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room(AutoRect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
-                        Border = new AutoRect(position.x, position.y, position.w, position.h);
+                        Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         set_floor_dimensions(floordims);
                         set_name("room("+stringify_hitrect()+"): ");
                         message("generating room%s", get_name());
@@ -26,9 +26,9 @@ namespace LAIR{
                         generate_particles(renderer);
                         generate_mobiles(scripts[2], renderer);
 		}
-                public Room.WithPlayer(Video.Rect position, Video.Rect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room.WithPlayer(AutoRect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
-                        Border = new AutoRect(position.x, position.y, position.w, position.h);
+                        Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         set_floor_dimensions(floordims);
                         set_name("room ("+stringify_hitrect()+"): ");
                         message("generating room with player");

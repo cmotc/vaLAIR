@@ -6,7 +6,7 @@ namespace LAIR{
 	class Sprite : Anim{
                 private List<Video.Texture> body = new List<Video.Texture>();
                 public Sprite(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer){
-                        base(Video.Rect(){x=corner.x(), y=corner.y(), w=32, h=32});
+                        base(new AutoRect(corner.x(),corner.y(),32,32));
                         foreach (var surface in Surfaces){
                                 body.append(Video.Texture.create_from_surface(renderer, surface));
                                 if(body.length() > 0){
@@ -17,7 +17,7 @@ namespace LAIR{
                         }
                 }
                 public Sprite.ParameterList(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
-                        base.Parameter(Video.Rect(){x=corner.x(), y=corner.y(), w=32, h=32}, tags);
+                        base.Parameter(new AutoRect(corner.x(),corner.y(),32,32), tags);
 			foreach (var surface in Surfaces){
                                 body.append(Video.Texture.create_from_surface(renderer, surface));
                                 if(body.length() > 0){
@@ -28,7 +28,7 @@ namespace LAIR{
                         }
 		}
                 public Sprite.Blocked(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
-                        base.Blocked(Video.Rect(){x=corner.x(), y=corner.y(), w=32, h=32}, tags);
+                        base.Blocked(new AutoRect(corner.x(),corner.y(),32,32), tags);
 			foreach (var surface in Surfaces){
                                 body.append(Video.Texture.create_from_surface(renderer, surface));
                                 if(body.length() > 0){
@@ -39,7 +39,7 @@ namespace LAIR{
                         }
 		}
                 public Sprite.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
-                        base.Mobile(Video.Rect(){x=corner.x(), y=corner.y(), w=32, h=32}, aiScript, tags);
+                        base.Mobile(new AutoRect(corner.x(),corner.y(),32,32), aiScript, tags);
 			foreach (var surface in Surfaces){
                                 body.append(Video.Texture.create_from_surface(renderer, surface));
                                 if(body.length() > 0){
@@ -50,7 +50,7 @@ namespace LAIR{
                         }
 		}
                 public Sprite.Player(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer? renderer, List<string> tags){
-                        base.Player(Video.Rect(){x=corner.x(), y=corner.y(), w=32, h=32}, tags);
+                        base.Player(new AutoRect(corner.x(),corner.y(),32,32), tags);
 			foreach (var surface in Surfaces){
                                 body.append(Video.Texture.create_from_surface(renderer, surface));
                                 if(body.length() > 0){

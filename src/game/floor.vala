@@ -9,16 +9,12 @@ namespace LAIR{
                         int height = (((count + 1) * 5) * 32);
                         x_max = width;
                         y_max = height;
-                        AutoRect floor_dims = new AutoRect(
-                                0,
-                                0,
-                                (width * count),
-                                (height * count));
+                        AutoRect floor_dims = new AutoRect(0,0,(width * count),(height * count));
 			for (int x = 0; x < count; x++){
                                 for (int y = 0; y < count; y++){
-                                        Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};
-                                        message("Generating room at : x %s y %s w %s h%s", XYOffset.x.to_string(), XYOffset.y.to_string(), XYOffset.w.to_string(), XYOffset.h.to_string() );
-                                        rooms.append(new Room(XYOffset, floor_dims, scripts, DM, renderer));
+                                        AutoRect position_with_offset = new AutoRect((x*width),(y*height),width,height);
+                                        message("Generating room at : x %s y %s w %s h%s", position_with_offset.x().to_string(), position_with_offset.y().to_string(), position_with_offset.w().to_string(), position_with_offset.h().to_string() );
+                                        rooms.append(new Room(position_with_offset, floor_dims, scripts, DM, renderer));
                                 }
 			}
                         lua_do_function("""archive_old_map()""");
@@ -28,19 +24,15 @@ namespace LAIR{
                         int c = 0;
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
-                        AutoRect floor_dims = new AutoRect(
-                                0,
-                                0,
-                                (width * count),
-                                (height * count));
+                        AutoRect floor_dims = new AutoRect(0,0,(width * count),(height * count));
 			for (int x = 0; x < count; x++){
                                 for (int y = 0; y < count; y++){
-                                        Video.Rect XYOffset = Video.Rect(){x = (x*width), y = (y*height), w = width, h = height};
-                                        message("Generating room at : x %s y %s w %s h%s", XYOffset.x.to_string(), XYOffset.y.to_string(), XYOffset.w.to_string(), XYOffset.h.to_string() );
+                                        AutoRect position_with_offset = new AutoRect((x*width),(y*height),width,height);
+                                        message("Generating room at : x %s y %s w %s h%s", position_with_offset.x().to_string(), position_with_offset.y().to_string(), position_with_offset.w().to_string(), position_with_offset.h().to_string() );
                                         if (c == entry){
-                                                rooms.append(new Room.WithPlayer(XYOffset, FloorDims, scripts, DM, renderer));
+                                                rooms.append(new Room.WithPlayer(position_with_offset, floor_dims, scripts, DM, renderer));
                                         }else{
-                                                rooms.append(new Room(XYOffset, FloorDims, scripts, DM, renderer));
+                                                rooms.append(new Room(position_with_offset, floor_dims, scripts, DM, renderer));
                                         }
                                         c++;
                                 }

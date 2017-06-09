@@ -83,5 +83,17 @@ namespace LAIR{
                 public Video.Rect get_rect(){
                         return inner_rect;
                 }
+                public AutoPoint tlc(){
+                        return new AutoPoint(x(), y());
+                }
+                public AutoPoint trc(){
+                        return new AutoPoint(x()+(int)w(), y());
+                }
+                public AutoPoint blc(){
+                        return new AutoPoint(x(), y()+(int)h());
+                }
+                public AutoPoint brc(){
+                        return new AutoPoint(x()+(int)w(), y()+(int)h());
+                }
         }
 }

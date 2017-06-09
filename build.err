@@ -106,9 +106,9 @@ src/entity/type.vala:80.17-80.41: warning: method `LAIR.Type.check_type' never u
 src/entity/type.vala:93.17-93.49: warning: method `LAIR.Type.get_tags' never used
                 public unowned List<Tag> get_tags(){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/entity/anim.vala:11.17-11.47: warning: field `LAIR.Anim.offsetHitBox' never used
-                private Video.Rect offsetHitBox = Video.Rect(){ x=8, y=8, w=16, h=16 };
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/entity/anim.vala:10.17-10.45: warning: field `LAIR.Anim.offsetHitBox' never used
+                private AutoRect offsetHitBox = new AutoRect(8,8,16,16);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/entity/stats.vala:177.17-177.43: warning: method `LAIR.Stats.get_stat_func' never used
                 public string get_stat_func(){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
