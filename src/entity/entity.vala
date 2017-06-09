@@ -42,13 +42,13 @@ namespace LAIR{
                         }
                         set_type("player");
                 }
-                private bool in_range(AutoPoint point, Video.Rect hitbox){
+                private bool in_range(AutoPoint point, AutoRect hitbox){
                         bool t = false;
-                        int xx = (int) (hitbox.x + hitbox.w);
-                        int yy = (int) (hitbox.y + hitbox.h);
-                        if ( point.x() > hitbox.x ){
+                        int xx = (int) (hitbox.x() + hitbox.w());
+                        int yy = (int) (hitbox.y() + hitbox.h());
+                        if ( point.x() > hitbox.x() ){
                                 if ( point.x() <  xx ){
-                                        if( point.y() > hitbox.y ){
+                                        if( point.y() > hitbox.y() ){
                                                 if( point.y() < yy ){
                                                         t = true;
                                                 }
@@ -62,17 +62,17 @@ namespace LAIR{
                         assert(t != null);
                         if(get_block()){
                                 if(t.get_block()){
-                                        AutoPoint tlc = new AutoPoint(get_hitbox().x,
-                                                get_hitbox().y );
+                                        AutoPoint tlc = new AutoPoint(get_hitbox().x(),
+                                                get_hitbox().y() );
                                         bool TLeftCorner = in_range(tlc, t.get_hitbox());
-                                        AutoPoint trc = new AutoPoint((int)(get_hitbox().x + get_hitbox().w),
-                                                get_hitbox().y );
+                                        AutoPoint trc = new AutoPoint((int)(get_hitbox().x() + get_hitbox().w()),
+                                                get_hitbox().y() );
                                         bool TRightCorner = in_range(trc, t.get_hitbox());
-                                        AutoPoint blc = new AutoPoint(get_hitbox().x,
-                                                (int)(get_hitbox().y + get_hitbox().h) );
+                                        AutoPoint blc = new AutoPoint(get_hitbox().x(),
+                                                (int)(get_hitbox().y() + get_hitbox().h()) );
                                         bool BLeftCorner = in_range(blc, t.get_hitbox());
-                                        AutoPoint brc = new AutoPoint((int)(get_hitbox().x + get_hitbox().w),
-                                                (int)(get_hitbox().y + get_hitbox().h) );
+                                        AutoPoint brc = new AutoPoint((int)(get_hitbox().x() + get_hitbox().w()),
+                                                (int)(get_hitbox().y() + get_hitbox().h()) );
                                         bool BRightCorner = in_range( brc, t.get_hitbox());
                                         r = bounce(TLeftCorner, TRightCorner,
                                         BLeftCorner, BRightCorner, t.get_hitbox());
@@ -84,20 +84,20 @@ namespace LAIR{
                 public bool detect_nearby_entities(Entity test){
                         bool r = false;
                         if(test.get_block()){
-                                AutoPoint tlc = new AutoPoint( test.get_hitbox().x,
-                                        test.get_hitbox().y );
+                                AutoPoint tlc = new AutoPoint( test.get_hitbox().x(),
+                                        test.get_hitbox().y() );
                                 bool TLeftCorner = in_range(tlc, get_range_of_sight());
 
-                                AutoPoint trc = new AutoPoint( (int)(test.get_hitbox().x + test.get_hitbox().w),
-                                        test.get_hitbox().y );
+                                AutoPoint trc = new AutoPoint( (int)(test.get_hitbox().x() + test.get_hitbox().w()),
+                                        test.get_hitbox().y() );
                                 bool TRightCorner = in_range(trc, get_range_of_sight());
 
-                                AutoPoint blc = new AutoPoint( test.get_hitbox().x,
-                                        (int)(test.get_hitbox().y + test.get_hitbox().h) );
+                                AutoPoint blc = new AutoPoint( test.get_hitbox().x(),
+                                        (int)(test.get_hitbox().y() + test.get_hitbox().h()) );
                                 bool BLeftCorner = in_range(blc, get_range_of_sight());
 
-                                AutoPoint brc = new AutoPoint( (int)(test.get_hitbox().x + test.get_hitbox().w),
-                                        (int)(test.get_hitbox().y + test.get_hitbox().h) );
+                                AutoPoint brc = new AutoPoint( (int)(test.get_hitbox().x() + test.get_hitbox().w()),
+                                        (int)(test.get_hitbox().y() + test.get_hitbox().h()) );
                                 bool BRightCorner = in_range( brc, get_range_of_sight());
 
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){

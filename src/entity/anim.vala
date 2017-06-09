@@ -7,8 +7,8 @@ namespace LAIR{
 	class Anim : Type{
                 private AutoRect position = new AutoRect(0,0,32,32);
                 private AutoRect source = new AutoRect(0,0,32,32);
-                private Video.Rect offsetHitBox = Video.Rect(){ x=8, y=8, w=16, h=16 };
-                private Video.Rect rangeOfSight = Video.Rect(){ x=-160, y=-160, w=320, h=320};
+                private AutoRect offsetHitBox = new AutoRect(8,8,16,16);
+                private AutoRect rangeOfSight = new AutoRect(160,160,320,320);
                 private bool wobble = false;
                 private static AutoPoint cursorPosition = new AutoPoint(0,0);
                 public Anim(Video.Rect rect){
@@ -137,34 +137,34 @@ namespace LAIR{
                         }
                         return r;
                 }
-                public Video.Rect get_hitbox(){
-                        Video.Rect r = Video.Rect(){x=0,y=0,w=0,h=0};
+                public AutoRect get_hitbox(){
+                        AutoRect r = new AutoRect(0,0,0,0);
                         if(get_block()){
                                 if(is_player()){
-                                        r = Video.Rect(){ x = get_x(),
-                                                y = get_y(),
-                                                w = get_width(),
-                                                h = get_height() };
+                                        r = new AutoRect(get_x(),
+                                                get_y(),
+                                                get_width(),
+                                                get_height());
                                 }else{
-                                        r = Video.Rect(){ x = get_x(),
-                                                y = get_y(),
-                                                w = get_width(),
-                                                h = get_height() };
+                                        r = new AutoRect(get_x(),
+                                                get_y(),
+                                                get_width(),
+                                                get_height());
                                 }
                         }
                         return r;
                 }
-                public Video.Rect get_range_of_sight(int player_aim = 0){
-                        int new_x = ((get_x() + rangeOfSight.x + (player_aim * 32))>0) ?
-                                (get_x() + rangeOfSight.x + (player_aim * 32)) :
-                                -160 + (get_x() + rangeOfSight.x + (player_aim * 32));
-                        int new_y = ((get_y() + rangeOfSight.y + (player_aim * 32))>0) ?
-                                (get_y() + rangeOfSight.y + (player_aim * 32)) :
-                                -160 + (get_y() + rangeOfSight.y + (player_aim * 32));
-                        Video.Rect temp = Video.Rect(){ x = new_x,
-                                y = new_y,
-                                w = rangeOfSight.w,
-                                h = rangeOfSight.h };
+                public AutoRect get_range_of_sight(int player_aim = 0){
+                        int new_x = ((get_x() + rangeOfSight.x() + (player_aim * 32))>0) ?
+                                (get_x() + rangeOfSight.x() + (player_aim * 32)) :
+                                -160 + (get_x() + rangeOfSight.x() + (player_aim * 32));
+                        int new_y = ((get_y() + rangeOfSight.y() + (player_aim * 32))>0) ?
+                                (get_y() + rangeOfSight.y() + (player_aim * 32)) :
+                                -160 + (get_y() + rangeOfSight.y() + (player_aim * 32));
+                        AutoRect temp = new AutoRect(new_x,
+                                new_y,
+                                rangeOfSight.w(),
+                                rangeOfSight.h());
                         return temp;
                 }
                 private int get_center_x(){

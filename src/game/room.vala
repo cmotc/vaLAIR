@@ -312,17 +312,17 @@ namespace LAIR{
                         message("detect_transitions 0");
                         if(tmp!=null){
                                 message("detect_transitions 1");
-                                AutoPoint tlc = new AutoPoint(tmp.get_hitbox().x,
-                                        tmp.get_hitbox().y );
+                                AutoPoint tlc = new AutoPoint(tmp.get_hitbox().x(),
+                                        tmp.get_hitbox().y() );
                                 bool TLeftCorner = point_in_room(tlc, get_hitrect());
-                                AutoPoint trc = new AutoPoint( (int)(tmp.get_hitbox().x + tmp.get_hitbox().w),
-                                        tmp.get_hitbox().y );
+                                AutoPoint trc = new AutoPoint( (int)(tmp.get_hitbox().x() + tmp.get_hitbox().w()),
+                                        tmp.get_hitbox().y() );
                                 bool TRightCorner = point_in_room(trc, get_hitrect());
-                                AutoPoint blc = new AutoPoint( tmp.get_hitbox().x,
-                                        (int)(tmp.get_hitbox().y + tmp.get_hitbox().h) );
+                                AutoPoint blc = new AutoPoint( tmp.get_hitbox().x(),
+                                        (int)(tmp.get_hitbox().y() + tmp.get_hitbox().h()) );
                                 bool BLeftCorner = point_in_room(blc, get_hitrect());
-                                AutoPoint brc = new AutoPoint( (int)(tmp.get_hitbox().x + tmp.get_hitbox().w),
-                                        (int)(tmp.get_hitbox().y + tmp.get_hitbox().h) );
+                                AutoPoint brc = new AutoPoint( (int)(tmp.get_hitbox().x() + tmp.get_hitbox().w()),
+                                        (int)(tmp.get_hitbox().y() + tmp.get_hitbox().h()) );
                                 bool BRightCorner = point_in_room( brc, get_hitrect());
                                 message("detect_transitions 3");
                                 if (TLeftCorner){
