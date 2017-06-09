@@ -293,18 +293,7 @@ namespace LAIR{
                         return HBSUM;
                 }
                 private bool point_in_room(AutoPoint point, AutoRect hitbox){
-                        bool t = false;
-                        int xx = (int) (hitbox.x() + hitbox.w());
-                        int yy = (int) (hitbox.y() + hitbox.h());
-                        if ( point.x() > hitbox.x() ){
-                                if ( point.x() <  xx ){
-                                        if( point.y() > hitbox.y() ){
-                                                if( point.y() < yy ){
-                                                        t = true;
-                                                }
-                                        }
-                                }
-                        }
+                        bool t = hitbox.in_range(point);
                         return t;
                 }
                 public int detect_transitions(Entity tmp){
@@ -312,18 +301,10 @@ namespace LAIR{
                         message("detect_transitions 0");
                         if(tmp!=null){
                                 message("detect_transitions 1");
-                                AutoPoint tlc = new AutoPoint(tmp.get_hitbox().x(),
-                                        tmp.get_hitbox().y() );
-                                bool TLeftCorner = point_in_room(tlc, get_hitrect());
-                                AutoPoint trc = new AutoPoint( (int)(tmp.get_hitbox().x() + tmp.get_hitbox().w()),
-                                        tmp.get_hitbox().y() );
-                                bool TRightCorner = point_in_room(trc, get_hitrect());
-                                AutoPoint blc = new AutoPoint( tmp.get_hitbox().x(),
-                                        (int)(tmp.get_hitbox().y() + tmp.get_hitbox().h()) );
-                                bool BLeftCorner = point_in_room(blc, get_hitrect());
-                                AutoPoint brc = new AutoPoint( (int)(tmp.get_hitbox().x() + tmp.get_hitbox().w()),
-                                        (int)(tmp.get_hitbox().y() + tmp.get_hitbox().h()) );
-                                bool BRightCorner = point_in_room( brc, get_hitrect());
+                                bool TLeftCorner = point_in_room(tmp.get_hitbox().tlc(), get_hitrect());
+                                bool TRightCorner = point_in_room(tmp.get_hitbox().trc(), get_hitrect());
+                                bool BLeftCorner = point_in_room(tmp.get_hitbox().blc(), get_hitrect());
+                                bool BRightCorner = point_in_room(tmp.get_hitbox().brc(), get_hitrect());
                                 message("detect_transitions 3");
                                 if (TLeftCorner){
                                         r++;
