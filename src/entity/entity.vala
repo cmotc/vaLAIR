@@ -42,19 +42,15 @@ namespace LAIR{
                         }
                         set_type("player");
                 }
-                private bool in_range(AutoPoint point, AutoRect opp_hitbox){
-                        bool t = opp_hitbox.in_range(point);
-                        return t;
-                }
                 public bool detect_collisions(Entity t){
                         bool r = false;
                         assert(t != null);
                         if(get_block()){
                                 if(t.get_block()){
-                                        bool TLeftCorner = in_range(get_hitbox().tlc(), t.get_hitbox());
-                                        bool TRightCorner = in_range(get_hitbox().trc(), t.get_hitbox());
-                                        bool BLeftCorner = in_range(get_hitbox().blc(), t.get_hitbox());
-                                        bool BRightCorner = in_range( get_hitbox().brc(), t.get_hitbox());
+                                        bool TLeftCorner = t.get_hitbox().in_range(get_hitbox().tlc());
+                                        bool TRightCorner = t.get_hitbox().in_range(get_hitbox().trc());
+                                        bool BLeftCorner = t.get_hitbox().in_range(get_hitbox().blc());
+                                        bool BRightCorner = t.get_hitbox().in_range(get_hitbox().brc());
                                         r = bounce(TLeftCorner, TRightCorner,
                                         BLeftCorner, BRightCorner, t.get_hitbox());
                                         //do_actions(t);
@@ -65,10 +61,10 @@ namespace LAIR{
                 public bool detect_nearby_entities(Entity test){
                         bool r = false;
                         if(test.get_block()){
-                                bool TLeftCorner = in_range(test.get_hitbox().tlc(), get_range_of_sight());
-                                bool TRightCorner = in_range(test.get_hitbox().trc(), get_range_of_sight());
-                                bool BLeftCorner = in_range(test.get_hitbox().blc(), get_range_of_sight());
-                                bool BRightCorner = in_range(test.get_hitbox().brc(), get_range_of_sight());
+                                bool TLeftCorner = get_range_of_sight().in_range(test.get_hitbox().tlc());
+                                bool TRightCorner = get_range_of_sight().in_range(test.get_hitbox().trc());
+                                bool BLeftCorner = get_range_of_sight().in_range(test.get_hitbox().blc());
+                                bool BRightCorner = get_range_of_sight().in_range(test.get_hitbox().brc());
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
                                         if(nearby_interests.length() < Memory()){
                                                 nearby_interests.append(test.stringify_entity_details());

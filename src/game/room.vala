@@ -292,19 +292,15 @@ namespace LAIR{
                         HBSUM += Border.h().to_string();
                         return HBSUM;
                 }
-                private bool point_in_room(AutoPoint point, AutoRect hitbox){
-                        bool t = hitbox.in_range(point);
-                        return t;
-                }
                 public int detect_transitions(Entity tmp){
                         int r = 0;
                         message("detect_transitions 0");
                         if(tmp!=null){
                                 message("detect_transitions 1");
-                                bool TLeftCorner = point_in_room(tmp.get_hitbox().tlc(), get_hitrect());
-                                bool TRightCorner = point_in_room(tmp.get_hitbox().trc(), get_hitrect());
-                                bool BLeftCorner = point_in_room(tmp.get_hitbox().blc(), get_hitrect());
-                                bool BRightCorner = point_in_room(tmp.get_hitbox().brc(), get_hitrect());
+                                bool TLeftCorner = get_hitrect().in_range(tmp.get_hitbox().tlc());
+                                bool TRightCorner = get_hitrect().in_range(tmp.get_hitbox().trc());
+                                bool BLeftCorner = get_hitrect().in_range(tmp.get_hitbox().blc());
+                                bool BRightCorner = get_hitrect().in_range(tmp.get_hitbox().brc());
                                 message("detect_transitions 3");
                                 if (TLeftCorner){
                                         r++;
