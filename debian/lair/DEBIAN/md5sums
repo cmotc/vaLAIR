@@ -12,5 +12,5 @@ cb06318337a6784c193666fbae175f65  usr/share/lair/demo/ai.lua
 d41d8cd98f00b204e9800998ecf8427e  usr/share/lair/demo/player.lua
 6b7219c9a25ea9ccc618ec705ab28356  usr/share/lair/lua/ai/common.lua
 8bbeef0a2cae130d216e825dcb110d05  usr/share/lair/lua/map/basicwall_cares_insert.lua
-7ce69e762d4e54894ce2e1c9cf5a03ef  usr/share/lair/lua/map/common.lua
+68ec11879a49f4f1db7ddb5833503137  usr/share/lair/lua/map/common.lua
 6f67df7b61687f059cb31b5eebff6e89  usr/share/lair/lua/map/cut_hallways.lua
