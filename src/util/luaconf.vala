@@ -164,68 +164,72 @@ namespace LAIR{
                                 }
                         }
                 }
-                protected void lua_push_dimensions(AutoRect current){
+                protected void lua_push_dimensions_generator_phase(AutoRect current_room, AutoRect current_floor){
                         if(does_it_ai(script_path)){
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("x", (int) current.x());
-                                lua_close_table("room_x");
+                                lua_push_uint_to_table("floor_w", "w", (int)current_floor.w() );
+                                lua_push_uint_to_table("floor_width", "w", (int)current_floor.w() );
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("y", (int) current.y());
-                                lua_close_table("room_y");
+                                lua_push_uint_to_table("floor_h", "h", (int)current_floor.h() );
+                                lua_push_uint_to_table("floor_height", "h", (int)current_floor.h() );
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("x", (int) current.x() / 32);
-                                lua_close_table("room_coarse_x");
+                                lua_push_uint_to_table("floor_coarse_w", "w", (int)(current_floor.w() / 32) );
+                                lua_push_uint_to_table("floor_coarse_width", "w", (int)(current_floor.w() / 32) );
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("y", (int) current.y() / 32);
-                                lua_close_table("room_coarse_y");
+                                lua_push_uint_to_table("floor_coarse_h", "h", (int)(current_floor.h() / 32) );
+                                lua_push_uint_to_table("floor_coarse_height", "h", (int)(current_floor.h() / 32) );
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("w", (int) current.w());
-                                lua_close_table("generator_w");
+                                lua_push_uint_to_table("room_x","x",current_room.x());
+                                lua_push_uint_to_table("room_corner_x","x",current_room.x());
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("h", (int) current.h());
-                                lua_close_table("generator_h");
+                                lua_push_uint_to_table("room_y","y",current_room.y());
+                                lua_push_uint_to_table("room_corner_y","y",current_room.y());
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("w", (int) current.w() / 32);
-                                lua_close_table("generator_coarse_w");
+                                lua_push_uint_to_table("room_coarse_x","x",current_room.x()/32);
+                                lua_push_uint_to_table("room_corner_coarse_x","x",current_room.x()/32);
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("h", (int) current.h() / 32);
-                                lua_close_table("generator_coarse_h");
+                                lua_push_uint_to_table("room_coarse_y","y",current_room.y()/32);
+                                lua_push_uint_to_table("room_corner_coarse_y","y",current_room.y()/32);
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("x", (int) ((current.x() / 32) + (current.w() / 32)));
-                                lua_close_table("room_coarse_xw");
+                                lua_push_uint_to_table("generator_w","w",(int)current_room.w());
+                                lua_push_uint_to_table("current_room_width","w",(int)current_room.w());
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("y", (int) ((current.y() / 32) + (current.h() / 32)));
-                                lua_close_table("room_coarse_yh");
+                                lua_push_uint_to_table("generator_h","h",(int)current_room.h());
+                                lua_push_uint_to_table("current_room_height","h",(int)current_room.h());
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("x", (int) (current.x() + current.w()));
-                                lua_close_table("room_xw");
+                                lua_push_uint_to_table("generator_coarse_w","w",(int)current_room.w()/32);
+                                lua_push_uint_to_table("current_room_coarse_width","w",(int)current_room.w()/32);
                                 /*
                                 *///
-                                lua_new_table();
-                                lua_push_named_number("y", (int) (current.y() + current.h()));
-                                lua_close_table("room_yh");
+                                lua_push_uint_to_table("generator_coarse_h","h",(int)current_room.h()/32);
+                                lua_push_uint_to_table("current_room_coarse_height","h",(int)current_room.h()/32);
+                                /*
+                                *///
+                                lua_push_uint_to_table("room_xw","x",current_room.x() + (int)current_room.w());
+                                lua_push_uint_to_table("room_faredge_x","x",current_room.x() + (int)current_room.w());
+                                /*
+                                *///
+                                lua_push_uint_to_table("room_yh","y",current_room.y() + (int)current_room.h());
+                                lua_push_uint_to_table("room_faredge_y","y",current_room.y() + (int)current_room.h());
+                                /*
+                                *///
+                                lua_push_uint_to_table("room_coarse_xw","x",((current_room.x() / 32) + ((int)current_room.w() / 32)));
+                                lua_push_uint_to_table("room_faredge_coarse_x","x",((current_room.x() / 32) + ((int)current_room.w() / 32)));
+                                /*
+                                *///
+                                lua_push_uint_to_table("room_coarse_yh","y",((current_room.y() / 32) + ((int)current_room.h() / 32)));
+                                lua_push_uint_to_table("room_faredge_coarse_y","y",((current_room.y() / 32) + ((int)current_room.h() / 32)));
                         }
                 }
                 protected unowned LuaVM get_lua_vm(){

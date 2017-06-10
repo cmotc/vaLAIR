@@ -10,33 +10,33 @@ namespace LAIR{
                 private MobilesList Mobiles = null;
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
-                public Room(AutoRect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
-                        set_floor_dimensions(floordims);
+                        lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
+                        set_floor_dimensions(floor_dims);
                         set_name("room("+stringify_hitrect()+"): ");
                         message("generating room%s", get_name());
                         GameMaster = DM;
                         Floor = new FloorList(get_hitrect());
                         Particles = new ParticlesList(get_hitrect());
                         Mobiles = new MobilesList(get_hitrect());
-                        lua_push_dimensions(get_hitrect());
                         generate_floor(renderer);
                         message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
                         generate_particles(renderer);
                         generate_mobiles(scripts[2], renderer);
 		}
-                public Room.WithPlayer(AutoRect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room.WithPlayer(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
-                        set_floor_dimensions(floordims);
+                        lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
+                        set_floor_dimensions(floor_dims);
                         set_name("room ("+stringify_hitrect()+"): ");
                         message("generating room with player");
                         GameMaster = DM;
                         Floor = new FloorList(get_hitrect());
                         Particles = new ParticlesList(get_hitrect());
                         Mobiles = new MobilesList(get_hitrect());
-                        lua_push_dimensions(get_hitrect());
                         generate_floor(renderer);
                         generate_particles(renderer);
                         message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
