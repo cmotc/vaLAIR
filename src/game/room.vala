@@ -14,7 +14,7 @@ namespace LAIR{
                         base(scripts[0], 2, "room:");
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
-                        set_floor_dimensions(floor_dims);
+                        //set_floor_dimensions(floor_dims);
                         set_name("room("+stringify_hitrect()+"): ");
                         message("generating room%s", get_name());
                         GameMaster = DM;
@@ -30,7 +30,7 @@ namespace LAIR{
                         base(scripts[0], 2, "room:");
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
-                        set_floor_dimensions(floor_dims);
+                        //set_floor_dimensions(floor_dims);
                         set_name("room ("+stringify_hitrect()+"): ");
                         message("generating room with player");
                         GameMaster = DM;

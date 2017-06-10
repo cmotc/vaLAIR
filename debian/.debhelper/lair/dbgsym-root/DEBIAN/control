@@ -10,4 +10,4 @@ Section: debug
 Priority: extra
 Homepage: https://cmotc.github.io/lair-web/
 Description: Debug symbols for lair
-Build-Ids: 1538687611adf0ed8a195285fea5ff7912299f74
+Build-Ids: 4fb3d548296c1230c4b7b4744a7d73e3afa90512
