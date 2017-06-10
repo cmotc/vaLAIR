@@ -14,7 +14,6 @@ namespace LAIR{
                         base(scripts[0], 2, "room:");
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
-                        //set_floor_dimensions(floor_dims);
                         set_name("room("+stringify_hitrect()+"): ");
                         message("generating room%s", get_name());
                         GameMaster = DM;
@@ -30,7 +29,6 @@ namespace LAIR{
                         base(scripts[0], 2, "room:");
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
-                        //set_floor_dimensions(floor_dims);
                         set_name("room ("+stringify_hitrect()+"): ");
                         message("generating room with player");
                         GameMaster = DM;
@@ -43,12 +41,6 @@ namespace LAIR{
                         generate_mobiles(scripts[2], renderer);
                         generate_player(scripts[1], renderer);
 		}
-                private void set_floor_dimensions(AutoRect floordims){
-                        lua_push_uint_to_table("floor_w", "w", (int)floordims.w() );
-                        lua_push_uint_to_table("floor_h", "h", (int)floordims.h() );
-                        lua_push_uint_to_table("floor_coarse_w", "w", (int)(floordims.w() / 32) );
-                        lua_push_uint_to_table("floor_coarse_h", "h", (int)(floordims.h() / 32) );
-                }
                 private int get_x(){     return (int) Border.x();}
                 private int get_offset_x(int x){
                         int r = (x * 32) + get_x();
@@ -72,29 +64,27 @@ namespace LAIR{
                         coords.append(new AutoPoint(get_offset_x(xx), get_offset_y(yy)));
                         message("Coordinates pushed to lua table: %s", coords.length().to_string());
                         if(coords.length() == 2){
-                                lua_push_coords(coords.nth_data(0), coords.nth_data(1));
+                                lua_push_generator_coords(coords.nth_data(0), coords.nth_data(1));
                                 particle_count();
-                                particle_count_bytag();
+                                //particle_count_bytag();
                                 mobile_count();
-                                mobile_count_bytag();
+                                //mobile_count_bytag();
                         }
                         return coords;
                 }
-                private int particle_count(){
-                        lua_push_uint_to_table("""generator_particle_count""", """c""", (int)Particles.length());
-                        return (int) Particles.length();
+                private void particle_count(uint particles_length = Particles.length()){
+                        lua_push_uint_to_table("""generator_particle_count""", """c""", (int)particles_length);
+                        foreach(TagCounter count in Particles.count_bytag()){
+                                lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
+                        }
                 }
-                //private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
-                private int mobile_count(){
-                        lua_push_uint_to_table("""generator_mobile_count""", """c""", (int)Mobiles.length());
-                        return (int) Mobiles.length();
+                private void mobile_count(uint mobiles_length = Mobiles.length()){
+                        lua_push_uint_to_table("""generator_mobile_count""", """c""", (int)mobiles_length);
+                        foreach(TagCounter count in Mobiles.count_bytag()){
+                                lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
+                        }
                 }
-                //Todo: Instead of doing it this way, pass a new entity to this
-                //function and have it do the appending, so we can skip the
-                //first for loop here and just add tags for new entities.
-                //Requires caching the tag count, but arguably should be doing
-                //that anyway. Not important right now. This way works.
-                private void particle_count_bytag(){
+                /*private void particle_count_bytag(){
                         foreach(TagCounter count in Particles.count_bytag()){
                                 lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
@@ -103,7 +93,7 @@ namespace LAIR{
                         foreach(TagCounter count in Mobiles.count_bytag()){
                                 lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
-                }
+                }*/
                 private List<List<string>> decide_floor_tile(){
                         lua_do_function("""map_cares_insert()""");
                         List<string> cares = get_lua_last_return();
@@ -358,7 +348,7 @@ namespace LAIR{
                         message("enter_room 2");
 			return visited;
 		}
-                public bool mob_enter_room(Entity mob = null){
+                public bool mob_enter_room(Entity? mob = null){
                         message("mob_enter_room 0");
 			if (mob != null){
                                 message("    Mob Entering Room.");
