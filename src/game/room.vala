@@ -66,9 +66,7 @@ namespace LAIR{
                         if(coords.length() == 2){
                                 lua_push_generator_coords(coords.nth_data(0), coords.nth_data(1));
                                 particle_count();
-                                //particle_count_bytag();
                                 mobile_count();
-                                //mobile_count_bytag();
                         }
                         return coords;
                 }
@@ -84,16 +82,6 @@ namespace LAIR{
                                 lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
                 }
-                /*private void particle_count_bytag(){
-                        foreach(TagCounter count in Particles.count_bytag()){
-                                lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
-                        }
-                }
-                private void mobile_count_bytag(){
-                        foreach(TagCounter count in Mobiles.count_bytag()){
-                                lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
-                        }
-                }*/
                 private List<List<string>> decide_floor_tile(){
                         lua_do_function("""map_cares_insert()""");
                         List<string> cares = get_lua_last_return();
@@ -178,7 +166,7 @@ namespace LAIR{
                                 }
                         }
                 }
-                private void generate_mobiles(string aiScript, Video.Renderer* renderer){
+                private void generate_mobiles(string aiScript = "/usr/share/lair/demo/ai.lua", Video.Renderer* renderer){
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
