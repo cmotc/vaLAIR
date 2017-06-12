@@ -132,6 +132,5 @@ to do:
    2. Port digitalAndy to Android with a simple pixel-painting interface capable
    of outputting a configuration file for PC digitalAndy as well as a script.
    Do it to learn Android app development in Go.
-  6. Set a prefix for resource directories in-app.
-  7. Low GUI Mode for running a game without a player, in order to behave like a
+  6. Low GUI Mode for running a game without a player, in order to behave like a
     server.

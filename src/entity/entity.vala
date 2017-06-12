@@ -51,8 +51,12 @@ namespace LAIR{
                                         bool TRightCorner = t.get_hitbox().in_range(get_hitbox().trc());
                                         bool BLeftCorner = t.get_hitbox().in_range(get_hitbox().blc());
                                         bool BRightCorner = t.get_hitbox().in_range(get_hitbox().brc());
-                                        r = bounce(TLeftCorner, TRightCorner,
-                                        BLeftCorner, BRightCorner, t.get_hitbox());
+                                        int[] corners = get_hitbox().overlap_which_quadrant(t.get_hitbox());
+                                        r = bounce(TLeftCorner,
+                                                TRightCorner,
+                                                BLeftCorner,
+                                                BRightCorner,
+                                                t.get_hitbox());
                                         //do_actions(t);
                                 }
                         }

@@ -20,10 +20,7 @@ namespace LAIR{
                         Floor = new FloorList(get_hitrect());
                         Particles = new ParticlesList(get_hitrect());
                         Mobiles = new MobilesList(get_hitrect());
-                        generate_floor(renderer);
-                        message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
-                        generate_particles(renderer);
-                        generate_mobiles(scripts[2], renderer);
+                        generate_room(scripts, renderer);
 		}
                 public Room.WithPlayer(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
                         base(scripts[0], 2, "room:");
@@ -35,12 +32,17 @@ namespace LAIR{
                         Floor = new FloorList(get_hitrect());
                         Particles = new ParticlesList(get_hitrect());
                         Mobiles = new MobilesList(get_hitrect());
+                        generate_room(scripts, renderer, true);
+		}
+                private void generate_room(string[] scripts, Video.Renderer? renderer, bool make_player=false){
                         generate_floor(renderer);
                         generate_particles(renderer);
                         message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
                         generate_mobiles(scripts[2], renderer);
-                        generate_player(scripts[1], renderer);
-		}
+                        if(make_player){
+                                generate_player(scripts[1], renderer);
+                        }
+                }
                 private int get_x(){     return (int) Border.x();}
                 private int get_offset_x(int x){
                         int r = (x * 32) + get_x();
@@ -166,7 +168,7 @@ namespace LAIR{
                                 }
                         }
                 }
-                private void generate_mobiles(string aiScript = "/usr/share/lair/demo/ai.lua", Video.Renderer* renderer){
+                private void generate_mobiles(string aiScript, Video.Renderer* renderer){
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
@@ -178,8 +180,8 @@ namespace LAIR{
                                         Mobiles.generate_mobile(GameMaster,
                                                 generator_push_xy_to_lua(xx, yy),
                                                 decide_mobile_tile(aiScript),
-                                                aiScript,
-                                                renderer);
+                                                renderer,
+                                                aiScript);
                                 }
                         }
                 }
@@ -315,10 +317,8 @@ namespace LAIR{
 				if (visited = false){
 					visited = true;
 				}
-                                if(Mobiles.length() > 0){
-                                        foreach(Entity mob in Mobiles.get_mobiles()){
-                                                mob.render(renderer, player_pos);
-                                        }
+                                foreach(Entity mob in Mobiles.get_mobiles()){
+                                        mob.render(renderer, player_pos);
                                 }
 			}
 		}

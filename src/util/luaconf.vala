@@ -53,10 +53,8 @@ namespace LAIR{
                                                 global_vm_copy().raw_set(-3);
                                         }else{
                                                 global_vm_copy().push_string(key.to_string());
-                                                //global_vm_copy().push_string("Error pushing entry to global Lua table. Key was null. Value was: " + val);
                                                 string errval = "Error pushing entry to global Lua table. Key was null.";
                                                 message(errval);
-                                                //global_vm_copy().raw_set(-3);
                                         }
                                         key++;
                                 }
@@ -105,6 +103,7 @@ namespace LAIR{
                 /*protected void lua_register(string name, CallbackFunc f){                        global_vm_copy().register(name, f);                }*/
                 protected void lua_do_function(string function){
                         if(does_it_ai(script_path)){
+                                //lua_do_file();
                                 string tmp = "return " + function;
                                 global_vm_copy().do_string(tmp);
                         }

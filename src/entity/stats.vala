@@ -181,6 +181,9 @@ namespace LAIR{
 			int tmp = ( ( (Strength / 5) + (Agility / 2) ) / 2 ) ;
 			return (tmp + speed) * has_speed();
 		}
+                public int WalkingSpeed(){
+                        return Speed() / 3;
+                }
 		public int Exert(){
                         int tmp = ( ( (Strength / 5) + (Toughness / 2) ) / 2 ) ;
 			return (tmp + exert) * has_exert();

@@ -439,9 +439,3 @@ map generation, which will aid in generating Mazes.
 
 I still haven't done the Lua configuration for AI controlled entities. That's
 changing slowly, it's not something I want to do too fast.
-
-Some of the tables are counter-intuitively or unclearly named. I'll get to it
-about the time I get to converting the Vala to standard formatting. The
-functions are the preferred way to access the variables. I think they're pretty
-much consistent now so that's OK at least.
-
