@@ -1,6 +1,5 @@
 math.randomseed(os.time())
 
-
 function greater_than(aa, bb)
         if aa > bb then
                 print(" " .. aa .. " is greater than " .. bb )
@@ -34,11 +33,11 @@ function get_tag_table(variable)
         end
 end
 function where_in_floor_get_x()
-        print(" " .. (tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)) )
+        --print(" " .. (tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)) )
         return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
 end
 function where_in_floor_get_y()
-        print(" " .. (tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)) )
+        --print(" " .. (tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)) )
         return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
 end
 function where_in_floor_get_x_bare()
@@ -48,91 +47,91 @@ function where_in_floor_get_y_bare()
         return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
 end
 function where_in_room_gen_x()
-        print(" " .. generator_coarse_x.x )
+        --print(" " .. generator_coarse_x.x )
         return generator_coarse_x.x
 end
 function where_in_room_gen_y()
-        print(" " .. generator_coarse_y.y )
+        --print(" " .. generator_coarse_y.y )
         return generator_coarse_y.y
 end
 function how_long_room_gen_w()
-        print(" " .. generator_coarse_w.w)
+        --print(" " .. generator_coarse_w.w)
         return generator_coarse_w.w
 end
 function how_long_room_gen_h()
-        print(" " .. generator_coarse_h.h)
+        --print(" " .. generator_coarse_h.h)
         return generator_coarse_h.h
 end
 function what_pixel_is_gen_x()
-        print(" " .. generator_x.x)
+        --print(" " .. generator_x.x)
         return generator_x.x
 end
 function what_pixel_is_gen_y()
-        print(" " .. generator_y.y)
+        --print(" " .. generator_y.y)
         return generator_y.y
 end
 function where_is_room_corner_x()
-        print(" " .. room_coarse_x.x)
+        --print(" " .. room_coarse_x.x)
         return room_coarse_x.x
 end
 function where_is_room_corner_y()
-        print(" " .. room_coarse_y.y)
+        --print(" " .. room_coarse_y.y)
         return room_coarse_y.y
 end
 function where_is_room_farcorner_x()
-        print(" " .. room_coarse_xw.x)
+        --print(" " .. room_coarse_xw.x)
         return room_coarse_xw.x
 end
 function where_is_floor_farcorner_x()
-        print(" " .. floor_coarse_h.h)
+        --print(" " .. floor_coarse_h.h)
         return floor_coarse_h.h
 end
 function where_is_floor_farcorner_y()
-        print(" " .. floor_coarse_w.w)
+        --print(" " .. floor_coarse_w.w)
         return floor_coarse_w.w
 end
 function where_is_room_farcorner_y()
-        print(" " .. room_coarse_yh.y)
+        --print(" " .. room_coarse_yh.y)
         return room_coarse_yh.y
 end
 function what_pixel_is_room_corner_x()
-        print(" " .. room_x.x)
+        --print(" " .. room_x.x)
         return room_x.x
 end
 function what_pixel_is_room_corner_y()
-        print(" " .. room_y.y)
+        --print(" " .. room_y.y)
         return room_y.y
 end
 function what_pixel_is_room_farcorner_x()
-        print(" " .. room_xw.x)
+        --print(" " .. room_xw.x)
         return room_xw.x
 end
 function what_pixel_is_room_farcorner_y()
-        print(" " .. room_yh.y)
+        --print(" " .. room_yh.y)
         return room_yh.y
 end
 function what_pixel_is_floor_farcorner_y()
-        print(" " .. floor_h.h)
+        --print(" " .. floor_h.h)
         return floor_h.h
 end
 function what_pixel_is_floor_farcorner_x()
-        print(" " .. floor_w.w)
+        --print(" " .. floor_w.w)
         return floor_w.w
 end
 function how_long_room_pixels_w()
-        print(" " .. generator_w.w)
+        --print(" " .. generator_w.w)
         return generator_w.w
 end
 function how_long_room_pixels_h()
-        print(" " .. generator_h.h)
+        --print(" " .. generator_h.h)
         return generator_h.h
 end
 function how_many_particles_so_far()
-        print(" " .. generator_particle_count.c)
+        --print(" " .. generator_particle_count.c)
         return generator_particle_count.c
 end
 function how_many_mobiles_so_far()
-        print(" " .. generator_mobile_count.c)
+        --print(" " .. generator_mobile_count.c)
         return generator_mobile_count.c
 end
 function get_map_savepath()

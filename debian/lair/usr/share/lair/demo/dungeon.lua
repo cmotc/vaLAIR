@@ -40,7 +40,7 @@ function mob_cares_insert()
         local decided_to = "false"
         if is_blocked_particle_here() == "false" then
                 if is_blocked_mobile_here() == "false" then
-                        decided_to = percent_chance(10)
+                        decided_to = percent_chance(4)
                 end
         end
         return decided_to
