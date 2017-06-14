@@ -35,7 +35,7 @@ src/util/autorect.vala:87.17-87.47: warning: method `LAIR.AutoRect.quadrants' ne
                 public List<AutoRect> quadrants(){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/util/scribe.vala:5.17-5.60: warning: field `LAIR.Scribe.glib_level' never used
-                private static GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;
+                private static GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_ERROR;
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/util/scribe.vala:18.44-18.91: warning: local variable `glib_level' declared but never used
                         GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;

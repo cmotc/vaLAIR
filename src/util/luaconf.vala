@@ -89,11 +89,9 @@ namespace LAIR{
                                                 global_vm_copy().pop(1);
                                         }
                                 }
-                                message(" %s ", tmp);
                                 string[] tl = tmp.split(" ", 0);
                                 for(int i = 0; i < tl.length; i++){
                                         if(tl[i] != null){
-                                                message(" %s ", tl[i]);
                                                 tr.append(tl[i]);
                                         }
                                 }
@@ -113,9 +111,9 @@ namespace LAIR{
                                 if(tablename != "none"){
                                         if(does_it_ai(script_path)){
                                                 lua_new_table();
-                                                message("Creating new Lua table: %s.", tablename);
-                                                message(" Containing field: %s.", varname);
-                                                message(" of value: %s.", varval.to_string());
+//                                                message("Creating new Lua table: %s.", tablename);
+  //                                              message(" Containing field: %s.", varname);
+    //                                            message(" of value: %s.", varval.to_string());
                                                 lua_push_named_number(varname, varval);
                                                 lua_close_table(tablename);
                                         }

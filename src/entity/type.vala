@@ -107,7 +107,7 @@ namespace LAIR{
                                 r += i.get_tag_name();
                                 r += " ";
                         }
-                        message(r);
+//                        message(r);
                         return r;
                 }
                 public string get_category(){
