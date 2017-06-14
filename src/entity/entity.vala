@@ -63,7 +63,7 @@ namespace LAIR{
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
                                         if(nearby_interests.length() < Memory()){
                                                 nearby_interests.append(test.stringify_entity_details());
-                                                message("is observing %s", test.stringify_entity_details());
+                                                //message("is observing %s", test.stringify_entity_details());
                                                 r = true;
                                         }
                                 }}}}

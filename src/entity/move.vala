@@ -156,43 +156,33 @@ namespace LAIR{
                         int t;
                         switch (ai_do) {
                                 case "rotate()":
-                                        message("AI is turning");
                                         t = 7;//mouse_move(x, y);
                                         break;
                                 case "aim()":
-                                        message("AI is aiming");
                                         t = swing_left();
                                         break;
                                 case "fire()":
-                                        message("AI is firing");
                                         t = swing_left();
                                         break;
                                 case "action()":
-                                        message("AI is attempting");
                                         t = swing_right();
                                         break;
                                 case "throw()":
-                                        message("AI is throwing");
                                         t = swing_right();
                                         break;
                                 case "step_down()":
-                                        message("AI is stepping down");
                                         t = step_down();
                                         break;
                                 case "step_up()":
-                                        message("AI is stepping up");
                                         t = step_up();
                                         break;
                                 case "step_right()":
-                                        message("AI is stepping right");
                                         t = step_right();
                                         break;
                                 case "step_left()":
-                                        message("AI is stepping left");
                                         t = step_left();
                                         break;
                                 case "stand_still()":
-                                        message("AI is standing still");
                                         t = stand_still();
                                         break;
                         }
@@ -202,13 +192,11 @@ namespace LAIR{
                         Event e;
                         message("     Player is taking a turn : ");
                         while(Event.poll (out e) == 1){
-                                message(" Checking Event for Player Input");
                                 if (e.type == EventType.MOUSEMOTION || e.type == EventType.MOUSEBUTTONDOWN || e.type == EventType.MOUSEBUTTONUP){
                                         int x = 0, y = 0;
                                         Input.Cursor.get_state(ref x, ref y);
                                         switch (e.type) {
                                                 case EventType.MOUSEMOTION:
-                                                        message("Player is turning");
                                                         t = mouse_move(x, y);
                                                         break;
                                                 case EventType.MOUSEBUTTONDOWN:
@@ -260,47 +248,36 @@ namespace LAIR{
 			}
                         unowned bool[] current_key_states = Input.Keyboard.get_state();
                         if (current_key_states[Input.Scancode.ESCAPE]){
-                                message("Player is Quitting");
                                 t = quit();
                         }
                         if (current_key_states[Input.Scancode.S]){
-                                message("Player is moving down");
                                 t = step_down();
                         }
                         if (current_key_states[Input.Scancode.W]){
-                                message("Player is moving up");
                                 t = step_up();
                         }
                         if (current_key_states[Input.Scancode.D]){
-                                message("Player is moving right");
                                 t = step_right();
                         }
                         if (current_key_states[Input.Scancode.A]){
-                                message("Player is moving left");
                                 t = step_left();
                         }
                         if (current_key_states[Input.Scancode.DOWN]){
-                                message("Player is moving down");
                                 t = step_down();
                         }
                         if (current_key_states[Input.Scancode.UP]){
-                                message("Player is moving up");
                                 t = step_up();
                         }
                         if (current_key_states[Input.Scancode.RIGHT]){
-                                message("Player is moving right");
                                 t = step_right();
                         }
                         if (current_key_states[Input.Scancode.LEFT]){
-                                message("Player is moving left");
                                 t = step_left();
                         }
                         if (current_key_states[Input.Scancode.TAB]){
-                                message("Player is viewing stats");
                                 t = show_my_stats();
                         }
                         if (current_key_states[Input.Scancode.CAPSLOCK]){
-                                message("Player is viewing skills");
                                 t = show_my_skills();
                         }
                         return t;
