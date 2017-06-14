@@ -14,7 +14,6 @@ namespace LAIR{
 		private LairFile ttfListPath = null;
                 private List<List<string>> BodyParts = new List<List<string>>();
                 private List<string> SoundParts = new List<string>();
-                //private Dice Sorcerer = new Dice("immobile");
 		public FileDB(string imgList, string sndList, string ttfList){
                         base("immobile");
 			var imgfile = new LairFile.WithPath(imgList);

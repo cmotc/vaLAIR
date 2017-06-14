@@ -373,7 +373,7 @@ android:
 	export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig ; \
 	valac -gv \
 		-o bin/LAIR-droid \
-		--cc "/usr/bin/arm-linux-gnueabihf-gcc" \
+		--cc "/usr/arm-linux-androideabi/bin/arm-linux-androideabi-gcc" \
 		--pkg-config /usr/bin/pkgconf \
 		-X -fstack-protector-all \
 		-X --param \

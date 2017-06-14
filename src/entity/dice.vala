@@ -35,6 +35,20 @@ namespace LAIR{
                         }
                         return r;
                 }
+                public int[] roll_dicepool(){
+                        int c = (coin_toss())? 1: 0;
+                        int[] r = {
+                                roll_hundred(),
+                                roll_twenty(),
+                                roll_twelve(),
+                                roll_eight(),
+                                roll_six(),
+                                roll_four(),
+                                roll_two(),
+                                c,
+                        };
+                        return r;
+                }
                 protected int roll_variable(int sides = 0){
                         int r = 0;
                         if (sides == 0){
