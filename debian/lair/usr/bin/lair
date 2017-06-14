@@ -49,4 +49,4 @@ while [ "$#" -gt 0 ]; do
 	shift
 done
 
-$NOHUPA ./LAIR $TMP $NOHUPB
+$NOHUPA LAIR $TMP $NOHUPB

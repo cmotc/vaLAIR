@@ -1,0 +1,52 @@
+#! /bin/sh
+export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-musl"
+DEFAULT="/usr/share/lair"
+TMP=""
+if [ -f "/etc/lairrc" ]; then
+        printf "loading standard settings"
+        . /etc/lairrc
+fi
+if [ -f "$HOME/.lairrc" ]; then
+        printf "loading user settings"
+        . $HOME/.lairrc
+fi
+if [ ! -z "$IMAGEPATH" ]; then
+        TMP="$TMP -p $IMAGESPATH"
+fi
+if [ ! -z "$SOUNDPATH" ]; then
+        TMP="$TMP -s $SOUNDSPATH"
+fi
+if [ ! -z "$FONTSPATH" ]; then
+        TMP="$TMP -f $FONTSPATH"
+fi
+if [ ! -z "$MAPSIZE" ]; then
+        TMP="$TMP -m $MAPSIZE"
+fi
+if [ ! -z "$DUNGEPATH" ]; then
+        TMP="$TMP -c $DUNGEPATH"
+fi
+if [ ! -z "$PLAYEPATH" ]; then
+        TMP="$TMP -e $PLAYEPATH"
+fi
+if [ ! -z "$MOBILPATH" ]; then
+        TMP="$TMP -a $MOBILPATH"
+fi
+if [ ! -z "$WRESOLUTION" ]; then
+        TMP="$TMP -w $WRESOLUTION"
+fi
+if [ ! -z "$HRESOLUTION" ]; then
+        TMP="$TMP -h $HRESOLUTION"
+fi
+
+while [ "$#" -gt 0 ]; do
+	arg="$1"
+	case $arg in
+		-d|--daemonize)
+			NOHUPA="nohup"
+                        NOHUPB=" &> /dev/null &"
+		;;
+	esac
+	shift
+done
+
+$NOHUPA ./LAIR $TMP $NOHUPB

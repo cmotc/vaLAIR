@@ -66,67 +66,75 @@ namespace LAIR{
                         show_skills();
                         return 10;
                 }
-                protected bool bounce(bool tl, bool tr, bool bl, bool br, AutoRect evenout){
+                protected bool bounce(int[] overlaps, AutoRect evenout){
+                        int tl = overlaps[0];
+                        int tr = overlaps[1];
+                        int bl = overlaps[2];
+                        int br = overlaps[3];
                         bool r = false;
-                        if(tl){
-                                message("Collision detected, Top Left Corner");
-                                if(bl){
-                                        message(" and Bottom Left Corner");
-                                        set_x((int)(evenout.x() + get_width()));
-                                }else if(tr){
-                                        message(" and Top Right Corner");
-                                        set_y((int)(evenout.y() + get_height()));
-                                }else{
-                                        message("");
-                                        set_x((int)(evenout.x() + get_width()));
-                                        set_y((int)(evenout.y() + get_height()));
-                                }
-                                r = true;
+                        switch (tl){
+                                case 1:
+                                        set_x(evenout.x()+(int)evenout.w()+WalkingSpeed());
+                                        break;
+                                case 2:
+                                        set_x(evenout.x()+(int)evenout.w()+WalkingSpeed());
+                                        break;
+                                case 3:
+                                        set_y(evenout.y()+(int)evenout.h()+WalkingSpeed());
+                                        break;
+                                case 4:
+                                        set_y(evenout.y()+(int)evenout.h()+WalkingSpeed());
+                                        break;
+                                case 0:
+                                        break;
                         }
-                        if(tr){
-                                message("Collision detected, Top Right Corner");
-                                if(br){
-                                        message(" and Bottom Right Corner");
-                                        set_x((int)(evenout.x() - get_width()));
-                                }else if(tl){
-                                        message(" and Top Left Corner");
-                                        set_y((int)(evenout.y() + get_height()));
-                                }else{
-                                        message("");
-                                        set_x((int)(evenout.x() - get_width()));
-                                        set_y((int)(evenout.y() + get_height()));
-                                }
-                                r = true;
+                        switch (tr){
+                                case 1:
+                                        set_x(evenout.x()-(int)get_hitbox().w()-WalkingSpeed());
+                                        break;
+                                case 2:
+                                        set_x(evenout.x()-(int)get_hitbox().w()-WalkingSpeed());
+                                        break;
+                                case 3:
+                                        set_y(evenout.y()+(int)evenout.h()-WalkingSpeed());
+                                        break;
+                                case 4:
+                                        set_y(evenout.y()+(int)evenout.h()-WalkingSpeed());
+                                        break;
+                                case 0:
+                                        break;
                         }
-                        if(bl){
-                                message("Collision detected, Bottom Left Corner");
-                                if(tl){
-                                        message(" and Top Left Corner");
-                                        set_x((int)(evenout.x() - get_width()));
-                                }else if(br){
-                                        message(" and Bottom Right Corner");
-                                        set_y((int)(evenout.y() + get_height()));
-                                }else{
-                                        message("");
-                                        set_x((int)(evenout.x() - get_width()));
-                                        set_y((int)(evenout.y() + get_height()));
-                                }
-                                r = true;
+                        switch (bl){
+                                case 1:
+                                        set_y(evenout.y()-(int)get_hitbox().h()-WalkingSpeed());
+                                        break;
+                                case 2:
+                                        set_y(evenout.y()-(int)get_hitbox().h()-WalkingSpeed());
+                                        break;
+                                case 3:
+                                        set_x(evenout.x()-(int)evenout.w()-WalkingSpeed());
+                                        break;
+                                case 4:
+                                        set_x(evenout.x()-(int)evenout.w()-WalkingSpeed());
+                                        break;
+                                case 0:
+                                        break;
                         }
-                        if(br){
-                                message("Collision detected, Bottom Right Corner");
-                                if(tr){
-                                        message("and Top Right Corner");
-                                        set_x((int)(evenout.x() - get_width()));
-                                }else if(bl){
-                                        message("and Bottom Left Corner");
-                                        set_y((int)(evenout.y() + get_height()));
-                                }else{
-                                        message("");
-                                        set_x((int)(evenout.x() - get_width()));
-                                        set_y((int)(evenout.y() + get_height()));
-                                }
-                                r = true;
+                        switch (br){
+                                case 1:
+                                        set_y(evenout.y()-(int)get_hitbox().h()-WalkingSpeed());
+                                        break;
+                                case 2:
+                                        set_y(evenout.y()-(int)get_hitbox().h()-WalkingSpeed());
+                                        break;
+                                case 3:
+                                        set_x(evenout.x()-(int)get_hitbox().w()-WalkingSpeed());
+                                        break;
+                                case 4:
+                                        set_x(evenout.x()-(int)get_hitbox().w()-WalkingSpeed());
+                                        break;
+                                case 0:
+                                        break;
                         }
                         return r;
                 }

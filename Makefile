@@ -10,7 +10,7 @@ EMCC_LLVM_TARGET = le32-unknown-nacl
 #"/usr/lib/x86_64-linux-gnu"
 #--enable-experimental
 unix:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:$PKG_CONFIG_PATH" ; \
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
 		-o bin/LAIR \
 		--pkg-config /usr/bin/pkgconf \
@@ -20,6 +20,7 @@ unix:
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
+		-X -Bstatic \
 		-g \
 		--disable-assert \
 		--enable-checking \
@@ -80,9 +81,9 @@ unix:
 				#--thread \
 
 unix-clang:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:$PKG_CONFIG_PATH" ; \
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
-		-o bin/LAIR \
+		-o bin/LAIR-clang \
 		--pkg-config /usr/bin/pkgconf \
 		--cc clang \
 		-X -fstack-protector-all \
@@ -91,6 +92,7 @@ unix-clang:
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
+		-X -Bstatic \
 		-g \
 		--disable-assert \
 		--enable-checking \
@@ -149,18 +151,28 @@ unix-clang:
 		src/entity/move.vala \
 		src/entity/entity.vala
 
+docker:
+	docker build -t valair .
+
+docker-run:
+	docker run -ti --rm \
+		-e DISPLAY=${DISPLAY} \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		valair
+
 unix-static:
-	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH/usr/lib/x86_64-linux-musl" ; \
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
-		-o bin/LAIR \
+		-o bin/LAIR-static \
 		--pkg-config /usr/bin/pkgconf \
-		--cc musl-gcc \
 		-X -fstack-protector-all \
 		-X --param \
 		-X ssp-buffer-size=4 \
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
+		-X -fPIC \
+		-X -Bstatic \
 		-g \
 		--disable-assert \
 		--enable-checking \
@@ -170,6 +182,7 @@ unix-static:
 		--includedir /usr/include/x86_64-linux-musl \
 		--target-glib 2.0 \
 		--pkg gio-2.0 \
+		--includedir /usr/include/ \
 		--pkg lua \
 		--pkg sdl2 \
 		--pkg sdl2-gfx \
@@ -177,15 +190,16 @@ unix-static:
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -Og \
 		-X -g3 \
 		--includedir /usr/include/luajit-2.0 \
-		-X -lluajit-5.1 \
-		-X -lSDL2 \
-		-X -lSDL2_gfx \
-		-X -lSDL2_image \
-		-X -lSDL2_ttf \
-		-X -lSDL2_mixer \
+		-X -l:libluajit-5.1.a \
+		-X -l:libSDL2.a \
+		-X -l:libSDL2_gfx.a \
+		-X -l:libSDL2_image.a \
+		-X -l:libSDL2_ttf.a \
+		-X -l:libSDL2_mixer.a \
+		-X -l:libFLAC.a \
+		-X -l:libogg.a \
 		src/main.vala \
 		src/util/autotimer.vala \
 		src/util/autorect.vala \
@@ -356,28 +370,43 @@ windows:
 	cp -R share/lair ${HOME}/Projects/lair-manifest/lair-msi/bin/lair
 
 android:
-	export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
+	export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig ; \
 	valac -gv \
 		-o bin/LAIR-droid \
 		--cc "/usr/bin/arm-linux-gnueabihf-gcc" \
 		--pkg-config /usr/bin/pkgconf \
-		--disable-warnings \
+		-X -fstack-protector-all \
+		-X --param \
+		-X ssp-buffer-size=4 \
+		-X -D_FORTIFY_SOURCE=2 \
+		-X -ftrapv \
+		-X -Wl,-z,relro,-z,now \
+		-X -Bstatic \
+		-g \
+		--disable-assert \
+		--enable-checking \
+		--enable-experimental \
+		--enable-gobject-tracing \
+		--vapidir="/usr/share/vala/vapi/" \
+		--includedir /usr/include/x86_64-linux-musl \
+		--target-glib 2.0 \
 		--pkg gio-2.0 \
 		--pkg lua \
 		--pkg sdl2 \
-		--pkg sdl2-android \
 		--pkg sdl2-gfx \
 		--pkg sdl2-image \
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg=tartrazine \
-		-X -llua5.1 \
+		-X -Og \
+		-X -g3 \
+		--includedir /usr/include/luajit-2.0 \
+		-X -lluajit-5.1 \
 		-X -lSDL2 \
 		-X -lSDL2_gfx \
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
-		-X "-I /usr/include/arm-linux-gnueabihf/" \
 		src/main.vala \
 		src/util/autotimer.vala \
 		src/util/autorect.vala \
@@ -575,7 +604,7 @@ debug:
 debug-clang:
 	make unix-clang 2>build.err 1>build.log
 	ulimit -c unlimited
-	lldb ./bin/LAIR core
+	lldb ./bin/LAIR-clang core
 
 memcheck:
 	ulimit -c unlimited; \
