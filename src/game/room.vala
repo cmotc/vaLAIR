@@ -57,7 +57,7 @@ namespace LAIR{
                 public uint get_h(){     return Border.h();}
                 private void generate_player(string playerScript, Video.Renderer? renderer){
                         if(!has_player()){
-                                Player = new Entity.Player(new AutoPoint(128,128), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
+                                Player = new Entity.Player(new AutoPoint(192,192), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
                         }
                 }
                 private List<AutoPoint> generator_push_xy_to_lua(int xx, int yy){
@@ -90,7 +90,7 @@ namespace LAIR{
                         List<List<string>> tmp = new List<List<string>>();
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        message("Will it blend?");
+                                        message("Deciding Floor tile Attributes");
                                         lua_do_function("""floor_image_decide()""");
                                         tmp.append(get_lua_last_return());
                                         lua_do_function("""floor_sound_decide()""");
@@ -107,7 +107,7 @@ namespace LAIR{
                         List<List<string>> tmp = new List<List<string>>();
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        message("Will it blend?");
+                                        message("Deciding Particle tile Attributes");
                                         lua_do_function("""map_image_decide()""");
                                         tmp.append(get_lua_last_return());
                                         lua_do_function("""map_sound_decide()""");
@@ -125,7 +125,7 @@ namespace LAIR{
                         List<List<string>> tmp = new List<List<string>>();
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        message("Will it blend?");
+                                        message("Deciding Mobile tile Attributes.");
                                         lua_do_function("""mob_image_decide()""");
                                         tmp.append(get_lua_last_return());
                                         lua_do_function("""mob_sound_decide()""");

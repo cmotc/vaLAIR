@@ -3,7 +3,7 @@ namespace LAIR{
 	class Tower : Scribe{
 		private List<Floor> floors = new List<Floor>();
 		public Tower(string size, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base.new_local_attributes(4, "tower:");
+                        base(4);
                         int count = 1;
 			if (size == "giant"){
 				count = 6;

@@ -5,7 +5,7 @@ namespace LAIR{
                 private LuaVM global_vm = new_lua_vm();
                 private bool does_ai = false;
                 public LuaGlobal(string lua_ai_path,int lua_log_level = 1, string name = "Global Lua VM: "){
-                        base.new_local_attributes(lua_log_level, name);
+                        base(lua_log_level);
                         if(lua_ai_path != "immobile"){
                                 does_ai = true;
                                 global_vm = new_lua_vm();

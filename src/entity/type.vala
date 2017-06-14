@@ -6,25 +6,25 @@ namespace LAIR{
                 private bool mobile = false;
                 private List<Tag> tags = new List<Tag>();
                 public Type(string lua_ai_conf = "immobile"){
-                        base(lua_ai_conf,6,"entity");
+                        base(lua_ai_conf);
                         tags.append(new Tag(lua_ai_conf));
                 }
                 public Type.ParameterList(List<string> types, string lua_ai_conf = "immobile"){
-                        base(lua_ai_conf,6,"entity");
+                        base(lua_ai_conf);
                         tags.append(new Tag(lua_ai_conf));
                         foreach(string type in types){
                                 tags.append(new Tag(type));
                         }
                 }
                 public Type.ParameterListBlocked(List<string> types, string lua_ai_conf = "immobile"){
-                        base(lua_ai_conf,6,"entity");
+                        base(lua_ai_conf);
                         tags.append(new Tag(lua_ai_conf));
                         foreach(string type in types){
                                 tags.append(new Tag(type));
                         }
                 }
                 public Type.Player(List<string> types, string lua_ai_conf = "immobile"){
-                        base(lua_ai_conf,6,"entity");
+                        base(lua_ai_conf);
                         tags.append(new Tag(lua_ai_conf));
                         player = true;
                         foreach(string type in types){
@@ -32,7 +32,7 @@ namespace LAIR{
                         }
                 }
                 public Type.Mobile(List<string> types, string lua_ai_conf){
-                        base(lua_ai_conf,6,"entity");
+                        base(lua_ai_conf);
                         tags.append(new Tag(lua_ai_conf));
                         foreach(string type in types){
                                 tags.append(new Tag(type));

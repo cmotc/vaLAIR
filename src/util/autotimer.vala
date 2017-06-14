@@ -8,7 +8,7 @@ namespace LAIR{
                 }
                 public uint get_ticks(){
                         uint return_ticks = SDL.Timer.get_ticks() - start_time;
-                        message("time passed: %s", return_ticks.to_string());
+                        //message("time passed: %s", return_ticks.to_string());
                         return return_ticks;
 
                 }

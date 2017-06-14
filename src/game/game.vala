@@ -10,10 +10,10 @@ namespace LAIR{
 		private Video.Renderer WindowRenderer;
 		private Tower GameEnvironment;
                 private bool dedupe = false;
-                private const uint frame_ticks = 1000 / 120;
+                private const uint frame_ticks = 1000 / 60;
                 private AutoTimer cap_timer = new AutoTimer();
 		public Game(string[] listPaths, string[] scriptPaths, string mapSize, int screenW, int screenH) {
-                        base.new_local_attributes(3, "floor:");
+                        base(3);
                         string imageListPath = listPaths[0];
                         string soundListPath = listPaths[1];
                         string fontsListPath = listPaths[2];

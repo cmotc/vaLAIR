@@ -15,7 +15,7 @@ namespace LAIR{
                 private static string PlayerConfig = get_file_path("lair/demo/player.lua");
                 private static string AiConfig = get_file_path("lair/demo/ai.lua");
 		public Lair(string[] lspt, string[] scrpt, string mapSize, int screenW, int screenH, int verbosity){
-                        base.new_local_attributes(verbosity, "global log: ");
+                        base(verbosity);
                         if (!help){
                                 if (SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL) > 0){
                                         //log some shit here.

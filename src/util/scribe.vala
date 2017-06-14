@@ -4,15 +4,9 @@ namespace LAIR{
 	class Scribe {
                 private static GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_WARNING;
                 private string name = "global log:";
-                public Scribe(int local_log_level=2, string new_name="global log:"){
+                public Scribe(int local_log_level=2){
                         GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;
                         GLib.Log.set_handler(null,glib_level,GLib.Log.default_handler);
-                        name = new_name;
-                }
-                public Scribe.new_local_attributes(int local_log_level=2, string new_name="global log:"){
-                        GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;
-                        GLib.Log.set_handler(null,glib_level,GLib.Log.default_handler);
-                        name = new_name;
                 }
                 public static void set_log_level(int swit_ch){
                         GLib.LogLevelFlags glib_level       = GLib.LogLevelFlags.LEVEL_MASK;

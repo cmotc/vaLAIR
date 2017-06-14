@@ -119,16 +119,16 @@ to do:
    1. Now the AI's can see but it's not clear what the best way to use their
    senses are. Basically the mob gets a table containing all the nearby mobs
    and blocked particles and you can use that to make decisions.
-  3. Networked play support, with sub-tasks
+  2. Networked play support, with sub-tasks
    1. Game Server as Group Chat?
    2. This will become clearer as I do it, I think...
-  4. Make More Art! digitalAndy is making this alot easier.
-  5. Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
+  3. Make More Art! digitalAndy is making this alot easier.
+  4. Add a few features to digitalAndy: Triangles. Adjustable Sizes. Final images
   Trimmed to minimum rectangular sizes so I can eliminate the static hitboxes.
    1. Can work-around many shortcomings of digitalAndy with imageMagick. Maybe
    it should become part of a toolchain for procedural pixel art.
    2. Port digitalAndy to Android with a simple pixel-painting interface capable
    of outputting a configuration file for PC digitalAndy as well as a script.
    Do it to learn Android app development in Go.
-  6. Low GUI Mode for running a game without a player, in order to behave like a
+  5. Low GUI Mode for running a game without a player, in order to behave like a
     server.

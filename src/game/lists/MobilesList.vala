@@ -27,7 +27,7 @@ namespace LAIR{
                                         Mobiles.append(new Entity.Mobile(coords,
                                                 aiscript,
                                                 "default()",
-                                                GameMaster.image_by_name(generated_tags.nth_data(0).nth_data(0)),
+                                                GameMaster.body_by_tone(generated_tags.nth_data(0).nth_data(0)),
                                                 GameMaster.no_sound(),
                                                 GameMaster.get_rand_font(),
                                                 renderer,

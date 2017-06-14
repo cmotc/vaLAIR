@@ -1,6 +1,5 @@
 math.randomseed(os.time())
 
-
 function greater_than(aa, bb)
         if aa > bb then
                 print(" " .. aa .. " is greater than " .. bb )
