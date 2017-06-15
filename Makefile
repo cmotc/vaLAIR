@@ -4,7 +4,7 @@ MANPREFIX = $(PREFIX)/share/man
 COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 EMCC_FAST_COMPILER = 0
 EMCC_LLVM_TARGET = le32-unknown-nacl
-
+VALAFLAGS:=$(foreach w,$(CPPFLAGS) $(CFLAGS) $(LDFLAGS),-X $(w))
 #--pkg gee-0.8 \ Might switch to libgee but probably not.
 #-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 #"/usr/lib/x86_64-linux-gnu"
@@ -151,6 +151,147 @@ unix-clang:
 		src/entity/move.vala \
 		src/entity/entity.vala
 
+unix-opt:
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
+	valac -gv \
+		-o bin/LAIR \
+		--pkg-config /usr/bin/pkgconf \
+		-X -fstack-protector-all \
+		-X --param \
+		-X ssp-buffer-size=4 \
+		-X -D_FORTIFY_SOURCE=2 \
+		-X -ftrapv \
+		-X -Wl,-z,relro,-z,now \
+		-X -Bstatic \
+		-X -fPIE \
+		--disable-assert \
+		--enable-checking \
+		--enable-experimental \
+		--enable-gobject-tracing \
+		--vapidir="/usr/share/vala/vapi/" \
+		--includedir /usr/include/x86_64-linux-musl \
+		--target-glib 2.0 \
+		--pkg gio-2.0 \
+		--pkg lua \
+		--pkg sdl2 \
+		--pkg sdl2-gfx \
+		--pkg sdl2-image \
+		--pkg sdl2-ttf \
+		--pkg sdl2-mixer \
+		--pkg=tartrazine \
+		-X -O3 \
+		--includedir /usr/include/luajit-2.0 \
+		-X -lluajit-5.1 \
+		-X -lSDL2 \
+		-X -lSDL2_gfx \
+		-X -lSDL2_image \
+		-X -lSDL2_ttf \
+		-X -lSDL2_mixer \
+		src/main.vala \
+		src/util/autotimer.vala \
+		src/util/autorect.vala \
+		src/util/net.vala \
+		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
+		src/util/scribe.vala \
+		src/util/tagcounter.vala \
+		src/util/tag.vala \
+		src/resmanage/files.vala \
+		src/resmanage/images.vala \
+		src/resmanage/filedb.vala \
+		src/resmanage/fonts.vala \
+		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
+		src/game/room.vala \
+		src/game/floor.vala \
+		src/game/tower.vala \
+		src/game/game.vala \
+		src/entity/dice.vala \
+		src/entity/type.vala \
+		src/entity/sprite.vala \
+		src/entity/anim.vala \
+		src/entity/text.vala \
+		src/entity/sound.vala \
+		src/entity/stats.vala \
+		src/entity/inventory.vala \
+		src/entity/move.vala \
+		src/entity/entity.vala
+				#--thread \
+
+unix-clang-opt:
+	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
+	valac -gv \
+		-o bin/LAIR-clang \
+		--pkg-config /usr/bin/pkgconf \
+		--cc clang \
+		-X -fstack-protector-all \
+		-X --param \
+		-X ssp-buffer-size=4 \
+		-X -D_FORTIFY_SOURCE=2 \
+		-X -ftrapv \
+		-X -Wl,-z,relro,-z,now \
+		-X -Bstatic \
+		-X -fPIE \
+		--disable-assert \
+		--enable-checking \
+		--enable-experimental \
+		--enable-gobject-tracing \
+		--vapidir="/usr/share/vala/vapi/" \
+		--includedir /usr/include/x86_64-linux-musl \
+		--target-glib 2.0 \
+		--pkg gio-2.0 \
+		--pkg lua \
+		--pkg sdl2 \
+		--pkg sdl2-gfx \
+		--pkg sdl2-image \
+		--pkg sdl2-ttf \
+		--pkg sdl2-mixer \
+		--pkg=tartrazine \
+		-X -O3 \
+		--includedir /usr/include/luajit-2.0 \
+		-X -lluajit-5.1 \
+		-X -lSDL2 \
+		-X -lSDL2_gfx \
+		-X -lSDL2_image \
+		-X -lSDL2_ttf \
+		-X -lSDL2_mixer \
+		src/main.vala \
+		src/util/autotimer.vala \
+		src/util/autorect.vala \
+		src/util/net.vala \
+		src/util/luaconf.vala \
+		src/util/luaglobal.vala \
+		src/util/scribe.vala \
+		src/util/tagcounter.vala \
+		src/util/tag.vala \
+		src/resmanage/files.vala \
+		src/resmanage/images.vala \
+		src/resmanage/filedb.vala \
+		src/resmanage/fonts.vala \
+		src/resmanage/sounds.vala \
+		src/game/lists/FloorList.vala \
+		src/game/lists/MobilesList.vala \
+		src/game/lists/ParticlesList.vala \
+		src/game/lists/AutoPoint.vala \
+		src/game/room.vala \
+		src/game/floor.vala \
+		src/game/tower.vala \
+		src/game/game.vala \
+		src/entity/dice.vala \
+		src/entity/type.vala \
+		src/entity/sprite.vala \
+		src/entity/anim.vala \
+		src/entity/text.vala \
+		src/entity/sound.vala \
+		src/entity/stats.vala \
+		src/entity/inventory.vala \
+		src/entity/move.vala \
+		src/entity/entity.vala
+
+
 docker:
 	docker build -t valair .
 
@@ -171,7 +312,7 @@ unix-static:
 		-X -D_FORTIFY_SOURCE=2 \
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
-		-X -fPIC \
+		-X -fPIE \
 		-X -Bstatic \
 		-g \
 		--disable-assert \

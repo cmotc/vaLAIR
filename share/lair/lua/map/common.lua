@@ -2,19 +2,19 @@ math.randomseed(os.time())
 
 function greater_than(aa, bb)
         if aa > bb then
-                print(" " .. aa .. " is greater than " .. bb )
+                --print(" " .. aa .. " is greater than " .. bb )
                 return true
         else
-                print(" " .. aa .. " is not greater than " .. bb .. " " )
+                --print(" " .. aa .. " is not greater than " .. bb .. " " )
                 return false
         end
 end
 function lesser_than(aa, bb)
         if aa < bb then
-                print(" " .. aa .. " is lesser than " .. bb .. " " )
+                --print(" " .. aa .. " is lesser than " .. bb .. " " )
                 return true
         else
-                print(" " .. aa .. " is not lesser than " .. bb .. " " )
+                --print(" " .. aa .. " is not lesser than " .. bb .. " " )
                 return false
         end
 end

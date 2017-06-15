@@ -11,7 +11,7 @@ namespace LAIR{
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
                 public Room(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 2, "room:");
+                        base(scripts[0]);
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
                         set_name("room("+stringify_hitrect()+"): ");
@@ -23,7 +23,7 @@ namespace LAIR{
                         generate_room(scripts, renderer);
 		}
                 public Room.WithPlayer(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 2, "room:");
+                        base(scripts[0]);
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
                         lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
                         set_name("room ("+stringify_hitrect()+"): ");
@@ -141,7 +141,7 @@ namespace LAIR{
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Floor Generation At x %s y %s, os %s oy %s",
+                                        message("Floor Generation At x %s y %s, ox %s oy %s",
                                                 xx.to_string(),
                                                 yy.to_string(),
                                                 get_offset_x(xx).to_string(),
@@ -156,7 +156,7 @@ namespace LAIR{
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Particle Generation At x %s y %s, os %s oy %s",
+                                        message("Particle Generation At x %s y %s, ox %s oy %s",
                                                 xx.to_string(),
                                                 yy.to_string(),
                                                 get_offset_x(xx).to_string(),
@@ -172,7 +172,7 @@ namespace LAIR{
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Mobile Generation At x %s y %s, os %s oy %s",
+                                        message("Mobile Generation At x %s y %s, ox %s oy %s",
                                                 xx.to_string(),
                                                 yy.to_string(),
                                                 get_offset_x(xx).to_string(),

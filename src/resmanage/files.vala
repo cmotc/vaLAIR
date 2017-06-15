@@ -94,11 +94,11 @@ namespace LAIR{
                                 }
                         }
                         if(rtmp){
-                                message("Found taglist: ");
+                                //message("Found taglist: ");
                                 foreach(string t in Tags){
-                                        message("%s ", t);
+                                        //message("%s ", t);
                                 }
-                                message("");
+                                //message("");
                         }
 			return rtmp;
 		}
