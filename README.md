@@ -114,6 +114,8 @@ I've been making some unsatisfying version or other of this for so long that
 it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
+  0. Open-Worldify: Right now the whole starting world gets pre-generated. It
+  takes way too long that way.
   1. Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
    1. Now the AI's can see but it's not clear what the best way to use their

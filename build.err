@@ -55,6 +55,9 @@ src/game/lists/AutoPoint.vala:21.17-21.44: warning: method `LAIR.AutoPoint.get_p
 src/game/room.vala:87.17-87.60: warning: method `LAIR.Room.decide_floor_tile' never used
                 private List<List<string>> decide_floor_tile(){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/game/game.vala:25.29-25.68: warning: local variable `initResult' declared but never used
+                        int initResult = SDLImage.init(imgInitFlags);
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 src/entity/dice.vala:38.17-38.42: warning: method `LAIR.Dice.roll_dicepool' never used
                 public int[] roll_dicepool(){
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -107,13 +110,13 @@ src/entity/stats.vala:211.3-211.17: warning: method `LAIR.Stats.Tech' never used
                          ^~~~
 main.vala.c:448:6: note: expected ‘const gchar * {aka const char *}’ but argument is of type ‘char **’
 /home/idk/Projects/lair-manifest/valair/src/util/luaglobal.vala: In function ‘lair_lua_global_new_lua_vm’:
-/home/idk/Projects/lair-manifest/valair/src/util/luaglobal.vala:18:24: warning: implicit declaration of function ‘luaL_newstate’ [-Wimplicit-function-declaration]
+/home/idk/Projects/lair-manifest/valair/src/util/luaglobal.vala:17:24: warning: implicit declaration of function ‘luaL_newstate’ [-Wimplicit-function-declaration]
                          LuaVM tmp = new LuaVM();
                         ^~~~~~~~~~~~~
-/home/idk/Projects/lair-manifest/valair/src/util/luaglobal.vala:18:11: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+/home/idk/Projects/lair-manifest/valair/src/util/luaglobal.vala:17:11: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
                          LuaVM tmp = new LuaVM();
            ^
-/home/idk/Projects/lair-manifest/valair/src/util/luaglobal.vala:19:2: warning: implicit declaration of function ‘luaL_openlibs’ [-Wimplicit-function-declaration]
+/home/idk/Projects/lair-manifest/valair/src/util/luaglobal.vala:18:2: warning: implicit declaration of function ‘luaL_openlibs’ [-Wimplicit-function-declaration]
                          tmp.open_libs();
   ^            
 /home/idk/Projects/lair-manifest/valair/src/resmanage/filedb.vala: In function ‘lair_file_db_init_body_vars’:

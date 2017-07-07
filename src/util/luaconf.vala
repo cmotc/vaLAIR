@@ -99,11 +99,13 @@ namespace LAIR{
                         return tr;
                 }
                 /*protected void lua_register(string name, CallbackFunc f){                        vm_copy().register(name, f);                }*/
-                protected void lua_do_function(string function){
-                        if(does_it_ai(script_path)){
-                                //lua_do_file();
-                                string tmp = "return " + function;
-                                vm_copy().do_string(tmp);
+                protected void lua_do_function(string function=""){
+                        if(function != ""){
+                                if(does_it_ai(script_path)){
+                                        //lua_do_file();
+                                        string tmp = "return " + function;
+                                        vm_copy().do_string(tmp);
+                                }
                         }
                 }
                 protected void lua_push_uint_to_table(string tablename = "none", string varname = "none", int varval = -2147483647){
