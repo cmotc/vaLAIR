@@ -77,4 +77,4 @@ USER root
 RUN apt-get install lairart
 RUN dpkg -i *.deb
 USER lair
-CMD /usr/bin/lair
+

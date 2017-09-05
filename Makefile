@@ -749,7 +749,7 @@ debug-clang:
 
 memcheck:
 	ulimit -c unlimited; \
-	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m tiny 2>mem.err 1>mem.log
+	valgrind --track-origins=yes --leak-check=summary ./bin/LAIR -v 1 -m oneroom 2>mem.err 1>mem.log
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/

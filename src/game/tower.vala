@@ -1,33 +1,57 @@
 using SDL;
 namespace LAIR{
-	class Tower : Scribe{
+	class Tower : Dice{
 		private List<Floor> floors = new List<Floor>();
+                unowned Video.Renderer renderer_pointer;
+                unowned FileDB dungeonmaster_pointer;
+                private int size_number = 2;
+                string[] scripts_cache;
 		public Tower(string size, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(4);
-                        int count = 1;
-			if (size == "giant"){
-				count = 6;
-			}else if (size == "large"){
-				count = 5;
-			}else if (size == "medium"){
-				count = 4;
-			}else if (size == "small"){
-				count = 3;
-			}else if (size == "tiny"){
-				count = 2;
-			}else if (size == "oneroom"){
-				count = 1;
-			}
-                        message("Building %s-size Tower, %s floors", size, count.to_string());
-			for (int c = 0; c <= count-1; c++){
+                        base("room_roller");
+                        renderer_pointer = renderer;
+                        dungeonmaster_pointer = DM;
+                        scripts_cache = scripts;
+                        size_number = 2;
+                        switch (size){
+                                case "giant":
+                                        size_number = 6; break;
+                                case "large":
+                                        size_number = 5; break;
+                                case "medium":
+                                        size_number = 4; break;
+                                case "small":
+                                        size_number = 3; break;
+                                case "tiny":
+                                        size_number = 2; break;
+                                case "oneroom":
+                                        size_number = 1; break;
+                        }
+                        message("Building %s-size Tower, %s floors", size, size_number.to_string());
+			for (int c = 0; c <= size_number-1; c++){
                                 message(" Creating new floor :%s", c.to_string());
                                 if (c == 0){
-                                        floors.append(new Floor.WithPlayer(count, 0, scripts, DM, renderer));
+                                        append_floor(true);
                                 }else{
-                                        floors.append(new Floor(count, scripts, DM, renderer));
+                                        append_floor(false);
                                 }
 			}
 		}
+                private Floor generate_floor(bool has_player){
+                        Floor tmp = has_player ? new Floor.WithPlayer(
+                                        size_number,
+                                        0,
+                                        scripts_cache,
+                                        dungeonmaster_pointer,
+                                renderer_pointer) : new Floor(
+                                        size_number,
+                                        scripts_cache,
+                                        dungeonmaster_pointer,
+                                renderer_pointer);
+                        return tmp;
+                }
+                private void append_floor(bool has_player){
+                        floors.append(generate_floor(has_player));
+                }
                 public int take_turns(){
                         int tmp = 1;
                         message(" Entities in the tower are taking turns.");

@@ -23,9 +23,6 @@ namespace LAIR{
 			assert(WindowRenderer != null);
                         int imgInitFlags = SDLImage.InitFlags.PNG;
                         int initResult = SDLImage.init(imgInitFlags);
-                        if ((initResult & imgInitFlags) != imgInitFlags) {
-
-                        }
                         GameEnvironment = new Tower(mapSize, scriptPaths, new FileDB(imageListPath, soundListPath, fontsListPath), WindowRenderer);
 		}
 		private int update_screen(){
