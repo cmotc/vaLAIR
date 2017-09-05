@@ -107,6 +107,14 @@ namespace LAIR{
                         }
                         return t;
                 }
+                public int[] overlap_which_quadrant(AutoRect rect){
+                        int[4] r = {0,0,0,0};
+                        r[0] = rect.in_which_quadrant(tlc());
+                        r[1] = rect.in_which_quadrant(trc());
+                        r[2] = rect.in_which_quadrant(blc());
+                        r[3] = rect.in_which_quadrant(brc());
+                        return r;
+                }
                 public Video.Rect get_rect(){
                         return inner_rect;
                 }

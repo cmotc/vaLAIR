@@ -47,12 +47,7 @@ namespace LAIR{
                         assert(t != null);
                         if(get_block()){
                                 if(t.get_block()){
-                                        bool TLeftCorner = t.get_hitbox().in_range(get_hitbox().tlc());
-                                        bool TRightCorner = t.get_hitbox().in_range(get_hitbox().trc());
-                                        bool BLeftCorner = t.get_hitbox().in_range(get_hitbox().blc());
-                                        bool BRightCorner = t.get_hitbox().in_range(get_hitbox().brc());
-                                        r = bounce(TLeftCorner, TRightCorner,
-                                        BLeftCorner, BRightCorner, t.get_hitbox());
+                                        r = bounce(get_hitbox().overlap_which_quadrant(t.get_hitbox()), t.get_hitbox());
                                         //do_actions(t);
                                 }
                         }
@@ -68,7 +63,7 @@ namespace LAIR{
                                 if ( TLeftCorner ){ if(TRightCorner){ if(BLeftCorner){ if(BRightCorner){
                                         if(nearby_interests.length() < Memory()){
                                                 nearby_interests.append(test.stringify_entity_details());
-                                                message("is observing %s", test.stringify_entity_details());
+                                                //message("is observing %s", test.stringify_entity_details());
                                                 r = true;
                                         }
                                 }}}}

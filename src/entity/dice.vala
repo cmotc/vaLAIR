@@ -1,8 +1,8 @@
 namespace LAIR{
 	class Dice : LuaConf{
                 private GLib.Rand dice_bag = new GLib.Rand();
-                public Dice(string lua_ai_path = "/usr/share/lair/demo/ai.lua", int lua_log_level = 1, string name = "rolls_a"){
-                        base(lua_ai_path, lua_log_level, name);
+                public Dice(string lua_ai_path = "immobile"){
+                        base(lua_ai_path);
                 }
                 protected int roll_dice(int min, int max){
                         return dice_bag.int_range(min, max);
@@ -33,6 +33,20 @@ namespace LAIR{
                         if( roll_two() == 2 ){
                                 r = true;
                         }
+                        return r;
+                }
+                public int[] roll_dicepool(){
+                        int c = (coin_toss())? 1: 0;
+                        int[] r = {
+                                roll_hundred(),
+                                roll_twenty(),
+                                roll_twelve(),
+                                roll_eight(),
+                                roll_six(),
+                                roll_four(),
+                                roll_two(),
+                                c,
+                        };
                         return r;
                 }
                 protected int roll_variable(int sides = 0){

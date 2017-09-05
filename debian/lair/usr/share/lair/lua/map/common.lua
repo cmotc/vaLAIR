@@ -1,6 +1,5 @@
 math.randomseed(os.time())
 
-
 function greater_than(aa, bb)
         if aa > bb then
                 print(" " .. aa .. " is greater than " .. bb )
@@ -34,99 +33,105 @@ function get_tag_table(variable)
         end
 end
 function where_in_floor_get_x()
-        print(" " .. (tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)) )
+        --print(" " .. (tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)) )
         return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
 end
 function where_in_floor_get_y()
-        print(" " .. (tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)) )
+        --print(" " .. (tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)) )
+        return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
+end
+function where_in_floor_get_x_bare()
+        return tonumber(generator_coarse_x.x) + tonumber(room_coarse_x.x)
+end
+function where_in_floor_get_y_bare()
         return tonumber(generator_coarse_y.y) + tonumber(room_coarse_y.y)
 end
 function where_in_room_gen_x()
-        print(" " .. generator_coarse_x.x )
+        --print(" " .. generator_coarse_x.x )
         return generator_coarse_x.x
 end
 function where_in_room_gen_y()
-        print(" " .. generator_coarse_y.y )
+        --print(" " .. generator_coarse_y.y )
         return generator_coarse_y.y
 end
 function how_long_room_gen_w()
-        print(" " .. generator_coarse_w.w)
+        --print(" " .. generator_coarse_w.w)
         return generator_coarse_w.w
 end
 function how_long_room_gen_h()
-        print(" " .. generator_coarse_h.h)
+        --print(" " .. generator_coarse_h.h)
         return generator_coarse_h.h
 end
 function what_pixel_is_gen_x()
-        print(" " .. generator_x.x)
+        --print(" " .. generator_x.x)
         return generator_x.x
 end
 function what_pixel_is_gen_y()
-        print(" " .. generator_y.y)
+        --print(" " .. generator_y.y)
         return generator_y.y
 end
 function where_is_room_corner_x()
-        print(" " .. room_coarse_x.x)
+        --print(" " .. room_coarse_x.x)
         return room_coarse_x.x
 end
 function where_is_room_corner_y()
-        print(" " .. room_coarse_y.y)
+        --print(" " .. room_coarse_y.y)
         return room_coarse_y.y
 end
 function where_is_room_farcorner_x()
-        print(" " .. room_coarse_xw.x)
+        --print(" " .. room_coarse_xw.x)
         return room_coarse_xw.x
 end
 function where_is_floor_farcorner_x()
-        print(" " .. floor_coarse_h.h)
+        --print(" " .. floor_coarse_h.h)
         return floor_coarse_h.h
 end
 function where_is_floor_farcorner_y()
-        print(" " .. floor_coarse_w.w)
+        --print(" " .. floor_coarse_w.w)
         return floor_coarse_w.w
 end
 function where_is_room_farcorner_y()
-        print(" " .. room_coarse_yh.y)
+        --print(" " .. room_coarse_yh.y)
         return room_coarse_yh.y
 end
 function what_pixel_is_room_corner_x()
-        print(" " .. room_x.x)
+        --print(" " .. room_x.x)
         return room_x.x
 end
 function what_pixel_is_room_corner_y()
-        print(" " .. room_y.y)
+        --print(" " .. room_y.y)
         return room_y.y
 end
 function what_pixel_is_room_farcorner_x()
-        print(" " .. room_xw.x)
+        --print(" " .. room_xw.x)
         return room_xw.x
 end
 function what_pixel_is_room_farcorner_y()
-        print(" " .. room_yh.y)
+        --print(" " .. room_yh.y)
         return room_yh.y
 end
 function what_pixel_is_floor_farcorner_y()
-        print(" " .. floor_h.h)
+        --print(" " .. floor_h.h)
         return floor_h.h
 end
 function what_pixel_is_floor_farcorner_x()
-        print(" " .. floor_w.w)
+        --print(" " .. floor_w.w)
         return floor_w.w
 end
 function how_long_room_pixels_w()
-        print(" " .. generator_w.w)
+        --print(" " .. generator_w.w)
         return generator_w.w
 end
 function how_long_room_pixels_h()
-        print(" " .. generator_h.h)
+        --print(" " .. generator_h.h)
         return generator_h.h
 end
 function how_many_particles_so_far()
-        print(" " .. generator_particle_count.c)
+        --print(" " .. generator_particle_count.c)
         return generator_particle_count.c
 end
 function how_many_mobiles_so_far()
-        print(" " .. generator_mobile_count.c)
+        --print(" " .. generator_mobile_count.c)
         return generator_mobile_count.c
 end
 function get_map_savepath()
@@ -269,32 +274,61 @@ function mobile_index_by_coarse_xy(xx, yy)
 end
 function print_general_props()
         print("PROPERTY DUMP")
-        print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
-        print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
-        print("  Room Starts at Coarse X: " .. room_coarse_x.x)
-	print("  Room Starts at Coarse Y: " .. room_coarse_y.y)
-        print("  Room Coarse Width: " .. generator_coarse_w.w)
-	print("  Room Coarse Height: " .. generator_coarse_h.h)
-        print("  Room Ends at Coarse X + Width: " .. room_coarse_xw.x)
-	print("  Room Ends at Coarse Y + Height: " .. room_coarse_yh.y)
-	print("  Generator is at Pixel X: " .. generator_x.x)
-	print("  Generator is at Pixel Y: " .. generator_y.y)
-        print("  Room Pixel Height: " .. generator_w.w)
-	print("  Room Pixel Width: " .. generator_h.h)
-        print("  Room Starts at Pixel X: " .. room_x.x)
-	print("  Room Starts at Pixel Y: " .. room_y.y)
-        print("  Room Ends at Pixel X + Width: " .. room_xw.x)
-	print("  Room Ends at Pixel Y + Height: " .. room_yh.y)
-        print("  Generator is at Coarse X: " .. where_in_floor_get_x() .. " on the floor")
-	print("  Generator is at Coarse Y: " .. where_in_floor_get_y() .." on the floor")
-        print("  Floor Coarse Width: " .. floor_coarse_w.w)
-        print("  Floor Coarse Height: " .. floor_coarse_h.h)
-        print("  Floor Pixel Width: " .. floor_w.w)
-        print("  Floor Pixel Height: " .. floor_h.h)
+        print("  (legacy)Generator Particle Count: " .. generator_particle_count.c)
+	print("  (legacy)Generator Mobile Count: " .. generator_mobile_count.c)
+        print("  (legacy)Generator is at Pixel X: " .. generator_x.x)
+	print("  (legacy)Generator is at Pixel Y: " .. generator_y.y)
+        print("  (legacy)Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
+        print("  (legacy)Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
+        print("  (legacy)Generator is at Coarse X: " .. where_in_floor_get_x_bare() .. " on the floor")
+	print("  (legacy)Generator is at Coarse Y: " .. where_in_floor_get_y_bare() .." on the floor")
+        print("  (legacy)Room Starts at Pixel X: " .. room_x.x)
+	print("  (legacy)Room Starts at Pixel Y: " .. room_y.y)
+        print("  (legacy)Room Starts at Coarse X: " .. room_coarse_x.x)
+	print("  (legacy)Room Starts at Coarse Y: " .. room_coarse_y.y)
+        print("  (legacy)Room Pixel Height: " .. generator_w.w)
+	print("  (legacy)Room Pixel Width: " .. generator_h.h)
+        print("  (legacy)Room Coarse Width: " .. generator_coarse_w.w)
+	print("  (legacy)Room Coarse Height: " .. generator_coarse_h.h)
+        print("  (legacy)Room Ends at Pixel X + Width: " .. room_xw.x)
+	print("  (legacy)Room Ends at Pixel Y + Height: " .. room_yh.y)
+        print("  (legacy)Room Ends at Coarse X + Width: " .. room_coarse_xw.x)
+	print("  (legacy)Room Ends at Coarse Y + Height: " .. room_coarse_yh.y)
+        print("  (legacy)Floor Pixel Width: " .. floor_w.w)
+        print("  (legacy)Floor Pixel Height: " .. floor_h.h)
+        print("  (legacy)Floor Coarse Width: " .. floor_coarse_w.w)
+        print("  (legacy)Floor Coarse Height: " .. floor_coarse_h.h)
+        print("  (legacy)Generator Tile Width: " .. tostring(what_is_tile_w()))
+        print("  (legacy)Generator Tile Height: " .. tostring(what_is_tile_h()))
+        print("/PROPERTY DUMP")
+        print("PROPERTY DUMP")
         print("  Generator Particle Count: " .. generator_particle_count.c)
 	print("  Generator Mobile Count: " .. generator_mobile_count.c)
+        print("  Generator is at Pixel X: " .. generator_x.x)
+	print("  Generator is at Pixel Y: " .. generator_y.y)
+        print("  Generator is at Coarse X: " .. generator_coarse_x.x .. " in the room")
+        print("  Generator is at Coarse Y: " .. generator_coarse_y.y .. " in the room")
+        print("  Generator is at Coarse X: " .. where_in_floor_get_x_bare() .. " on the floor")
+	print("  Generator is at Coarse Y: " .. where_in_floor_get_y_bare() .." on the floor")
+        print("  Room Starts at Pixel X: " .. room_corner_x.x)
+	print("  Room Starts at Pixel Y: " .. room_corner_y.y)
+        print("  Room Starts at Coarse X: " .. room_corner_coarse_x.x)
+	print("  Room Starts at Coarse Y: " .. room_corner_coarse_y.y)
+        print("  Room Pixel Width: " .. current_room_width.w)
+	print("  Room Pixel Height: " .. current_room_height.h)
+        print("  Room Coarse Width: " .. current_room_coarse_width.w)
+	print("  Room Coarse Height: " .. current_room_coarse_height.h)
+        print("  Room Ends at Pixel X + Width: " .. room_faredge_x.x)
+	print("  Room Ends at Pixel Y + Height: " .. room_faredge_y.y)
+        print("  Room Ends at Coarse X + Width: " .. room_faredge_coarse_x.x)
+	print("  Room Ends at Coarse Y + Height: " .. room_faredge_coarse_y.y)
+        print("  Floor Coarse Width: " .. floor_coarse_width.w)
+        print("  Floor Coarse Height: " .. floor_coarse_height.h)
+        print("  Floor Pixel Width: " .. floor_width.w)
+        print("  Floor Pixel Height: " .. floor_height.h)
         print("  Generator Tile Width: " .. tostring(what_is_tile_w()))
         print("  Generator Tile Height: " .. tostring(what_is_tile_h()))
+        print("/PROPERTY DUMP")
 end
 function coin()
         if math.random() < 0.5 then

@@ -137,22 +137,8 @@ namespace LAIR{
                         }
                         return r;
                 }
-                public AutoRect get_hitbox(){
-                        AutoRect r = new AutoRect(0,0,0,0);
-                        if(get_block()){
-                                if(is_player()){
-                                        r = new AutoRect(get_x(),
-                                                get_y(),
-                                                get_width(),
-                                                get_height());
-                                }else{
-                                        r = new AutoRect(get_x(),
-                                                get_y(),
-                                                get_width(),
-                                                get_height());
-                                }
-                        }
-                        return r;
+                public unowned AutoRect get_hitbox(){
+                        return position;
                 }
                 public AutoRect get_range_of_sight(int player_aim = 0){
                         int new_x = ((get_x() + rangeOfSight.x() + (player_aim * 32))>0) ?

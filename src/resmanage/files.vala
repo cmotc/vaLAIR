@@ -4,11 +4,11 @@ namespace LAIR{
 		private string Name = null;
 		private List<string> Tags = null;//new List<string>();
 		public LairFile.WithPath(string path){
-                        base.new_local_attributes(4, "file:");
+                        base(1);
 			Path = set_path(path);
 		}
                 public LairFile.WithAttList(List<string> atts){
-                        base.new_local_attributes(4, "file:");
+                        base(1);
                         string path = null;
                         List<string> tags = new List<string>();
                         int x = 0;
@@ -94,11 +94,11 @@ namespace LAIR{
                                 }
                         }
                         if(rtmp){
-                                message("Found taglist: ");
+                                //message("Found taglist: ");
                                 foreach(string t in Tags){
-                                        message("%s ", t);
+                                        //message("%s ", t);
                                 }
-                                message("");
+                                //message("");
                         }
 			return rtmp;
 		}

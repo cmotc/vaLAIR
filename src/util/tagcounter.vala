@@ -3,7 +3,7 @@ namespace LAIR{
         class TagCounter : Scribe{
                 private uint Count = 1;
                 public TagCounter(string new_name){
-                        base.new_local_attributes(3 ,new_name);
+                        base(3);
                         Count = 1;
                 }
                 public void increment_count(){

@@ -10,44 +10,38 @@ namespace LAIR{
                 private MobilesList Mobiles = null;
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
-                public Room(AutoRect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 2, "room:");
+                public Room(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                        base(scripts[0]);
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
-                        set_floor_dimensions(floordims);
+                        lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
                         set_name("room("+stringify_hitrect()+"): ");
                         message("generating room%s", get_name());
                         GameMaster = DM;
                         Floor = new FloorList(get_hitrect());
                         Particles = new ParticlesList(get_hitrect());
                         Mobiles = new MobilesList(get_hitrect());
-                        lua_push_dimensions(get_hitrect());
-                        generate_floor(renderer);
-                        message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
-                        generate_particles(renderer);
-                        generate_mobiles(scripts[2], renderer);
+                        generate_room(scripts, renderer);
 		}
-                public Room.WithPlayer(AutoRect position, AutoRect floordims, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 2, "room:");
+                public Room.WithPlayer(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                        base(scripts[0]);
                         Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
-                        set_floor_dimensions(floordims);
+                        lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
                         set_name("room ("+stringify_hitrect()+"): ");
                         message("generating room with player");
                         GameMaster = DM;
                         Floor = new FloorList(get_hitrect());
                         Particles = new ParticlesList(get_hitrect());
                         Mobiles = new MobilesList(get_hitrect());
-                        lua_push_dimensions(get_hitrect());
+                        generate_room(scripts, renderer, true);
+		}
+                private void generate_room(string[] scripts, Video.Renderer? renderer, bool make_player=false){
                         generate_floor(renderer);
                         generate_particles(renderer);
                         message("loading scripts: %s, %s, %s",scripts[0],scripts[1],scripts[2]);
                         generate_mobiles(scripts[2], renderer);
-                        generate_player(scripts[1], renderer);
-		}
-                private void set_floor_dimensions(AutoRect floordims){
-                        lua_push_uint_to_table("floor_w", "w", (int)floordims.w() );
-                        lua_push_uint_to_table("floor_h", "h", (int)floordims.h() );
-                        lua_push_uint_to_table("floor_coarse_w", "w", (int)(floordims.w() / 32) );
-                        lua_push_uint_to_table("floor_coarse_h", "h", (int)(floordims.h() / 32) );
+                        if(make_player){
+                                generate_player(scripts[1], renderer);
+                        }
                 }
                 private int get_x(){     return (int) Border.x();}
                 private int get_offset_x(int x){
@@ -63,7 +57,7 @@ namespace LAIR{
                 public uint get_h(){     return Border.h();}
                 private void generate_player(string playerScript, Video.Renderer? renderer){
                         if(!has_player()){
-                                Player = new Entity.Player(new AutoPoint(128,128), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
+                                Player = new Entity.Player(new AutoPoint(192,192), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer);
                         }
                 }
                 private List<AutoPoint> generator_push_xy_to_lua(int xx, int yy){
@@ -72,34 +66,20 @@ namespace LAIR{
                         coords.append(new AutoPoint(get_offset_x(xx), get_offset_y(yy)));
                         message("Coordinates pushed to lua table: %s", coords.length().to_string());
                         if(coords.length() == 2){
-                                lua_push_coords(coords.nth_data(0), coords.nth_data(1));
+                                lua_push_generator_coords(coords.nth_data(0), coords.nth_data(1));
                                 particle_count();
-                                particle_count_bytag();
                                 mobile_count();
-                                mobile_count_bytag();
                         }
                         return coords;
                 }
-                private int particle_count(){
-                        lua_push_uint_to_table("""generator_particle_count""", """c""", (int)Particles.length());
-                        return (int) Particles.length();
-                }
-                //private CallbackFunc particle_count_delegate = (CallbackFunc) particle_count;
-                private int mobile_count(){
-                        lua_push_uint_to_table("""generator_mobile_count""", """c""", (int)Mobiles.length());
-                        return (int) Mobiles.length();
-                }
-                //Todo: Instead of doing it this way, pass a new entity to this
-                //function and have it do the appending, so we can skip the
-                //first for loop here and just add tags for new entities.
-                //Requires caching the tag count, but arguably should be doing
-                //that anyway. Not important right now. This way works.
-                private void particle_count_bytag(){
+                private void particle_count(uint particles_length = Particles.length()){
+                        lua_push_uint_to_table("""generator_particle_count""", """c""", (int)particles_length);
                         foreach(TagCounter count in Particles.count_bytag()){
                                 lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
                 }
-                private void mobile_count_bytag(){
+                private void mobile_count(uint mobiles_length = Mobiles.length()){
+                        lua_push_uint_to_table("""generator_mobile_count""", """c""", (int)mobiles_length);
                         foreach(TagCounter count in Mobiles.count_bytag()){
                                 lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
@@ -110,7 +90,7 @@ namespace LAIR{
                         List<List<string>> tmp = new List<List<string>>();
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        message("Will it blend?");
+                                        message("Deciding Floor tile Attributes");
                                         lua_do_function("""floor_image_decide()""");
                                         tmp.append(get_lua_last_return());
                                         lua_do_function("""floor_sound_decide()""");
@@ -127,7 +107,7 @@ namespace LAIR{
                         List<List<string>> tmp = new List<List<string>>();
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        message("Will it blend?");
+                                        message("Deciding Particle tile Attributes");
                                         lua_do_function("""map_image_decide()""");
                                         tmp.append(get_lua_last_return());
                                         lua_do_function("""map_sound_decide()""");
@@ -145,7 +125,7 @@ namespace LAIR{
                         List<List<string>> tmp = new List<List<string>>();
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){
-                                        message("Will it blend?");
+                                        message("Deciding Mobile tile Attributes.");
                                         lua_do_function("""mob_image_decide()""");
                                         tmp.append(get_lua_last_return());
                                         lua_do_function("""mob_sound_decide()""");
@@ -161,7 +141,7 @@ namespace LAIR{
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Floor Generation At x %s y %s, os %s oy %s",
+                                        message("Floor Generation At x %s y %s, ox %s oy %s",
                                                 xx.to_string(),
                                                 yy.to_string(),
                                                 get_offset_x(xx).to_string(),
@@ -176,7 +156,7 @@ namespace LAIR{
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Particle Generation At x %s y %s, os %s oy %s",
+                                        message("Particle Generation At x %s y %s, ox %s oy %s",
                                                 xx.to_string(),
                                                 yy.to_string(),
                                                 get_offset_x(xx).to_string(),
@@ -192,7 +172,7 @@ namespace LAIR{
                         int WT = (int)(get_w() / 32); int HT = (int)(get_h() / 32);
                         for (int xx = 0; xx < WT; xx++){
                                 for (int yy = 0; yy < HT; yy++){
-                                        message("Mobile Generation At x %s y %s, os %s oy %s",
+                                        message("Mobile Generation At x %s y %s, ox %s oy %s",
                                                 xx.to_string(),
                                                 yy.to_string(),
                                                 get_offset_x(xx).to_string(),
@@ -200,8 +180,8 @@ namespace LAIR{
                                         Mobiles.generate_mobile(GameMaster,
                                                 generator_push_xy_to_lua(xx, yy),
                                                 decide_mobile_tile(aiScript),
-                                                aiScript,
-                                                renderer);
+                                                renderer,
+                                                aiScript);
                                 }
                         }
                 }
@@ -294,14 +274,11 @@ namespace LAIR{
                 }
                 public int detect_transitions(Entity tmp){
                         int r = 0;
-                        message("detect_transitions 0");
                         if(tmp!=null){
-                                message("detect_transitions 1");
                                 bool TLeftCorner = get_hitrect().in_range(tmp.get_hitbox().tlc());
                                 bool TRightCorner = get_hitrect().in_range(tmp.get_hitbox().trc());
                                 bool BLeftCorner = get_hitrect().in_range(tmp.get_hitbox().blc());
                                 bool BRightCorner = get_hitrect().in_range(tmp.get_hitbox().brc());
-                                message("detect_transitions 3");
                                 if (TLeftCorner){
                                         r++;
                                         message("Detected transiton, TLC %s", TLeftCorner.to_string());
@@ -318,9 +295,7 @@ namespace LAIR{
                                         r++;
                                         message("Detected transiton, TRC %s", TRightCorner.to_string());
                                 }
-                                message("detect_transitions 4");
                         }
-                        message("detect_transitions 5");
                         return r;
                 }
                 public void render_copy(Video.Renderer renderer, AutoPoint player_pos){
@@ -337,76 +312,55 @@ namespace LAIR{
 				if (visited = false){
 					visited = true;
 				}
-                                if(Mobiles.length() > 0){
-                                        foreach(Entity mob in Mobiles.get_mobiles()){
-                                                mob.render(renderer, player_pos);
-                                        }
+                                foreach(Entity mob in Mobiles.get_mobiles()){
+                                        mob.render(renderer, player_pos);
                                 }
 			}
 		}
 		public bool enter_room(Entity player){
-                        message("enter_room 0");
 			if (player != null){
-                                message("    Player entering Rroom.");
 				Player = player;
                                 visited = true;
 			}else{
-                                message("    Player staying in room");
                                 Player = null;
                                 visited = false;
                         }
-                        message("enter_room 2");
 			return visited;
 		}
-                public bool mob_enter_room(Entity mob = null){
-                        message("mob_enter_room 0");
+                public bool mob_enter_room(Entity? mob = null){
 			if (mob != null){
-                                message("    Mob Entering Room.");
 				Mobiles.add_mobile(mob);
 			}
-                        message("mob_enter_room 2");
 			return visited;
 		}
 		public Entity leave_room(int doleave){
                         Entity tmp = null;
-                        message("leave_room 0");
                         if (doleave == 4){
-                                message("leave_room 1 doleave %s", doleave.to_string());
                                 if (Player != null){
-                                        message("leave_room 1 player is present");
                                         tmp = Player;
                                         Player = null;
                                 }
                         }else if (doleave > 0){
-                                message("leave_room 2 doleave %s", doleave.to_string());
                                 if (Player != null){
-                                        message("leave_room 2 player is present");
                                         tmp = Player;
                                 }
                         }
-                        message("leave_room 3");
 			return tmp;
 		}
                 public Entity mob_leave_room(int doleave, int mob_index){
                         Entity tmp = null;
-                        message("mob_leave_room 0");
                         if (doleave == 4){
-                                message("mob_leave_room 1 doleave %s", doleave.to_string());
                                 if ( mob_index < Mobiles.length()){
-                                        message("mob_leave_room 0");
                                         Entity do_leave = Mobiles.get_mobile(mob_index);
                                         Mobiles.delete_mobile(Mobiles.get_mobile(mob_index));
                                         return do_leave;
                                 }
                         }else if (doleave > 0){
-                                message("mob_leave_room 2 doleave %s", doleave.to_string());
                                 if (mob_index < Mobiles.length()){
-                                        message("mob_leave_room 0");
                                         Entity dont_leave = Mobiles.get_mobile(mob_index);
                                         return dont_leave;
                                 }
                         }
-                        message("mob_leave_room 3");
 			return tmp;
 		}
 	}

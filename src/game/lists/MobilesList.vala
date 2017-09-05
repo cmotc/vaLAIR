@@ -19,7 +19,7 @@ namespace LAIR{
                         Border = new AutoRect(room_dimensions.x(),room_dimensions.y(),room_dimensions.w(),room_dimensions.h());
                         message("Setting regular dimensions on Mobiles minx %s miny %s maxx %s maxy %s", minx().to_string(),miny().to_string(),maxx().to_string(),maxy().to_string());
                 }
-                private string generate_mobile_tile(FileDB GameMaster, AutoPoint coords, List<List<string>> generated_tags, Video.Renderer* renderer, string aiscript="/usr/share/lair/ai.lua", int index = 0){
+                private string generate_mobile_tile(FileDB GameMaster, AutoPoint coords, List<List<string>> generated_tags, Video.Renderer* renderer, string aiscript, int index = 0){
                         string tmp = "";
                         if ( coords.x() < maxx() ){ if ( coords.x() >= minx() ){
                                 if ( coords.y() < maxy() ){ if ( coords.y() >= miny() ){
@@ -27,7 +27,7 @@ namespace LAIR{
                                         Mobiles.append(new Entity.Mobile(coords,
                                                 aiscript,
                                                 "default()",
-                                                GameMaster.image_by_name(generated_tags.nth_data(0).nth_data(0)),
+                                                GameMaster.body_by_tone(generated_tags.nth_data(0).nth_data(0)),
                                                 GameMaster.no_sound(),
                                                 GameMaster.get_rand_font(),
                                                 renderer,
@@ -38,7 +38,7 @@ namespace LAIR{
                         }}
                         return tmp;
                 }
-                public void generate_mobile(FileDB GameMaster, List<AutoPoint> point_list, List<List<string>> generated_tags, string aiscript="/usr/share/lair/ai.lua", Video.Renderer renderer){
+                public void generate_mobile(FileDB GameMaster, List<AutoPoint> point_list, List<List<string>> generated_tags, Video.Renderer renderer, string aiscript){
                         bool t = false;
                         foreach(var tag_list in generated_tags.copy()){
                                 foreach(string tag in tag_list){
@@ -53,7 +53,7 @@ namespace LAIR{
                                         point_list.nth_data(1).x().to_string(),
                                         point_list.nth_data(1).y().to_string()
                                         );//*/
-                                generate_mobile_tile(GameMaster, point_list.nth_data(1), generated_tags, renderer);
+                                generate_mobile_tile(GameMaster, point_list.nth_data(1), generated_tags, renderer, aiscript);
                         }
                 }
                 public uint length(){return Mobiles.length();}

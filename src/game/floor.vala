@@ -4,7 +4,7 @@ namespace LAIR{
 		private List<Room> rooms = new List<Room>();
                 //private bool transit = false;
 		public Floor(int count, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 4, "floor:");
+                        base(scripts[0]);
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
                         x_max = width;
@@ -20,7 +20,7 @@ namespace LAIR{
                         lua_do_function("""archive_old_map()""");
 		}
 		public Floor.WithPlayer(int count, int entry, string[] scripts, FileDB DM, Video.Renderer? renderer){
-                        base(scripts[0], 4, "floor:");
+                        base(scripts[0]);
                         int c = 0;
                         int width = (((count + 1) * 5) * 32);
                         int height = (((count + 1) * 5) * 32);
@@ -83,25 +83,18 @@ namespace LAIR{
                 public bool detect_collisions(){
                         bool tmp = false;
                         foreach(unowned Room room in rooms){
-                                message("detect_collisions 0");
                                 if (!room.has_player()) {
-                                        message("1a1");
                                         Entity p = get_player();
                                         int s = room.detect_transitions(p);
                                         Entity rm = get_room_player().leave_room(s);
                                         room.enter_room(rm);
-                                        message("1a2");
                                 }else{
-                                        message("1b1");
                                         tmp = room.player_detect_collisions() ? true : tmp;
-                                        message("1b2");
                                 }
-                                message("detect_collisions 2");
                                 int t = 0;
                                 foreach(unowned Entity mob in room.get_mobiles()){
                                         foreach(unowned Room room2 in rooms){
                                                 if(room2 != room){
-                                                        message("detect_collisions 3");
                                                         int s = room2.detect_transitions(mob);
                                                         Entity rm = room.mob_leave_room(s, t);
                                                         room2.mob_enter_room(rm);

@@ -5,7 +5,7 @@ using SDLMixer;
 using SDLTTF;
 
 namespace LAIR{
-	class FileDB : Scribe {
+	class FileDB : Dice {
 		private List<Image> imgRes = new List<Image>();
 		private List<Sound> sndRes = new List<Sound>();
 		private List<Fonts> ttfRes = new List<Fonts>();
@@ -14,9 +14,8 @@ namespace LAIR{
 		private LairFile ttfListPath = null;
                 private List<List<string>> BodyParts = new List<List<string>>();
                 private List<string> SoundParts = new List<string>();
-                private GLib.Rand Sorcerer = new GLib.Rand();
 		public FileDB(string imgList, string sndList, string ttfList){
-                        base.new_local_attributes(4, "filedb:");
+                        base("immobile");
 			var imgfile = new LairFile.WithPath(imgList);
 			message("Pre-Loading the game data files.");
 			if (imgfile.check_path()){
@@ -320,8 +319,12 @@ namespace LAIR{
                         int index = int_range(0, top);
 			return tmp.nth_data(0);
 		}*/
-                public int int_range(int low, int high){
-                        return Sorcerer.int_range(low, high);
+                private int int_range(int low, int high){
+                        if(high>low){
+                                return roll_dice(low, high);
+                        }else{
+                                return 0;
+                        }
                 }
 	}
 }
