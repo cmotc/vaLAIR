@@ -1,93 +1,113 @@
-include ../config.mk
+#include ../config.mk
 PREFIX = /
 MANPREFIX = $(PREFIX)/share/man
 COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
-EMCC_FAST_COMPILER = 0
-EMCC_LLVM_TARGET = le32-unknown-nacl
-VALAFLAGS:=$(foreach w,$(CPPFLAGS) $(CFLAGS) $(LDFLAGS),-X $(w))
+#EMCC_FAST_COMPILER = 0
+#EMCC_LLVM_TARGET = le32-unknown-nacl
+#VALAFLAGS:=$(foreach w,$(CPPFLAGS) $(CFLAGS) $(LDFLAGS),-X $(w))
 #--pkg gee-0.8 \ Might switch to libgee but probably not.
 #-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 #"/usr/lib/x86_64-linux-gnu"
 #--enable-experimental
+
+define VALA_OPTIONS
+	--disable-assert \
+	--enable-checking \
+	--enable-experimental \
+	--enable-gobject-tracing
+endef
+
+define C_OPTIONS
+	--includedir /usr/include/luajit-2.0 \
+	-X -fstack-protector-all \
+	-X --param \
+	-X ssp-buffer-size=4 \
+	-X -D_FORTIFY_SOURCE=2 \
+	-X -ftrapv \
+	-X -Wl,-z,relro,-z,now \
+	-X -Bstatic \
+	-X -Og \
+	-X -g3 \
+	-X -lluajit-5.1 \
+	-X -lSDL2 \
+	-X -lSDL2_gfx \
+	-X -lSDL2_image \
+	-X -lSDL2_ttf \
+	-X -lSDL2_mixer
+endef
+
+define VALAIR_LIST
+	src/main.vala \
+	src/util/autotimer.vala \
+	src/util/autorect.vala \
+	src/util/net.vala \
+	src/util/luaconf.vala \
+	src/util/luaglobal.vala \
+	src/util/scribe.vala \
+	src/util/tagcounter.vala \
+	src/util/tag.vala \
+	src/resmanage/files.vala \
+	src/resmanage/images.vala \
+	src/resmanage/filedb.vala \
+	src/resmanage/fonts.vala \
+	src/resmanage/sounds.vala \
+	src/game/lists/RoomsList.vala \
+	src/game/lists/FloorList.vala \
+	src/game/lists/MobilesList.vala \
+	src/game/lists/ParticlesList.vala \
+	src/game/lists/AutoPoint.vala \
+	src/game/frame.vala \
+	src/game/room.vala \
+	src/game/floor.vala \
+	src/game/tower.vala \
+	src/game/game.vala \
+	src/entity/dice.vala \
+	src/entity/type.vala \
+	src/entity/sprite.vala \
+	src/entity/anim.vala \
+	src/entity/text.vala \
+	src/entity/sound.vala \
+	src/entity/stats.vala \
+	src/entity/inventory.vala \
+	src/entity/move.vala \
+	src/entity/entity.vala
+endef
+
+define VALA_PKG_OPTIONS
+	--pkg-config /usr/bin/pkgconf \
+	--vapidir="/usr/local/share/vala/vapi/" \
+	--pkg gio-2.0 \
+	--pkg lua \
+	--pkg sdl2 \
+	--pkg sdl2-gfx \
+	--pkg sdl2-image \
+	--pkg sdl2-ttf \
+	--pkg sdl2-mixer \
+	--target-glib 2.0 \
+	--pkg=tartrazine
+endef
+
+export LD_LIBRARY_PATH = /usr/local/lib
+
 unix:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
 		-o bin/LAIR \
-		--pkg-config /usr/bin/pkgconf \
-		-X -fstack-protector-all \
-		-X --param \
-		-X ssp-buffer-size=4 \
-		-X -D_FORTIFY_SOURCE=2 \
-		-X -ftrapv \
-		-X -Wl,-z,relro,-z,now \
-		-X -Bstatic \
+		$(VALA_OPTIONS) \
+		$(VALA_PKG_OPTIONS) \
 		-g \
-		--disable-assert \
-		--enable-checking \
-		--enable-experimental \
-		--enable-gobject-tracing \
-		--vapidir="/usr/share/vala/vapi/" \
-		--includedir /usr/include/x86_64-linux-musl \
-		--target-glib 2.0 \
-		--pkg gio-2.0 \
-		--pkg lua \
-		--pkg sdl2 \
-		--pkg sdl2-gfx \
-		--pkg sdl2-image \
-		--pkg sdl2-ttf \
-		--pkg sdl2-mixer \
-		--pkg=tartrazine \
-		-X -Og \
-		-X -g3 \
-		--includedir /usr/include/luajit-2.0 \
-		-X -lluajit-5.1 \
-		-X -lSDL2 \
-		-X -lSDL2_gfx \
-		-X -lSDL2_image \
-		-X -lSDL2_ttf \
-		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(C_OPTIONS) \
+		$(VALAIR_LIST)
 				#--thread \
 
 unix-clang:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
 		-o bin/LAIR-clang \
-		--pkg-config /usr/bin/pkgconf \
 		--cc clang \
+		$(VALA_OPTIONS) \
+		$(VALA_PKG_OPTIONS) \
+		-g \
+		$(C_OPTIONS) \
+		$(VALAIR_LIST)
 		-X -fstack-protector-all \
 		-X --param \
 		-X ssp-buffer-size=4 \
@@ -95,72 +115,14 @@ unix-clang:
 		-X -ftrapv \
 		-X -Wl,-z,relro,-z,now \
 		-X -Bstatic \
-		-g \
-		--disable-assert \
-		--enable-checking \
-		--enable-experimental \
-		--enable-gobject-tracing \
-		--vapidir="/usr/share/vala/vapi/" \
-		--includedir /usr/include/x86_64-linux-musl \
-		--target-glib 2.0 \
-		--pkg gio-2.0 \
-		--pkg lua \
-		--pkg sdl2 \
-		--pkg sdl2-gfx \
-		--pkg sdl2-image \
-		--pkg sdl2-ttf \
-		--pkg sdl2-mixer \
-		--pkg=tartrazine \
-		-X -O0 \
-		-X -g3 \
-		--includedir /usr/include/luajit-2.0 \
-		-X -lluajit-5.1 \
-		-X -lSDL2 \
-		-X -lSDL2_gfx \
-		-X -lSDL2_image \
-		-X -lSDL2_ttf \
-		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(VALAIR_LIST)
 
 unix-opt:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
 		-o bin/LAIR \
-		--pkg-config /usr/bin/pkgconf \
-		--cc clang \
+		$(VALA_OPTIONS) \
+		$(VALA_PKG_OPTIONS) \
+		-X -O3 \
 		-X -fstack-protector-all \
 		-X --param \
 		-X ssp-buffer-size=4 \
@@ -169,71 +131,16 @@ unix-opt:
 		-X -Wl,-z,relro,-z,now \
 		-X -Bstatic \
 		-X -fPIE \
-		--disable-assert \
-		--enable-checking \
-		--enable-experimental \
-		--enable-gobject-tracing \
-		--vapidir="/usr/share/vala/vapi/" \
-		--includedir /usr/include/x86_64-linux-musl \
-		--target-glib 2.0 \
-		--pkg gio-2.0 \
-		--pkg lua \
-		--pkg sdl2 \
-		--pkg sdl2-gfx \
-		--pkg sdl2-image \
-		--pkg sdl2-ttf \
-		--pkg sdl2-mixer \
-		--pkg=tartrazine \
-		-X -O3 \
-		--includedir /usr/include/luajit-2.0 \
-		-X -lluajit-5.1 \
-		-X -lSDL2 \
-		-X -lSDL2_gfx \
-		-X -lSDL2_image \
-		-X -lSDL2_ttf \
-		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
-				#--thread \
+		$(C_OPTIONS) \
+		$(VALAIR_LIST)
 
 unix-clang-opt:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
-		-o bin/LAIR-clang \
-		--pkg-config /usr/bin/pkgconf \
+		-o bin/LAIR \
 		--cc clang \
+		$(VALA_OPTIONS) \
+		$(VALA_PKG_OPTIONS) \
+		-X -O3 \
 		-X -fstack-protector-all \
 		-X --param \
 		-X ssp-buffer-size=4 \
@@ -242,64 +149,8 @@ unix-clang-opt:
 		-X -Wl,-z,relro,-z,now \
 		-X -Bstatic \
 		-X -fPIE \
-		--disable-assert \
-		--enable-checking \
-		--enable-experimental \
-		--enable-gobject-tracing \
-		--vapidir="/usr/share/vala/vapi/" \
-		--includedir /usr/include/x86_64-linux-musl \
-		--target-glib 2.0 \
-		--pkg gio-2.0 \
-		--pkg lua \
-		--pkg sdl2 \
-		--pkg sdl2-gfx \
-		--pkg sdl2-image \
-		--pkg sdl2-ttf \
-		--pkg sdl2-mixer \
-		--pkg=tartrazine \
-		-X -O3 \
-		--includedir /usr/include/luajit-2.0 \
-		-X -lluajit-5.1 \
-		-X -lSDL2 \
-		-X -lSDL2_gfx \
-		-X -lSDL2_image \
-		-X -lSDL2_ttf \
-		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
-
+		$(C_OPTIONS) \
+		$(VALAIR_LIST)
 
 docker:
 	docker build -t valair .
@@ -307,41 +158,18 @@ docker:
 docker-run:
 	docker run -ti --rm \
 		-e DISPLAY=${DISPLAY} \
+		--device /dev/snd
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-e DISPLAY=unix$DISPLAY \
 		valair
 
 unix-static:
-	export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-musl:${PKG_CONFIG_PATH}" ; \
 	valac -gv \
 		-o bin/LAIR-static \
-		--pkg-config /usr/bin/pkgconf \
-		-X -fstack-protector-all \
-		-X --param \
-		-X ssp-buffer-size=4 \
-		-X -D_FORTIFY_SOURCE=2 \
-		-X -ftrapv \
-		-X -Wl,-z,relro,-z,now \
-		-X -fPIE \
-		-X -Bstatic \
+		$(VALA_OPTIONS) \
+		$(VALA_PKG_OPTIONS) \
 		-g \
-		--disable-assert \
-		--enable-checking \
-		--enable-experimental \
-		--enable-gobject-tracing \
-		--vapidir="/usr/share/vala/vapi/" \
-		--includedir /usr/include/x86_64-linux-musl \
-		--target-glib 2.0 \
-		--pkg gio-2.0 \
-		--includedir /usr/include/ \
-		--pkg lua \
-		--pkg sdl2 \
-		--pkg sdl2-gfx \
-		--pkg sdl2-image \
-		--pkg sdl2-ttf \
-		--pkg sdl2-mixer \
-		--pkg=tartrazine \
-		-X -g3 \
-		--includedir /usr/include/luajit-2.0 \
+		$(C_OPTIONS) \
 		-X -l:libluajit-5.1.a \
 		-X -l:libSDL2.a \
 		-X -l:libSDL2_gfx.a \
@@ -350,40 +178,7 @@ unix-static:
 		-X -l:libSDL2_mixer.a \
 		-X -l:libFLAC.a \
 		-X -l:libogg.a \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(VALAIR_LIST)
 
 win64:
 	export PATH=$PATH:/usr/lib/mxe/usr/bin
@@ -415,40 +210,7 @@ win64:
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(VALAIR_LIST)
 
 win32:
 	export PATH=$PATH:/usr/lib/mxe/usr/bin
@@ -480,40 +242,7 @@ win32:
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(VALAIR_LIST)
 
 windows:
 	make win64
@@ -563,40 +292,7 @@ android:
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(VALAIR_LIST)
 
 bitcode:
 	valac -gv \
@@ -617,40 +313,7 @@ bitcode:
 		-X -lSDL2_image \
 		-X -lSDL2_ttf \
 		-X -lSDL2_mixer \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(VALAIR_LIST)
 
 javascript:
 	valac -gv \
@@ -667,40 +330,7 @@ javascript:
 		-X "-s USE_SDL=2" \
 		-X "-s USE_SDL_IMAGE=2" \
 		-X "-s USE_SDL_NET=2" \
-		src/main.vala \
-		src/util/autotimer.vala \
-		src/util/autorect.vala \
-		src/util/net.vala \
-		src/util/luaconf.vala \
-		src/util/luaglobal.vala \
-		src/util/scribe.vala \
-		src/util/tagcounter.vala \
-		src/util/tag.vala \
-		src/resmanage/files.vala \
-		src/resmanage/images.vala \
-		src/resmanage/filedb.vala \
-		src/resmanage/fonts.vala \
-		src/resmanage/sounds.vala \
-		src/game/lists/RoomsList.vala \
-		src/game/lists/FloorList.vala \
-		src/game/lists/MobilesList.vala \
-		src/game/lists/ParticlesList.vala \
-		src/game/lists/AutoPoint.vala \
-		src/game/frame.vala \
-		src/game/room.vala \
-		src/game/floor.vala \
-		src/game/tower.vala \
-		src/game/game.vala \
-		src/entity/dice.vala \
-		src/entity/type.vala \
-		src/entity/sprite.vala \
-		src/entity/anim.vala \
-		src/entity/text.vala \
-		src/entity/sound.vala \
-		src/entity/stats.vala \
-		src/entity/inventory.vala \
-		src/entity/move.vala \
-		src/entity/entity.vala
+		$(VALAIR_LIST)
 
 js:
 	rm ./bin/LAIR.js

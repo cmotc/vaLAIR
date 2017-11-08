@@ -4,8 +4,12 @@ namespace LAIR{
                 private unowned Video.Renderer renderer_pointer;
                 private unowned FileDB dungeon_master = null;
                 private int entry_room = 0;
-		public Floor(string[] scripts, FileDB DM, Video.Renderer? renderer){
+                private int generator_room = 0;
+                private int size = 3;
+		public Floor(string[] scripts, int pre_size, FileDB DM, Video.Renderer? renderer){
                         base(scripts);
+                        size = pre_size * pre_size;
+                        //entry_room = roll_dice(0, size-1);
                         renderer_pointer = renderer;
                         dungeon_master = DM;
                         lua_scripts = scripts;

@@ -1,0 +1,36 @@
+define VALAIR_LIST
+	src/main.vala \
+	src/util/autotimer.vala \
+	src/util/autorect.vala \
+	src/util/net.vala \
+	src/util/luaconf.vala \
+	src/util/luaglobal.vala \
+	src/util/scribe.vala \
+	src/util/tagcounter.vala \
+	src/util/tag.vala \
+	src/resmanage/files.vala \
+	src/resmanage/images.vala \
+	src/resmanage/filedb.vala \
+	src/resmanage/fonts.vala \
+	src/resmanage/sounds.vala \
+	src/game/lists/RoomsList.vala \
+	src/game/lists/FloorList.vala \
+	src/game/lists/MobilesList.vala \
+	src/game/lists/ParticlesList.vala \
+	src/game/lists/AutoPoint.vala \
+	src/game/frame.vala \
+	src/game/room.vala \
+	src/game/floor.vala \
+	src/game/tower.vala \
+	src/game/game.vala \
+	src/entity/dice.vala \
+	src/entity/type.vala \
+	src/entity/sprite.vala \
+	src/entity/anim.vala \
+	src/entity/text.vala \
+	src/entity/sound.vala \
+	src/entity/stats.vala \
+	src/entity/inventory.vala \
+	src/entity/move.vala \
+	src/entity/entity.vala
+endef

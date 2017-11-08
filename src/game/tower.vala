@@ -6,8 +6,13 @@ namespace LAIR{
                 private unowned FileDB dungeon_master = null;
                 private unowned string[] scripts;
                 private bool floors_init = false;
+                private int size = 3;
+                private int get_size(){
+                        return size + 2;
+                }
 		public Tower(string[] lua_scripts, FileDB DM, Video.Renderer? renderer){
                         base("room_roller");
+                        size = roll_dice(2, 5);
                         renderer_pointer = renderer;
                         dungeon_master = DM;
                         scripts = lua_scripts;
@@ -18,6 +23,7 @@ namespace LAIR{
                 private Floor generate_floor(bool has_player){
                         Floor tmp = new Floor(
                                         scripts,
+                                        size,
                                         dungeon_master,
                                 renderer_pointer);
                         return tmp;
