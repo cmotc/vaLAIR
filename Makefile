@@ -18,7 +18,7 @@ define VALA_OPTIONS
 endef
 
 define C_OPTIONS
-	--includedir /usr/include/lua50 \
+	--includedir /usr/include/luajit-2.0 \
 	-X -fstack-protector-all \
 	-X --param \
 	-X ssp-buffer-size=4 \
@@ -28,7 +28,7 @@ define C_OPTIONS
 	-X -Bstatic \
 	-X -Og \
 	-X -g3 \
-	-X -llua50 \
+	-X -lluajit-5.1 \
 	-X -lSDL2 \
 	-X -lSDL2_gfx \
 	-X -lSDL2_image \
