@@ -2,21 +2,8 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaConf : LuaGlobal{
-                private string script_path = "immobile";
                 public LuaConf(string lua_ai_path = "immobile"){
                         base(lua_ai_path);
-                        script_path = lua_ai_path;
-                        if(does_it_ai(script_path)){
-                                message("Loading a script: %s", script_path);
-                                lua_do_file();
-                        }
-                }
-                private void lua_do_file(){ //(string file){
-                        if(does_it_ai(script_path)){
-                                if(script_path != "immobile"){
-                                        vm_copy().do_file(script_path);
-                                }
-                        }
                 }
                 private void lua_new_table(){
                         if(does_it_ai(script_path)){
@@ -98,11 +85,6 @@ namespace LAIR{
                         }
                         return tr;
                 }
-                protected void lua_register(string name, CallbackFunc f){
-                        if(does_it_ai(script_path)){
-                                vm_copy().register(name, f);
-                        }
-                }
                 protected void lua_do_function(string function=""){
                         if(function != ""){
                                 if(does_it_ai(script_path)){
@@ -116,9 +98,6 @@ namespace LAIR{
                                 if(tablename != "none"){
                                         if(does_it_ai(script_path)){
                                                 lua_new_table();
-//                                                message("Creating new Lua table: %s.", tablename);
-  //                                              message(" Containing field: %s.", varname);
-    //                                            message(" of value: %s.", varval.to_string());
                                                 lua_push_named_number(varname, varval);
                                                 lua_close_table(tablename);
                                         }
@@ -127,13 +106,9 @@ namespace LAIR{
                 }
                 protected void lua_push_coords(AutoPoint current, AutoPoint simplecurrent){
                         if(does_it_ai(script_path)){
-                                /**///
                                 lua_push_uint_to_table("generator_x", "x", simplecurrent.x());
-                                /**///
                                 lua_push_uint_to_table("generator_y", "y", simplecurrent.y());
-                                /**///
                                 lua_push_uint_to_table("generator_coarse_x", "x", current.x());
-                                /**///
                                 lua_push_uint_to_table("generator_coarse_y", "y", current.y());
                         }
                 }
@@ -214,9 +189,6 @@ namespace LAIR{
                                 lua_push_uint_to_table("room_coarse_yh","y",((current_room.y() / 32) + ((int)current_room.h() / 32)));
                                 lua_push_uint_to_table("room_faredge_coarse_y","y",((current_room.y() / 32) + ((int)current_room.h() / 32)));
                         }
-                }
-                protected unowned LuaVM get_lua_vm(){
-                        return vm_copy();
                 }
         }
 }

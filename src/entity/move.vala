@@ -26,31 +26,32 @@ namespace LAIR{
                         toggle_wobble_on();
                         return 1;
                 }
-                protected int step_down(LuaVM vm = this.get_lua_vm()){
+                //protected CallbackFunc step_down = () => {};
+                protected int step_down(LuaVM vm = this.vm_copy()){
                         set_y(get_y() + WalkingSpeed());
                         toggle_wobble_on();
                         return 2;
                 }
-                protected int step_up(LuaVM vm = this.get_lua_vm()){
+                protected int step_up(LuaVM vm = this.vm_copy()){
                         set_y(get_y() - WalkingSpeed());
                         toggle_wobble_on();
                         return 3;
                 }
-                protected int step_right(LuaVM vm = this.get_lua_vm()){
+                protected int step_right(LuaVM vm = this.vm_copy()){
                         set_x(get_x() + WalkingSpeed());
                         toggle_wobble_on();
                         return 4;
                 }
-                protected int step_left(LuaVM vm = this.get_lua_vm()){
+                protected int step_left(LuaVM vm = this.vm_copy()){
                         set_x(get_x() - WalkingSpeed());
                         toggle_wobble_on();
                         return 5;
                 }
-                protected int swing_left(LuaVM vm = this.get_lua_vm()){
+                protected int swing_left(LuaVM vm = this.vm_copy()){
                         //toggle_swing_on_left();
                         return 6;
                 }
-                protected int swing_right(LuaVM vm = this.get_lua_vm()){
+                protected int swing_right(LuaVM vm = this.vm_copy()){
                         //toggle_swing_on_right();
                         return 7;
                 }
