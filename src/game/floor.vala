@@ -1,4 +1,5 @@
 using SDL;
+//using Glib
 namespace LAIR{
 	class Floor : RoomsList {
                 private unowned Video.Renderer renderer_pointer;

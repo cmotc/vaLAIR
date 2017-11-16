@@ -14,6 +14,7 @@ define VALA_OPTIONS
 	--disable-assert \
 	--enable-checking \
 	--enable-experimental \
+	--thread \
 	--enable-gobject-tracing
 endef
 
@@ -97,7 +98,6 @@ unix:
 		-g \
 		$(C_OPTIONS) \
 		$(VALAIR_LIST)
-				#--thread \
 
 unix-clang:
 	valac -gv \
@@ -158,7 +158,7 @@ docker:
 docker-run:
 	docker run -ti --rm \
 		-e DISPLAY=${DISPLAY} \
-		--device /dev/snd
+		--device /dev/snd \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e DISPLAY=unix$DISPLAY \
 		valair

@@ -4,7 +4,7 @@ RUN apt-get install -yq apt-transport-https gpgv-static gnupg2 bash apt-utils
 RUN echo deb https://pkg.tox.chat/debian stable sid | tee /etc/apt/sources.list.d/tox.list
 RUN wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | apt-key add - && apt-get update
 RUN echo "deb https://eyedeekay.github.io/lair-web/lair-deb/debian rolling main" | tee /etc/apt/sources.list.d/lair.list
-RUN wget -qO - https://eyedeekay.github.io/lair-web/lair-deb/eyedeekay.github.io.lair-web.lair-deb.gpg.key | apt-key add -
+RUN wget -qO - https://eyedeekay.github.io/lair-web/lair-deb/cmotc.github.io.lair-web.lair-deb.gpg.key | apt-key add -
 RUN apt-get update && \
         apt-get install -yq libtox-dev \
         libtoxav0 \

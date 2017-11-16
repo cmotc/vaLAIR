@@ -102,6 +102,10 @@ namespace LAIR{
 			foreach(var arg in args){
 				Arguments.append(arg);
 			}
+                        if (!GLib.Thread.supported()) {
+                                stderr.printf("Cannot run without threads.\n");
+                                return 1;
+                        }
 			for (int index = 0; index < Arguments.length(); index++){
 				switch (Arguments.nth_data(index)){
                                         case "-i":
