@@ -7,10 +7,10 @@ namespace LAIR{
                 protected string script_path = "immobile";
                 private GLib.ThreadPool<LuaThread> lua_threads;
                 protected class LuaThread{
-                        private LuaVM* vm_pointer = null;
+                        private unowned LuaVM vm_pointer = null;
                         protected string last_function = "";
                         private bool run = false;
-                        public LuaThread(LuaVM* which_vm=null, string which_function=""){
+                        public LuaThread(LuaVM which_vm=null, string which_function=""){
                                 vm_pointer=which_vm;
                                 last_function=which_function;
                                 run=false;
@@ -19,11 +19,11 @@ namespace LAIR{
                                 if ( vm_pointer != null ){
                                 if ( function != "" ){
                                         if (function != last_function){
-                                                vm_pointer->do_string(function);
+                                                vm_pointer.do_string(function);
                                                 GLib.Thread.usleep (4500);
                                         }else{
                                                 if ( run == false ){
-                                                        vm_pointer->do_string(last_function);
+                                                        vm_pointer.do_string(last_function);
                                                         run=true;
                                                         GLib.Thread.usleep (4500);
                                                 }
@@ -70,7 +70,7 @@ namespace LAIR{
                                 if(does_it_ai(script_path)){
                                         string tmp = "return " + function;
                                         try {
-                                                lua_threads.add(new LuaThread(vm_pointer(), tmp));
+                                                lua_threads.add(new LuaThread(vm_copy(), tmp));
                                         }catch (ThreadError e) {
                                                 stdout.printf ("ThreadError: %s\n", e.message);
                                         }
@@ -86,9 +86,6 @@ namespace LAIR{
                                 does_ai = false;
                         }
                         return does_ai;
-                }
-                private LuaVM* vm_pointer(){
-                        return global_vm;
                 }
                 public unowned LuaVM vm_copy(){
                         return global_vm;
