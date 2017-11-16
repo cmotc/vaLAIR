@@ -7,7 +7,7 @@ namespace LAIR{
                 protected string script_path = "immobile";
                 private GLib.ThreadPool<LuaThread> lua_threads;
                 protected class LuaThread{
-                        private unowned LuaVM vm_pointer = null;
+                        private LuaVM vm_pointer = null;
                         protected string last_function = "";
                         private bool run = false;
                         public LuaThread(LuaVM which_vm=null, string which_function=""){
