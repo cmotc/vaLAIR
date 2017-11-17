@@ -22,6 +22,9 @@ sdl2.vapi:2480.4-2480.52: warning: the modifier `static' is not applicable to co
 sdl2-mixer.vapi:224.2-224.54: warning: the modifier `static' is not applicable to constants
 	public static const SDLMixer.Channel DEFAULT_CHANNEL;
 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/util/luaglobal.vala:13.42-13.55: warning: `null' incompatible with parameter type `Lua.LuaVM`
+                        public LuaThread(LuaVM which_vm=null, string which_function=""){
+                                         ^^^^^^^^^^^^^^
 src/main.vala:159.33-159.43: warning: Access to static member `LAIR.Lair.GameMap' with an instance reference
                                 app.GameMap.run();
                                 ^^^^^^^^^^^

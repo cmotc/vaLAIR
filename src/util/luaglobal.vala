@@ -25,7 +25,7 @@ namespace LAIR{
                                                 if ( run == false ){
                                                         vm_pointer.do_string(last_function);
                                                         run=true;
-                                                        GLib.Thread.usleep (4500);
+                                                        GLib.Thread->usleep (4500);
                                                 }
                                         }
                                 }
@@ -70,7 +70,7 @@ namespace LAIR{
                                 if(does_it_ai(script_path)){
                                         string tmp = "return " + function;
                                         try {
-                                                lua_threads.add(new LuaThread(vm_copy(), tmp));
+                                                lua_threads.add(new LuaThread(vm_thread(), tmp));
                                         }catch (ThreadError e) {
                                                 stdout.printf ("ThreadError: %s\n", e.message);
                                         }
@@ -89,6 +89,9 @@ namespace LAIR{
                 }
                 public unowned LuaVM vm_copy(){
                         return global_vm;
+                }
+                public unowned LuaVM vm_thread(){
+                        return global_vm.new_thread();
                 }
         }
 }
