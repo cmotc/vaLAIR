@@ -2,7 +2,7 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaGlobal : Scribe{
-                private LuaVM global_vm = new_lua_vm();
+                private static LuaVM global_vm = new_lua_vm();
                 private bool does_ai = false;
                 protected string script_path = "immobile";
                 private GLib.ThreadPool<LuaThread> lua_threads;
@@ -17,19 +17,24 @@ namespace LAIR{
                         }
                         public void do_string(string function = ""){
                                 if ( vm_pointer != null ){
-                                if ( function != "" ){
-                                        if (function != last_function){
-                                                vm_pointer.do_string(function);
-                                                GLib.Thread.usleep (4500);
-                                        }else{
-                                                if ( run == false ){
-                                                        vm_pointer.do_string(last_function);
-                                                        run=true;
-                                                        GLib.Thread->usleep (4500);
+                                        message("vm_pointer existed, so thread was created successfully.\n");
+                                        if ( function != "" ){
+                                                message("function was not an empty string\n");
+                                                if (function != last_function){
+                                                        message("function was not equal to the previous function\n");
+                                                        vm_pointer.do_string(function);
+                                                        GLib.Thread.usleep (4500);
+                                                }else{
+                                                        if ( run == false ){
+                                                                message("function had not previously been run\n");
+                                                                vm_pointer.do_string(last_function);
+                                                                run=true;
+                                                                GLib.Thread->usleep (4500);
+                                                        }
                                                 }
                                         }
                                 }
-                                }
+                                message("function was %s\n", function );
                         }
                 }
                 public LuaGlobal(string lua_ai_path = "immobile", int lua_log_level = 1){

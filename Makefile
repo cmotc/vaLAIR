@@ -76,7 +76,7 @@ endef
 
 define VALA_PKG_OPTIONS
 	--pkg-config /usr/bin/pkgconf \
-	--vapidir="/usr/local/share/vala/vapi/" \
+	--vapidir="/usr/local/share/vala-0.40/vapi/" \
 	--pkg gio-2.0 \
 	--pkg lua \
 	--pkg sdl2 \
