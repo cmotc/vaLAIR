@@ -6,15 +6,18 @@ namespace LAIR{
                 private bool does_ai = false;
                 protected string script_path = "immobile";
                 private GLib.ThreadPool<LuaThread> lua_threads;
+                private List<string> last_return = new List<string>();
                 protected class LuaThread{
                         private unowned LuaVM vm_pointer = null;
                         protected string last_function = "";
                         private bool run = false;
-                        public LuaThread(LuaVM which_vm=null, string which_function=""){
+                        public LuaThread(LuaVM which_vm, out List<string> store_value, string which_function=""){
                                 vm_pointer=which_vm;
                                 last_function=which_function;
                                 run=false;
                                 do_string(last_function);
+                                store_value = get_lua_last_return();
+                                message("return value was %s", store_value.nth_data(0));
                         }
                         public void do_string(string function = ""){
                                 if ( vm_pointer != null ){
@@ -93,17 +96,17 @@ namespace LAIR{
                 protected void lua_do_file(string file_path = "immobile"){
                         if(file_path != "immobile"){
                                 global_vm.do_file(file_path);
+                        }else{
+                                message("File path not set, no do_file action taken");
                         }
+
                 }
-                //protected void lua_do_string_thread(LuaThread thread, string std){
-                        //thread.do_string(std);
-                //}
-                protected void lua_do_function(string function=""){
+                protected void lua_do_function(string function){
                         if(function != ""){
                                 if(does_it_ai(script_path)){
                                         string tmp = "return " + function;
                                         try {
-                                                lua_threads.add(new LuaThread(vm_thread(), tmp));
+                                                lua_threads.add(new LuaThread(vm_thread(), out last_return, tmp));
                                         }catch (ThreadError e) {
                                                 message("ThreadError: %s\n", e.message);
                                         }
@@ -119,6 +122,14 @@ namespace LAIR{
                                 does_ai = false;
                         }
                         return does_ai;
+                }
+                protected List<string> get_lua_last_return(){
+                        List<string> r = new List<string>();
+                        if(does_it_ai(script_path)){
+                                r = last_return.copy();
+                                last_return = null;
+                        }
+                        return r;
                 }
                 public unowned LuaVM vm_copy(){
                         return global_vm;

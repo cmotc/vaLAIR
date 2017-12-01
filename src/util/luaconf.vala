@@ -57,7 +57,7 @@ namespace LAIR{
                         }
                 }
                 /*This is what I need to work on next.*/
-                protected List<string> get_lua_last_return(){
+                /*protected List<string> get_lua_last_return(){
                         string tmp = "";
                         List<string> tr = null;
                         if(does_it_ai(script_path)){
@@ -85,7 +85,7 @@ namespace LAIR{
                                 }
                         }
                         return tr;
-                }
+                }*/
                 protected void lua_push_uint_to_table(string tablename = "none", string varname = "none", int varval = -2147483647){
                         if(tablename != "none"){
                                 if(tablename != "none"){
