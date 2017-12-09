@@ -189,6 +189,7 @@ function archive_old_map()
                 os.rename(get_map_savepath(), get_map_archivepath())
                 os.rename(get_mob_savepath(), get_mob_archivepath())
         end
+        return "archived"
 end
 function setup_new_map()
         if file_exists(get_map_savepath()) == false then

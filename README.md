@@ -13,7 +13,7 @@ not anymore.
 Installation
 ------------
 
-###Debian/Ubuntu:
+### Debian/Ubuntu:
 
 Now it's possible to build a .deb package and if you want, install it
 automatically. To build the .deb package(but not install), do
@@ -24,7 +24,7 @@ and then do
 
         sudo dpkg -i ../lair*.deb
 
-###Other Linux:
+### Other Linux:
 
 It's just a makefile now, just running "make" in the working directory will
 build the executable in the ./bin/ directory. After that, running "sudo make
@@ -48,18 +48,18 @@ files via the command-line flags for now:
 which are in the [art repository](https://github.com/cmotc/lairart), which you
 can install with make; sudo make install.
 
-###Windows:
+### Windows:
 
 Very untested, like literally zero testing at all, but technically it has been
 successfully cross-compiled for Windows 32 and 64 bit using M Cross Environment.
 For now, test at your own risk.
 
-###OSX, iOS, and Android coming soon.
+### OSX, iOS, and Android coming soon.
 
 Configuration(You probably don't need to read this unless you want to mod)
 --------------------------------------------------------------------------
 
-###Static Configuration
+### Static Configuration
 
 Static Configuration done with plain text files and a shell-script based
 launcher for the actual binary /usr/bin/LAIR on Unix, or a Lua based config file
@@ -81,7 +81,7 @@ the first tag, the name, should be unique for things you want to refer to
 specifically, and the remaining tags could be non-unique. For more example
 configuration files, see the [art repository](https://github.com/cmotc/lairart).
 
-###Dynamic(Lua) Configuration
+### Dynamic(Lua) Configuration
 
 Dynamic configuration is only enabled for the Maps at this time.
 
@@ -114,7 +114,9 @@ it's hard to keep ahold of what my goals are. Things I'm pretty sure I have left
 to do:
 
   0. Open-Worldify: Right now the whole starting world gets pre-generated. It
-  takes way too long that way.
+  takes way too long that way. Getting closer on this, but I've got something
+  wierd going on with the lua threading stuff. Once that's ironed out I'll be
+  back on the AI class.
   1. Implement AI class, which is similar to the move class but instead of doing
   actions on events it does actions based on the execution of Lua scripts
    1. Now the AI's can see but it's not clear what the best way to use their

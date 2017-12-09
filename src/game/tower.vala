@@ -11,7 +11,7 @@ namespace LAIR{
                         return size + 2;
                 }
 		public Tower(string[] lua_scripts, FileDB DM, Video.Renderer? renderer){
-                        base("room_roller");
+                        base(lua_scripts[0]);
                         size = roll_dice(2, 5);
                         renderer_pointer = renderer;
                         dungeon_master = DM;

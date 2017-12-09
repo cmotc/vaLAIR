@@ -9,6 +9,7 @@ COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 #-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 #"/usr/lib/x86_64-linux-gnu"
 #--enable-experimental
+C_COMPILER = gcc
 
 define VALA_OPTIONS
 	--disable-assert \
@@ -93,51 +94,17 @@ export LD_LIBRARY_PATH = /usr/local/lib
 unix:
 	valac -gv \
 		-o bin/LAIR \
+		--cc $(C_COMPILER) \
 		$(VALA_OPTIONS) \
 		$(VALA_PKG_OPTIONS) \
 		-g \
 		$(C_OPTIONS) \
-		$(VALAIR_LIST)
-
-unix-clang:
-	valac -gv \
-		-o bin/LAIR-clang \
-		--cc clang \
-		$(VALA_OPTIONS) \
-		$(VALA_PKG_OPTIONS) \
-		-g \
-		$(C_OPTIONS) \
-		$(VALAIR_LIST)
-		-X -fstack-protector-all \
-		-X --param \
-		-X ssp-buffer-size=4 \
-		-X -D_FORTIFY_SOURCE=2 \
-		-X -ftrapv \
-		-X -Wl,-z,relro,-z,now \
-		-X -Bstatic \
 		$(VALAIR_LIST)
 
 unix-opt:
 	valac -gv \
 		-o bin/LAIR \
-		$(VALA_OPTIONS) \
-		$(VALA_PKG_OPTIONS) \
-		-X -O3 \
-		-X -fstack-protector-all \
-		-X --param \
-		-X ssp-buffer-size=4 \
-		-X -D_FORTIFY_SOURCE=2 \
-		-X -ftrapv \
-		-X -Wl,-z,relro,-z,now \
-		-X -Bstatic \
-		-X -fPIE \
-		$(C_OPTIONS) \
-		$(VALAIR_LIST)
-
-unix-clang-opt:
-	valac -gv \
-		-o bin/LAIR \
-		--cc clang \
+		--cc $(C_COMPILER) \
 		$(VALA_OPTIONS) \
 		$(VALA_PKG_OPTIONS) \
 		-X -O3 \
@@ -166,6 +133,7 @@ docker-run:
 unix-static:
 	valac -gv \
 		-o bin/LAIR-static \
+		--cc $(C_COMPILER) \
 		$(VALA_OPTIONS) \
 		$(VALA_PKG_OPTIONS) \
 		-g \
@@ -454,21 +422,3 @@ release-commit:
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
-
-trimmedlogs:
-	mv mem.err err
-	grep -v process err > err.1
-	grep  . err.1 > err.2
-	grep Message err > log
-	mv err.2 err
-	rm err.1
-
-sample:
-	make memcheck 1> log 2> err;	\
-	make trimmedlogs
-	#make memcheck 1> log 2> err;	\
-	#make trimmedlogs;		\
-	#mv err err.2;			\
-	#make memcheck 1> log 2> err;	\
-	#make trimmedlogs;		\
-	#mv err err.3

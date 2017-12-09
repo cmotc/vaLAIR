@@ -21,5 +21,8 @@ namespace LAIR{
                 public Video.Point get_point(){
                         return point;
                 }
+                public string to_string(){
+                        return "X: " + point.x.to_string() + " Y: " + point.y.to_string();
+                }
         }
 }

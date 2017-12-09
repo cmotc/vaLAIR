@@ -53,6 +53,8 @@ namespace LAIR{
                         coords.append(new AutoPoint(get_offset_x(xx), get_offset_y(yy)));
                         message("Coordinates pushed to lua table: %s", coords.length().to_string());
                         if(coords.length() == 2){
+                                message("TL: %s", coords.nth_data(0).to_string());
+                                message("BR: %s", coords.nth_data(1).to_string());
                                 lua_push_generator_coords(coords.nth_data(0), coords.nth_data(1));
                                 particle_count();
                                 mobile_count();
@@ -60,18 +62,21 @@ namespace LAIR{
                         return coords;
                 }
                 private void particle_count(uint particles_length = Particles.length()){
+                        message("Particles: %s",particles_length.to_string());
                         lua_push_uint_to_table("""generator_particle_count""", """c""", (int)particles_length);
                         foreach(TagCounter count in Particles.count_bytag()){
                                 lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
                 }
                 private void mobile_count(uint mobiles_length = Mobiles.length()){
+                        message("Mobiles: %s", mobiles_length.to_string());
                         lua_push_uint_to_table("""generator_mobile_count""", """c""", (int)mobiles_length);
                         foreach(TagCounter count in Mobiles.count_bytag()){
                                 lua_push_uint_to_table(count.get_name(), "c", (int)count.get_count());
                         }
                 }
                 private List<List<string>> decide_floor_tile(){
+                        message("Trying to generate a floor tile");
                         lua_do_function("""map_cares_insert()""");
                         List<string> cares = get_lua_last_return();
                         List<List<string>> tmp = new List<List<string>>();
@@ -89,6 +94,7 @@ namespace LAIR{
                         return tmp;
                 }
                 private List<List<string>> decide_block_tile(){
+                        message("Trying to generate a wall tile");
                         lua_do_function("""map_cares_insert()""");
                         List<string> cares = get_lua_last_return();
                         List<List<string>> tmp = new List<List<string>>();
@@ -106,6 +112,7 @@ namespace LAIR{
                         return tmp;
                 }
                 private List<List<string>> decide_mobile_tile(string aiScript){
+                        message("Trying to generate a mob tile");
                         lua_do_function("""mob_cares_insert()""");
                         List<string> cares = get_lua_last_return();
                         List<List<string>> tmp = new List<List<string>>();

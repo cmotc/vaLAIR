@@ -27,13 +27,13 @@ namespace LAIR{
                                                 if (function != last_function){
                                                         message("function was not equal to the previous function");
                                                         vm_pointer.do_string(function);
-                                                        GLib.Thread.usleep (4500);
+                                                        //GLib.Thread.usleep (450);
                                                 }else{
                                                         if ( run == false ){
                                                                 message("function had not previously been run");
                                                                 vm_pointer.do_string(last_function);
                                                                 run=true;
-                                                                GLib.Thread->usleep (4500);
+                                                                //GLib.Thread->usleep (450);
                                                         }
                                                 }
                                         }
@@ -68,7 +68,7 @@ namespace LAIR{
                                 return tr;
                         }
                 }
-                public LuaGlobal(string lua_ai_path = "immobile", int lua_log_level = 1){
+                public LuaGlobal(string lua_ai_path, int lua_log_level = 1){
                         base(lua_log_level);
                         message(lua_ai_path);
                         global_vm = new_lua_vm();
@@ -93,7 +93,7 @@ namespace LAIR{
                         tmp.open_libs();
                         return tmp;
                 }
-                protected void lua_do_file(string file_path = "immobile"){
+                protected void lua_do_file(string file_path = script_path){
                         if(file_path != "immobile"){
                                 global_vm.do_file(file_path);
                         }else{
