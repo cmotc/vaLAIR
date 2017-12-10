@@ -2,7 +2,7 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaConf : LuaGlobal{
-                public LuaConf(string lua_ai_path = "immobile"){
+                public LuaConf(string lua_ai_path){
                         base(lua_ai_path);
                 }
                 private void lua_new_table(){
@@ -56,36 +56,6 @@ namespace LAIR{
                                 }
                         }
                 }
-                /*This is what I need to work on next.*/
-                /*protected List<string> get_lua_last_return(){
-                        string tmp = "";
-                        List<string> tr = null;
-                        if(does_it_ai(script_path)){
-                                if(vm_copy().get_top() > 0){
-                                        tr = new List<string>();
-                                        if(vm_copy().is_number(-1)){
-                                                double number = vm_copy().to_number(-1);
-                                                tmp += number.to_string();
-                                                vm_copy().pop(1);
-                                        }else if(vm_copy().is_string(-1)){
-                                                string word = vm_copy().to_string(-1);
-                                                tmp += word;
-                                                vm_copy().pop(1);
-                                        }else if(vm_copy().is_boolean(-1)){
-                                                bool word = vm_copy().to_boolean(-1);
-                                                tmp += word.to_string();
-                                                vm_copy().pop(1);
-                                        }
-                                }
-                                string[] tl = tmp.split(" ", 0);
-                                for(int i = 0; i < tl.length; i++){
-                                        if(tl[i] != null){
-                                                tr.append(tl[i]);
-                                        }
-                                }
-                        }
-                        return tr;
-                }*/
                 protected void lua_push_uint_to_table(string tablename = "none", string varname = "none", int varval = -2147483647){
                         if(tablename != "none"){
                                 if(tablename != "none"){

@@ -10,7 +10,7 @@ namespace LAIR{
 		private Video.Renderer WindowRenderer;
 		private Tower GameEnvironment;
                 private bool dedupe = false;
-                private const uint frame_ticks = 1000 / 130;
+                private const uint frame_ticks = 1000 / 30;//1000 / 130;
                 private AutoTimer cap_timer = new AutoTimer();
 		public Game(string[] listPaths, string[] scriptPaths, int screenW, int screenH) {
                         base(3);

@@ -1,6 +1,6 @@
 using SDL;
 namespace LAIR{
-	class MobilesList : LuaConf{
+	class MobilesList : Scribe{
                 private List<Entity> Mobiles = new List<Entity>();
                 private AutoRect Border = new AutoRect(0,0,0,0);
                 private int minx(){

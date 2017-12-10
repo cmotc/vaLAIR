@@ -1,6 +1,6 @@
 using SDL;
 namespace LAIR{
-	class FloorList : LuaConf{
+	class FloorList : Scribe{
                 private List<Entity> Particles = new List<Entity>();
                 private AutoRect Border = new AutoRect(0,0,0,0);
                 int minx(){

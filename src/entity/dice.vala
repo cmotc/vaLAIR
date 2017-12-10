@@ -1,7 +1,7 @@
 namespace LAIR{
 	class Dice : LuaConf{
                 private GLib.Rand dice_bag = new GLib.Rand();
-                public Dice(string lua_ai_path = "immobile"){
+                public Dice(string lua_ai_path){
                         base(lua_ai_path);
                 }
                 protected int roll_dice(int min, int max){

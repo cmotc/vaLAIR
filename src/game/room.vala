@@ -78,7 +78,11 @@ namespace LAIR{
                 private List<List<string>> decide_floor_tile(){
                         message("Trying to generate a floor tile");
                         lua_do_function("""map_cares_insert()""");
+                        message("Lua Function ran.");
                         List<string> cares = get_lua_last_return();
+                        foreach(string f in cares){
+                                message("Lua Function returned: %s", f);
+                        }
                         List<List<string>> tmp = new List<List<string>>();
                         if(cares != null){
                                 if(cares.nth_data(0) == "true"){

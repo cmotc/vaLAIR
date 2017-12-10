@@ -17,7 +17,6 @@ namespace LAIR{
                                 run=false;
                                 do_string(last_function);
                                 store_value = get_lua_last_return();
-                                message("return value was %s", store_value.nth_data(0));
                         }
                         public void do_string(string function = ""){
                                 if ( vm_pointer != null ){
@@ -65,6 +64,9 @@ namespace LAIR{
                                                 tr.append(tl[i]);
                                         }
                                 }
+                                foreach(string f in tr){
+                                        message("Return value members %s", f);
+                                }
                                 return tr;
                         }
                 }
@@ -97,7 +99,7 @@ namespace LAIR{
                         if(file_path != "immobile"){
                                 global_vm.do_file(file_path);
                         }else{
-                                message("File path not set, no do_file action taken");
+                                message("File path not set, no do_file action taken %s", file_path);
                         }
 
                 }
@@ -124,12 +126,7 @@ namespace LAIR{
                         return does_ai;
                 }
                 protected List<string> get_lua_last_return(){
-                        List<string> r = new List<string>();
-                        if(does_it_ai(script_path)){
-                                r = last_return.copy();
-                                last_return = null;
-                        }
-                        return r;
+                        return last_return.copy();
                 }
                 public unowned LuaVM vm_copy(){
                         return global_vm;
