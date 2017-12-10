@@ -2,7 +2,7 @@ using Lua;
 using SDL;
 namespace LAIR{
 	class LuaGlobal : Scribe{
-                private static LuaVM global_vm = new_lua_vm();
+                private LuaVM global_vm = new_lua_vm();
                 private bool does_ai = false;
                 protected string script_path = "immobile";
                 private GLib.ThreadPool<LuaThread> lua_threads;
@@ -26,13 +26,11 @@ namespace LAIR{
                                                 if (function != last_function){
                                                         message("function was not equal to the previous function");
                                                         vm_pointer.do_string(function);
-                                                        //GLib.Thread.usleep (450);
                                                 }else{
                                                         if ( run == false ){
                                                                 message("function had not previously been run");
                                                                 vm_pointer.do_string(last_function);
                                                                 run=true;
-                                                                //GLib.Thread->usleep (450);
                                                         }
                                                 }
                                         }
@@ -128,9 +126,11 @@ namespace LAIR{
                 protected List<string> get_lua_last_return(){
                         return last_return.copy();
                 }
+                ///*
                 public unowned LuaVM vm_copy(){
                         return global_vm;
                 }
+                //*/
                 public unowned LuaVM vm_thread(){
                         return global_vm.new_thread();
                 }
