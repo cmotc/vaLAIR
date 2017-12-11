@@ -3,14 +3,14 @@ using Lua;
 
 namespace LAIR{
 	class Room : Frame{
-		private bool visited = false;
+		private bool visited = true;
                 private FloorList Floor = null;
                 private ParticlesList Particles = null;
                 private MobilesList Mobiles = null;
                 private Entity Player = null;
                 private static FileDB GameMaster = null;
                 private unowned Video.Renderer renderer_pointer;
-                public Room(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer){
+                public Room(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer, bool with_player = false){
                         base(position, floor_dims, scripts);
                         renderer_pointer = renderer;
                         message("generating room%s", get_name());
@@ -18,6 +18,7 @@ namespace LAIR{
                         Floor = new FloorList(get_hitrect());
                         Particles = new ParticlesList(get_hitrect());
                         Mobiles = new MobilesList(get_hitrect());
+                        generate_room(with_player);
 		}
                 public void generate_room(bool make_player=false){
                         generate_floors();

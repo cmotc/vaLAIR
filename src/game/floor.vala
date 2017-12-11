@@ -11,7 +11,7 @@ namespace LAIR{
                         //entry_room = roll_dice(0, size-1);
                         message("Generating room at : x %s y %s w %s h%s", position_with_offset.x().to_string(), position_with_offset.y().to_string(), position_with_offset.w().to_string(), position_with_offset.h().to_string() );
                         lua_do_function("""archive_old_map()""");
-                        append_room(position_with_offset, insert_player(entry_room));
+                        generate_room_thread(position_with_offset, insert_player(entry_room));
 		}
                 public int visited(){
                         int r = 0;
@@ -45,15 +45,6 @@ namespace LAIR{
                         foreach(unowned Room room in rooms){
                                 if(room.has_player()){
                                         temp = room.get_player();
-                                }
-                        }
-                        return temp;
-                }
-                public unowned Room get_room_player(){
-                        unowned Room temp = null;
-                        foreach(unowned Room room in rooms){
-                                if(room.has_player()){
-                                        temp = room;
                                 }
                         }
                         return temp;
