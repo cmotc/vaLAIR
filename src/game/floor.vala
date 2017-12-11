@@ -2,49 +2,17 @@ using SDL;
 //using Glib
 namespace LAIR{
 	class Floor : RoomsList {
-                private unowned Video.Renderer renderer_pointer;
-                private unowned FileDB dungeon_master = null;
                 private int entry_room = 0;
                 private int generator_room = 0;
                 private int size = 3;
 		public Floor(string[] scripts, int pre_size, FileDB DM, Video.Renderer? renderer){
-                        base(scripts);
+                        base(scripts, DM, renderer);
                         size = pre_size * pre_size;
                         //entry_room = roll_dice(0, size-1);
-                        renderer_pointer = renderer;
-                        dungeon_master = DM;
-                        lua_scripts = scripts;
                         message("Generating room at : x %s y %s w %s h%s", position_with_offset.x().to_string(), position_with_offset.y().to_string(), position_with_offset.w().to_string(), position_with_offset.h().to_string() );
                         lua_do_function("""archive_old_map()""");
                         append_room(position_with_offset, insert_player(entry_room));
 		}
-                private Room generate_room(AutoRect position_with_offset, bool with_player = false){
-                        if(with_player){
-                                Room r = new Room(position_with_offset, floor_dims, lua_scripts, dungeon_master, renderer_pointer);
-                                r.generate_room(true);
-                                return r;
-                        }else{
-                                Room r =  new Room(position_with_offset, floor_dims, lua_scripts, dungeon_master, renderer_pointer);
-                                r.generate_room();
-                                return r;
-                        }
-                }
-                private void append_room(AutoRect position_with_offset, bool with_player = false ){
-                        rooms.append(generate_room(position_with_offset, with_player));
-                }
-                public int generate_new_room(){
-                        int r = 19231;
-                        if(rooms.length() > 0){
-                                if(rooms.nth_data(rooms.length() - 1).ingeneration()){
-                                        message("Generating new tile in last room: ");
-                                        rooms.nth_data(rooms.length() - 1).generate_conditional();
-                                }else{
-                                        message("Last room generated. Initializing new room: ");
-                                        rooms.append(new Room(get_room_player().rect_select(), floor_dims, lua_scripts, dungeon_master, renderer_pointer));
-                                }
-                        }
-                        return r;
-                }
                 public int visited(){
                         int r = 0;
                         if( &rooms != null){
@@ -81,7 +49,7 @@ namespace LAIR{
                         }
                         return temp;
                 }
-                private unowned Room get_room_player(){
+                public unowned Room get_room_player(){
                         unowned Room temp = null;
                         foreach(unowned Room room in rooms){
                                 if(room.has_player()){
