@@ -19,6 +19,21 @@ namespace LAIR{
                         position_with_offset = new AutoRect((0*width),(0*height),width,height);
                 }
                 protected class RoomGenerationThread {
+
+                        public RoomGenerationThread(AutoRect pwo, AutoRect fd, string[] sc, FileDB dm, Video.Renderer? rp, out List<Room> fr, bool wp = false){
+                                fr.append(generate_room(pwo, fd, sc, dm, rp, wp));
+                        }
+                        public Room generate_room(AutoRect pwo, AutoRect fd, string[] sc, FileDB dm, Video.Renderer? rp, bool wp = false){
+                                if(wp){
+                                        Room r = new Room(pwo, fd, sc, dm, rp);
+                                        r.generate_room(true);
+                                        return r;
+                                }else{
+                                        Room r =  new Room(pwo, fd, sc, dm, rp);
+                                        r.generate_room();
+                                        return r;
+                                }
+                        }
                 }
                 protected Room generate_room(AutoRect position_with_offset, bool with_player = false){
                         if(with_player){
