@@ -1,6 +1,8 @@
 #include ../config.mk
-PREFIX = /
+PREFIX = /usr/local/
 MANPREFIX = $(PREFIX)/share/man
+SETTINGS = /etc/
+BINDIR = bin/
 COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 #EMCC_FAST_COMPILER = 0
 #EMCC_LLVM_TARGET = le32-unknown-nacl
@@ -9,7 +11,8 @@ COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
 #-X -Wall -X -Wextra -X -Wformat-security -X -Wstack-protector \
 #"/usr/lib/x86_64-linux-gnu"
 #--enable-experimental
-C_COMPILER = gcc
+C_COMPILER ?= gcc
+STATIC_C_COMPILER ?= musl-gcc
 
 define VALA_OPTIONS
 	--disable-assert \
@@ -133,7 +136,7 @@ docker-run:
 unix-static:
 	valac -gv \
 		-o bin/LAIR-static \
-		--cc $(C_COMPILER) \
+		--cc $(STATIC_C_COMPILER) \
 		$(VALA_OPTIONS) \
 		$(VALA_PKG_OPTIONS) \
 		-g \
@@ -371,28 +374,28 @@ memcheck:
 	valgrind --track-origins=yes --leak-check=summary --trace-children=yes ./bin/LAIR -v 1 -m oneroom 2>mem.err 1>mem.log
 
 install:
-	mkdir -p $(DESTDIR)$(PREFIX)/usr/bin/
-	cp bin/LAIR $(DESTDIR)$(PREFIX)/usr/bin/
-	cp bin/lair $(DESTDIR)$(PREFIX)/usr/bin/
-	mkdir -p $(DESTDIR)$(PREFIX)/etc/
-	cp etc/lair/lairrc $(DESTDIR)$(PREFIX)/etc/
-	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/lair/demo/ \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/ \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
+	mkdir -p $(DESTDIR)$(PREFIX)$(BINDIR)
+	cp bin/LAIR $(DESTDIR)$(PREFIX)$(BINDIR)
+	cp bin/lair $(DESTDIR)$(PREFIX)$(BINDIR)
+	mkdir -p $(DESTDIR)$(SETTINGS)
+	cp etc/lair/lairrc $(DESTDIR)$(SETTINGS)
+	mkdir -p $(DESTDIR)$(PREFIX)/share/lair/demo/ \
+		$(DESTDIR)$(PREFIX)/share/lair/lua/map/ \
+		$(DESTDIR)$(PREFIX)/share/lair/lua/ai/
 	cp share/lair/lua/map/common.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map/
+		$(DESTDIR)$(PREFIX)/share/lair/lua/map/
 	cp share/lair/lua/ai/common.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/ai/
+		$(DESTDIR)$(PREFIX)/share/lair/lua/ai/
 	cp share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/lua/map
+		$(DESTDIR)$(PREFIX)/share/lair/lua/map
 	cp share/lair/demo/dungeon.lua \
 		share/lair/demo/player.lua \
 		share/lair/demo/ai.lua \
-		$(DESTDIR)$(PREFIX)/usr/share/lair/demo/
-	chmod -R a+r $(DESTDIR)$(PREFIX)/usr/share/lair
-	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/doc/lair
-	cp COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/usr/share/doc/lair
+		$(DESTDIR)$(PREFIX)/share/lair/demo/
+	chmod -R a+r $(DESTDIR)$(PREFIX)/share/lair
+	mkdir -p $(DESTDIR)$(PREFIX)/share/doc/lair
+	cp COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/share/doc/lair
 	#chown -R /var/cache/lair/map/
 
 tarchive:
@@ -422,3 +425,4 @@ release-commit:
 	git add .
 	git commit -am "${COMMIT_MESSAGE}"
 	git push
+

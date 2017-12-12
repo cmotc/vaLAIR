@@ -52,9 +52,12 @@ namespace LAIR{
             if (floor_has_player() != null){
                 if (floor_has_player().length() > 0){
                     if ( floor_has_player().length() < floor_has_player().visited() + 16 ){
-                        r = floor_has_player().generate_new_room(floor_has_player().get_room_player().rect_select());
+                        r = floor_has_player().generate_new_room(
+                            floor_has_player().get_room_player().rect_select()
+                        );
                     }
                 }
+            }else{
             }
             return r;
         }

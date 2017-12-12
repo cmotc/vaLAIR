@@ -29,7 +29,7 @@ namespace LAIR{
                 generator_cycle = 0;
                 r = generator_cycle;
             }
-            //message("generator is on: %s", r.to_string());
+            message("generator is on: %s", r.to_string());
             return r;
         }
         protected int get_generator_ticks(){
@@ -104,13 +104,25 @@ namespace LAIR{
         public AutoRect rect_select(){
             AutoRect r = null;
             if(q == 0){
-                r = new AutoRect(this.Border.x()+32, this.Border.y()+(int)this.Border.h()+32, this.Border.w(), this.Border.h());
-            }else if(q==1){
-                r = new AutoRect(this.Border.x()+32, this.Border.y()-(int)this.Border.h()+32, this.Border.w(), this.Border.h());
-            }else if(q==2){
-                r = new AutoRect(this.Border.x()-(int)this.Border.w()+32, this.Border.y()+32, this.Border.w(), this.Border.h());
-            }else if(q==3){
-                r = new AutoRect(this.Border.x()+(int)this.Border.w()+32, this.Border.y()+32, this.Border.w(), this.Border.h());
+                r = new AutoRect(this.Border.x(),
+                    this.Border.y()+(int)this.Border.h(),
+                    this.Border.w(),
+                    this.Border.h());
+            }else if(q == 1){
+                r = new AutoRect(this.Border.x(),
+                    this.Border.y()-(int)this.Border.h(),
+                    this.Border.w(),
+                    this.Border.h());
+            }else if(q == 2){
+                r = new AutoRect(this.Border.x()-(int)this.Border.w(),
+                    this.Border.y(),
+                    this.Border.w(),
+                    this.Border.h());
+            }else if(q == 3){
+                r = new AutoRect(this.Border.x()+(int)this.Border.w(),
+                this.Border.y(),
+                this.Border.w(),
+                this.Border.h());
             }
             return r;
         }

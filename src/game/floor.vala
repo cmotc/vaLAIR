@@ -87,7 +87,6 @@ namespace LAIR{
                     }
                     room.mob_detect_collisions(mob);
                     t++;
-
                 }
             }
             return tmp;
