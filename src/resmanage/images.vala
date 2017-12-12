@@ -9,11 +9,11 @@ namespace LAIR{
 			base.WithPath(Path);
 			load();
 		}
-                public Image.WithAttList(List<string> atts){
-                        base.WithAttList(atts);
-                        load();
-                }
-                public bool load(){
+        public Image.WithAttList(List<string> atts){
+            base.WithAttList(atts);
+            load();
+        }
+        public bool load(){
 			bool tmp = false;
 			if (check_path()){
 				message("Loading the Image to a Surface %s", get_path());
