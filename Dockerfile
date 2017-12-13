@@ -59,9 +59,7 @@ RUN apt-get update && \
         xdg-user-dirs \
         fakeroot-ng \
         xdg-utils
-RUN adduser --home /home/lair --shell /bin/bash lair
-RUN addgroup lair
-RUN add lair lair
+RUN adduser --disabled-password --disabled-login --home /home/lair --shell /bin/bash --gecos 'lair,,,,' lair
 ADD . /home/lair/valair
 RUN chown -R lair:lair /home/lair/valair
 RUN for item in $(ls /usr/include/luajit-2.1/); do \
@@ -76,7 +74,7 @@ RUN cd valair && \
         sed -i '1s/^/VERSION = '0.9'\n/' Makefile; \
         make deb-upkg
 USER root
-RUN apt-get install lairart
+RUN apt-get install -y lairart
 RUN dpkg -i *.deb
 USER lair
-
+CMD /usr/local/bin/LAIR

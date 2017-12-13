@@ -13,10 +13,40 @@
 # package maintainers to append LDFLAGS
 #export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+export PREFIX = /usr
+export MANPREFIX = $(PREFIX)/share/man/
+export BINDIR = $(PREFIX)/bin/
+export DEMO = $(PREFIX)/share/lair/demo/
+export SETTINGS = /etc/lair/
+export LUAMAP = $(PREFIX)/share/lair/lua/map/
+export LUAMOB = $(PREFIX)/share/lair/lua/ai/
+export DOCS = $(PREFIX)/share/doc/lair/
+
 
 %:
 	dh $@
 
+override_dh_auto_install:
+	mkdir -p $$(pwd)/debian/lair/$(BINDIR) \
+		$$(pwd)/debian/lair/$(SETTINGS) \
+		$$(pwd)/debian/lair/$(DEMO) \
+		$$(pwd)/debian/lair/$(LUAMAP) \
+		$$(pwd)/debian/lair/$(LUAMOB) \
+		$$(pwd)/debian/lair/$(DOCS)
+	install -D -m 0755 bin/LAIR $$(pwd)/debian/lair/$(BINDIR)LAIR
+	install -D -m 0755 bin/lair $$(pwd)/debian/lair/$(BINDIR)lair
+	install -D  etc/lair/lairrc $$(pwd)/debian/lair/$(SETTINGS)
+	install -D -m 0755 share/lair/lua/map/common.lua $$(pwd)/debian/lair/$(LUAMAP)
+	install -D -m 0755 share/lair/lua/map/basicwall_cares_insert.lua $$(pwd)/debian/lair/$(LUAMAP)
+	install -D -m 0755 share/lair/lua/map/cut_hallways.lua $$(pwd)/debian/lair/$(LUAMAP)
+	install -D -m 0755 share/lair/lua/ai/common.lua $$(pwd)/debian/lair/$(LUAMOB)
+	install -D -m 0755 share/lair/demo/ai.lua $$(pwd)/debian/lair/$(DEMO)
+	install -D -m 0755 share/lair/demo/dungeon.lua $$(pwd)/debian/lair/$(DEMO)
+	install -D -m 0755 share/lair/demo/player.lua $$(pwd)/debian/lair/$(DEMO)
+	install -D  docs/COPYING.md $$(pwd)/debian/lair/$(DOCS)
+	install -D  docs/LUA.md $$(pwd)/debian/lair/$(DOCS)
+	install -D  docs/LUA_MOB.md $$(pwd)/debian/lair/$(DOCS)
+	install -D  docs/README.md $$(pwd)/debian/lair/$(DOCS)
 
 # dh_make generated override targets
 # This is example for Cmake (See https://bugs.debian.org/641051 )

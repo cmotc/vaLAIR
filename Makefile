@@ -1,10 +1,17 @@
 #include ../config.mk
-PREFIX = usr/local/
-MANPREFIX = $(PREFIX)/share/man/
-SETTINGS = /etc/lair/lairrc
-BINDIR = bin/
-COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
+#DESTDIR = "/"
+export PREFIX = /usr
+export MANPREFIX = $(PREFIX)/share/man/
+export BINDIR = $(PREFIX)/bin/
+export DEMO = $(PREFIX)/share/lair/demo/
+export SETTINGS = /etc/lair/
+export LUAMAP = $(PREFIX)/share/lair/lua/map/
+export LUAMOB = $(PREFIX)/share/lair/lua/ai/
+export DOCS = $(PREFIX)/share/doc/lair/
+
+COMMIT_MESSAGE ?= `date +'%y-%m-%d-%H-%M-%S'`
 VERSION ?= 0.9
+
 #EMCC_FAST_COMPILER = 0
 #EMCC_LLVM_TARGET = le32-unknown-nacl
 #VALAFLAGS:=$(foreach w,$(CPPFLAGS) $(CFLAGS) $(LDFLAGS),-X $(w))
@@ -133,6 +140,14 @@ docker-run:
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e DISPLAY=unix$DISPLAY \
 		valair
+
+docker-ls:
+	docker run -ti --rm \
+		-e DISPLAY=${DISPLAY} \
+		--device /dev/snd \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-e DISPLAY=unix$DISPLAY \
+		valair ls /usr/local/bin/
 
 unix-static:
 	valac -gv \
@@ -374,30 +389,29 @@ memcheck:
 	ulimit -c unlimited; \
 	valgrind --track-origins=yes --leak-check=summary --trace-children=yes ./bin/LAIR -v 1 -m oneroom 2>mem.err 1>mem.log
 
-install:
-	mkdir -p $(DESTDIR)$(PREFIX)$(BINDIR)
-	install bin/LAIR $(DESTDIR)$(PREFIX)$(BINDIR)LAIR
-	install bin/lair $(DESTDIR)$(PREFIX)$(BINDIR)lair
-	mkdir -p $(DESTDIR)$(SETTINGS)
-	install etc/lair/lairrc $(DESTDIR)$(SETTINGS)lairrc
-	mkdir -p $(DESTDIR)$(PREFIX)/share/lair/demo/ \
-		$(DESTDIR)$(PREFIX)/share/lair/lua/map/ \
-		$(DESTDIR)$(PREFIX)/share/lair/lua/ai/
-	install share/lair/lua/map/common.lua \
-		$(DESTDIR)$(PREFIX)/share/lair/lua/map/
-	install share/lair/lua/ai/common.lua \
-		$(DESTDIR)$(PREFIX)/share/lair/lua/ai/
-	install share/lair/lua/map/cut_hallways.lua \
-		share/lair/lua/map/basicwall_cares_insert.lua \
-		$(DESTDIR)$(PREFIX)/share/lair/lua/map
-	install share/lair/demo/dungeon.lua \
-		share/lair/demo/player.lua \
-		share/lair/demo/ai.lua \
-		$(DESTDIR)$(PREFIX)/share/lair/demo/
-	chmod -R a+r $(DESTDIR)$(PREFIX)/share/lair
-	mkdir -p $(DESTDIR)$(PREFIX)/share/doc/lair
-	install COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/share/doc/lair
-	#chown -R /var/cache/lair/map/
+dirs:
+	mkdir -p $(BINDIR) \
+		$(SETTINGS) \
+		$(DEMO) \
+		$(LUAMAP) \
+		$(LUAMOB) \
+		$(DOCS)
+
+install: dirs
+	install -D  bin/LAIR $(BINDIR)LAIR
+	install -D  bin/lair $(BINDIR)lair
+	install -D  etc/lair/lairrc $(SETTINGS)
+	install -D  share/lair/lua/map/common.lua $(LUAMAP)
+	install -D  share/lair/lua/map/basicwall_cares_insert.lua $(LUAMAP)
+	install -D  share/lair/lua/map/cut_hallways.lua $(LUAMAP)
+	install -D  share/lair/lua/ai/common.lua $(LUAMOB)
+	install -D  share/lair/demo/ai.lua $(DEMO)
+	install -D  share/lair/demo/dungeon.lua $(DEMO)
+	install -D  share/lair/demo/player.lua $(DEMO)
+	install -D  docs/COPYING.md $(DOCS)
+	install -D  docs/LUA.md $(DOCS)
+	install -D  docs/LUA_MOB.md $(DOCS)
+	install -D  docs/README.md $(DOCS)
 
 tarchive:
 	make check
@@ -405,12 +419,10 @@ tarchive:
 	echo $(VERSION); sleep 3
 	tar --exclude=.git -czvf ../lair_$(VERSION).orig.tar.gz ./
 
-deb-pkg:
-	make tarchive
+deb-pkg: tarchive
 	debuild
 
-deb-upkg:
-	make tarchive
+deb-upkg: tarchive
 	debuild -us -uc
 
 rpm-pkg:

@@ -61,18 +61,6 @@ namespace LAIR{
             }
             return r;
         }
-        public bool dedupe_memories(){
-            bool r = false;
-            foreach(Floor floor in floors){
-                r = floor.dedupe_memories();
-            }
-            return r;
-        }
-		public void render_copy(Video.Renderer renderer){
-			foreach(Floor floor in floors){
-				floor.render_copy(renderer);
-			}
-		}
         public unowned Floor floor_has_player(){
             int r = 0;
             if(floors_init){
@@ -86,5 +74,17 @@ namespace LAIR{
             unowned Floor ret = floors.nth_data(r);
             return ret;
         }
+        public bool dedupe_memories(){
+            bool r = false;
+            foreach(Floor floor in floors){
+                r = floor.dedupe_memories();
+            }
+            return r;
+        }
+		public void render_copy(Video.Renderer renderer){
+			foreach(Floor floor in floors){
+				floor.render_copy(renderer);
+			}
+		}
 	}
 }
