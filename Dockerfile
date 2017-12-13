@@ -22,9 +22,8 @@ RUN apt-get update && \
         build-essential \
         checkinstall \
         valac \
-        valac-0.34-vapi \
-        libvala-0.34-0 \
-        libvala-0.34-dev \
+        valac-vapi \
+        libvala-dev \
         sdl2-vapi \
         tox-vapi \
         pkgconf \
@@ -49,7 +48,6 @@ RUN apt-get update && \
         luajit \
         lua5.2 \
         lua-check \
-        musl-gcc \
         libc-dev \
         make \
         git \
@@ -59,11 +57,14 @@ RUN apt-get update && \
         debhelper \
         devscripts \
         xdg-user-dirs \
+        fakeroot-ng \
         xdg-utils
-RUN useradd -ms /bin/bash lair
+RUN adduser --home /home/lair --shell /bin/bash lair
+RUN addgroup lair
+RUN add lair lair
 ADD . /home/lair/valair
 RUN chown -R lair:lair /home/lair/valair
-RUN for item in $(ls /usr/include/luajit-2.0/); do \
+RUN for item in $(ls /usr/include/luajit-2.1/); do \
                 ln -v -f -s /usr/include/luajit-2.0/$item /usr/include/$item; \
                 ln -v -f -s /usr/lib/x86_64-linux-gnu/pkgconfig/luajit.pc /usr/lib/pkgconfig/lua.pc; \
                 ln -v -f -s /usr/lib/x86_64-linux-gnu/pkgconfig/luajit.pc /usr/lib/x86_64-linux-gnu/pkgconfig/lua.pc; \
@@ -71,8 +72,8 @@ RUN for item in $(ls /usr/include/luajit-2.0/); do \
 USER lair
 WORKDIR /home/lair
 RUN cd valair && \
-        sed -i 's|include ../config.mk|#include ../config.mk|' Makefile && \
-        sed -i '1s/^/VERSION = '0.9'\n/' Makefile && \
+        sed -i 's|include ../config.mk|#include ../config.mk|' Makefile; \
+        sed -i '1s/^/VERSION = '0.9'\n/' Makefile; \
         make deb-upkg
 USER root
 RUN apt-get install lairart

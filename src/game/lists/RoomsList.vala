@@ -29,7 +29,7 @@ namespace LAIR{
         protected class RoomGenerationThread {
             public RoomGenerationThread(AutoRect pwo, AutoRect fd, string[] sc, FileDB dm, Video.Renderer? rp, out List<Room> fr, bool wp = false){
                 fr.append(generate_room(pwo, fd, sc, dm, rp, wp));
-                GLib.Thread.usleep (200000);
+                GLib.Thread.usleep (10000);
             }
             public Room generate_room(AutoRect pwo, AutoRect fd, string[] sc, FileDB dm, Video.Renderer? rp, bool wp = false){
                 Room r =  new Room(pwo, fd, sc, dm, rp, wp);

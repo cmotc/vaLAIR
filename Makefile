@@ -1,9 +1,10 @@
 #include ../config.mk
-PREFIX = /usr/local/
-MANPREFIX = $(PREFIX)/share/man
-SETTINGS = /etc/
+PREFIX = usr/local/
+MANPREFIX = $(PREFIX)/share/man/
+SETTINGS = /etc/lair/lairrc
 BINDIR = bin/
 COMMIT_MESSAGE = `date +'%y-%m-%d-%H-%M-%S'`
+VERSION ?= 0.9
 #EMCC_FAST_COMPILER = 0
 #EMCC_LLVM_TARGET = le32-unknown-nacl
 #VALAFLAGS:=$(foreach w,$(CPPFLAGS) $(CFLAGS) $(LDFLAGS),-X $(w))
@@ -92,7 +93,7 @@ define VALA_PKG_OPTIONS
 	--pkg=tartrazine
 endef
 
-export LD_LIBRARY_PATH = /usr/local/lib
+#export LD_LIBRARY_PATH = /usr/local/lib
 
 unix:
 	valac -gv \
@@ -375,27 +376,27 @@ memcheck:
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)$(BINDIR)
-	cp bin/LAIR $(DESTDIR)$(PREFIX)$(BINDIR)
-	cp bin/lair $(DESTDIR)$(PREFIX)$(BINDIR)
+	install bin/LAIR $(DESTDIR)$(PREFIX)$(BINDIR)LAIR
+	install bin/lair $(DESTDIR)$(PREFIX)$(BINDIR)lair
 	mkdir -p $(DESTDIR)$(SETTINGS)
-	cp etc/lair/lairrc $(DESTDIR)$(SETTINGS)
+	install etc/lair/lairrc $(DESTDIR)$(SETTINGS)lairrc
 	mkdir -p $(DESTDIR)$(PREFIX)/share/lair/demo/ \
 		$(DESTDIR)$(PREFIX)/share/lair/lua/map/ \
 		$(DESTDIR)$(PREFIX)/share/lair/lua/ai/
-	cp share/lair/lua/map/common.lua \
+	install share/lair/lua/map/common.lua \
 		$(DESTDIR)$(PREFIX)/share/lair/lua/map/
-	cp share/lair/lua/ai/common.lua \
+	install share/lair/lua/ai/common.lua \
 		$(DESTDIR)$(PREFIX)/share/lair/lua/ai/
-	cp share/lair/lua/map/cut_hallways.lua \
+	install share/lair/lua/map/cut_hallways.lua \
 		share/lair/lua/map/basicwall_cares_insert.lua \
 		$(DESTDIR)$(PREFIX)/share/lair/lua/map
-	cp share/lair/demo/dungeon.lua \
+	install share/lair/demo/dungeon.lua \
 		share/lair/demo/player.lua \
 		share/lair/demo/ai.lua \
 		$(DESTDIR)$(PREFIX)/share/lair/demo/
 	chmod -R a+r $(DESTDIR)$(PREFIX)/share/lair
 	mkdir -p $(DESTDIR)$(PREFIX)/share/doc/lair
-	cp COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/share/doc/lair
+	install COPYING.md  LUA.md  LUA_MOB.md  README.md $(DESTDIR)$(PREFIX)/share/doc/lair
 	#chown -R /var/cache/lair/map/
 
 tarchive:
