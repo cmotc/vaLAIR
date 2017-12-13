@@ -345,7 +345,7 @@ debclean:
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
-	rm -f bin/LAIR
+	rm -f bin/LAIR*
 	rm -f bin/LAIR*.exe
 	make debclean
 	make unlog

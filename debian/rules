@@ -27,6 +27,7 @@ export DOCS = $(PREFIX)/share/doc/lair/
 	dh $@
 
 override_dh_auto_install:
+	cp *.md $(DOCS)
 	mkdir -p $$(pwd)/debian/lair/$(BINDIR) \
 		$$(pwd)/debian/lair/$(SETTINGS) \
 		$$(pwd)/debian/lair/$(DEMO) \
