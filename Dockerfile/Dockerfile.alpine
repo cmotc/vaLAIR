@@ -1,0 +1,46 @@
+FROM alpine:edge
+RUN apk update && apk add alpine-sdk
+RUN apk add vala sdl2 sdl2-dev sdl2_image sdl2_image-dev sdl2_mixer \
+    sdl2_mixer-dev sdl2_ttf sdl2_ttf-dev make git pkgconf luajit luajit-dev \
+    musl musl-dev bash autoconf automake libtool libsodium libsodium-dev file \
+    check yasm libnet libnet-dev linux-headers opus opus-dev libsoup wget \
+    libsoup-dev json-glib json-glib-dev
+RUN adduser -D -h /home/lair -s /bin/bash -g 'lair,,,,' lair
+RUN git clone https://github.com/sdl2-vapi/sdl2-vapi.git && \
+        cd sdl2-vapi && \
+        export VAPI_PATH=/usr/share/vala-0.36/vapi/ && \
+        cp *.vapi *.deps "$VAPI_PATH" && \
+        mv "$VAPI_PATH/SDL2_gfx.vapi" "$VAPI_PATH/sdl2-gfx.vapi" && \
+        mv "$VAPI_PATH/SDL2_image.vapi" "$VAPI_PATH/sdl2-image.vapi" && \
+        mv "$VAPI_PATH/SDL2_ttf.vapi" "$VAPI_PATH/sdl2-ttf.vapi" && \
+        mv "$VAPI_PATH/SDL2_mixer.vapi" "$VAPI_PATH/sdl2-mixer.vapi"
+#RUN wget -O c-toxcore https://github.com/TokTok/c-toxcore/archive/v0.1.6.tar.gz
+RUN git clone https://github.com/TokTok/c-toxcore.git && \
+        cd c-toxcore && \
+        autoreconf -fi && \
+        mkdir _build && cd _build && \
+        ../configure && \
+        make && \
+        make install
+RUN git clone https://github.com/RicinApp/tox-vapi.git && \
+    cd tox-vapi && \
+    cp vapi/*.vapi /usr/share/vala-0.36/vapi
+#RUN apk search json-glib ; false
+RUN git clone https://github.com/eyedeekay/tartrazine.git && \
+        cd tartrazine && \
+        make && \
+        make install
+ADD . /home/lair/valair
+RUN chown -R lair:lair /home/lair/valair
+USER lair
+WORKDIR /home/lair
+#RUN ls /usr/share/vala-0.36/vapi | grep -i sdl; false
+RUN cd valair && \
+        sed -i 's|include ../config.mk|#include ../config.mk|' Makefile; \
+        sed -i '1s/^/VERSION = '0.9'\n/' Makefile; \
+        make unix-alpine
+USER root
+RUN cd valair && \
+        make install
+USER lair
+CMD /usr/local/bin/LAIR

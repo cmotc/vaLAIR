@@ -1,12 +1,12 @@
-4c4cd87705fb6c3032d344b8a88c93fb  usr/bin/LAIR
-45eeee43e5008add9564f68f362676c3  usr/bin/lair
+4c4cd87705fb6c3032d344b8a88c93fb  usr/games/LAIR
+45eeee43e5008add9564f68f362676c3  usr/games/lair
 33bcd5844ff9af5d47928d0a32d5b1b2  usr/share/doc/lair/COPYING.md.gz
 ce8be3b43907e97ed009ff56fd76a18e  usr/share/doc/lair/LUA.md.gz
 ed92ea6af63a74b304312cf273b0d20f  usr/share/doc/lair/LUA_MOB.md
 1c3fb05cffbcd665f4307af78ce9830b  usr/share/doc/lair/README.Debian
 57e6d594b5c8cfa5c5f537543da95152  usr/share/doc/lair/README.md.gz
 117b4d5a3438e444cb511a705f974062  usr/share/doc/lair/changelog.Debian.gz
-5df36bb12a1f55548fe69006ff38e3b8  usr/share/doc/lair/copyright
+e5905e61b8d7def2dc038394e0776652  usr/share/doc/lair/copyright
 cb06318337a6784c193666fbae175f65  usr/share/lair/demo/ai.lua
 fbaa366d79f4560179dde2b1f1b30d5e  usr/share/lair/demo/dungeon.lua
 d41d8cd98f00b204e9800998ecf8427e  usr/share/lair/demo/player.lua

@@ -18,3 +18,4 @@ dh_shlibdeps
 dh_installdeb
 dh_gencontrol
 dh_md5sums
+dh_builddeb

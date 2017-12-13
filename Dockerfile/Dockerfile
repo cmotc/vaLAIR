@@ -75,6 +75,6 @@ RUN cd valair && \
         make deb-upkg
 USER root
 RUN apt-get install -y lairart
-RUN dpkg -i *.deb
+RUN cd valair && make install
 USER lair
-CMD /usr/local/bin/LAIR
+CMD /usr/bin/LAIR

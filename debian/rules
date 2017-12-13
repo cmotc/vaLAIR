@@ -15,7 +15,7 @@
 
 export PREFIX = /usr
 export MANPREFIX = $(PREFIX)/share/man/
-export BINDIR = $(PREFIX)/bin/
+export BINDIR = $(PREFIX)/games/
 export DEMO = $(PREFIX)/share/lair/demo/
 export SETTINGS = /etc/lair/
 export LUAMAP = $(PREFIX)/share/lair/lua/map/
@@ -27,7 +27,8 @@ export DOCS = $(PREFIX)/share/doc/lair/
 	dh $@
 
 override_dh_auto_install:
-	cp *.md $(DOCS)
+	cp *.md docs
+	rm -rf $$(pwd)/debian/lair/
 	mkdir -p $$(pwd)/debian/lair/$(BINDIR) \
 		$$(pwd)/debian/lair/$(SETTINGS) \
 		$$(pwd)/debian/lair/$(DEMO) \
@@ -53,4 +54,4 @@ override_dh_auto_install:
 # This is example for Cmake (See https://bugs.debian.org/641051 )
 #override_dh_auto_configure:
 #	dh_auto_configure -- #	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH)
-
+# rm -rf $$(pwd)/debian/lair/

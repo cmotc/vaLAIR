@@ -1,5 +1,4 @@
 #include ../config.mk
-#DESTDIR = "/"
 export PREFIX = /usr
 export MANPREFIX = $(PREFIX)/share/man/
 export BINDIR = $(PREFIX)/bin/
@@ -118,6 +117,7 @@ unix-opt:
 		--cc $(C_COMPILER) \
 		$(VALA_OPTIONS) \
 		$(VALA_PKG_OPTIONS) \
+		--vapidir /usr/share/vala-0.36/vapi \
 		-X -O3 \
 		-X -fstack-protector-all \
 		-X --param \
@@ -131,14 +131,17 @@ unix-opt:
 		$(VALAIR_LIST)
 
 docker:
-	docker build -t valair .
+	docker build -f Dockerfile/Dockerfile -t valair .
+
+alpine:
+	docker build -f Dockerfile/Dockerfile.alpine -t valair .
 
 docker-run:
 	docker run -ti --rm \
-		-e DISPLAY=${DISPLAY} \
+		-e DISPLAY=$(DISPLAY) \
 		--device /dev/snd \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-e DISPLAY=unix$DISPLAY \
+		-v $(HOME)/.Xauthority:/home/lair/.Xauthority \
 		valair
 
 docker-ls:
@@ -152,7 +155,7 @@ docker-ls:
 unix-static:
 	valac -gv \
 		-o bin/LAIR-static \
-		--cc $(STATIC_C_COMPILER) \
+		--cc $(C_COMPILER) \
 		$(VALA_OPTIONS) \
 		$(VALA_PKG_OPTIONS) \
 		-g \
@@ -165,6 +168,15 @@ unix-static:
 		-X -l:libSDL2_mixer.a \
 		-X -l:libFLAC.a \
 		-X -l:libogg.a \
+		$(VALAIR_LIST)
+
+unix-alpine:
+	valac -gv \
+		-o bin/LAIR \
+		$(VALA_OPTIONS) \
+		$(VALA_PKG_OPTIONS) \
+		-g \
+		$(C_OPTIONS) \
 		$(VALAIR_LIST)
 
 win64:
@@ -341,7 +353,7 @@ unlog:
 		bin/*err
 
 debclean:
-	rm -f ../*.deb ../*.changes ../*.buildinfo ../*.build ../*.changes ../*.dsc
+	rm -f ../*.deb ../*.changes ../*.buildinfo ../*.build ../*.changes ../*.dsc ../*.tar.xz
 	rm -rf doc-pak description-pak || sudo rm -rf doc-pak description-pak
 
 clean:
@@ -390,6 +402,7 @@ memcheck:
 	valgrind --track-origins=yes --leak-check=summary --trace-children=yes ./bin/LAIR -v 1 -m oneroom 2>mem.err 1>mem.log
 
 dirs:
+	cp *.md docs
 	mkdir -p $(BINDIR) \
 		$(SETTINGS) \
 		$(DEMO) \
@@ -398,16 +411,16 @@ dirs:
 		$(DOCS)
 
 install: dirs
-	install -D  bin/LAIR $(BINDIR)LAIR
-	install -D  bin/lair $(BINDIR)lair
+	install -D -m 755 bin/LAIR $(BINDIR)LAIR
+	install -D -m 755 bin/lair $(BINDIR)lair
 	install -D  etc/lair/lairrc $(SETTINGS)
-	install -D  share/lair/lua/map/common.lua $(LUAMAP)
-	install -D  share/lair/lua/map/basicwall_cares_insert.lua $(LUAMAP)
-	install -D  share/lair/lua/map/cut_hallways.lua $(LUAMAP)
-	install -D  share/lair/lua/ai/common.lua $(LUAMOB)
-	install -D  share/lair/demo/ai.lua $(DEMO)
-	install -D  share/lair/demo/dungeon.lua $(DEMO)
-	install -D  share/lair/demo/player.lua $(DEMO)
+	install -D -m 755 share/lair/lua/map/common.lua $(LUAMAP)
+	install -D -m 755 share/lair/lua/map/basicwall_cares_insert.lua $(LUAMAP)
+	install -D -m 755 share/lair/lua/map/cut_hallways.lua $(LUAMAP)
+	install -D -m 755 share/lair/lua/ai/common.lua $(LUAMOB)
+	install -D -m 755 share/lair/demo/ai.lua $(DEMO)
+	install -D -m 755 share/lair/demo/dungeon.lua $(DEMO)
+	install -D -m 755 share/lair/demo/player.lua $(DEMO)
 	install -D  docs/COPYING.md $(DOCS)
 	install -D  docs/LUA.md $(DOCS)
 	install -D  docs/LUA_MOB.md $(DOCS)
