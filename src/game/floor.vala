@@ -1,11 +1,11 @@
 using SDL;
 //using Glib
 namespace LAIR{
-	class Floor : RoomsList {
+	class Level : RoomsList {
         private int entry_room = 0;
         private int generator_room = 0;
         private int size = 3;
-		public Floor(string[] scripts, int pre_size, FileDB DM, Video.Renderer? renderer){
+		public Level(string[] scripts, int pre_size, FileDB DM, Video.Renderer? renderer){
             base(scripts, DM, renderer);
             size = pre_size * pre_size;
             //entry_room = roll_dice(0, size-1);
@@ -60,7 +60,7 @@ namespace LAIR{
         public int take_turns(){
             int tmp = 1;
             foreach(unowned Room room in rooms){
-                message("   Entities on the floor are taking turns");
+                message("   Entities on the level are taking turns");
                 tmp = room.take_turns();
             }
             return tmp;
