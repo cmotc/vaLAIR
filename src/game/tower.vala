@@ -7,6 +7,7 @@ namespace LAIR{
         private unowned string[] scripts;
         private bool levels_init = false;
         private int size = 3;
+        private GLib.ThreadPool<LevelGenerationThread> level_threads;
         private int get_size(){
             return size + 2;
         }
@@ -19,7 +20,24 @@ namespace LAIR{
             message("Building Tower, %s levels", levels.length().to_string());
             append_level(true);
             levels_init = true;
+            try {
+                level_threads = new ThreadPool<LevelGenerationThread>.with_owned_data ((thread) => {
+                    thread.generate_level(lua_scripts,size, dungeon_master, renderer_pointer);
+                }, 2, false);
+            } catch (ThreadError e) {
+                message("ThreadError: %s\n", e.message);
+            }
 		}
+        public class LevelGenerationThread{
+            public LevelGenerationThread(string[] sc, int sz, FileDB dm, Video.Renderer rp, out List<Level> ll, bool hp=false){
+                ll.append(generate_level(sc, sz, dm, rp, hp));
+                GLib.Thread.usleep(500000);
+            }
+            public Level generate_level(string[] sc, int sz, FileDB dm, Video.Renderer rp, bool hp=false){
+                Level tmp = new Level( sc, sz, dm, rp);
+                return tmp;
+            }
+        }
         private Level generate_level(bool has_player){
             Level tmp = new Level(
                     scripts,
@@ -28,9 +46,22 @@ namespace LAIR{
                 renderer_pointer);
             return tmp;
         }
+        public void append_level_thread(bool has_player = false){
+            try {
+                level_threads.add(new LevelGenerationThread(scripts, size, dungeon_master, renderer_pointer, out levels, has_player));
+            }catch (ThreadError e) {
+                message("ThreadError: %s\n", e.message);
+            }
+        }
         private void append_level(bool has_player){
             levels.append(generate_level(has_player));
             message(" Creating new level :%s", levels.length().to_string());
+        }
+        public int grow_a_level(){
+            if (levels.length() + level_threads.get_num_threads() + (get_size() -(levels.length() + level_threads.get_num_threads()) ) < get_size()) {
+                append_level_thread(false);
+            }
+            return get_size() + (int) levels.length();
         }
         public int take_turns(){
             int tmp = 1;

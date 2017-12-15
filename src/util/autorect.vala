@@ -136,5 +136,12 @@ namespace LAIR{
         public AutoPoint brc(){
             return new AutoPoint(x()+(int)w(), y()+(int)h());
         }
+        private void ignore_unused(){
+            xa();
+            ya();
+            set_w(1);
+            set_h(1);
+            quadrants();
+        }
     }
 }

@@ -70,7 +70,7 @@ define VALAIR_LIST
 	src/game/lists/AutoPoint.vala \
 	src/game/frame.vala \
 	src/game/room.vala \
-	src/game/floor.vala \
+	src/game/level.vala \
 	src/game/tower.vala \
 	src/game/game.vala \
 	src/entity/dice.vala \
