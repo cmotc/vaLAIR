@@ -70,8 +70,6 @@ RUN for item in $(ls /usr/include/luajit-2.1/); do \
 USER lair
 WORKDIR /home/lair
 RUN cd valair && \
-        sed -i 's|include ../config.mk|#include ../config.mk|' Makefile; \
-        sed -i '1s/^/VERSION = '0.9'\n/' Makefile; \
         make deb-upkg
 USER root
 RUN apt-get install -y lairart
