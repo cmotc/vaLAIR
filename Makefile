@@ -42,7 +42,6 @@ define C_OPTIONS
 	-X -g3 \
 	-X -lluajit-5.1 \
 	-X -lSDL2 \
-	-X -lSDL2_gfx \
 	-X -lSDL2_image \
 	-X -lSDL2_ttf \
 	-X -lSDL2_mixer
@@ -91,14 +90,13 @@ define VALA_PKG_OPTIONS
 	--pkg gio-2.0 \
 	--pkg lua \
 	--pkg sdl2 \
-	--pkg sdl2-gfx \
 	--pkg sdl2-image \
 	--pkg sdl2-ttf \
 	--pkg sdl2-mixer \
 	--target-glib 2.0 \
 	--pkg=tartrazine
 endef
-
+#--pkg sdl2-gfx \
 #export LD_LIBRARY_PATH = /usr/local/lib
 
 unix:
@@ -134,7 +132,7 @@ docker:
 	docker build -f Dockerfile/Dockerfile -t valair .
 
 alpine:
-	docker build -f Dockerfile/Dockerfile.alpine -t valair .
+	docker build -f Dockerfile/Dockerfile.alpine -t valair-alpine .
 
 docker-run:
 	docker run -ti --rm \
@@ -143,6 +141,14 @@ docker-run:
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-v $(HOME)/.Xauthority:/home/lair/.Xauthority \
 		valair
+
+docker-alpine-run:
+	docker run -ti --rm \
+		-e DISPLAY=$(DISPLAY) \
+		--device /dev/snd \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-v $(HOME)/.Xauthority:/home/lair/.Xauthority \
+		valair-alpine
 
 docker-ls:
 	docker run -ti --rm \
@@ -162,7 +168,6 @@ unix-static:
 		$(C_OPTIONS) \
 		-X -l:libluajit-5.1.a \
 		-X -l:libSDL2.a \
-		-X -l:libSDL2_gfx.a \
 		-X -l:libSDL2_image.a \
 		-X -l:libSDL2_ttf.a \
 		-X -l:libSDL2_mixer.a \
@@ -347,7 +352,7 @@ all:
 
 
 unlog:
-	rm -f *log \
+	rm -f *log* \
 		*err* \
 		bin/*log \
 		bin/*err

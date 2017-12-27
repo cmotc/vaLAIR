@@ -1,5 +1,6 @@
 using SDL;
 using SDLImage;
+
 int x_max = 320;
 int y_max = 320;
 

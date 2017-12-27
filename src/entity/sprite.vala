@@ -1,6 +1,6 @@
 using SDL;
 using SDLImage;
-using SDLGraphics;
+//using SDLGraphics;
 
 namespace LAIR{
 	class Sprite : Anim{
@@ -62,12 +62,18 @@ namespace LAIR{
 		}
         public void render_copy(Video.Renderer* renderer, AutoPoint player_pos){
             if(is_player()){
+                int i = 0;
                 foreach(var texture in body.copy()){
+                    message(i.to_string());
                     renderer->copyex(texture, get_source(), get_position(player_pos), get_angle(), null, Video.RendererFlip.VERTICAL);
+                    i++;
                 }
             }else{
+                int i = 0;
                 foreach(var texture in body.copy()){
+                    message(i.to_string());
                     renderer->copyex(texture, get_source(), get_position(player_pos), 0.0, null, Video.RendererFlip.VERTICAL);
+                    i++;
                 }
             }
             toggle_wobble_off();

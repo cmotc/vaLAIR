@@ -1,6 +1,6 @@
 using SDL;
 using SDLImage;
-using SDLGraphics;
+//using SDLGraphics;
 
 namespace LAIR{
 	class Image : LairFile {

@@ -4,8 +4,14 @@ RUN apk add vala sdl2 sdl2-dev sdl2_image sdl2_image-dev sdl2_mixer \
     sdl2_mixer-dev sdl2_ttf sdl2_ttf-dev make git pkgconf luajit luajit-dev \
     musl musl-dev bash autoconf automake libtool libsodium libsodium-dev file \
     check yasm libnet libnet-dev linux-headers opus opus-dev libsoup wget \
-    libsoup-dev json-glib json-glib-dev
+    libsoup-dev json-glib json-glib-dev sudo #lua-dev lua
+RUN for item in $(ls /usr/include/luajit-2.1/); do \
+                ln -v -f -s /usr/include/luajit-2.0/$item /usr/include/$item; \
+                ln -v -f -s /usr/lib/pkgconfig/luajit.pc /usr/lib/pkgconfig/lua.pc; \
+        done
 RUN adduser -D -h /home/lair -s /bin/bash -g 'lair,,,,' lair
+RUN addgroup lair abuild
+RUN echo 'lair  ALL=(ALL) ALL' >> /etc/sudoers
 RUN git clone https://github.com/sdl2-vapi/sdl2-vapi.git && \
         cd sdl2-vapi && \
         export VAPI_PATH=/usr/share/vala-0.36/vapi/ && \
@@ -14,9 +20,10 @@ RUN git clone https://github.com/sdl2-vapi/sdl2-vapi.git && \
         mv "$VAPI_PATH/SDL2_image.vapi" "$VAPI_PATH/sdl2-image.vapi" && \
         mv "$VAPI_PATH/SDL2_ttf.vapi" "$VAPI_PATH/sdl2-ttf.vapi" && \
         mv "$VAPI_PATH/SDL2_mixer.vapi" "$VAPI_PATH/sdl2-mixer.vapi"
-#RUN wget -O c-toxcore https://github.com/TokTok/c-toxcore/archive/v0.1.6.tar.gz
-RUN git clone https://github.com/TokTok/c-toxcore.git && \
-        cd c-toxcore && \
+#RUN wget -O toxcore https://github.com/TokTok/toxcore/archive/v0.1.6.tar.gz
+#RUN git clone https://github.com/TokTok/toxcore.git toxcore && \
+RUN git clone https://github.com/irungentoo/toxcore.git toxcore && \
+        cd toxcore && \
         autoreconf -fi && \
         mkdir _build && cd _build && \
         ../configure && \
@@ -30,15 +37,20 @@ RUN git clone https://github.com/eyedeekay/tartrazine.git && \
         cd tartrazine && \
         make && \
         make install
-ADD . /home/lair/valair
+RUN valac --version
+RUN git clone https://github.com/eyedeekay/valair /home/lair/valair
 RUN chown -R lair:lair /home/lair/valair
+RUN mkdir -p /var/cache/distfiles
+RUN chgrp abuild /var/cache/distfiles
+RUN chmod g+w /var/cache/distfiles
 USER lair
 WORKDIR /home/lair
-#RUN ls /usr/share/vala-0.36/vapi | grep -i sdl; false
+RUN git clone git://git.alpinelinux.org/aports
+#RUN abuild-keygen -a -i && cd abuild && abuild -r
 RUN cd valair && \
         sed -i 's|include ../config.mk|#include ../config.mk|' Makefile; \
         sed -i '1s/^/VERSION = '0.9'\n/' Makefile; \
-        make unix-alpine
+        make unix
 USER root
 RUN cd valair && \
         make install

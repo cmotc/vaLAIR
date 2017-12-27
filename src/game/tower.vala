@@ -1,4 +1,5 @@
 using SDL;
+
 namespace LAIR{
 	class Tower : Dice{
 		private List<Level> levels = new List<Level>();
@@ -22,7 +23,7 @@ namespace LAIR{
             levels_init = true;
             try {
                 level_threads = new ThreadPool<LevelGenerationThread>.with_owned_data ((thread) => {
-                    thread.generate_level(lua_scripts,size, dungeon_master, renderer_pointer);
+                    thread.generate_level(lua_scripts, size, dungeon_master, renderer_pointer);
                 }, 2, false);
             } catch (ThreadError e) {
                 message("ThreadError: %s\n", e.message);
@@ -61,6 +62,8 @@ namespace LAIR{
             if (levels.length() + level_threads.get_num_threads() + (get_size() -(levels.length() + level_threads.get_num_threads()) ) < get_size()) {
                 append_level_thread(false);
             }
+            message("Completed levels: %s", get_size().to_string());
+            message("Potential levels: %s", levels.length().to_string());
             return get_size() + (int) levels.length();
         }
         public int take_turns(){
