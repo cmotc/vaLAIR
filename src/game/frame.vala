@@ -2,14 +2,14 @@ using SDL;
 using Lua;
 
 namespace LAIR{
-	class Frame : LuaConf{
+	class Frame : Dice{
         private AutoRect Border = new AutoRect(0,0,0,0);
         private unowned string[] gen_scripts;
         private int generator_ticks = 0;
         private int generator_cycle = 0;
-        private int q = 0;
+        private bool[] q = {false,false,false,false};
         public Frame(AutoRect position, AutoRect floor_dims, string[] scripts){
-            base(scripts[0]);
+           base(scripts[0]);
             gen_scripts = scripts;
             Border = new AutoRect(position.x(), position.y(), position.w(), position.h());
             lua_push_dimensions_generator_phase(get_hitrect(), floor_dims);
@@ -101,28 +101,56 @@ namespace LAIR{
             }
             return r;
         }
-        public AutoRect rect_select(){
+        private AutoRect rect_chooser(int g){
             AutoRect r = null;
-            if(q == 0){
-                r = new AutoRect(this.Border.x(),
-                    this.Border.y()+(int)this.Border.h(),
-                    this.Border.w(),
-                    this.Border.h());
-            }else if(q == 1){
-                r = new AutoRect(this.Border.x(),
-                    this.Border.y()-(int)this.Border.h(),
-                    this.Border.w(),
-                    this.Border.h());
-            }else if(q == 2){
-                r = new AutoRect(this.Border.x()-(int)this.Border.w(),
-                    this.Border.y(),
-                    this.Border.w(),
-                    this.Border.h());
-            }else if(q == 3){
-                r = new AutoRect(this.Border.x()+(int)this.Border.w(),
-                this.Border.y(),
-                this.Border.w(),
-                this.Border.h());
+            switch (g){
+                case 0:
+                    r = new AutoRect(this.Border.x(),
+                        this.Border.y()+(int)this.Border.h(),
+                        this.Border.w(),
+                        this.Border.h());
+                    q[0] = true;
+                    break;
+                case 1:
+                    r = new AutoRect(this.Border.x(),
+                        this.Border.y()-(int)this.Border.h(),
+                        this.Border.w(),
+                        this.Border.h());
+                    q[1] = true;
+                    break;
+                case 2:
+                    r = new AutoRect(this.Border.x()-(int)this.Border.w(),
+                        this.Border.y(),
+                        this.Border.w(),
+                        this.Border.h());
+                    q[2] = true;
+                    break;
+                case 3:
+                    r = new AutoRect(this.Border.x()+(int)this.Border.w(),
+                        this.Border.y(),
+                        this.Border.w(),
+                        this.Border.h());
+                    q[3] = true;
+                    break;
+            }
+            return r;
+        }
+        public AutoRect rect_select(){
+            int g = -1; int c = 0;
+            bool b = false; bool d = false;
+            AutoRect r = null;
+            while (!b) {
+                g = roll_four();
+                if (q[g] == false) {
+                    b = true; d = true;
+                }else if (c > 3){
+                    q = {false,false,false,false};
+                    b = true;
+                }
+                c++;
+            }
+            if (d){
+                r = rect_chooser(g);
             }
             return r;
         }

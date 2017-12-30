@@ -9,9 +9,10 @@ namespace LAIR{
             base(scripts, DM, renderer);
             size = pre_size * pre_size;
             //entry_room = roll_dice(0, size-1);
-            message("Generating room at : x %s y %s w %s h%s", position_with_offset.x().to_string(), position_with_offset.y().to_string(), position_with_offset.w().to_string(), position_with_offset.h().to_string() );
+            message("Generating room at : x %s y %s w %s h%s", new AutoRect((0*width),(0*height),width,height).x().to_string(), new AutoRect((0*width),(0*height),width,height).y().to_string(), new AutoRect((0*width),(0*height),width,height).w().to_string(), new AutoRect((0*width),(0*height),width,height).h().to_string() );
             lua_do_function("""archive_old_map()""");
-            generate_room_thread(position_with_offset, insert_player(entry_room));
+            generate_room_thread(new AutoRect((0*width),(0*height),width,height), insert_player(entry_room));
+            //generate_room_thread(get_room_player().rect_select(), insert_player(entry_room));
 		}
         public int visited(){
             int r = 0;

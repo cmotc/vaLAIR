@@ -227,5 +227,15 @@ namespace LAIR{
                 skills += stringify_tech();
             return skills;
         }
+        private void avoid_warnings(){
+            get_stat_func();
+            Exert();
+            Dodge();
+            Aim();
+            Will();
+            Resist();
+            Magic();
+            Tech();
+        }
 	}
 }

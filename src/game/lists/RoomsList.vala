@@ -6,21 +6,20 @@ namespace LAIR{
         private unowned FileDB dungeon_master = null;
         protected List<Room> rooms = new List<Room>();
         protected unowned string[] lua_scripts;
-        protected AutoRect position_with_offset;
         private GLib.ThreadPool<RoomGenerationThread> room_threads;
+        protected static int count = 2;
+        protected static int width = ((count * 6) * 32);
+        protected static int height = ((count * 6) * 32);
         public RoomsList(string[] scripts, FileDB DM, Video.Renderer? renderer){
             base(scripts[0]);
-            int count = 2;
-            int width = ((count * 6) * 32);
-            int height = ((count * 6) * 32);
-            position_with_offset = new AutoRect((0*width),(0*height),width,height);
+            //position_with_offset = new AutoRect((0*width),(0*height),width,height);
             floor_dims = new AutoRect(0,0,(width * count),(height * count));
             lua_scripts = scripts;
             dungeon_master = DM;
             renderer_pointer = renderer;
             try {
                 room_threads = new ThreadPool<RoomGenerationThread>.with_owned_data ((thread) => {
-                    thread.generate_room(position_with_offset, floor_dims, lua_scripts, dungeon_master, renderer_pointer);
+                    thread.generate_room(room_select(), floor_dims, lua_scripts, dungeon_master, renderer_pointer);
                 }, 2, false);
             } catch (ThreadError e) {
                 message("ThreadError: %s\n", e.message);
@@ -43,15 +42,24 @@ namespace LAIR{
                 message("ThreadError: %s\n", e.message);
             }
         }
-        public int generate_new_room(AutoRect position_with_offset, bool with_player = false){
-            int r = 19231;
-            if(rooms.length() > 0){
-                if(rooms.nth_data(rooms.length() - 1).ingeneration()){
-                    message("Generating new tile in last room: ");
-                    rooms.nth_data(rooms.length() - 1).generate_conditional();
+        public int generate_new_room(bool with_player = false){
+            AutoRect positon_with_offset = room_select();
+            generate_room_thread(positon_with_offset);
+            int r = 1692;
+            return r;
+        }
+        public int generate_room_loop(){
+            return 1692;
+        }
+        public AutoRect room_select(bool with_player = false){
+            AutoRect r = null;
+            if (with_player) {
+                r = new AutoRect((0*width),(0*height),width,height);
+            }else{
+                if (get_room_player() == null){
+                    r = new AutoRect((0*width),(0*height),width,height);
                 }else{
-                    message("Last room generated. Initializing new room: ");
-                    generate_room_thread(position_with_offset, with_player);
+                    r = get_room_player().rect_select();
                 }
             }
             return r;

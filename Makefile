@@ -143,7 +143,8 @@ docker-run:
 		valair
 
 docker-alpine-run:
-	docker run -ti --rm \
+	docker run -ti \
+		--name alpine-lair \
 		-e DISPLAY=$(DISPLAY) \
 		--device /dev/snd \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \

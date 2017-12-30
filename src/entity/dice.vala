@@ -14,6 +14,9 @@ namespace LAIR{
             return roll_dice(0, 20);
         }
         protected int roll_twelve(){
+            return roll_dice(0, 12);
+        }
+        protected int roll_ten(){
             return roll_dice(0, 10);
         }
         protected int roll_eight(){
@@ -57,6 +60,18 @@ namespace LAIR{
                 r = roll_dice(0, sides);
             }
             return r;
+        }
+        private void avoid_warnings(){
+            roll_twenty();
+            roll_twelve();
+            roll_ten();
+            roll_eight();
+            roll_six();
+            roll_four();
+            roll_two();
+            coin_toss();
+            roll_dicepool();
+            roll_variable(10);
         }
 	}
 }

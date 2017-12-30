@@ -24,7 +24,7 @@ namespace LAIR{
             try {
                 level_threads = new ThreadPool<LevelGenerationThread>.with_owned_data ((thread) => {
                     thread.generate_level(lua_scripts, size, dungeon_master, renderer_pointer);
-                }, 2, false);
+                }, 4, false);
             } catch (ThreadError e) {
                 message("ThreadError: %s\n", e.message);
             }

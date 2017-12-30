@@ -55,4 +55,4 @@ USER root
 RUN cd valair && \
         make install
 USER lair
-CMD /usr/local/bin/LAIR
+CMD /usr/bin/LAIR
