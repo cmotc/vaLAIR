@@ -24,14 +24,8 @@ namespace LAIR{
             }
 
         }
-        public Voice.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript = "", List<string> tags = null){
-            base.UnBlocked(corner, Surfaces, font, Labels, renderer, aiScript, tags);
-            if (music != null){
-                set_sounds(music);
-            }
-        }
-        public Voice.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript = "", List<string> tags = null){
-            base.IsBlocked(corner, Surfaces, font, Labels, renderer, aiScript, tags);
+        public Voice(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript = "", List<string> tags = null){
+            base(corner, Surfaces, font, Labels, renderer, aiScript, tags);
             if (music != null){
                 set_sounds(music);
             }

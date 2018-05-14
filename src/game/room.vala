@@ -45,7 +45,7 @@ namespace LAIR{
         }
         private void generate_player(string playerScript){
             if(!has_player()){
-                Player = new Entity.IsBlocked(new AutoPoint(192,192), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer_pointer, "", "", null, "player");
+                Player = new Entity(new AutoPoint(192,192), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer_pointer, "", "", null, "player");
             }
         }
         private List<AutoPoint> generator_push_xy_to_lua(int xx, int yy){

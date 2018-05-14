@@ -5,15 +5,18 @@ namespace LAIR{
 	class Entity : Move{
         List<string> nearby_interests = new List<string>();
         private int period = -0;
-        public Entity.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string ai_script="", string ai_func="", List<string> tags=null, string new_name="floor"){
-            base.UnBlocked(corner, Surfaces, music, font, renderer, ai_script, ai_func, tags);
+        public Entity(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string ai_script="", string ai_func="", List<string> tags=null, string new_name="floor", bool blocked=false){
+            base(corner, Surfaces, music, font, renderer, ai_script, ai_func, tags);
             set_name(new_name);
             if(get_name()==new_name){
                 set_name(new_name);
             }
             set_type(new_name);
+            if (blocked) {
+                set_type("blocked");
+            }
         }
-        public Entity.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string ai_script="", string ai_func="", List<string> tags=null, string new_name="particle"){
+        /*public Entity.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string ai_script="", string ai_func="", List<string> tags=null, string new_name="particle"){
             base.IsBlocked(corner, Surfaces, music, font, renderer, ai_script, ai_func, tags);
             set_name(new_name);
             if(get_name()==new_name){
@@ -21,7 +24,7 @@ namespace LAIR{
             }
             set_type(new_name);
             set_type("blocked");
-        }
+        }*/
         public bool detect_collisions(Entity t){
             bool r = false;
             assert(t != null);

@@ -129,13 +129,13 @@ namespace LAIR{
             }
             return r;
         }
-        public Stats.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript = "", List<string> tags = null){
-            base.UnBlocked(corner, Surfaces, music, font, generate_labels(), renderer, aiscript, tags);
+        public Stats(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript = "", List<string> tags = null){
+            base(corner, Surfaces, music, font, generate_labels(), renderer, aiscript, tags);
         }
-        public Stats.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript = "", List<string> tags = null){
+/*        public Stats.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript = "", List<string> tags = null){
             base.IsBlocked(corner, Surfaces, music, font, generate_labels(), renderer, aiscript, tags);
             speed = 1;
-        }
+        }*/
         private static List<string> generate_labels(){
             List<string> tmp = new List<string>();
             tmp.append("Strength : ");

@@ -22,13 +22,8 @@ namespace LAIR{
                 }
             }
         }
-        public Text.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript="", List<string> tags=null){
-            base.UnBlocked(corner, Surfaces, renderer, aiScript, tags);
-            Font = font;
-            insert_label(Labels, renderer);
-        }
-        public Text.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript="", List<string> tags=null){
-            base.IsBlocked(corner, Surfaces, renderer, aiScript, tags);
+        public Text(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript="", List<string> tags=null){
+            base(corner, Surfaces, renderer, aiScript, tags);
             Font = font;
             insert_label(Labels, renderer);
         }

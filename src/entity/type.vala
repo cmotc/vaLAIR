@@ -5,22 +5,13 @@ namespace LAIR{
         private bool wall = false;
         private bool mobile = false;
         private List<Tag> tags = new List<Tag>();
-        public Type(string lua_ai_conf = "immobile"){
+        public Type(string lua_ai_conf="immobile", List<string> types=null){
             base(lua_ai_conf);
             tags.append(new Tag(lua_ai_conf));
-        }
-        public Type.IsBlocked(List<string> types, string lua_ai_conf = "immobile"){
-            base(lua_ai_conf);
-            tags.append(new Tag(lua_ai_conf));
-            foreach(string type in types){
-                tags.append(new Tag(type));
-            }
-        }
-        public Type.UnBlocked(List<string> types, string lua_ai_conf){
-            base(lua_ai_conf);
-            tags.append(new Tag(lua_ai_conf));
-            foreach(string type in types){
-                tags.append(new Tag(type));
+            if (types != null) {
+                foreach(string type in types){
+                    tags.append(new Tag(type));
+                }
             }
         }
         private void check_types(){

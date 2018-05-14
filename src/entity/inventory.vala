@@ -26,11 +26,8 @@ namespace LAIR{
 
             //Entity cache;
         //}
-        public Inventory.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript="", List<string> tags=null){
-            base.IsBlocked(corner, Surfaces, music, font, renderer, aiscript, tags);
-        }
-        public Inventory.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript="", List<string> tags=null){
-            base.UnBlocked(corner, Surfaces, music, font, renderer, aiscript, tags);
+        public Inventory(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript="", List<string> tags=null){
+            base(corner, Surfaces, music, font, renderer, aiscript, tags);
         }
 	}
 }

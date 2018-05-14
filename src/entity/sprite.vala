@@ -5,8 +5,8 @@ using SDLImage;
 namespace LAIR{
 	class Sprite : Anim{
         private List<Video.Texture> body = new List<Video.Texture>();
-        public Sprite.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer renderer, string aiScript="", List<string> tags=null){
-            base.UnBlocked(new AutoRect(corner.x(),corner.y(),32,32), aiScript, tags);
+        public Sprite(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer renderer, string aiScript="", List<string> tags=null){
+            base(new AutoRect(corner.x(),corner.y(),32,32), aiScript, tags);
 			foreach (var surface in Surfaces){
                 body.append(Video.Texture.create_from_surface(renderer, surface));
                 if(body.length() > 0){
@@ -16,7 +16,7 @@ namespace LAIR{
                 message("Number of images in stack %s", body.length().to_string());
             }
 		}
-        public Sprite.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer renderer, string aiScript="", List<string> tags=null){
+        /*public Sprite.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, Video.Renderer renderer, string aiScript="", List<string> tags=null){
             base.IsBlocked(new AutoRect(corner.x(),corner.y(),32,32), aiScript, tags);
 			foreach (var surface in Surfaces){
                 body.append(Video.Texture.create_from_surface(renderer, surface));
@@ -26,7 +26,7 @@ namespace LAIR{
                 body.nth_data(body.length()-1).set_blend_mode(Video.BlendMode.BLEND);
                 message("Number of images in stack %s", body.length().to_string());
             }
-		}
+		}*/
         public void render_copy(Video.Renderer* renderer, AutoPoint player_pos){
             if(is_player()){
                 int i = 0;
