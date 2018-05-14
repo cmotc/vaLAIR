@@ -22,7 +22,7 @@ namespace LAIR{
         private void generate_floor_tile(FileDB GameMaster, AutoPoint coords, Video.Renderer* renderer){
             if ( coords.x() < maxx() ){ if ( coords.x() >= minx() ){
                 if ( coords.y() < maxy() ){ if ( coords.y() >= miny() ){
-                    Particles.append(new Entity.Floor(coords, GameMaster.image_by_name("floor"), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer));
+                    Particles.append(new Entity.UnBlocked(coords, GameMaster.image_by_name("floor"), GameMaster.no_sound(), GameMaster.get_rand_font(), renderer));
                 }}
             }}
         }

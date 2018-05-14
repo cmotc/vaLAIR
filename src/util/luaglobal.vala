@@ -72,7 +72,11 @@ namespace LAIR{
             base(lua_log_level);
             message(lua_ai_path);
             global_vm = new_lua_vm();
-            script_path = lua_ai_path;
+            if ( lua_ai_path == "" ){
+                script_path = "immobile";
+            }else{
+                script_path = lua_ai_path;
+            }
             does_it_ai(script_path);
             lua_do_file(script_path);
             try {

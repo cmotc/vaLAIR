@@ -129,29 +129,11 @@ namespace LAIR{
             }
             return r;
         }
-        public Stats(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
-            base(corner, Surfaces, music, font, generate_labels(), renderer);
+        public Stats.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript = "", List<string> tags = null){
+            base.UnBlocked(corner, Surfaces, music, font, generate_labels(), renderer, aiscript, tags);
         }
-        public Stats.Floor(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-            base.Parameter(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("floor"));
-        }
-        public Stats.Blocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
-        }
-        public Stats.Wall(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Blocked(corner, Surfaces, music, font, generate_labels(), renderer, tags);
-            Strength = 10;
-            Agility = 10;
-            Toughness = 10;
-            Intelligence = 0;
-            Special = 0;
-            speed = 0;
-        }
-        public Stats.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Mobile(corner, aiScript, Surfaces, music, font, generate_labels(), renderer, tags);
-        }
-        public Stats.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-            base.Player(corner, Surfaces, music, font, generate_labels(), renderer, one_tag_to_list("player"));
+        public Stats.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript = "", List<string> tags = null){
+            base.IsBlocked(corner, Surfaces, music, font, generate_labels(), renderer, aiscript, tags);
             speed = 1;
         }
         private static List<string> generate_labels(){

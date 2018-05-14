@@ -5,7 +5,7 @@ namespace LAIR{
         private int entry_room = 0;
         private int generator_room = 0;
         private int size = 3;
-		public Level(string[] scripts, int pre_size, FileDB DM, Video.Renderer? renderer){
+		public Level(string[] scripts, int pre_size, FileDB DM, Video.Renderer renderer){
             base(scripts, DM, renderer);
             size = pre_size * pre_size;
             //entry_room = roll_dice(0, size-1);

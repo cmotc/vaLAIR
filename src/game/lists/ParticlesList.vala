@@ -24,11 +24,12 @@ namespace LAIR{
             if ( coords.x() < maxx() ){ if ( coords.x() >= minx() ){
                 if ( coords.y() < maxy() ){ if ( coords.y() >= miny() ){
                     string new_name = index.to_string();
-                    Particles.append(new Entity.Wall(coords,
+                    Particles.append(new Entity.IsBlocked(coords,
                         GameMaster.image_by_name(generated_tags.nth_data(0).nth_data(0)),
                         GameMaster.no_sound(),
                         GameMaster.get_rand_font(),
                         renderer,
+                        "","",
                         generated_tags.nth_data(0),
                         new_name));
                     tmp = generated_tags.nth_data(0).nth_data(0);

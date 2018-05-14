@@ -25,8 +25,7 @@ define VALA_OPTIONS
 	--disable-assert \
 	--enable-checking \
 	--enable-experimental \
-	--thread \
-	--enable-gobject-tracing
+	--thread
 endef
 
 define C_OPTIONS
@@ -38,6 +37,7 @@ define C_OPTIONS
 	-X -ftrapv \
 	-X -Wl,-z,relro,-z,now \
 	-X -Bstatic \
+	-X -static-libgcc \
 	-X -Og \
 	-X -g3 \
 	-X -lluajit-5.1 \
@@ -46,6 +46,8 @@ define C_OPTIONS
 	-X -lSDL2_ttf \
 	-X -lSDL2_mixer
 endef
+
+#-X -static \
 
 define VALAIR_LIST
 	src/main.vala \
@@ -88,14 +90,15 @@ define VALA_PKG_OPTIONS
 	--pkg-config /usr/bin/pkgconf \
 	--vapidir="/usr/local/share/vala-0.40/vapi/" \
 	--pkg gio-2.0 \
+	--target-glib 2.0 \
 	--pkg lua \
 	--pkg sdl2 \
 	--pkg sdl2-image \
 	--pkg sdl2-ttf \
 	--pkg sdl2-mixer \
-	--target-glib 2.0 \
 	--pkg=tartrazine
 endef
+	#--enable-gobject-tracing \
 #--pkg sdl2-gfx \
 #export LD_LIBRARY_PATH = /usr/local/lib
 
@@ -394,7 +397,7 @@ sysluacheck:
 		/usr/share/lair/lua/ai/common.lua
 
 debug:
-	make 2>build.err 1>build.log
+	make 2>build.err | tee build.log
 	ulimit -c unlimited
 	gdb ./bin/LAIR core
 

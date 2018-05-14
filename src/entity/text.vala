@@ -13,35 +13,22 @@ namespace LAIR{
             Video.Color r = {0, 0, 0};
             return r;
         }
-        private void insert_label(List<string> Labels, Video.Renderer* renderer){
+        private void insert_label(List<string> Labels, Video.Renderer renderer){
             foreach(string label in Labels.copy()){
                 if(label != null){
-                    Text.append(Video.Texture.create_from_surface(renderer, Font.render(label, GetColor())));
+                    if(renderer != null){
+                        Text.append(Video.Texture.create_from_surface(renderer, Font.render(label, GetColor())));
+                    }
                 }
             }
         }
-        public Text(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer){
-            base(corner, Surfaces, renderer);
+        public Text.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript="", List<string> tags=null){
+            base.UnBlocked(corner, Surfaces, renderer, aiScript, tags);
             Font = font;
             insert_label(Labels, renderer);
         }
-        public Text.Parameter(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
-            base.ParameterList(corner, Surfaces, renderer, tags);
-            Font = font;
-            insert_label(Labels, renderer);
-        }
-        public Text.Blocked(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
-            base.Blocked(corner, Surfaces, renderer, tags);
-            Font = font;
-            insert_label(Labels, renderer);
-        }
-        public Text.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
-            base.Mobile(corner, aiScript, Surfaces, renderer, tags);
-            Font = font;
-            insert_label(Labels, renderer);
-        }
-        public Text.Player(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer? renderer, List<string> tags){
-            base.Player(corner, Surfaces, renderer, tags);
+        public Text.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, SDLTTF.Font* font, List<string> Labels, Video.Renderer renderer, string aiScript="", List<string> tags=null){
+            base.IsBlocked(corner, Surfaces, renderer, aiScript, tags);
             Font = font;
             insert_label(Labels, renderer);
         }

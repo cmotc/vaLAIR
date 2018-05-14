@@ -5,19 +5,15 @@ using Lua;
 namespace LAIR{
 	class Move : Inventory{
         private string ai_func = "";
-        public Move(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
-            base(corner, Surfaces, music, font, renderer);
+        public Move.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript="", string aifunc="", List<string> tags=null){
+            base.UnBlocked(corner, Surfaces, music, font, renderer, aiscript, tags);
         }
-        public Move.Wall(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Wall(corner, Surfaces, music, font, renderer, tags);
-        }
-        public Move.Mobile(AutoPoint corner, string aiScript, string aiFunc, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Mobile(corner, aiScript, Surfaces, music, font, renderer, tags);
-            ai_func = aiFunc;
-            set_stat_func("stats_" + get_ai_func());
-        }
-        public Move.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-            base.Player(corner, Surfaces, music, font, renderer);
+        public Move.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript="", string aifunc="", List<string> tags=null){
+            base.IsBlocked(corner, Surfaces, music, font, renderer, aiscript, tags);
+            if (ai_func != "") {
+                ai_func = aifunc;
+                set_stat_func("stats_" + get_ai_func());
+            }
         }
         protected int quit(){
             return 0;

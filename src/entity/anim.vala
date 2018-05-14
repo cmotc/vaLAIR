@@ -12,28 +12,13 @@ namespace LAIR{
         private AutoRect rangeOfSight = new AutoRect(160,160,320,320);
         private bool wobble = false;
         private static AutoPoint cursorPosition = new AutoPoint(0,0);
-        public Anim(AutoRect rect){
-            base();
+        public Anim.UnBlocked(AutoRect rect, string aiScript="", List<string> tags=null){
+            base.UnBlocked(tags, aiScript);
             position = new AutoRect.FromRect(rect.get_rect());
             source = new AutoRect(0,0,rect.w(),rect.h());
         }
-        public Anim.Parameter(AutoRect rect, List<string> tags){
-            base.ParameterList(tags);
-            position = new AutoRect.FromRect(rect.get_rect());
-            source = new AutoRect(0,0,rect.w(),rect.h());
-        }
-        public Anim.Blocked(AutoRect rect, List<string> tags){
-            base.ParameterListBlocked(tags);
-            position = new AutoRect.FromRect(rect.get_rect());
-            source = new AutoRect(0,0,rect.w(),rect.h());
-        }
-        public Anim.Mobile(AutoRect rect, string aiScript, List<string> tags){
-            base.Mobile(tags, aiScript);
-            position = new AutoRect.FromRect(rect.get_rect());
-            source = new AutoRect(0,0,rect.w(),rect.h());
-        }
-        public Anim.Player(AutoRect rect, List<string> tags){
-            base.Player(tags);
+        public Anim.IsBlocked(AutoRect rect, string aiScript="", List<string> tags=null){
+            base.IsBlocked(tags, aiScript);
             position = new AutoRect.FromRect(rect.get_rect());
             source = new AutoRect(0,0,rect.w(),rect.h());
         }

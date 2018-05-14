@@ -26,20 +26,11 @@ namespace LAIR{
 
             //Entity cache;
         //}
-        public Inventory(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
-            base(corner, Surfaces, music, font, renderer);
+        public Inventory.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript="", List<string> tags=null){
+            base.IsBlocked(corner, Surfaces, music, font, renderer, aiscript, tags);
         }
-        public Inventory.Blocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Blocked(corner, Surfaces, music, font, renderer, tags);
-        }
-        public Inventory.Wall(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Wall(corner, Surfaces, music, font, renderer, tags);
-        }
-        public Inventory.Mobile(AutoPoint corner, string aiScript, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags){
-            base.Mobile(corner, aiScript, Surfaces, music, font, renderer, tags);
-        }
-        public Inventory.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer){
-            base.Player(corner, Surfaces, music, font, renderer);
+        public Inventory.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string aiscript="", List<string> tags=null){
+            base.UnBlocked(corner, Surfaces, music, font, renderer, aiscript, tags);
         }
 	}
 }

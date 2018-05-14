@@ -10,7 +10,7 @@ namespace LAIR{
         private Entity Player = null;
         private static FileDB GameMaster = null;
         private unowned Video.Renderer renderer_pointer;
-        public Room(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer? renderer, bool with_player = false){
+        public Room(AutoRect position, AutoRect floor_dims, string[] scripts, FileDB DM, Video.Renderer renderer, bool with_player = false){
             base(position, floor_dims, scripts);
             renderer_pointer = renderer;
             message("generating room%s", get_name());
@@ -45,7 +45,7 @@ namespace LAIR{
         }
         private void generate_player(string playerScript){
             if(!has_player()){
-                Player = new Entity.Player(new AutoPoint(192,192), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer_pointer);
+                Player = new Entity.IsBlocked(new AutoPoint(192,192), GameMaster.body_by_tone("med"), GameMaster.basic_sounds(), GameMaster.get_rand_font(), renderer_pointer, "", "", null, "player");
             }
         }
         private List<AutoPoint> generator_push_xy_to_lua(int xx, int yy){
@@ -264,23 +264,25 @@ namespace LAIR{
             return r;
         }
         public void render_copy(Video.Renderer renderer, AutoPoint player_pos){
-			if (visited){
-                foreach(Entity floor in Floor.get_floor()){
-					floor.render(renderer, player_pos);
-				}
-				foreach(Entity particle in Particles.get_particles()){
-					particle.render(renderer, player_pos);
-				}
-			}
-            if (has_player()){
-				Player.render(renderer, player_pos);
-				if (visited = false){
-					visited = true;
-				}
-                foreach(Entity mob in Mobiles.get_mobiles()){
-                    mob.render(renderer, player_pos);
+            if (renderer != null) {
+                if (visited){
+                    foreach(Entity floor in Floor.get_floor()){
+                        floor.render(renderer, player_pos);
+                    }
+                    foreach(Entity particle in Particles.get_particles()){
+                        particle.render(renderer, player_pos);
+                    }
                 }
-			}
+                if (has_player()){
+                    Player.render(renderer, player_pos);
+                    if (visited = false){
+                        visited = true;
+                    }
+                    foreach(Entity mob in Mobiles.get_mobiles()){
+                        mob.render(renderer, player_pos);
+                    }
+                }
+            }
 		}
 		public bool enter_room(Entity player){
 			if (player != null){

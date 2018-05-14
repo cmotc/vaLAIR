@@ -24,13 +24,13 @@ namespace LAIR{
             if ( coords.x() < maxx() ){ if ( coords.x() >= minx() ){
                 if ( coords.y() < maxy() ){ if ( coords.y() >= miny() ){
                     string new_name = index.to_string();
-                    Mobiles.append(new Entity.Mobile(coords,
-                        aiscript,
-                        "default()",
+                    Mobiles.append(new Entity.IsBlocked(coords,
                         GameMaster.body_by_tone(generated_tags.nth_data(0).nth_data(0)),
                         GameMaster.no_sound(),
                         GameMaster.get_rand_font(),
                         renderer,
+                        aiscript,
+                        "default()",
                         generated_tags.nth_data(0),
                         new_name));
                     tmp = generated_tags.nth_data(0).nth_data(0);

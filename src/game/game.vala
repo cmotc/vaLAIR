@@ -37,7 +37,7 @@ namespace LAIR{
 			return r;
 		}
         public int generator_loop(){
-            return GameEnvironment.grow_a_level();
+            return GameEnvironment.grow_a_level(WindowRenderer);
         }
 		public int run(){
 			int exit = 1;

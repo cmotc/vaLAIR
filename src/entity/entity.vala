@@ -5,42 +5,22 @@ namespace LAIR{
 	class Entity : Move{
         List<string> nearby_interests = new List<string>();
         private int period = -0;
-        public Entity(AutoPoint corner, string ai_script, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer ){
-            base(corner, Surfaces, music, font, renderer);
-        }
-        public Entity.Floor(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="floor"){
-            base.Floor(corner, Surfaces, music, font, renderer);
+        public Entity.UnBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string ai_script="", string ai_func="", List<string> tags=null, string new_name="floor"){
+            base.UnBlocked(corner, Surfaces, music, font, renderer, ai_script, ai_func, tags);
             set_name(new_name);
-            if(get_name()=="floor"){
-                set_name("floor");
+            if(get_name()==new_name){
+                set_name(new_name);
             }
-            set_type("floor");
+            set_type(new_name);
         }
-        public Entity.Wall(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="particle"){
-            base.Wall(corner, Surfaces, music, font, renderer, tags);
+        public Entity.IsBlocked(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer renderer, string ai_script="", string ai_func="", List<string> tags=null, string new_name="particle"){
+            base.IsBlocked(corner, Surfaces, music, font, renderer, ai_script, ai_func, tags);
             set_name(new_name);
-            if(get_name()=="particle"){
-                set_name("particle");
+            if(get_name()==new_name){
+                set_name(new_name);
             }
-            set_type("particle");
+            set_type(new_name);
             set_type("blocked");
-        }
-        public Entity.Mobile(AutoPoint corner, string ai_script, string ai_func, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, List<string> tags, string new_name="mobile"){
-            base.Mobile(corner, ai_script, ai_func, Surfaces, music, font, renderer, tags);
-            set_name(new_name);
-            if(get_name()=="mobile"){
-                set_name("mobile");
-            }
-            set_type("mobile");
-            set_type("blocked");
-        }
-        public Entity.Player(AutoPoint corner, List<Video.Surface*> Surfaces, List<Music*> music, SDLTTF.Font* font, Video.Renderer? renderer, string new_name="player"){
-            base.Player(corner, Surfaces, music, font, renderer);
-            set_name(new_name);
-            if(get_name()=="player"){
-                set_name("player");
-            }
-            set_type("player");
         }
         public bool detect_collisions(Entity t){
             bool r = false;
@@ -116,8 +96,10 @@ namespace LAIR{
             return details;
         }
         public void render(Video.Renderer renderer, AutoPoint player_pos){
-            render_copy(renderer, player_pos);
-            render_text(renderer, player_pos);
+            if (renderer != null){
+                render_copy(renderer, player_pos);
+                render_text(renderer, player_pos);
+            }
         }
 	}
 }
